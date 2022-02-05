@@ -12,11 +12,6 @@
     <Design.DataContext>
         <viewModels:MainWindowViewModel/>
     </Design.DataContext>
-    
-    <Window.Styles>
-        <StyleInclude Source="/src/Styles/MainStyle.axaml"/>
-        <StyleInclude Source="/src/Styles/MainWindowStyle.axaml"/>
-    </Window.Styles>
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Panel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="115"
@@ -31,10 +26,7 @@
             </Button>
         </Panel>
         
-        <Panel DockPanel.Dock="Bottom">
-            <UserControl Content="{Binding Content}" 
-                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-            <Button Classes="selectable-button-effect add-button" Command="{Binding OpenAddPage}"/>
-        </Panel>
+        <UserControl Content="{Binding Content}" DockPanel.Dock="Bottom"
+                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
     </DockPanel>
 </Window>

@@ -4,7 +4,7 @@
         <!-- Window -->
         
         <Style Selector="Window">
-                <Setter Property="Background" Value="{StaticResource LightMainBackground}"/>
+                <Setter Property="Background" Value="{DynamicResource LightMainBackground}"/>
         </Style>
         
         <!-- Selectable -->

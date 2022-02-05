@@ -8,6 +8,7 @@
 
     <Application.Styles>
         <FluentTheme Mode="Light"/>
+        <StyleInclude Source="/src/Styles/MainStyle.axaml"/>
     </Application.Styles>
     
     <Application.Resources>

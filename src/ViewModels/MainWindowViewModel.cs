@@ -1,7 +1,4 @@
-﻿using Avalonia.Controls;
-using ReactiveUI;
-using VocabularyTrainer.Extensions;
-using VocabularyTrainer.Views;
+﻿using ReactiveUI;
 
 namespace VocabularyTrainer.ViewModels
 {
@@ -15,17 +12,6 @@ namespace VocabularyTrainer.ViewModels
         {
             get => _content; 
             set => this.RaiseAndSetIfChanged(ref _content, value);
-        }
-        
-        private void OpenAddPage()
-        {
-            var window = new AddLessonWindow
-            {
-                DataContext = new AddLessonViewModel()
-            };
-            
-            if(AssignedView is Window parentWindow)
-                window.ShowDialogSafe(parentWindow);
         }
     }
 }
