@@ -18,11 +18,8 @@ namespace VocabularyTrainer
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var window = new MainWindow();
-                var viewModel = new MainWindowViewModel()
-                {
-                    AssignedView = window
-                };
-                
+                var viewModel = new MainWindowViewModel(window);
+
                 window.DataContext = viewModel;
                 desktop.MainWindow = window;
             }
