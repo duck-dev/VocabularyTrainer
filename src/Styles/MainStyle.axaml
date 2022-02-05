@@ -25,4 +25,7 @@
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="RenderTransform" Value="scale(0.95)"/>
         </Style>
+        <Style Selector="Button.selectable-button-effect:pressed">
+                <Setter Property="RenderTransform" Value="scale(0.90)"/>
+        </Style>
 </Styles>
