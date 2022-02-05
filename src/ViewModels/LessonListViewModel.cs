@@ -11,13 +11,14 @@ namespace VocabularyTrainer.ViewModels
         
         private void OpenAddPage()
         {
+            if (ParentWindow is not { } parentWindow)
+                return;
+            
             var window = new AddLessonWindow
             {
                 DataContext = new AddLessonViewModel()
             };
-            
-            if(ParentWindow is { } parentWindow)
-                window.ShowDialogSafe(parentWindow);
+            window.ShowDialogSafe(parentWindow);
         }
     }
 }
