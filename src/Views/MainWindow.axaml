@@ -32,6 +32,6 @@
         </Panel>
         <Panel DockPanel.Dock="Bottom"/>
         
-        <Button Classes="selectable-button-effect add-button"/>
+        <Button Classes="selectable-button-effect add-button" Command="{Binding OpenAddPage}"/>
     </DockPanel>
 </Window>

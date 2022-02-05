@@ -17,10 +17,14 @@ namespace VocabularyTrainer
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
+                var window = new MainWindow();
+                var viewModel = new MainWindowViewModel()
                 {
-                    DataContext = new MainWindowViewModel(),
+                    AssignedView = window
                 };
+                
+                window.DataContext = viewModel;
+                desktop.MainWindow = window;
             }
 
             base.OnFrameworkInitializationCompleted();
