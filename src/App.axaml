@@ -9,4 +9,8 @@
     <Application.Styles>
         <FluentTheme Mode="Light"/>
     </Application.Styles>
+    
+    <Application.Resources>
+        <SolidColorBrush x:Key="BorderGrey" Color="#808080"/>
+    </Application.Resources>
 </Application>
