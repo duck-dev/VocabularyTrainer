@@ -30,8 +30,11 @@
                 </Button.Template>
             </Button>
         </Panel>
-        <Panel DockPanel.Dock="Bottom"/>
         
-        <Button Classes="selectable-button-effect add-button" Command="{Binding OpenAddPage}"/>
+        <Panel DockPanel.Dock="Bottom">
+            <UserControl Content="{Binding Content}" 
+                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <Button Classes="selectable-button-effect add-button" Command="{Binding OpenAddPage}"/>
+        </Panel>
     </DockPanel>
 </Window>
