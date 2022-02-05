@@ -12,6 +12,10 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+    
+    <Window.Styles>
+        <StyleInclude Source="/src/Styles/MainStyle.axaml"/>
+    </Window.Styles>
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Border DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="80"
