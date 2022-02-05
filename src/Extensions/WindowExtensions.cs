@@ -3,7 +3,7 @@ using Avalonia.Controls;
 
 namespace VocabularyTrainer.Extensions
 {
-    public static partial class ExtensionCollection
+    public static partial class Extensions
     {
         public static void ShowDialogSafe(this Window window, Window? parentWindow)
         {
