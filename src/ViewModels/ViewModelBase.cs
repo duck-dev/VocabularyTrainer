@@ -5,6 +5,6 @@ namespace VocabularyTrainer.ViewModels
 {
     public abstract class ViewModelBase : ReactiveObject
     {
-        protected internal ContentControl? AssignedView { get; init; }
+        protected internal ContentControl? AssignedView { get; set; }
     }
 }

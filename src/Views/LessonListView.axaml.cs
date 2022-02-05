@@ -1,6 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using VocabularyTrainer.ViewModels;
 
 namespace VocabularyTrainer.Views
 {
@@ -9,6 +9,8 @@ namespace VocabularyTrainer.Views
         public LessonListView()
         {
             InitializeComponent();
+            if (DataContext is ViewModelBase viewModel)
+                viewModel.AssignedView = this;
         }
 
         private void InitializeComponent()
