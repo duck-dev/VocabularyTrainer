@@ -1,0 +1,20 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+        <Style Selector="Button.add-button">
+                <Setter Property="Template">
+                        <ControlTemplate TargetType="{x:Type Button}">
+                                <Panel Width="175" Height="175">
+                                        <Ellipse Stroke="{StaticResource AppBlue}" StrokeThickness="7.5"
+                                                 Fill="#0000FFFF"/> <!-- 100% Transparent background -->
+                                        <TextBlock Text="+" FontSize="100" FontWeight="Bold" TextAlignment="Center"
+                                                   Foreground="{StaticResource AppBlue}"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Panel>
+                        </ControlTemplate>
+                </Setter>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="Margin" Value="0,0,60,40"/>
+        </Style>
+</Styles>

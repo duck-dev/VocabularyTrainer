@@ -15,6 +15,7 @@
     
     <Window.Styles>
         <StyleInclude Source="/src/Styles/MainStyle.axaml"/>
+        <StyleInclude Source="/src/Styles/MainWindowStyle.axaml"/>
     </Window.Styles>
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -30,5 +31,7 @@
             </Button>
         </Panel>
         <Panel DockPanel.Dock="Bottom"/>
+        
+        <Button Classes="selectable-button-effect add-button"/>
     </DockPanel>
 </Window>
