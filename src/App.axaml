@@ -13,5 +13,6 @@
     <Application.Resources>
         <SolidColorBrush x:Key="BorderGrey" Color="#808080"/>
         <SolidColorBrush x:Key="LightMainBackground" Color="#D8DDE6"/>
+        <SolidColorBrush x:Key="AppBlue" Color="#5F8BB0"/>
     </Application.Resources>
 </Application>
