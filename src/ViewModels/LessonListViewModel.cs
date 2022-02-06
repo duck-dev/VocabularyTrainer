@@ -9,7 +9,7 @@ namespace VocabularyTrainer.ViewModels
 {
     public class LessonListViewModel : ViewModelBase
     {
-        private ObservableCollection<object> _items; // TODO: Change to lesson-type
+        private readonly ObservableCollection<object> _items; // TODO: Change to lesson-type
 
         public LessonListViewModel(IEnumerable<object> items, Window parentWindow)
         {
@@ -20,7 +20,7 @@ namespace VocabularyTrainer.ViewModels
         private ObservableCollection<object> Items // TODO: Change to lesson-type
         {
             get => _items;
-            set => this.RaiseAndSetIfChanged(ref _items, value);
+            init => this.RaiseAndSetIfChanged(ref _items, value);
         }
 
         private void OpenAddPage()
