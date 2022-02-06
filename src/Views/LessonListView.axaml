@@ -4,9 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LessonListView">
+    
     <UserControl.Styles>
         <StyleInclude Source="/src/Styles/LessonListStyle.axaml"/>
     </UserControl.Styles>
     
-    <Button Classes="selectable-button-effect add-button" Command="{Binding OpenAddPage}"/>
+    <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,12.5">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl Items="{Binding Items}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Classes="selectable-button-effect lesson-button">
+                            
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Button Classes="selectable-button-effect add-button" Command="{Binding OpenAddPage}"/>
+    </Panel>
 </UserControl>

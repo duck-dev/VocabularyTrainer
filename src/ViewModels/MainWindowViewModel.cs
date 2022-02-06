@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using System;
+using Avalonia.Controls;
 using ReactiveUI;
 
 namespace VocabularyTrainer.ViewModels
@@ -11,7 +12,9 @@ namespace VocabularyTrainer.ViewModels
         {
             AssignedView = assignedWindow;
             ParentWindow = assignedWindow;
-            _content = Content = new LessonListViewModel(assignedWindow);
+            
+            var lessons = Array.Empty<object>(); // TODO: Retrieve saved lessons
+            _content = Content = new LessonListViewModel(lessons, assignedWindow);
         } 
 
         private ViewModelBase Content
