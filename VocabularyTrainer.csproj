@@ -7,7 +7,6 @@
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
         <Folder Include="src\Models" />
-        <None Remove=".gitignore" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="0.10.10" />
