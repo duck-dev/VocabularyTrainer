@@ -10,11 +10,15 @@
         <viewModels:AddLessonViewModel/>
     </UserControl.DataContext>
     
+    <UserControl.Styles>
+        <StyleInclude Source="/src/Styles/AddPageStyle.axaml"/>
+    </UserControl.Styles>
+    
     <Grid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" Margin="0,40">
         <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Orientation="Vertical">
             <TextBox Classes="add-page-textbox" Watermark="Name of the lesson" MaxLength="35" 
                      Text="{Binding Name}"/>
-            <TextBox Classes="add-page-textbox" Watermark="A quick description..." MaxLength="100"
+            <TextBox Classes="add-page-textbox" Watermark="A quick description..." MaxLength="150"
                      VerticalContentAlignment="Top" Height="120" Text="{Binding Description}"
                      TextWrapping="Wrap"/>
             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"

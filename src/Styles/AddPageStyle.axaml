@@ -1,0 +1,18 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+        <Style Selector="TextBox.add-page-textbox">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Height" Value="60"/>
+                <Setter Property="Margin" Value="0,20"/>
+                <Setter Property="SelectionBrush" Value="{StaticResource AppBlue}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource AppBlue}"/>
+                <Setter Property="BorderThickness" Value="1.5"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="AcceptsReturn" Value="False"/>
+                <Setter Property="AcceptsTab" Value="False"/>
+                <Setter Property="TextWrapping" Value="NoWrap"/>
+        </Style>
+</Styles>
