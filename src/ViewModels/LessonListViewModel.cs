@@ -1,19 +1,17 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Avalonia.Controls;
 using ReactiveUI;
-using VocabularyTrainer.Extensions;
-using VocabularyTrainer.Views;
 
 namespace VocabularyTrainer.ViewModels
 {
     public class LessonListViewModel : ViewModelBase
     {
         private readonly ObservableCollection<object> _items; // TODO: Change to lesson-type
+        private readonly MainWindowViewModel _parentViewModel;
 
-        public LessonListViewModel(IEnumerable<object> items, Window parentWindow)
+        public LessonListViewModel(IEnumerable<object> items, MainWindowViewModel parentViewModel)
         {
-            this.ParentWindow = parentWindow;
+            _parentViewModel = parentViewModel;
             _items = Items = new ObservableCollection<object>(items);
         }
 
@@ -25,14 +23,7 @@ namespace VocabularyTrainer.ViewModels
 
         private void OpenAddPage()
         {
-            if (ParentWindow is not { } parentWindow)
-                return;
-            
-            var window = new AddLessonWindow
-            {
-                DataContext = new AddLessonViewModel()
-            };
-            window.ShowDialogSafe(parentWindow);
+            _parentViewModel.Content = new AddLessonViewModel();
         }
     }
 }
