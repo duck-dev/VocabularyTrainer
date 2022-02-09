@@ -2,7 +2,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:VocabularyTrainer.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.AddLessonView">
     
+    <UserControl.DataContext>
+        <viewModels:AddLessonViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" Margin="0,40">
+        <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Orientation="Vertical">
+            <TextBox Classes="add-page-textbox" Watermark="Name of the lesson" MaxLength="35" 
+                     Text="{Binding Name}"/>
+            <TextBox Classes="add-page-textbox" Watermark="A quick description..." MaxLength="100"
+                     VerticalContentAlignment="Top" Height="120" Text="{Binding Description}"
+                     TextWrapping="Wrap"/>
+            <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <ItemsControl Items="{Binding Words}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Panel Classes="word-panel">
+                                
+                            </Panel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <Button Classes="add-word-button">
+                <TextBlock Text="Add a new word" Foreground="{StaticResource BorderGrey}" FontSize="30"
+                           FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            </Button>
+        </StackPanel>
+    </Grid>
 </UserControl>
