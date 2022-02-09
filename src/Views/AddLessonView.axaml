@@ -17,9 +17,9 @@
     <Grid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" Margin="0,40">
         <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Orientation="Vertical">
             <TextBox Classes="add-page-textbox" Watermark="Name of the lesson" MaxLength="35" 
-                     Text="{Binding Name}"/>
+                     Text="{Binding CurrentName}"/>
             <TextBox Classes="add-page-textbox" Watermark="A quick description..." MaxLength="150"
-                     VerticalContentAlignment="Top" Height="120" Text="{Binding Description}"
+                     VerticalContentAlignment="Top" Height="120" Text="{Binding CurrentDescription}"
                      TextWrapping="Wrap"/>
             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
@@ -38,7 +38,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <Button Classes="add-word-button">
+            <Button Classes="selectable-button-effect add-word-button">
                 <TextBlock Text="Add a new word" Foreground="{StaticResource BorderGrey}" FontSize="30"
                            FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
             </Button>
