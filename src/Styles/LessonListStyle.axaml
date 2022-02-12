@@ -6,7 +6,7 @@
                         <ControlTemplate TargetType="{x:Type Button}">
                                 <Panel Width="175" Height="175">
                                         <Ellipse Stroke="{StaticResource AppBlue}" StrokeThickness="7.5"
-                                                 Fill="#0000FFFF"/> <!-- 100% Transparent background -->
+                                                 Fill="{StaticResource FullyTransparent}"/> <!-- 100% Transparent background -->
                                         <TextBlock Text="+" FontSize="100" FontWeight="Bold" TextAlignment="Center"
                                                    Foreground="{StaticResource AppBlue}"
                                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>

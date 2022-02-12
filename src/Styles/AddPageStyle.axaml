@@ -15,6 +15,10 @@
                 <Setter Property="TextWrapping" Value="NoWrap"/>
         </Style>
         
+        <Style Selector="StackPanel.words-parent-panel">
+                
+        </Style>
+        
         <Style Selector="Panel.word-item-panel">
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Height" Value="70"/>
@@ -27,6 +31,8 @@
                 <Setter Property="Margin" Value="0,15"/>
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderGrey}"/>
+                <Setter Property="Background" Value="{StaticResource FullyTransparent}"/>
                 <!-- <Setter Property="BorderBrush"> --> <!-- Doesn't work yet! -->
                 <!--         <VisualBrush> -->
                 <!--                 <VisualBrush.Visual> -->

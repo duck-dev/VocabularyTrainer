@@ -30,7 +30,7 @@
                         <ItemsControl Items="{Binding Words}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical"/>
+                                    <StackPanel Orientation="Vertical" Classes="words-parent-panel"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
