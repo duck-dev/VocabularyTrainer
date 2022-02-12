@@ -25,9 +25,11 @@
                     <TextBox Grid.Row="1" Classes="add-page-textbox" Watermark="A quick description..." MaxLength="150"
                              VerticalContentAlignment="Top" Height="120" Text="{Binding CurrentDescription}"
                              TextWrapping="Wrap" Margin="0,7.5,0,15"/>
-                    <ScrollViewer Grid.Row="2" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
-                                  VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" MinHeight="225">
-                        <ItemsControl Items="{Binding Words}">
+                    <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto">
+                        <TextBlock Grid.Row="0" FontSize="28" FontWeight="Bold" Foreground="{StaticResource AppBlue}"
+                                   Text="Words:" Margin="0,0,0,5"/>
+                        <ItemsControl Grid.Row="1" Items="{Binding Words}" 
+                                      MinHeight="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical"/>
@@ -35,18 +37,18 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Panel Classes="word-item-panel">
+                                    <Border Classes="word-item-panel">
 
-                                    </Panel>
+                                    </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </ScrollViewer>
-                    <Button Grid.Row="3" Classes="selectable-button-effect add-word-button">
-                        <TextBlock Text="Add a new word" Foreground="{StaticResource BorderGrey}" FontSize="30"
-                                   FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   TextAlignment="Center"/>
-                    </Button>
+                        <Button Grid.Row="2" Classes="selectable-button-effect add-word-button">
+                            <TextBlock Text="Add a new word" Foreground="{StaticResource BorderGrey}" FontSize="30"
+                                       FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       TextAlignment="Center"/>
+                        </Button>
+                    </Grid>
                 </Grid>
             </ScrollViewer>
         </Panel>

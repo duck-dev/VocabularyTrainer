@@ -15,10 +15,13 @@
                 <Setter Property="TextWrapping" Value="NoWrap"/>
         </Style>
         
-        <Style Selector="Panel.word-item-panel">
+        <Style Selector="Border.word-item-panel">
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Height" Value="70"/>
-                <Setter Property="Margin" Value="0,20"/>
+                <Setter Property="MinHeight" Value="100"/>
+                <Setter Property="Margin" Value="0,5"/>
+                <Setter Property="Background" Value="{StaticResource VeryLightBlue}"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BorderThickness" Value="0"/>
         </Style>
         
         <Style Selector="Button.add-word-button">
