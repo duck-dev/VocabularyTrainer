@@ -5,7 +5,6 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="Height" Value="60"/>
-                <Setter Property="Margin" Value="0,20"/>
                 <Setter Property="SelectionBrush" Value="{StaticResource AppBlue}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource AppBlue}"/>
                 <Setter Property="BorderThickness" Value="1.5"/>
@@ -16,27 +15,29 @@
                 <Setter Property="TextWrapping" Value="NoWrap"/>
         </Style>
         
-        <Style Selector="Panel.word-panel">
-                
+        <Style Selector="Panel.word-item-panel">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Height" Value="70"/>
+                <Setter Property="Margin" Value="0,20"/>
         </Style>
         
         <Style Selector="Button.add-word-button">
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Height" Value="100"/>
-                <Setter Property="Background" Value="White"/>
+                <Setter Property="Height" Value="75"/>
+                <Setter Property="Margin" Value="0,15"/>
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="BorderThickness" Value="2"/>
-                <Setter Property="BorderBrush"> <!-- Doesn't work yet -->
-                        <VisualBrush>
-                                <VisualBrush.Visual>
-                                        <Rectangle StrokeDashArray="4,2" Stroke="{StaticResource BorderGrey}"
-                                                   StrokeThickness="2" 
-                                                   Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, 
-                                                                   Path=Bounds.Width}"
-                                                   Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, 
-                                                                    Path=Bounds.Height}"/>
-                                </VisualBrush.Visual>
-                        </VisualBrush>
-                </Setter>
+                <!-- <Setter Property="BorderBrush"> --> <!-- Doesn't work yet! -->
+                <!--         <VisualBrush> -->
+                <!--                 <VisualBrush.Visual> -->
+                <!--                         <Rectangle StrokeDashArray="4,2" Stroke="{StaticResource BorderGrey}" -->
+                <!--                                    StrokeThickness="2"  -->
+                <!--                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}},  -->
+                <!--                                                    Path=Bounds.Width}" -->
+                <!--                                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}},  -->
+                <!--                                                     Path=Bounds.Height}"/> -->
+                <!--                 </VisualBrush.Visual> -->
+                <!--         </VisualBrush> -->
+                <!-- </Setter> -->
         </Style>
 </Styles>
