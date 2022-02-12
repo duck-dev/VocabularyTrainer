@@ -15,10 +15,6 @@
                 <Setter Property="TextWrapping" Value="NoWrap"/>
         </Style>
         
-        <Style Selector="StackPanel.words-parent-panel">
-                
-        </Style>
-        
         <Style Selector="Panel.word-item-panel">
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Height" Value="70"/>
@@ -29,10 +25,12 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="Height" Value="75"/>
                 <Setter Property="Margin" Value="0,15"/>
+        </Style>
+        <Style Selector="Button.add-word-button /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource FullyTransparent}"/>
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="BorderThickness" Value="2"/>
                 <Setter Property="BorderBrush" Value="{StaticResource BorderGrey}"/>
-                <Setter Property="Background" Value="{StaticResource FullyTransparent}"/>
                 <!-- <Setter Property="BorderBrush"> --> <!-- Doesn't work yet! -->
                 <!--         <VisualBrush> -->
                 <!--                 <VisualBrush.Visual> -->
@@ -45,5 +43,11 @@
                 <!--                 </VisualBrush.Visual> -->
                 <!--         </VisualBrush> -->
                 <!-- </Setter> -->
+        </Style>
+        <Style Selector="Button.add-word-button:pointerover">
+                <Setter Property="RenderTransform" Value="scale(0.975)"/>
+        </Style>
+        <Style Selector="Button.add-word-button:pressed">
+                <Setter Property="RenderTransform" Value="scale(0.925)"/>
         </Style>
 </Styles>
