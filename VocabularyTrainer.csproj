@@ -6,7 +6,6 @@
     </PropertyGroup>
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
-        <Folder Include="src\Models" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="0.10.10" />

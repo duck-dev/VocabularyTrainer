@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.ViewModels
 {
@@ -6,6 +7,12 @@ namespace VocabularyTrainer.ViewModels
     {
         private string? CurrentName { get; set; }
         private string? CurrentDescription { get; set; }
-        private ObservableCollection<object>? Words { get; } = new() {0}; // TODO: Change to word type
+        private ObservableCollection<Word> Words { get; } = new() { new Word() };
+
+        private void AddWord()
+        {
+            var newWord = new Word();
+            Words.Add(newWord);
+        }
     }
 }
