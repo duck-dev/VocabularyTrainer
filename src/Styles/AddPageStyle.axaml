@@ -17,11 +17,16 @@
         
         <Style Selector="Border.word-item-panel">
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="MinHeight" Value="100"/>
+                <Setter Property="MinHeight" Value="150"/>
                 <Setter Property="Margin" Value="0,5"/>
                 <Setter Property="Background" Value="{StaticResource VeryLightBlue}"/>
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
+        <Style Selector="TextBox.word-textbox">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="MaxHeight" Value="50"/>
         </Style>
         
         <Style Selector="Button.add-word-button">
