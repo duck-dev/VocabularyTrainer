@@ -6,7 +6,7 @@ namespace VocabularyTrainer.Models
     {
         internal string? Term { get; set; }
         internal string? Definition { get; set; }
-        internal List<Word>? Synonyms { get; private set; }
-        internal List<Word>? Antonyms { get; private set; }
+        internal List<Word>? Synonyms { get; }
+        internal List<Word>? Antonyms { get; }
     }
 }

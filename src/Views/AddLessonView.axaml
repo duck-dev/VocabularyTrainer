@@ -50,7 +50,8 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <Button Grid.Row="2" Classes="selectable-button-effect add-word-button">
+                        <Button Grid.Row="2" Classes="selectable-button-effect add-word-button" 
+                                Command="{Binding AddWord}">
                             <TextBlock Text="Add a new word" Foreground="{StaticResource BorderGrey}" FontSize="30"
                                        FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
                                        TextAlignment="Center"/>
