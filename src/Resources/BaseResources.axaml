@@ -1,0 +1,12 @@
+<Style xmlns="https://github.com/avaloniaui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+       
+       <Style.Resources>
+              <SolidColorBrush x:Key="FullyTransparent" Color="#0000FFFF"/>
+              <SolidColorBrush x:Key="AppBlue" Color="#5F8BB0"/>
+              <SolidColorBrush x:Key="VeryLightBlue" Color="#ABBECE"/>
+              
+              <SolidColorBrush x:Key="LightMainBackground" Color="#D8DDE6"/>
+              <SolidColorBrush x:Key="BorderGrey" Color="#808080"/>
+       </Style.Resources>
+</Style>
