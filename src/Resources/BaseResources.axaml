@@ -6,6 +6,9 @@
               <SolidColorBrush x:Key="AppBlue" Color="#5F8BB0"/>
               <SolidColorBrush x:Key="VeryLightBlue" Color="#ABBECE"/>
               
+              <SolidColorBrush x:Key="OppositeAccent" Color="#0A0A0A"/>
+              <SolidColorBrush x:Key="SameAccent" Color="#FFFFFF"/>
+              
               <SolidColorBrush x:Key="LightMainBackground" Color="#D8DDE6"/>
               <SolidColorBrush x:Key="BorderGrey" Color="#808080"/>
        </Style.Resources>
