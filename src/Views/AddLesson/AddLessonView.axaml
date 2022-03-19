@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:VocabularyTrainer.ViewModels"
+             xmlns:addLesson="clr-namespace:VocabularyTrainer.Views.AddLesson"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.AddLessonView">
 
@@ -37,16 +38,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Classes="word-item-panel">
-                                        <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch">
-                                            <Grid Grid.Row="0" ColumnDefinitions="1*,3.5*,1*,3.5*,1*" Margin="0,10,0,0">
-                                                <TextBox Grid.Column="1" Classes="add-page-textbox word-textbox" 
-                                                         Text="{Binding Term}"/>
-                                                <TextBox Grid.Column="3" Classes="add-page-textbox word-textbox"
-                                                         Text="{Binding Definition}"/>
-                                            </Grid>
-                                        </Grid>
-                                    </Border>
+                                    <addLesson:AddWordPanel DataContext="{Binding}"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
