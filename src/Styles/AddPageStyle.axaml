@@ -1,61 +1,69 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-        <Style Selector="TextBox.add-page-textbox">
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Background" Value="White"/>
-                <Setter Property="Height" Value="60"/>
-                <Setter Property="SelectionBrush" Value="{StaticResource AppBlue}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource AppBlue}"/>
-                <Setter Property="BorderThickness" Value="1.5"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="AcceptsReturn" Value="False"/>
-                <Setter Property="AcceptsTab" Value="False"/>
-                <Setter Property="TextWrapping" Value="NoWrap"/>
-        </Style>
-        
-        <Style Selector="Border.word-item-panel">
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="MinHeight" Value="150"/>
-                <Setter Property="Margin" Value="0,5"/>
-                <Setter Property="Background" Value="{StaticResource VeryLightBlue}"/>
-                <Setter Property="CornerRadius" Value="10"/>
-                <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        
-        <Style Selector="TextBox.word-textbox">
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="MaxHeight" Value="50"/>
-        </Style>
-        
-        <Style Selector="Button.add-word-button">
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Height" Value="75"/>
-                <Setter Property="Margin" Value="0,15"/>
-        </Style>
-        <Style Selector="Button.add-word-button /template/ ContentPresenter">
-                <Setter Property="Background" Value="{StaticResource FullyTransparent}"/>
-                <Setter Property="CornerRadius" Value="10"/>
-                <Setter Property="BorderThickness" Value="2"/>
-                <Setter Property="BorderBrush" Value="{StaticResource BorderGrey}"/>
-                <!-- <Setter Property="BorderBrush"> --> <!-- Doesn't work yet! -->
-                <!--         <VisualBrush> -->
-                <!--                 <VisualBrush.Visual> -->
-                <!--                         <Rectangle StrokeDashArray="4,2" Stroke="{StaticResource BorderGrey}" -->
-                <!--                                    StrokeThickness="2"  -->
-                <!--                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}},  -->
-                <!--                                                    Path=Bounds.Width}" -->
-                <!--                                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}},  -->
-                <!--                                                     Path=Bounds.Height}"/> -->
-                <!--                 </VisualBrush.Visual> -->
-                <!--         </VisualBrush> -->
-                <!-- </Setter> -->
-        </Style>
-        <Style Selector="Button.add-word-button:pointerover">
-                <Setter Property="RenderTransform" Value="scale(0.975)"/>
-        </Style>
-        <Style Selector="Button.add-word-button:pressed">
-                <Setter Property="RenderTransform" Value="scale(0.925)"/>
-        </Style>
+
+    <Style Selector="TextBox.add-page-textbox">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="SelectionBrush" Value="{StaticResource AppBlue}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource AppBlue}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="AcceptsReturn" Value="False"/>
+        <Setter Property="AcceptsTab" Value="False"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+    </Style>
+
+    <Style Selector="Border.word-item-panel">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="MinHeight" Value="150"/>
+        <Setter Property="Margin" Value="0,5"/>
+        <Setter Property="Background" Value="{StaticResource VeryLightBlue}"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style Selector="TextBox.word-textbox">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="MaxHeight" Value="50"/>
+    </Style>
+
+    <Style Selector="Button.add-word-button">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Height" Value="75"/>
+        <Setter Property="Margin" Value="0,15"/>
+    </Style>
+    <Style Selector="Button.add-word-button /template/ ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource FullyTransparent}"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderGrey}"/>
+        <!-- <Setter Property="BorderBrush"> --> <!-- Doesn't work yet! -->
+        <!--         <VisualBrush> -->
+        <!--                 <VisualBrush.Visual> -->
+        <!--                         <Rectangle StrokeDashArray="4,2" Stroke="{StaticResource BorderGrey}" -->
+        <!--                                    StrokeThickness="2"  -->
+        <!--                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}},  -->
+        <!--                                                    Path=Bounds.Width}" -->
+        <!--                                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}},  -->
+        <!--                                                     Path=Bounds.Height}"/> -->
+        <!--                 </VisualBrush.Visual> -->
+        <!--         </VisualBrush> -->
+        <!-- </Setter> -->
+    </Style>
+    <Style Selector="Button.add-word-button:pointerover">
+        <Setter Property="RenderTransform" Value="scale(0.975)"/>
+    </Style>
+    <Style Selector="Button.add-word-button:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.925)"/>
+    </Style>
+
+    <Style Selector="TextBlock.add-word-subtitle">
+        <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,7.5"/>
+    </Style>
 </Styles>

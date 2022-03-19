@@ -22,5 +22,9 @@
         <DependentUpon>App.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="src\Views\AddLesson\AddLessonView.axaml.cs">
+        <DependentUpon>AddLessonView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>
