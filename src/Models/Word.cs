@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
-using VocabularyTrainer.ViewModels;
 
 namespace VocabularyTrainer.Models
 {
-    public class Word
+    public class Word : VocabularyItem
     {
         public Word()
         {
@@ -17,26 +16,23 @@ namespace VocabularyTrainer.Models
             };
         }
         
+        internal ObservableCollection<VocabularyItem> Synonyms { get; } = new();
+        internal ObservableCollection<VocabularyItem> Antonyms { get; } = new();
+
         private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
-        
-        internal string? Term { get; set; }
-        internal string? Definition { get; set; }
-        internal ObservableCollection<KeyValuePair<string,string>> Synonyms { get; } = new();
-        internal ObservableCollection<KeyValuePair<string,string>> Antonyms { get; } = new();
-        
-        internal AddLessonViewModel? ParentLesson { get; init; }
 
-        private void RemoveWord() => ParentLesson?.Words.Remove(this);
+        private void Remove(IVocabularyContainer<Word> parent) 
+            => parent.VocabularyItems.Remove(this);
 
-        public void AddThesaurusItem(ItemStyleBase<Word> type)
+        private void AddThesaurusItem(ItemStyleBase<Word> type)
         {
             switch (type)
             {
                 case SynonymStyle:
-                    Synonyms.Add(new KeyValuePair<string, string>());
+                    Synonyms.Add(new VocabularyItem(Synonyms));
                     break;
                 case AntonymStyle:
-                    Antonyms.Add(new KeyValuePair<string, string>());
+                    Antonyms.Add(new VocabularyItem(Antonyms));
                     break;
             }
         }

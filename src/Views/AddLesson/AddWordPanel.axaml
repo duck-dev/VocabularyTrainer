@@ -45,13 +45,14 @@
                                                         Background="{StaticResource BorderGrey}">
                                                     <Grid ColumnDefinitions="1*,3.5*,1*,3.5*,2*">
                                                         <TextBox Grid.Column="1" Classes="add-page-textbox word-textbox"
-                                                                 Height="40" Watermark="Term"/>
+                                                                 Height="40" Watermark="Term"
+                                                                 Text="{Binding Term}"/>
                                                         <TextBox Grid.Column="3" Classes="add-page-textbox word-textbox"
-                                                                 Height="40" Watermark="Definition"/>
+                                                                 Height="40" Watermark="Definition" 
+                                                                 Text="{Binding Definition}"/>
                                                         <Button Grid.Column="4" Classes="selectable-button" Width="40" Height="40"
                                                                 HorizontalAlignment="Center" 
-                                                                Command="{Binding Item3.ElementRef.RemoveThesaurusItem}"
-                                                                CommandParameter="{Binding}">
+                                                                Command="{Binding Remove}">
                                                             <Button.Template>
                                                                 <ControlTemplate>
                                                                     <Image Source="/Assets/avalonia-logo.ico"

@@ -29,7 +29,7 @@
                     <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto">
                         <TextBlock Grid.Row="0" FontSize="28" FontWeight="Bold" Foreground="{StaticResource AppBlue}"
                                    Text="Words:" Margin="0,0,0,5"/>
-                        <ItemsControl Grid.Row="1" Items="{Binding Words}" 
+                        <ItemsControl Grid.Row="1" Items="{Binding VocabularyItems}" 
                                       MinHeight="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
