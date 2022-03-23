@@ -23,7 +23,7 @@
                 <TextBox Grid.Column="3" Classes="add-page-textbox word-textbox"
                          Text="{Binding Definition}" Watermark="Definition"/>
             </Grid>
-            <Panel Grid.Row="1" Margin="0,0,0,15">
+            <Panel Grid.Row="1" Margin="0,15">
                 <ItemsControl Items="{Binding ThesaurusTitleDefinitions}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
