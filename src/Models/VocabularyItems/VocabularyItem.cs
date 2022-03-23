@@ -1,18 +1,16 @@
+using System.Collections;
 using System.Collections.Generic;
 
 namespace VocabularyTrainer.Models
 {
-    public class VocabularyItem
+    public abstract class VocabularyItem
     {
-        public VocabularyItem(ICollection<VocabularyItem>? containerCollection = null)
+        public VocabularyItem(IList? containerCollection = null)
         {
             this.ContainerCollection = containerCollection;
         }
-        
-        internal string? Term { get; set; }
-        internal string? Definition { get; set; }
-        
-        private ICollection<VocabularyItem>? ContainerCollection { get; }
+
+        private IList? ContainerCollection { get; }
 
         protected virtual void Remove()
             => ContainerCollection?.Remove(this);

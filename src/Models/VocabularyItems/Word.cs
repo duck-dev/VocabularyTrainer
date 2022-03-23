@@ -9,7 +9,7 @@ using VocabularyTrainer.Models.ItemStyleControls;
 
 namespace VocabularyTrainer.Models
 {
-    public class Word : VocabularyItem, INotifyPropertyChanged
+    public class Word : DualVocabularyItem, INotifyPropertyChanged
     {
         private int _index;
         
@@ -25,8 +25,8 @@ namespace VocabularyTrainer.Models
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
         }
 
-        internal ObservableCollection<VocabularyItem> Synonyms { get; } = new();
-        internal ObservableCollection<VocabularyItem> Antonyms { get; } = new();
+        internal ObservableCollection<SingleVocabularyItem> Synonyms { get; } = new();
+        internal ObservableCollection<SingleVocabularyItem> Antonyms { get; } = new();
 
         internal int Index
         {
@@ -52,17 +52,15 @@ namespace VocabularyTrainer.Models
             switch (type)
             {
                 case SynonymStyle:
-                    Synonyms.Add(new VocabularyItem(Synonyms));
+                    Synonyms.Add(new SingleVocabularyItem(Synonyms));
                     break;
                 case AntonymStyle:
-                    Antonyms.Add(new VocabularyItem(Antonyms));
+                    Antonyms.Add(new SingleVocabularyItem(Antonyms));
                     break;
             }
         }
-        
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

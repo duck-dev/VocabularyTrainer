@@ -4,6 +4,6 @@ namespace VocabularyTrainer.Models.ItemStyleControls
     {
         protected ItemStyleBase(T element) => ElementRef = element;
 
-        protected T ElementRef { get; }
+        protected internal T ElementRef { get; }
     }
 }
