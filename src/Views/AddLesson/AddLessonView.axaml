@@ -19,7 +19,7 @@
         <Panel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
                           VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
-                <Grid RowDefinitions="Auto,Auto,*,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                <Grid RowDefinitions="Auto,Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       Margin="20,0">
                     <TextBox Grid.Row="0" Classes="add-page-textbox" Watermark="Name of the lesson" MaxLength="35"
                              Text="{Binding CurrentName}" Margin="0,15,0,7.5"/>
@@ -27,10 +27,9 @@
                              VerticalContentAlignment="Top" Height="120" Text="{Binding CurrentDescription}"
                              TextWrapping="Wrap" Margin="0,7.5,0,15"/>
                     <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto">
-                        <TextBlock Grid.Row="0" FontSize="28" FontWeight="Bold" Foreground="{StaticResource AppBlue}"
-                                   Text="Words:" Margin="0,0,0,5"/>
+                        <TextBlock Grid.Row="0" Classes="add-page-heading" Text="Words:"/>
                         <ItemsControl Grid.Row="1" Items="{Binding VocabularyItems}" 
-                                      MinHeight="150" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical"/>
