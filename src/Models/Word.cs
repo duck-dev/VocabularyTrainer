@@ -1,14 +1,20 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reactive;
+using System.Runtime.CompilerServices;
 using ReactiveUI;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
 
 namespace VocabularyTrainer.Models
 {
-    public class Word : VocabularyItem
+    public class Word : VocabularyItem, INotifyPropertyChanged
     {
+        private int _index;
+        
+        public event PropertyChangedEventHandler? PropertyChanged;
+        
         public Word()
         {
             ThesaurusTitleDefinitions = new[]
@@ -18,9 +24,21 @@ namespace VocabularyTrainer.Models
             };
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
         }
-        
+
         internal ObservableCollection<VocabularyItem> Synonyms { get; } = new();
         internal ObservableCollection<VocabularyItem> Antonyms { get; } = new();
+
+        internal int Index
+        {
+            get => _index + 1;
+            set
+            {
+                if (_index == value)
+                    return;
+                _index = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
@@ -40,6 +58,11 @@ namespace VocabularyTrainer.Models
                     Antonyms.Add(new VocabularyItem(Antonyms));
                     break;
             }
+        }
+        
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
