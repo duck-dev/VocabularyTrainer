@@ -4,12 +4,14 @@
        <Style.Resources>
               <SolidColorBrush x:Key="FullyTransparent" Color="#0000FFFF"/>
               <SolidColorBrush x:Key="AppBlue" Color="#5F8BB0"/>
+              <SolidColorBrush x:Key="VariantAppBlue" Color="#557D9E"/>
               <SolidColorBrush x:Key="VeryLightBlue" Color="#ABBECE"/>
               
               <SolidColorBrush x:Key="OppositeAccent" Color="#0A0A0A"/>
               <SolidColorBrush x:Key="SameAccent" Color="#FFFFFF"/>
               
               <SolidColorBrush x:Key="LightMainBackground" Color="#D8DDE6"/>
-              <SolidColorBrush x:Key="BorderGrey" Color="#808080"/>
+              <SolidColorBrush x:Key="MainGrey" Color="#808080"/>
+              <SolidColorBrush x:Key="VariantMainGrey" Color="#707070"/>
        </Style.Resources>
 </Style>

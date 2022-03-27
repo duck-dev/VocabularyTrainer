@@ -15,8 +15,32 @@
         <StyleInclude Source="/src/Styles/AddPageStyle.axaml"/>
     </UserControl.Styles>
 
-    <Grid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" Margin="0,40">
-        <Panel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" RowDefinitions="Auto,*" Margin="0,40">
+        <Panel Grid.Column="1" Grid.Row="0" Margin="20,0,20,15">
+            <TextBlock Classes="add-page-title" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                       Text="Create a new lesson"/>
+            <Grid ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right">
+                <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" 
+                        Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}" 
+                        Margin="0,0,20,0" Content="Cancel">
+                    <Button.Styles>
+                        <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{StaticResource VariantMainGrey}"/>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+                <Button Grid.Column="1" Classes="selectable-button-effect add-page-button" 
+                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}" 
+                        Margin="20,0,0,0" Content="Create Lesson">
+                    <Button.Styles>
+                        <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{StaticResource VariantAppBlue}"/>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+            </Grid>
+        </Panel>
+        <Panel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
                           VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
                 <Grid RowDefinitions="Auto,Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -50,7 +74,7 @@
                         </ItemsControl>
                         <Button Grid.Row="2" Classes="selectable-button-effect add-word-button" 
                                 Command="{Binding AddWord}">
-                            <TextBlock Text="Add a new word" Foreground="{StaticResource BorderGrey}" FontSize="30"
+                            <TextBlock Text="Add a new word" Foreground="{StaticResource MainGrey}" FontSize="30"
                                        FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
                                        TextAlignment="Center"/>
                         </Button>

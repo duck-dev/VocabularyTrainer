@@ -1,6 +1,12 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
+    <Style Selector="TextBlock.add-page-title">
+        <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="32"/>
+    </Style>
+    
     <Style Selector="TextBlock.add-page-heading">
         <Setter Property="FontSize" Value="28"/>
         <Setter Property="Foreground" Value="{StaticResource AppBlue}"/>
@@ -20,6 +26,15 @@
         <Setter Property="AcceptsReturn" Value="False"/>
         <Setter Property="AcceptsTab" Value="False"/>
         <Setter Property="TextWrapping" Value="NoWrap"/>
+    </Style>
+    
+    <Style Selector="Button.add-page-button">
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style Selector="Border.word-item-panel">
@@ -45,7 +60,7 @@
         <Setter Property="Background" Value="{StaticResource FullyTransparent}"/>
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderGrey}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainGrey}"/>
         <!-- <Setter Property="BorderBrush"> --> <!-- Doesn't work yet! -->
         <!--         <VisualBrush> -->
         <!--                 <VisualBrush.Visual> -->

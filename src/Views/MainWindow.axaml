@@ -16,8 +16,7 @@
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Panel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="115"
                Background="{StaticResource AppBlue}">
-            <Button Classes="selectable-button" 
-                    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0">
+            <Button Classes="selectable-button" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0">
                 <Button.Template>
                     <ControlTemplate>
                         <TextBlock FontSize="50" FontWeight="Bold" Foreground="White" Text="Vocabulary Trainer"/>
