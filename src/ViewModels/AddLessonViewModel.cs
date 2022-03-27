@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using ReactiveUI;
 using VocabularyTrainer.Interfaces;
@@ -16,9 +17,9 @@ namespace VocabularyTrainer.ViewModels
                     VocabularyItems[i].Index = i;
             };
         }
-        
-        private string? CurrentName { get; set; }
-        private string? CurrentDescription { get; set; }
+
+        private string CurrentName { get; set; } = string.Empty;
+        private string CurrentDescription { get; set; } = string.Empty;
         public ObservableCollection<Word> VocabularyItems { get; } = new() { new Word() };
         private string AdjustableItemsString => VocabularyItems.Count == 1 ? "item" : "items";
 
@@ -26,6 +27,11 @@ namespace VocabularyTrainer.ViewModels
         {
             var newWord = new Word();
             VocabularyItems.Add(newWord);
+        }
+
+        private void CreateLesson()
+        {
+            var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems);
         }
     }
 }
