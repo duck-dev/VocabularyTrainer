@@ -33,7 +33,7 @@ namespace VocabularyTrainer.ViewModels
         private void CreateLesson()
         {
             var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems);
-            // TODO: Add lesson to collection of lessons
+            DataManager.Lessons.Add(lesson);
             MainWindowRef?.ReturnHome();
         }
     }
