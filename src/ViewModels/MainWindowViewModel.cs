@@ -1,5 +1,6 @@
 ﻿using System;
 using ReactiveUI;
+using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.ViewModels
 {
@@ -9,7 +10,7 @@ namespace VocabularyTrainer.ViewModels
 
         public MainWindowViewModel()
         {
-            var lessons = Array.Empty<object>(); // TODO: Retrieve saved lessons
+            var lessons = Array.Empty<Lesson>(); // TODO: Retrieve saved lessons
             _content = Content = new LessonListViewModel(lessons, this);
         } 
 
@@ -17,6 +18,11 @@ namespace VocabularyTrainer.ViewModels
         {
             get => _content; 
             set => this.RaiseAndSetIfChanged(ref _content, value);
+        }
+
+        internal void ReturnHome()
+        {
+            this.Content = new LessonListViewModel(Array.Empty<Lesson>(), this); // TODO: Retrieve saved lessons
         }
     }
 }

@@ -22,7 +22,7 @@
             <Grid ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right">
                 <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" 
                         Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}" 
-                        Margin="0,0,20,0" Content="Cancel">
+                        Margin="0,0,20,0" Content="Cancel" Command="{Binding MainWindowRef.ReturnHome}">
                     <Button.Styles>
                         <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="{StaticResource VariantMainGrey}"/>
@@ -31,7 +31,7 @@
                 </Button>
                 <Button Grid.Column="1" Classes="selectable-button-effect add-page-button" 
                         Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}" 
-                        Margin="20,0,0,0" Content="Create Lesson">
+                        Margin="20,0,0,0" Content="Create Lesson" Command="{Binding CreateLesson}">
                     <Button.Styles>
                         <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="{StaticResource VariantAppBlue}"/>

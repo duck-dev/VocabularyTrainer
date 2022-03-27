@@ -1,4 +1,3 @@
-using System;
 using System.Collections.ObjectModel;
 using ReactiveUI;
 using VocabularyTrainer.Interfaces;
@@ -18,6 +17,8 @@ namespace VocabularyTrainer.ViewModels
             };
         }
 
+        internal MainWindowViewModel? MainWindowRef { get; init; }
+        
         private string CurrentName { get; set; } = string.Empty;
         private string CurrentDescription { get; set; } = string.Empty;
         public ObservableCollection<Word> VocabularyItems { get; } = new() { new Word() };
@@ -32,6 +33,8 @@ namespace VocabularyTrainer.ViewModels
         private void CreateLesson()
         {
             var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems);
+            // TODO: Add lesson to collection of lessons
+            MainWindowRef?.ReturnHome();
         }
     }
 }
