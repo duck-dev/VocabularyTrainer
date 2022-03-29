@@ -21,30 +21,28 @@
                     <DataTemplate>
                         <Button Classes="selectable-button-effect lesson-button">
                             <Grid RowDefinitions="*,*">
-                                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" 
-                                      HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" VerticalAlignment="Center">
                                     <Viewbox Grid.Row="0" Height="40" StretchDirection="Both" Margin="0,0,0,10">
                                         <TextBlock Text="{Binding Name}" FontWeight="Bold"
                                                    Foreground="{StaticResource AppBlue}"/>
                                     </Viewbox>
                                     <TextBlock Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap"
-                                               MaxLines="2" TextTrimming="WordEllipsis"
+                                               MaxLines="2" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center"
                                                FontSize="16" Foreground="{StaticResource MainGrey}"/>
                                 </Grid>
-                                <Grid Grid.Row="1" RowDefinitions="Auto,Auto">
-                                    <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,5"
+                                <Grid Grid.Row="1" RowDefinitions="Auto,Auto" VerticalAlignment="Center">
+                                    <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,10"
                                           HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="32" Height="32"
                                                Margin="0,0,10,0"/> <!-- List icon -->
                                         <TextBlock Grid.Column="1" Text="{Binding Words.Count}" FontSize="30"/>
                                     </Grid>
-                                    <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="20,5"
+                                    <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="20,10,20,0"
                                           HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                        <Slider Grid.Column="0" IsEnabled="False" Orientation="Horizontal"
-                                                HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                        <Slider Grid.Column="0" Classes="lesson-button-progress-slider"
                                                 Minimum="0" Maximum="{Binding Words.Count}" Value="1"/> <!-- Replace `Value` with [Known Words] -->
-                                        <TextBlock Grid.Column="1" Text="64/128" FontSize="26" Margin="10,0,0,0"
-                                                   VerticalAlignment="Center"/> <!-- Replace with [Known Words]/[Total Words] -->
+                                        <TextBlock Grid.Column="1" Text="50%" FontSize="26" Margin="20,0,0,0"
+                                                   VerticalAlignment="Center"/> <!-- Replace with percentage -->
                                     </Grid>
                                 </Grid>
                             </Grid>
