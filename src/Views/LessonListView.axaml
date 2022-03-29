@@ -28,7 +28,8 @@
                                     </Viewbox>
                                     <TextBlock Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap"
                                                MaxLines="2" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center"
-                                               FontSize="16" Foreground="{StaticResource MainGrey}"/>
+                                               FontSize="16" Foreground="{StaticResource MainGrey}"
+                                               TextAlignment="Center"/>
                                 </Grid>
                                 <Grid Grid.Row="1" RowDefinitions="Auto,Auto" VerticalAlignment="Center">
                                     <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,10"
