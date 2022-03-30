@@ -5,15 +5,15 @@ namespace VocabularyTrainer.Models
 {
     public abstract class VocabularyItem
     {
-        public VocabularyItem(IList? containerCollection = null)
+        private readonly IList? _containerCollection;
+        
+        protected VocabularyItem(IList? containerCollection = null)
         {
-            this.ContainerCollection = containerCollection;
+            _containerCollection = containerCollection;
         }
 
-        private IList? ContainerCollection { get; }
-
         protected virtual void Remove()
-            => ContainerCollection?.Remove(this);
+            => _containerCollection?.Remove(this);
 
         protected void Remove(ICollection<VocabularyItem> collection)
             => collection.Remove(this);

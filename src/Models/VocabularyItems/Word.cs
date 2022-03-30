@@ -25,8 +25,8 @@ namespace VocabularyTrainer.Models
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
         }
 
-        internal ObservableCollection<SingleVocabularyItem> Synonyms { get; } = new();
-        internal ObservableCollection<SingleVocabularyItem> Antonyms { get; } = new();
+        public ObservableCollection<SingleVocabularyItem> Synonyms { get; } = new();
+        public ObservableCollection<SingleVocabularyItem> Antonyms { get; } = new();
 
         internal int Index
         {

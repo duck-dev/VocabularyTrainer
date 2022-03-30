@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 
 namespace VocabularyTrainer.Models
 {
     public class Lesson
     {
+        [JsonConstructor]
         public Lesson(string name, string description, IEnumerable<Word>? words)
         {
             this.Name = name;
@@ -15,8 +17,8 @@ namespace VocabularyTrainer.Models
             this.Words = new ObservableCollection<Word>(words);
         }
         
-        internal string Name { get; private set; }
-        internal string Description { get; private set; }
-        internal ObservableCollection<Word>? Words { get; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public ObservableCollection<Word>? Words { get; } = new();
     }
 }
