@@ -5,7 +5,5 @@ namespace VocabularyTrainer.Models
     public class SingleVocabularyItem : VocabularyItem
     {
         public SingleVocabularyItem(IList? containerCollection = null) : base(containerCollection) { }
-        
-        public string? Definition { get; set; }
     }
 }

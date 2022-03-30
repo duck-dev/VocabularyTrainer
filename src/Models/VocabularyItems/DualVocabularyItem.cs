@@ -7,6 +7,5 @@ namespace VocabularyTrainer.Models
         public DualVocabularyItem(IList? containerCollection = null) : base(containerCollection) { }
         
         public string? Term { get; set; }
-        public string? Definition { get; set; }
     }
 }
