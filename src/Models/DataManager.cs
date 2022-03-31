@@ -28,5 +28,11 @@ namespace VocabularyTrainer.Models
             string jsonString = JsonSerializer.Serialize(Lessons, options);
             File.WriteAllText(_filePath, jsonString);
         }
+
+        internal static void AddData(Lesson lesson)
+        {
+            Lessons.Add(lesson);
+            SaveData();
+        }
     }
 }
