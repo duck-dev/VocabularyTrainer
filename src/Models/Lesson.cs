@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 
@@ -7,7 +6,7 @@ namespace VocabularyTrainer.Models
     public class Lesson
     {
         [JsonConstructor]
-        public Lesson(string name, string description, IEnumerable<Word>? words)
+        public Lesson(string name, string description, ObservableCollection<Word>? words)
         {
             this.Name = name;
             this.Description = description;
