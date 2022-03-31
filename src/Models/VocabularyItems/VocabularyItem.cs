@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace VocabularyTrainer.Models
 {
-    public abstract class VocabularyItem
+    public class VocabularyItem
     {
         private readonly IList? _containerCollection;
         
-        protected VocabularyItem(IList? containerCollection = null)
+        public VocabularyItem(IList? containerCollection = null)
         {
             _containerCollection = containerCollection;
         }

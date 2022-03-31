@@ -25,8 +25,8 @@ namespace VocabularyTrainer.Models
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
         }
 
-        public ObservableCollection<SingleVocabularyItem> Synonyms { get; } = new();
-        public ObservableCollection<SingleVocabularyItem> Antonyms { get; } = new();
+        public ObservableCollection<VocabularyItem> Synonyms { get; } = new();
+        public ObservableCollection<VocabularyItem> Antonyms { get; } = new();
 
         internal int Index
         {
@@ -52,10 +52,10 @@ namespace VocabularyTrainer.Models
             switch (type)
             {
                 case SynonymStyle:
-                    Synonyms.Add(new SingleVocabularyItem(Synonyms));
+                    Synonyms.Add(new VocabularyItem(Synonyms));
                     break;
                 case AntonymStyle:
-                    Antonyms.Add(new SingleVocabularyItem(Antonyms));
+                    Antonyms.Add(new VocabularyItem(Antonyms));
                     break;
             }
         }
