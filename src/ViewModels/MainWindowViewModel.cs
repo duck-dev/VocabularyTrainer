@@ -9,6 +9,7 @@ namespace VocabularyTrainer.ViewModels
 
         public MainWindowViewModel()
         {
+            DataManager.LoadData();
             _content = Content = NewLessonList;
         } 
 
