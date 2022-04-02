@@ -29,5 +29,10 @@ namespace VocabularyTrainer.ViewModels
                 MainWindowRef = _parentViewModel
             };
         }
+
+        private void OpenLesson(Lesson lesson)
+        {
+            _parentViewModel.Content = new LessonViewModel(lesson);
+        }
     }
 }

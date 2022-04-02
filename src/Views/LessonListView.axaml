@@ -19,7 +19,9 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Classes="selectable-button-effect lesson-button">
+                        <Button Classes="selectable-button-effect lesson-button" 
+                                Command="{Binding $parent[UserControl].DataContext.OpenLesson}"
+                                CommandParameter="{Binding}">
                             <Grid RowDefinitions="*,*">
                                 <Grid Grid.Row="0" RowDefinitions="Auto,Auto" VerticalAlignment="Center">
                                     <Viewbox Grid.Row="0" Height="40" StretchDirection="Both" Margin="0,0,0,10">
