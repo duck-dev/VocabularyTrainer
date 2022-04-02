@@ -23,6 +23,8 @@ namespace VocabularyTrainer.ViewModels
 
         internal void ReturnHome()
         {
+            if (_content is LessonListViewModel)
+                return;
             this.Content = NewLessonList;
         }
     }
