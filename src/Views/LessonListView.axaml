@@ -43,7 +43,8 @@
                                     <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="20,10,20,0"
                                           HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                         <Slider Grid.Column="0" Classes="lesson-button-progress-slider"
-                                                Minimum="0" Maximum="{Binding Words.Count}" Value="1"/> <!-- Replace `Value` with [Known Words] -->
+                                                Minimum="0" Maximum="{Binding VocabularyItems.Count}" Value="1"/> <!-- Replace 
+                                                `Value` with [Known Words] -->
                                         <TextBlock Grid.Column="1" Text="50%" FontSize="26" Margin="20,0,0,0"
                                                    VerticalAlignment="Center"/> <!-- Replace with percentage -->
                                     </Grid>
