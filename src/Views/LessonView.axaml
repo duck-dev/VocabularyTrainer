@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LessonView">
-    
+
     <UserControl.Styles>
         <StyleInclude Source="/src/Styles/AddPageStyle.axaml"/>
         <Style Selector="Button.selectable-word-button:pointerover">
@@ -14,7 +14,7 @@
             <Setter Property="RenderTransform" Value="scale(0.85)"/>
         </Style>
     </UserControl.Styles>
-    
+
     <Grid ColumnDefinitions="2*,6*,2*" Margin="0,40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*" Margin="20,0,20,15">
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
@@ -36,47 +36,68 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" 
-                          Margin="0,10,0,0" Background="{StaticResource SameAccent}">
-                <ItemsControl Items="{Binding CurrentLesson.VocabularyItems}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid ColumnDefinitions="*,Auto,Auto" Height="80">
-                                <Border Grid.Column="0" Background="{StaticResource SameAccent}"
-                                        BorderThickness="2" BorderBrush="{StaticResource MainGrey}"
-                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,10,0,10"/>
-                                <Button Grid.Column="1" Classes="selectable-button-effect selectable-word-button" Margin="15,0,5,0">
-                                    <Button.Template>
-                                        <ControlTemplate>
-                                            <Panel>
-                                                <Ellipse Fill="{StaticResource MainGrey}" Width="45" Height="45"/>
-                                                <Image Source="/Assets/avalonia-logo.ico" Width="45" Height="45" 
-                                                       RenderTransform="scale(0.6)"/>
-                                            </Panel>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                                <Button Grid.Column="2" Classes="selectable-button-effect selectable-word-button" Margin="5,0,15,0">
-                                    <Button.Template>
-                                        <ControlTemplate>
-                                            <Panel>
-                                                <Ellipse Fill="{StaticResource MainRed}" Width="45" Height="45"/>
-                                                <Image Source="/Assets/avalonia-logo.ico" Width="45" Height="45" 
-                                                       RenderTransform="scale(0.6)"/>
-                                            </Panel>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+            <Border Grid.Row="2" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"
+                    Margin="0,10,0,0">
+                <Grid RowDefinitions="*,Auto">
+                    <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl Items="{Binding CurrentLesson.VocabularyItems}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,Auto,Auto" Height="80">
+                                        <Border Grid.Column="0" Background="{StaticResource SameAccent}"
+                                                BorderThickness="2" BorderBrush="{StaticResource MainGrey}"
+                                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                Margin="15,10,0,10">
+
+                                        </Border>
+                                        <Button Grid.Column="1" Classes="selectable-button-effect selectable-word-button" 
+                                                Margin="15,0,5,0">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Panel>
+                                                        <Ellipse Fill="{StaticResource MainGrey}" Width="45"
+                                                                 Height="45"/>
+                                                        <Image Source="/Assets/avalonia-logo.ico" Width="45" Height="45"
+                                                               RenderTransform="scale(0.6)"/>
+                                                    </Panel>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                        <Button Grid.Column="2" Classes="selectable-button-effect selectable-word-button"
+                                                Margin="5,0,15,0">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Panel>
+                                                        <Ellipse Fill="{StaticResource MainRed}" Width="45" Height="45"/>
+                                                        <Image Source="/Assets/avalonia-logo.ico" Width="45" Height="45"
+                                                               RenderTransform="scale(0.6)"/>
+                                                    </Panel>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <Button Grid.Row="1" Classes="selectable-button" HorizontalAlignment="Stretch" Height="70" CornerRadius="10"
+                            Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
+                            Margin="0,10,0,0" Content="Add a new word" FontSize="28" FontWeight="Bold"
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="{StaticResource MainGrey}"/>
+                                <Setter Property="TextBlock.Foreground" Value="{StaticResource SameAccent}"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>
