@@ -51,7 +51,7 @@
                              VerticalContentAlignment="Top" Height="120" Text="{Binding CurrentDescription}"
                              TextWrapping="Wrap" Margin="0,7.5,0,15"/>
                     <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto">
-                        <TextBlock Grid.Row="0" Classes="add-page-heading" >
+                        <TextBlock Grid.Row="0" Classes="add-page-heading">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="Words ({0} {1}):">
                                     <Binding Path="VocabularyItems.Count"/>
