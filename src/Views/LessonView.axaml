@@ -20,10 +20,10 @@
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
                 <TextBlock Grid.Column="0" Grid.Row="0" Classes="add-page-title" Text="{Binding CurrentLesson.Name}"
                            VerticalAlignment="Center" FontSize="36"/>
-                <Button Grid.Column="1" Grid.Row="0" Classes="selectable-button-effect add-page-button" Content="Edit Lesson"
+                <Button Grid.Column="1" Grid.Row="0" Classes="selectable-button-effect add-page-button" Content="Save changes"
                         Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
                         HorizontalAlignment="Right" VerticalAlignment="Center" Margin="30,0,0,0"
-                        Command="{Binding EditLesson}"/>
+                        Command="{Binding SaveChanges}"/> <!-- TODO: Only enable if there are changes -->
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CurrentLesson.Description}" Margin="0,10,0,0"
                            TextWrapping="Wrap" FontSize="16" Foreground="{StaticResource MainGrey}"
                            HorizontalAlignment="Stretch"/>
@@ -48,28 +48,23 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid ColumnDefinitions="*,Auto,Auto" Height="80">
-                                        <Border Grid.Column="0" Background="{StaticResource SameAccent}"
+                                    <Grid ColumnDefinitions="Auto,*,Auto" MinHeight="80">
+                                        <Ellipse Grid.Column="0" Fill="{StaticResource AppBlue}"
+                                                 Width="25" Height="25" Margin="15,0,0,0" 
+                                                 IsEnabled="False" IsVisible="False"/> <!-- TODO: Only enable if something changed -->
+                                        <Border Grid.Column="1" Background="{StaticResource SameAccent}"
                                                 BorderThickness="2" BorderBrush="{StaticResource MainGrey}"
                                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                                 Margin="15,10,0,10">
-
+                                            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="1*,2*,1*,1*,2*,1*">
+                                                <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox"
+                                                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"/>
+                                                <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox"
+                                                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"/>
+                                            </Grid>
                                         </Border>
-                                        <Button Grid.Column="1" Classes="selectable-button-effect selectable-word-button" 
-                                                Margin="15,0,5,0">
-                                            <Button.Template>
-                                                <ControlTemplate>
-                                                    <Panel>
-                                                        <Ellipse Fill="{StaticResource MainGrey}" Width="45"
-                                                                 Height="45"/>
-                                                        <Image Source="/Assets/avalonia-logo.ico" Width="45" Height="45"
-                                                               RenderTransform="scale(0.6)"/>
-                                                    </Panel>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                        </Button>
                                         <Button Grid.Column="2" Classes="selectable-button-effect selectable-word-button"
-                                                Margin="5,0,15,0">
+                                                Margin="15,0,15,0">
                                             <Button.Template>
                                                 <ControlTemplate>
                                                     <Panel>
