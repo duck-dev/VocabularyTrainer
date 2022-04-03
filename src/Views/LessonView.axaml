@@ -53,9 +53,9 @@
                                                  Width="25" Height="25" Margin="15,0,0,0" 
                                                  IsEnabled="False" IsVisible="False"/> <!-- TODO: Only enable if something changed -->
                                         <Border Grid.Column="1" Background="{StaticResource SameAccent}"
-                                                BorderThickness="2" BorderBrush="{StaticResource MainGrey}"
+                                                BorderThickness="0,0,0,1" BorderBrush="{StaticResource VeryLightBlue}"
                                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                                Margin="15,10,0,10">
+                                                Margin="15,10,0,0">
                                             <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="1*,2*,1*,1*,2*,1*">
                                                 <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox"
                                                          HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"/>
