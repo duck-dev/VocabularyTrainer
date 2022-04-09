@@ -24,6 +24,11 @@ namespace VocabularyTrainer.Models
                 new Tuple<string, string, ItemStyleBase<Word>>("Antonyms:", "Add Antonym", new AntonymStyle(this))
             };
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
+
+            Synonyms.CollectionChanged += (sender, args) =>
+                NotifyPropertyChanged(nameof(SynonymsEmpty));
+            Antonyms.CollectionChanged += (sender, args) =>
+                NotifyPropertyChanged(nameof(AntonymsEmpty));
         }
 
         [JsonConstructor]
@@ -52,6 +57,9 @@ namespace VocabularyTrainer.Models
                 NotifyPropertyChanged();
             }
         }
+
+        private bool SynonymsEmpty => Synonyms.Count <= 0;
+        private bool AntonymsEmpty => Antonyms.Count <= 0;
 
         private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
