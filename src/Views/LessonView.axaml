@@ -65,13 +65,18 @@
                                                         <TextBox Background="{StaticResource SameAccent}"
                                                                  FontSize="16" BorderThickness="1"
                                                                  BorderBrush="{StaticResource MainGrey}"
-                                                                 Width="160" Height="30" Margin="7.5,0"/>
+                                                                 Width="160" Height="30" Margin="7.5,0"
+                                                                 Text="{Binding Definition}"/>
                                                     </DataTemplate>
                                                 </Grid.Resources>
                                                 <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox"
-                                                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"/>
+                                                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
+                                                         Text="{Binding Term}" FontWeight="Bold"
+                                                         Watermark="Term"/>
                                                 <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox"
-                                                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"/>
+                                                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
+                                                         Text="{Binding Definition}" FontWeight="Bold"
+                                                         Watermark="Definition"/>
                                                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
                                                       RowDefinitions="Auto,Auto" Margin="0,15,0,0"
                                                       IsEnabled="{Binding !SynonymsEmpty}" 
@@ -89,7 +94,7 @@
                                                       IsEnabled="{Binding !AntonymsEmpty}"
                                                       IsVisible="{Binding !AntonymsEmpty}">
                                                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0"
-                                                               FontSize="16" FontWeight="Bold" 
+                                                               FontSize="16" FontWeight="Bold"
                                                                Foreground="{StaticResource AppBlue}" Text="Antonyms:"/>
                                                     <ItemsControl Grid.Row="1" Items="{Binding Antonyms}"
                                                                   ItemsPanel="{StaticResource ThesaurusContainerTemplate}"
