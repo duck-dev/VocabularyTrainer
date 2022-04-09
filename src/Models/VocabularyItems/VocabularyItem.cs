@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace VocabularyTrainer.Models
 {
     public class VocabularyItem
     {
-        private readonly IList? _containerCollection;
-        
         public VocabularyItem(IList? containerCollection = null)
-        {
-            _containerCollection = containerCollection;
-        }
-        
+            => this.ContainerCollection = containerCollection;
+
+        [JsonConstructor]
+        public VocabularyItem(string definition)
+            => this.Definition = definition;
+
         public string? Definition { get; set; }
+        
+        internal IList? ContainerCollection { get; set; }
 
         protected virtual void Remove()
-            => _containerCollection?.Remove(this);
+            => ContainerCollection?.Remove(this);
 
         protected void Remove(ICollection<VocabularyItem> collection)
             => collection.Remove(this);

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reactive;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using ReactiveUI;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
@@ -23,6 +24,18 @@ namespace VocabularyTrainer.Models
                 new Tuple<string, string, ItemStyleBase<Word>>("Antonyms:", "Add Antonym", new AntonymStyle(this))
             };
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
+        }
+
+        [JsonConstructor]
+        public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms) : this()
+        {
+            this.Synonyms = synonyms;
+            this.Antonyms = antonyms;
+            
+            foreach (var item in Synonyms)
+                item.ContainerCollection = this.Synonyms;
+            foreach (var item in Antonyms)
+                item.ContainerCollection = this.Antonyms;
         }
 
         public ObservableCollection<VocabularyItem> Synonyms { get; } = new();
