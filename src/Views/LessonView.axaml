@@ -21,7 +21,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="0" Classes="add-page-title" Text="{Binding CurrentLesson.Name}"
                            VerticalAlignment="Center" FontSize="36"/>
                 <Button Grid.Column="1" Grid.Row="0" Classes="selectable-button-effect add-page-button" Content="Save changes"
-                        Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
+                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
                         HorizontalAlignment="Right" VerticalAlignment="Center" Margin="30,0,0,0"
                         Command="{Binding SaveChanges}"/> <!-- TODO: Only enable if there are changes -->
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CurrentLesson.Description}" Margin="0,10,0,0"
