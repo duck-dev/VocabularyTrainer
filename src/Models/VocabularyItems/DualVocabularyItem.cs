@@ -14,5 +14,11 @@ namespace VocabularyTrainer.Models
             set => this.ChangedTerm = _term = value;
         }
         internal string? ChangedTerm { get; set; }
+
+        protected internal override void SaveChanges()
+        {
+            base.SaveChanges();
+            this.Term = ChangedTerm;
+        }
     }
 }

@@ -34,7 +34,16 @@ namespace VocabularyTrainer.Models
         }
         public ObservableCollection<Word> VocabularyItems { get; }
         
-        public string? ChangedName { get; private set; }
-        public string? ChangedDescription { get; private set; }
+        internal string? ChangedName { get; private set; }
+        internal string? ChangedDescription { get; private set; }
+
+        internal void SaveChanges()
+        {
+            this.Name = ChangedName;
+            this.Description = ChangedDescription;
+            foreach (var word in VocabularyItems)
+                word.SaveChanges();
+            _changedWords.Clear();
+        }
     }
 }

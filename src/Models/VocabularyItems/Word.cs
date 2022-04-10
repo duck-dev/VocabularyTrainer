@@ -75,6 +75,17 @@ namespace VocabularyTrainer.Models
 
         private ReactiveCommand<IVocabularyContainer<Word>, Unit> RemoveCommand { get; }
 
+        protected internal override void SaveChanges()
+        {
+            base.SaveChanges();
+            foreach (var item in Synonyms)
+                item.SaveChanges();
+            foreach (var item in Antonyms)
+                item.SaveChanges();
+            _changedSynonyms.Clear();
+            _changedAntonyms.Clear();
+        }
+
         private void Remove(IVocabularyContainer<Word> parent) 
             => parent.VocabularyItems.Remove(this);
 

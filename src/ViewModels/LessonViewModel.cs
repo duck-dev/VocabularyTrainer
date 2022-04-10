@@ -10,6 +10,10 @@ namespace VocabularyTrainer.ViewModels
         private Lesson CurrentLesson { get; }
         private string AdjustableItemsString => CurrentLesson.VocabularyItems.Count == 1 ? "item" : "items";
 
-        private void SaveChanges() => DataManager.SaveData();
+        private void SaveChanges()
+        {
+            CurrentLesson.SaveChanges();
+            DataManager.SaveData();
+        }
     }
 }
