@@ -66,16 +66,16 @@
                                                                  FontSize="16" BorderThickness="1"
                                                                  BorderBrush="{StaticResource MainGrey}"
                                                                  Width="160" Height="30" Margin="7.5,0"
-                                                                 Text="{Binding Definition}"/>
+                                                                 Text="{Binding ChangedDefinition}"/>
                                                     </DataTemplate>
                                                 </Grid.Resources>
                                                 <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox"
                                                          HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
-                                                         Text="{Binding Term}" FontWeight="Bold"
+                                                         Text="{Binding ChangedTerm}" FontWeight="Bold"
                                                          Watermark="Term"/>
                                                 <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox"
                                                          HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
-                                                         Text="{Binding Definition}" FontWeight="Bold"
+                                                         Text="{Binding ChangedDefinition}" FontWeight="Bold"
                                                          Watermark="Definition"/>
                                                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
                                                       RowDefinitions="Auto,Auto" Margin="0,15,0,0"

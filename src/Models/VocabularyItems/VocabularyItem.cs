@@ -6,6 +6,8 @@ namespace VocabularyTrainer.Models
 {
     public class VocabularyItem
     {
+        private string? _definition;
+        
         public VocabularyItem(IList? containerCollection = null)
             => this.ContainerCollection = containerCollection;
 
@@ -13,7 +15,12 @@ namespace VocabularyTrainer.Models
         public VocabularyItem(string definition)
             => this.Definition = definition;
 
-        public string? Definition { get; set; }
+        public string? Definition
+        {
+            get => _definition; 
+            set => this.ChangedDefinition = _definition = value;
+        }
+        internal string? ChangedDefinition { get; set; }
         
         internal IList? ContainerCollection { get; set; }
 

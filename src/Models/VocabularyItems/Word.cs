@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reactive;
@@ -7,13 +8,16 @@ using System.Text.Json.Serialization;
 using ReactiveUI;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
+using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.Models
 {
     public class Word : DualVocabularyItem, INotifyPropertyChanged
     {
         private int _index;
-        
+        private readonly List<VocabularyItem> _changedSynonyms = new();
+        private readonly List<VocabularyItem> _changedAntonyms = new();
+
         public event PropertyChangedEventHandler? PropertyChanged;
         
         public Word()
@@ -26,9 +30,15 @@ namespace VocabularyTrainer.Models
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
 
             Synonyms.CollectionChanged += (sender, args) =>
+            {
                 NotifyPropertyChanged(nameof(SynonymsEmpty));
+                Utilities.AddChangedItems(_changedSynonyms, args);
+            };
             Antonyms.CollectionChanged += (sender, args) =>
+            {
                 NotifyPropertyChanged(nameof(AntonymsEmpty));
+                Utilities.AddChangedItems(_changedAntonyms, args);
+            };
         }
 
         [JsonConstructor]

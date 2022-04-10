@@ -4,8 +4,15 @@ namespace VocabularyTrainer.Models
 {
     public class DualVocabularyItem : VocabularyItem
     {
-        public DualVocabularyItem(IList? containerCollection = null) : base(containerCollection) { }
+        private string? _term;
         
-        public string? Term { get; set; }
+        public DualVocabularyItem(IList? containerCollection = null) : base(containerCollection) { }
+
+        public string? Term
+        {
+            get => _term; 
+            set => this.ChangedTerm = _term = value;
+        }
+        internal string? ChangedTerm { get; set; }
     }
 }
