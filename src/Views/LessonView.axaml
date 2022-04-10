@@ -81,7 +81,7 @@
                                                     <DataTemplate x:Key="ThesaurusFieldTemplate">
                                                         <TextBox Background="{StaticResource SameAccent}"
                                                                  FontSize="16" BorderThickness="1"
-                                                                 BorderBrush="{StaticResource MainGrey}"
+                                                                 BorderBrush="{StaticResource LightGrey}"
                                                                  Width="160" Height="30" Margin="7.5,0"
                                                                  Text="{Binding ChangedDefinition}"/>
                                                     </DataTemplate>
