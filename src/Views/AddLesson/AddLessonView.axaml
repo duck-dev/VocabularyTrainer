@@ -34,7 +34,7 @@
                         Margin="20,0,0,0" Content="Create Lesson" Command="{Binding CreateLesson}">
                     <Button.Styles>
                         <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
-                            <Setter Property="Background" Value="{StaticResource VariantAppBlue}"/>
+                            <Setter Property="Background" Value="{StaticResource DarkAppBlue}"/>
                         </Style>
                     </Button.Styles>
                 </Button>

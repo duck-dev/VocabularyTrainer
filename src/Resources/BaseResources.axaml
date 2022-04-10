@@ -4,7 +4,8 @@
        <Style.Resources>
               <SolidColorBrush x:Key="FullyTransparent" Color="#0000FFFF"/>
               <SolidColorBrush x:Key="AppBlue" Color="#5F8BB0"/>
-              <SolidColorBrush x:Key="VariantAppBlue" Color="#557D9E"/>
+              <SolidColorBrush x:Key="DarkAppBlue" Color="#557D9E"/>
+              <SolidColorBrush x:Key="LightAppBlue" Color="#83A8C6"/>
               <SolidColorBrush x:Key="VeryLightBlue" Color="#ABBECE"/>
               
               <SolidColorBrush x:Key="OppositeAccent" Color="#0A0A0A"/>

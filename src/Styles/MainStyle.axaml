@@ -28,4 +28,10 @@
         <Style Selector="Button.selectable-button-effect:pressed">
                 <Setter Property="RenderTransform" Value="scale(0.90)"/>
         </Style>
+        
+        <!-- TextBox -->
+        
+        <Style Selector="TextBox">
+                <Setter Property="SelectionBrush" Value="{DynamicResource LightAppBlue}"/>
+        </Style>
 </Styles>
