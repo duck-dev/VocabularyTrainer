@@ -4,7 +4,7 @@
     <Style Selector="TextBlock.add-page-title">
         <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="FontSize" Value="36"/>
     </Style>
     
     <Style Selector="TextBlock.add-page-heading">
