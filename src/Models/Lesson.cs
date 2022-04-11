@@ -71,7 +71,7 @@ namespace VocabularyTrainer.Models
         }
         
         internal bool DataChanged => !ChangedName.Equals(Name) || !ChangedDescription.Equals(Description)
-                                     || VocabularyItems.Any(x => x.DataChanged);
+                                     || VocabularyItems.Any(x => x.DataChanged) || _changedWords.Count > 0;
 
         internal void SaveChanges()
         {

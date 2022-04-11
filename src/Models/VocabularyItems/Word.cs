@@ -71,7 +71,8 @@ namespace VocabularyTrainer.Models
         
         internal bool DataChanged => !ChangedTerm.Equals(Term) || !ChangedDefinition.Equals(Definition) 
                                      || Synonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition)) 
-                                     || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition));
+                                     || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
+                                     || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
 
         private bool SynonymsEmpty => Synonyms.Count <= 0;
         private bool AntonymsEmpty => Antonyms.Count <= 0;
