@@ -17,7 +17,7 @@ namespace VocabularyTrainer.Extensions
             void UpdateIndex(object? sender, NotifyCollectionChangedEventArgs? args)
             {
                 foreach(string property in propertiesToUpdate)
-                    callerParent.RaisePropertyChanged(nameof(property));
+                    callerParent.RaisePropertyChanged(property);
                 for (int i = 0; i < collection.Count; i++)
                     collection[i].Index = i;
             }
