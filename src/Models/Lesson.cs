@@ -85,6 +85,14 @@ namespace VocabularyTrainer.Models
             foreach (var word in VocabularyItems)
                 word.SaveChanges();
             _changedWords.Clear();
+            
+            NotifyPropertyChanged(nameof(DataChanged));
+        }
+
+        private void AddWord()
+        {
+            var word = new Word();
+            VocabularyItems.Add(word);
         }
         
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
