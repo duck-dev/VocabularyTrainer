@@ -6,7 +6,11 @@ namespace VocabularyTrainer.Models
 {
     public class VocabularyItem
     {
-        private string? _definition;
+        private string _definition = string.Empty;
+        private string _changedDefinition = string.Empty;
+
+        public delegate void NotificationEventHandler();
+        public event NotificationEventHandler? NotifyChanged;
         
         public VocabularyItem(IList? containerCollection = null)
             => this.ContainerCollection = containerCollection;
@@ -15,14 +19,26 @@ namespace VocabularyTrainer.Models
         public VocabularyItem(string definition)
             => this.Definition = definition;
 
-        public string? Definition
+        public string Definition
         {
             get => _definition; 
-            set => this.ChangedDefinition = _definition = value;
+            set => this.ChangedDefinition = _definition = value.Trim();
         }
-        internal string? ChangedDefinition { get; set; }
+
+        internal string ChangedDefinition
+        {
+            get => _changedDefinition;
+            set
+            {
+                _changedDefinition = value.Trim();
+                InvokeNotifyChanged();
+            }
+        }
         
         internal IList? ContainerCollection { get; set; }
+
+        protected void InvokeNotifyChanged()
+            => NotifyChanged?.Invoke();
 
         protected internal virtual void SaveChanges()
             => this.Definition = ChangedDefinition;

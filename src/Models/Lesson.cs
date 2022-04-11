@@ -1,41 +1,77 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.Models
 {
-    public class Lesson : IVocabularyContainer<Word>
+    public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChanged
     {
-        private string? _name;
-        private string? _description;
+        private string _name;
+        private string _description;
+        private string _changedName = string.Empty;
+        private string _changedDescription = string.Empty;
         private readonly List<Word> _changedWords = new(); 
+        
+        public event PropertyChangedEventHandler? PropertyChanged;
         
         [JsonConstructor]
         public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems)
         {
-            this.Name = name;
-            this.Description = description;
+            this.Name = _name = name;
+            this.Description = _description = description;
             this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
             VocabularyItems.CollectionChanged += (sender, args) =>
                 Utilities.AddChangedItems(_changedWords, args);
+
+            foreach (var word in VocabularyItems)
+            {
+                word.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
+                foreach(var synonym in word.Synonyms)
+                    synonym.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
+                foreach (var antonym in word.Antonyms)
+                    antonym.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
+            }
         }
         
-        public string? Name
+        public string Name
         {
             get => _name; 
             private set => this.ChangedName = _name = value;
         }
-        public string? Description
+        public string Description
         {
             get => _description; 
             private set => this.ChangedDescription = _description = value;
         }
         public ObservableCollection<Word> VocabularyItems { get; }
+
+        private string ChangedName
+        {
+            get => _changedName;
+            set
+            {
+                _changedName = value;
+                NotifyPropertyChanged(nameof(DataChanged));
+            }
+        }
+
+        private string ChangedDescription
+        {
+            get => _changedDescription;
+            set
+            {
+                _changedDescription = value;
+                NotifyPropertyChanged(nameof(DataChanged));
+            }
+        }
         
-        internal string? ChangedName { get; private set; }
-        internal string? ChangedDescription { get; private set; }
+        internal bool DataChanged => !ChangedName.Equals(Name) || !ChangedDescription.Equals(Description)
+                                     || VocabularyItems.Any(x => x.DataChanged);
 
         internal void SaveChanges()
         {
@@ -45,5 +81,8 @@ namespace VocabularyTrainer.Models
                 word.SaveChanges();
             _changedWords.Clear();
         }
+        
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

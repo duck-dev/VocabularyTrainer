@@ -33,7 +33,7 @@
                 <Button Grid.Column="1" Grid.Row="0" Classes="selectable-button-effect add-page-button" Content="Save changes"
                         Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
                         HorizontalAlignment="Right" VerticalAlignment="Center" Margin="30,0,0,0"
-                        Command="{Binding SaveChanges}">
+                        Command="{Binding SaveChanges}" IsEnabled="{Binding CurrentLesson.DataChanged}">
                     <Button.Styles>
                         <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="{StaticResource DarkAppBlue}"/>

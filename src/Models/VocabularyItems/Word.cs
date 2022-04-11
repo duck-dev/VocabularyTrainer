@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Reactive;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -67,6 +68,10 @@ namespace VocabularyTrainer.Models
                 NotifyPropertyChanged();
             }
         }
+        
+        internal bool DataChanged => !ChangedTerm.Equals(Term) || !ChangedDefinition.Equals(Definition) 
+                                     || Synonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition)) 
+                                     || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition));
 
         private bool SynonymsEmpty => Synonyms.Count <= 0;
         private bool AntonymsEmpty => Antonyms.Count <= 0;
