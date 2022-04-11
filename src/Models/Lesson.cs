@@ -10,7 +10,7 @@ using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.Models
 {
-    public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChanged
+    public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
     {
         private string _name;
         private string _description;
@@ -77,6 +77,9 @@ namespace VocabularyTrainer.Models
         
         internal bool DataChanged => !ChangedName.Equals(Name) || !ChangedDescription.Equals(Description)
                                      || VocabularyItems.Any(x => x.DataChanged) || _changedWords.Count > 0;
+        
+        public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         internal void SaveChanges()
         {
@@ -94,8 +97,5 @@ namespace VocabularyTrainer.Models
             var word = new Word();
             VocabularyItems.Add(word);
         }
-        
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -13,7 +13,7 @@ using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.Models
 {
-    public class Word : DualVocabularyItem, INotifyPropertyChanged
+    public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     {
         private int _index;
         private readonly List<VocabularyItem> _changedSynonyms = new();
@@ -57,7 +57,8 @@ namespace VocabularyTrainer.Models
         public ObservableCollection<VocabularyItem> Synonyms { get; } = new();
         public ObservableCollection<VocabularyItem> Antonyms { get; } = new();
 
-        internal int Index
+        [JsonIgnore]
+        public int Index
         {
             get => _index + 1;
             set
@@ -80,6 +81,9 @@ namespace VocabularyTrainer.Models
         private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
         private ReactiveCommand<IVocabularyContainer<Word>, Unit> RemoveCommand { get; }
+        
+        public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         protected internal override void SaveChanges()
         {
@@ -107,8 +111,5 @@ namespace VocabularyTrainer.Models
                     break;
             }
         }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
