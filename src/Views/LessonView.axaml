@@ -28,7 +28,7 @@
         <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*" Margin="20,0,20,15">
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
                 <TextBox Grid.Column="0" Grid.Row="0" Classes="editable-text" Text="{Binding CurrentLesson.ChangedName}"
-                         VerticalAlignment="Center" Height="50" FontSize="36" FontWeight="Bold"
+                         VerticalAlignment="Center" Height="50" FontSize="36" FontWeight="Bold" MaxLength="35"
                          VerticalContentAlignment="Center"/>
                 <Button Grid.Column="1" Grid.Row="0" Classes="selectable-button-effect add-page-button" Content="Save changes"
                         Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
@@ -43,7 +43,7 @@
                 <TextBox Grid.Column="0" Grid.Row="1" Classes="editable-text" Margin="0,10,0,0"
                          Text="{Binding CurrentLesson.ChangedDescription}" TextWrapping="Wrap" FontSize="16" 
                          Foreground="{StaticResource MainGrey}" HorizontalAlignment="Stretch"
-                         VerticalContentAlignment="Center"/>
+                         VerticalContentAlignment="Center" MaxLength="150"/>
             </Grid>
             <TextBlock Grid.Row="1" Classes="add-page-heading" Margin="0,30,0,0">
                 <TextBlock.Text>
