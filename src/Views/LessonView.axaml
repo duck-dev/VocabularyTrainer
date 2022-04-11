@@ -121,7 +121,8 @@
                                             </Grid>
                                         </Border>
                                         <Button Grid.Column="2" Classes="selectable-button-effect selectable-word-button"
-                                                Margin="15,0,15,0">
+                                                Margin="15,0,15,0" Command="{Binding RemoveCommand}"
+                                                CommandParameter="{Binding $parent[UserControl].DataContext.CurrentLesson}">
                                             <Button.Template>
                                                 <ControlTemplate>
                                                     <Panel>

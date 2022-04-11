@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -26,7 +27,11 @@ namespace VocabularyTrainer.Models
             this.Description = _description = description;
             this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
             VocabularyItems.CollectionChanged += (sender, args) =>
+            {
                 Utilities.AddChangedItems(_changedWords, args);
+                if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
+                    NotifyPropertyChanged(nameof(DataChanged));
+            };
 
             foreach (var word in VocabularyItems)
             {

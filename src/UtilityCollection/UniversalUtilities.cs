@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 
 namespace VocabularyTrainer.UtilityCollection
 {
@@ -29,15 +30,17 @@ namespace VocabularyTrainer.UtilityCollection
             // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
             switch (args.Action)
             {
-                case NotifyCollectionChangedAction.Add when args.NewItems is IList<T> newItems:
+                case NotifyCollectionChangedAction.Add:
+                    var newItems = args.NewItems?.Cast<T>();
                     LoopItems(newItems);
                     break;
-                case NotifyCollectionChangedAction.Remove when args.OldItems is IList<T> oldItems:
+                case NotifyCollectionChangedAction.Remove:
+                    var oldItems = args.OldItems?.Cast<T>();
                     LoopItems(oldItems);
                     break;
             }
 
-            void LoopItems(IList<T>? items)
+            void LoopItems(IEnumerable<T>? items)
             {
                 if (items is null)
                     return;
