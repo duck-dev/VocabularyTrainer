@@ -7,36 +7,42 @@ namespace VocabularyTrainer.Extensions
 {
     public static partial class Extensions
     {
+        public static void CalculateIndex<T>(this ObservableCollection<T> collection, bool updateInstantly = false) 
+            where T : class, IIndexable
+        {
+            collection.CollectionChanged += UpdateIndex;
+            if(updateInstantly)
+                UpdateIndex(null,null);
+            
+            void UpdateIndex(object? sender, NotifyCollectionChangedEventArgs? args)
+            {
+                for (int i = 0; i < collection.Count; i++)
+                    collection[i].Index = i;
+            }
+        }
+        
         public static void CalculateIndexReactive<TItem, TParent>(this ObservableCollection<TItem> collection, 
             TParent callerParent, bool updateInstantly = false, params string[] propertiesToUpdate) 
             where TItem : class, IIndexable where TParent : ReactiveObject
         {
-            collection.CollectionChanged += UpdateIndex;
-            UpdateIndex(null,null);
-            
-            void UpdateIndex(object? sender, NotifyCollectionChangedEventArgs? args)
+            CalculateIndex(collection, updateInstantly);
+            collection.CollectionChanged += (sender, args) =>
             {
-                foreach(string property in propertiesToUpdate)
+                foreach (string property in propertiesToUpdate)
                     callerParent.RaisePropertyChanged(property);
-                for (int i = 0; i < collection.Count; i++)
-                    collection[i].Index = i;
-            }
+            };
         }
 
         public static void CalculateIndex<TItem, TParent>(this ObservableCollection<TItem> collection, 
             TParent callerParent, bool updateInstantly = false, params string[] propertiesToUpdate) 
             where TItem : class, IIndexable where TParent : INotifyPropertyChangedHelper
         {
-            collection.CollectionChanged += UpdateIndex;
-            UpdateIndex(null,null);
-
-            void UpdateIndex(object? sender, NotifyCollectionChangedEventArgs? args)
+            CalculateIndex(collection, updateInstantly);
+            collection.CollectionChanged += (sender, args) =>
             {
-                foreach(string property in propertiesToUpdate)
+                foreach (string property in propertiesToUpdate)
                     callerParent.NotifyPropertyChanged(property);
-                for (int i = 0; i < collection.Count; i++)
-                    collection[i].Index = i;
-            }
+            };
         }
     }
 }
