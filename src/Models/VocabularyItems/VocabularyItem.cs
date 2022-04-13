@@ -51,11 +51,6 @@ namespace VocabularyTrainer.Models
         public bool MatchesUnsavedContent(IEnumerable<VocabularyItem> collection, out VocabularyItem? identicalItem)
         {
             identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(this.ChangedDefinition));
-            string x = identicalItem?.ChangedDefinition ?? "null";
-            UtilityCollection.Utilities.Log($"{x}: {identicalItem is not null}, {!ReferenceEquals(identicalItem, this)}");
-            foreach(var c in collection)
-                UtilityCollection.Utilities.Log($"{this.ChangedDefinition} - {c.ChangedDefinition}");
-            UtilityCollection.Utilities.Log("--------------------------------------------------------------------");
             return identicalItem is not null && !ReferenceEquals(identicalItem, this);
         }
 
