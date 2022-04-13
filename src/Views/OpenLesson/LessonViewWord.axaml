@@ -65,14 +65,38 @@
                                      FontSize="16" BorderThickness="1" BorderBrush="{StaticResource LightGrey}"
                                      Width="160" Height="30" Margin="7.5,0" Padding="5,0,29.25,0"
                                      Text="{Binding ChangedDefinition}" VerticalContentAlignment="Center"/>
-                            <Button Width="18" Height="18" HorizontalAlignment="Right" Margin="0,0,12.5,0"
-                                    Classes="selectable-button-effect">
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <Ellipse Fill="Red"/> <!-- Trash icon -->
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
+                            <ContentControl Content="{Binding $parent[ContentControl].DataContext.Item3}">
+                                <ContentControl.DataTemplates>
+                                    <DataTemplate DataType="itemStyleControls:SynonymStyle">
+                                        <Button Width="18" Height="18" HorizontalAlignment="Right" Margin="0,0,12.5,0"
+                                                Classes="selectable-button-effect"
+                                                Command="{Binding RemoveCommandCollection}"
+                                                CommandParameter="{Binding
+                                                $parent[ContentControl].DataContext.Item3.ElementRef.Synonyms}"
+                                                DataContext="{Binding $parent[ContentControl].DataContext}">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Ellipse Fill="Red"/> <!-- Trash icon -->
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </DataTemplate>
+                                    <DataTemplate DataType="itemStyleControls:AntonymStyle">
+                                        <Button Width="18" Height="18" HorizontalAlignment="Right" Margin="0,0,12.5,0"
+                                                Classes="selectable-button-effect"
+                                                Command="{Binding RemoveCommandCollection}"
+                                                CommandParameter="{Binding
+                                                $parent[ContentControl;1].DataContext.Item3.ElementRef.Antonyms}"
+                                                DataContext="{Binding $parent[ContentControl].DataContext}">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Ellipse Fill="Red"/> <!-- Trash icon -->
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </DataTemplate>
+                                </ContentControl.DataTemplates>
+                            </ContentControl>
                         </Grid>
                     </DataTemplate>
                 </Grid.Resources>
@@ -84,7 +108,7 @@
                          HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
                          Text="{Binding ChangedDefinition}" FontWeight="Bold"
                          Watermark="Definition"/>
-                <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Items="{Binding ThesaurusTitleDefinitions}">
+                <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Items="{Binding ThesaurusTitleDefinitions}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical"/>

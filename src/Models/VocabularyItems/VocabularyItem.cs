@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Text.Json.Serialization;
+using ReactiveUI;
 
 namespace VocabularyTrainer.Models
 {
@@ -11,12 +13,15 @@ namespace VocabularyTrainer.Models
 
         public delegate void NotificationEventHandler();
         public event NotificationEventHandler? NotifyChanged;
-        
+
         public VocabularyItem(IList? containerCollection = null)
-            => this.ContainerCollection = containerCollection;
+        {
+            this.ContainerCollection = containerCollection;
+            this.RemoveCommandCollection = ReactiveCommand.Create<ICollection<VocabularyItem>>(Remove);
+        }
 
         [JsonConstructor]
-        public VocabularyItem(string definition)
+        public VocabularyItem(string definition) : this()
             => this.Definition = definition;
 
         public string Definition
@@ -36,6 +41,8 @@ namespace VocabularyTrainer.Models
         }
         
         internal IList? ContainerCollection { get; set; }
+        
+        protected ReactiveCommand<ICollection<VocabularyItem>, Unit> RemoveCommandCollection { get; }
 
         protected void InvokeNotifyChanged()
             => NotifyChanged?.Invoke();
