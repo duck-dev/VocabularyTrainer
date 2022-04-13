@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
@@ -29,17 +30,7 @@ namespace VocabularyTrainer.Models
                 new Tuple<string, string, ItemStyleBase<Word>>("Antonyms:", "Add Antonym", new AntonymStyle(this))
             };
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
-
-            Synonyms.CollectionChanged += (sender, args) =>
-            {
-                NotifyPropertyChanged(nameof(SynonymsEmpty));
-                Utilities.AddChangedItems(_changedSynonyms, args);
-            };
-            Antonyms.CollectionChanged += (sender, args) =>
-            {
-                NotifyPropertyChanged(nameof(AntonymsEmpty));
-                Utilities.AddChangedItems(_changedAntonyms, args);
-            };
+            SubscribeCollectionsChanged();
         }
 
         [JsonConstructor]
@@ -52,6 +43,8 @@ namespace VocabularyTrainer.Models
                 item.ContainerCollection = this.Synonyms;
             foreach (var item in Antonyms)
                 item.ContainerCollection = this.Antonyms;
+            
+            SubscribeCollectionsChanged();
         }
 
         public ObservableCollection<VocabularyItem> Synonyms { get; } = new();
@@ -75,8 +68,8 @@ namespace VocabularyTrainer.Models
                                      || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
                                      || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
 
-        private bool SynonymsEmpty => Synonyms.Count <= 0;
-        private bool AntonymsEmpty => Antonyms.Count <= 0;
+        // private bool SynonymsEmpty => Synonyms.Count <= 0;
+        // private bool AntonymsEmpty => Antonyms.Count <= 0;
 
         private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
@@ -110,6 +103,31 @@ namespace VocabularyTrainer.Models
                     Antonyms.Add(new VocabularyItem(Antonyms));
                     break;
             }
+        }
+
+        private void SubscribeCollectionsChanged()
+        {
+            Synonyms.CollectionChanged += (sender, args) =>
+            {
+                // NotifyPropertyChanged(nameof(SynonymsEmpty));
+                Utilities.AddChangedItems(_changedSynonyms, args);
+                if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
+                    NotifyDataChanged();
+            };
+            Antonyms.CollectionChanged += (sender, args) =>
+            {
+                // NotifyPropertyChanged(nameof(AntonymsEmpty));
+                Utilities.AddChangedItems(_changedAntonyms, args);
+                
+                if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
+                    NotifyDataChanged();
+            };
+        }
+
+        private void NotifyDataChanged()
+        {
+            var lesson = DataManager.Lessons.FirstOrDefault(x => x.VocabularyItems.Contains(this));
+            lesson?.NotifyPropertyChanged(nameof(lesson.DataChanged));
         }
     }
 }
