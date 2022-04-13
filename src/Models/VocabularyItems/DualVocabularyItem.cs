@@ -1,8 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using VocabularyTrainer.Interfaces;
 
 namespace VocabularyTrainer.Models
 {
-    public class DualVocabularyItem : VocabularyItem
+    public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocabularyItem>
     {
         private string _term = string.Empty;
         private string _changedTerm = string.Empty;
@@ -23,6 +26,13 @@ namespace VocabularyTrainer.Models
                 _changedTerm = value.Trim();
                 InvokeNotifyChanged();
             }
+        }
+
+        public bool MatchesUnsavedContent(IEnumerable<DualVocabularyItem> collection, out DualVocabularyItem? identicalItem)
+        {
+            identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(this.ChangedDefinition)
+                                                               && x.ChangedTerm.Equals(this.ChangedTerm));
+            return identicalItem is not null && !ReferenceEquals(identicalItem, this);
         }
 
         protected internal override void SaveChanges()

@@ -14,7 +14,7 @@ using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.Models
 {
-    public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
+    public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable, IContentVerification<Word>
     {
         private int _index;
         private readonly List<VocabularyItem> _changedSynonyms = new();
@@ -77,6 +77,23 @@ namespace VocabularyTrainer.Models
         
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        public void CheckUnsavedContent()
+        {
+            foreach(var synonym in this.Synonyms)
+                Utilities.CheckUnsavedContent(synonym, _changedSynonyms);
+            foreach(var antonym in this.Antonyms)
+                Utilities.CheckUnsavedContent(antonym, _changedAntonyms);
+        }
+
+        public bool MatchesUnsavedContent(IEnumerable<Word> collection, out Word? identicalItem)
+        {
+            identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(this.ChangedDefinition)
+                                                           && x.ChangedTerm.Equals(this.ChangedTerm)
+                                                           && x.Synonyms.SequenceEqual(this.Synonyms)
+                                                           && x.Antonyms.SequenceEqual(this.Antonyms));
+            return identicalItem is not null && !ReferenceEquals(identicalItem, this);
+        }
 
         protected internal override void SaveChanges()
         {

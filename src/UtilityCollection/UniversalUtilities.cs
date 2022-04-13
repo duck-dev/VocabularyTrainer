@@ -3,12 +3,16 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.UtilityCollection
 {
     public static partial class Utilities
     {
+        public delegate void NotifyItemAddedEventHandler(VocabularyItem item);
+        public static event NotifyItemAddedEventHandler? NotifyItemAdded;
+        
         /// <summary>
         /// The parent path of all settings- and data-files
         /// </summary>
@@ -37,7 +41,7 @@ namespace VocabularyTrainer.UtilityCollection
         /// with the changed (added/removed) items and other information about the changes.</param>
         /// <typeparam name="T">The type of the collection items.</typeparam>
         public static void AddChangedItems<T>(ICollection<T> collection, NotifyCollectionChangedEventArgs args) 
-            where T : VocabularyItem
+            where T : VocabularyItem, IContentVerification<T>
         {
             // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
             switch (args.Action)
@@ -59,12 +63,9 @@ namespace VocabularyTrainer.UtilityCollection
                 
                 foreach (var item in items)
                 {
-                    var identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(item.ChangedDefinition));
-                    if (identicalItem is not null)
-                    {
-                        collection.Remove(identicalItem);
+                    NotifyItemAdded?.Invoke(item);
+                    if (CheckUnsavedContent(item, collection))
                         continue;
-                    }
                     
                     if (collection.Contains(item))
                         collection.Remove(item);
@@ -72,6 +73,14 @@ namespace VocabularyTrainer.UtilityCollection
                         collection.Add(item);
                 }
             }
+        }
+
+        public static bool CheckUnsavedContent<T>(T item, ICollection<T> collection) where T : IContentVerification<T>
+        {
+            if (!item.MatchesUnsavedContent(collection, out T? identicalItem)) 
+                return false;
+            collection.Remove(identicalItem!);
+            return true;
         }
     }
 }

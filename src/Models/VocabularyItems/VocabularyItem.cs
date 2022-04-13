@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Text.Json.Serialization;
 using ReactiveUI;
+using VocabularyTrainer.Interfaces;
+#pragma warning disable CS0659
 
 namespace VocabularyTrainer.Models
 {
-    public class VocabularyItem
+    public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<VocabularyItem>
     {
         private string _definition = string.Empty;
         private string _changedDefinition = string.Empty;
@@ -43,6 +47,22 @@ namespace VocabularyTrainer.Models
         internal IList? ContainerCollection { get; set; }
         
         protected ReactiveCommand<ICollection<VocabularyItem>, Unit> RemoveCommandCollection { get; }
+
+        public bool MatchesUnsavedContent(IEnumerable<VocabularyItem> collection, out VocabularyItem? identicalItem)
+        {
+            identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(this.ChangedDefinition));
+            string x = identicalItem?.ChangedDefinition ?? "null";
+            UtilityCollection.Utilities.Log($"{x}: {identicalItem is not null}, {!ReferenceEquals(identicalItem, this)}");
+            foreach(var c in collection)
+                UtilityCollection.Utilities.Log($"{this.ChangedDefinition} - {c.ChangedDefinition}");
+            UtilityCollection.Utilities.Log("--------------------------------------------------------------------");
+            return identicalItem is not null && !ReferenceEquals(identicalItem, this);
+        }
+
+        public bool Equals(VocabularyItem? other)
+            => other is not null && other.ChangedDefinition.Equals(this.ChangedDefinition);
+
+        public override bool Equals(object? obj) => Equals(obj as VocabularyItem);
 
         protected void InvokeNotifyChanged()
             => NotifyChanged?.Invoke();

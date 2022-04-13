@@ -33,13 +33,14 @@ namespace VocabularyTrainer.Models
                     NotifyPropertyChanged(nameof(DataChanged));
             };
 
+            Utilities.NotifyItemAdded += SubscribeVocabularyChanges; 
             foreach (var word in VocabularyItems)
             {
-                word.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
+                SubscribeVocabularyChanges(word);
                 foreach(var synonym in word.Synonyms)
-                    synonym.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
+                    SubscribeVocabularyChanges(synonym);
                 foreach (var antonym in word.Antonyms)
-                    antonym.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
+                    SubscribeVocabularyChanges(antonym);
             }
         }
         
@@ -74,9 +75,23 @@ namespace VocabularyTrainer.Models
                 NotifyPropertyChanged(nameof(DataChanged));
             }
         }
-        
-        internal bool DataChanged => !ChangedName.Equals(Name) || !ChangedDescription.Equals(Description)
-                                     || VocabularyItems.Any(x => x.DataChanged) || _changedWords.Count > 0;
+
+        internal bool DataChanged
+        {
+            get
+            {
+                foreach (var item in VocabularyItems)
+                {
+                    Utilities.CheckUnsavedContent(item, _changedWords);
+                    item.CheckUnsavedContent();
+                }
+
+                return !ChangedName.Equals(Name) 
+                       || !ChangedDescription.Equals(Description)
+                       || VocabularyItems.Any(x => x.DataChanged) 
+                       || _changedWords.Count > 0;
+            }
+        }
         
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -97,5 +112,8 @@ namespace VocabularyTrainer.Models
             var word = new Word();
             VocabularyItems.Add(word);
         }
+
+        private void SubscribeVocabularyChanges(VocabularyItem item)
+            => item.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
     }
 }
