@@ -72,7 +72,7 @@
                                                 Classes="selectable-button-effect"
                                                 Command="{Binding RemoveCommandCollection}"
                                                 CommandParameter="{Binding
-                                                $parent[ContentControl].DataContext.Item3.ElementRef.Synonyms}"
+                                                $parent[ContentControl;1].DataContext.Item3.ElementRef.Synonyms}"
                                                 DataContext="{Binding $parent[ContentControl].DataContext}">
                                             <Button.Template>
                                                 <ControlTemplate>
