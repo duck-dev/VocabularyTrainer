@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.UtilityCollection
 {
@@ -35,7 +36,8 @@ namespace VocabularyTrainer.UtilityCollection
         /// <param name="args">Arguments of the CollectionChanged event of a <see cref="ObservableCollection{T}"/>
         /// with the changed (added/removed) items and other information about the changes.</param>
         /// <typeparam name="T">The type of the collection items.</typeparam>
-        public static void AddChangedItems<T>(ICollection<T> collection, NotifyCollectionChangedEventArgs args)
+        public static void AddChangedItems<T>(ICollection<T> collection, NotifyCollectionChangedEventArgs args) 
+            where T : VocabularyItem
         {
             // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
             switch (args.Action)
@@ -57,6 +59,13 @@ namespace VocabularyTrainer.UtilityCollection
                 
                 foreach (var item in items)
                 {
+                    var identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(item.ChangedDefinition));
+                    if (identicalItem is not null)
+                    {
+                        collection.Remove(identicalItem);
+                        continue;
+                    }
+                    
                     if (collection.Contains(item))
                         collection.Remove(item);
                     else
