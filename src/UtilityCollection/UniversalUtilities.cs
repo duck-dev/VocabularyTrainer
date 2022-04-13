@@ -75,6 +75,13 @@ namespace VocabularyTrainer.UtilityCollection
             }
         }
 
+        /// <summary>
+        /// Check if an item resolves an unsaved removal of a vocabulary item.
+        /// </summary>
+        /// <param name="item">The new item that could potentially resolve the unsaved removal.</param>
+        /// <param name="collection">The collection that contains unsolved removals and additions.</param>
+        /// <typeparam name="T">Type that implements <see cref="IContentVerification{T}"/></typeparam>
+        /// <returns>Whether the item resolved the unsaved change or not.</returns>
         public static bool CheckUnsavedContent<T>(T item, ICollection<T> collection) where T : IContentVerification<T>
         {
             if (!item.MatchesUnsavedContent(collection, out T? identicalItem)) 
