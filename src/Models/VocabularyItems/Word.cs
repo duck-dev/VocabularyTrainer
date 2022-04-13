@@ -44,7 +44,7 @@ namespace VocabularyTrainer.Models
             foreach (var item in Antonyms)
                 item.ContainerCollection = this.Antonyms;
             
-            SubscribeCollectionsChanged();
+            SubscribeCollectionsChanged(); // Must be called after assigning properties: Synonyms/Antonyms
         }
 
         public ObservableCollection<VocabularyItem> Synonyms { get; } = new();
@@ -118,7 +118,6 @@ namespace VocabularyTrainer.Models
             {
                 // NotifyPropertyChanged(nameof(AntonymsEmpty));
                 Utilities.AddChangedItems(_changedAntonyms, args);
-                
                 if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
                     NotifyDataChanged();
             };

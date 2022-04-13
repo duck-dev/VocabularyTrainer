@@ -60,11 +60,20 @@
                         </WrapPanel>
                     </ItemsPanelTemplate>
                     <DataTemplate x:Key="ThesaurusFieldTemplate">
-                        <TextBox Background="{StaticResource SameAccent}"
-                                 FontSize="16" BorderThickness="1"
-                                 BorderBrush="{StaticResource LightGrey}"
-                                 Width="160" Height="30" Margin="7.5,0"
-                                 Text="{Binding ChangedDefinition}"/>
+                        <Grid>
+                            <TextBox Background="{StaticResource SameAccent}"
+                                     FontSize="16" BorderThickness="1" BorderBrush="{StaticResource LightGrey}"
+                                     Width="160" Height="30" Margin="7.5,0" Padding="5,0,29.25,0"
+                                     Text="{Binding ChangedDefinition}" VerticalContentAlignment="Center"/>
+                            <Button Width="18" Height="18" HorizontalAlignment="Right" Margin="0,0,12.5,0"
+                                    Classes="selectable-button-effect">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Ellipse Fill="Red"/> <!-- Trash icon -->
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
                     </DataTemplate>
                 </Grid.Resources>
                 <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox"
