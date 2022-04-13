@@ -1,0 +1,90 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:openLesson="clr-namespace:VocabularyTrainer.Views.OpenLesson"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VocabularyTrainer.Views.LessonView">
+
+    <UserControl.Styles>
+        <StyleInclude Source="/src/Styles/AddPageStyle.axaml"/>
+        <Style Selector="Button.selectable-word-button:pointerover">
+            <Setter Property="RenderTransform" Value="scale(0.90)"/>
+        </Style>
+        <Style Selector="Button.selectable-word-button:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.85)"/>
+        </Style>
+        
+        <Style Selector="TextBox.editable-text">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="{StaticResource FullyTransparent}"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style Selector="TextBox.editable-text[IsFocused=True]">
+            <Setter Property="Padding" Value="10,0,0,0"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="2*,6*,2*" Margin="0,40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*" Margin="20,0,20,15">
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                <TextBox Grid.Column="0" Grid.Row="0" Classes="editable-text" Text="{Binding CurrentLesson.ChangedName}"
+                         VerticalAlignment="Center" Height="50" FontSize="36" FontWeight="Bold" MaxLength="35"
+                         VerticalContentAlignment="Center"/>
+                <Button Grid.Column="1" Grid.Row="0" Classes="selectable-button-effect add-page-button" Content="Save changes"
+                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
+                        HorizontalAlignment="Right" VerticalAlignment="Center" Margin="30,0,0,0"
+                        Command="{Binding SaveChanges}" IsEnabled="{Binding CurrentLesson.DataChanged}">
+                    <Button.Styles>
+                        <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{StaticResource DarkAppBlue}"/>
+                        </Style>
+                    </Button.Styles>
+                </Button> <!-- TODO: Only enable if there are changes -->
+                <TextBox Grid.Column="0" Grid.Row="1" Classes="editable-text" Margin="0,10,0,0"
+                         Text="{Binding CurrentLesson.ChangedDescription}" TextWrapping="Wrap" FontSize="16" 
+                         Foreground="{StaticResource MainGrey}" HorizontalAlignment="Stretch"
+                         VerticalContentAlignment="Center" MaxLength="150"/>
+            </Grid>
+            <TextBlock Grid.Row="1" Classes="add-page-heading" Margin="0,30,0,0">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Words ({0} {1}):">
+                        <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                        <Binding Path="AdjustableItemsString"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Border Grid.Row="2" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"
+                    Margin="0,10,0,0">
+                <Grid RowDefinitions="*,Auto">
+                    <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl Items="{Binding CurrentLesson.VocabularyItems}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <openLesson:LessonViewWord DataContext="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <Button Grid.Row="1" Classes="selectable-button" HorizontalAlignment="Stretch" Height="70" CornerRadius="10"
+                            Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
+                            Margin="0,10,0,0" Content="Add a new word" FontSize="28" FontWeight="Bold"
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                            Command="{Binding CurrentLesson.AddWord}">
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="{StaticResource MainGrey}"/>
+                                <Setter Property="TextBlock.Foreground" Value="{StaticResource SameAccent}"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

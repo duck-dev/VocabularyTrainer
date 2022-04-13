@@ -26,5 +26,9 @@
         <DependentUpon>AddLessonView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="src\Views\OpenLesson\LessonView.axaml.cs">
+        <DependentUpon>LessonView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

@@ -1,0 +1,117 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:VocabularyTrainer.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VocabularyTrainer.Views.OpenLesson.LessonViewWord">
+
+    <UserControl.DataContext>
+        <models:Word/>
+    </UserControl.DataContext>
+    
+    <UserControl.Styles>
+        <StyleInclude Source="/src/Styles/AddPageStyle.axaml"/>
+        <Style Selector="Button.selectable-word-button:pointerover">
+            <Setter Property="RenderTransform" Value="scale(0.90)"/>
+        </Style>
+        <Style Selector="Button.selectable-word-button:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.85)"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="Auto,*,Auto" MinHeight="80" Margin="0,10,0,15">
+        <Grid Grid.Column="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,30">
+            <!-- Bottom-margin Grid = Bottom-padding of Border below -->
+            <Ellipse Grid.Column="0" Fill="{StaticResource AppBlue}"
+                     Width="18" Height="18" Margin="15,0,-7.5,0"
+                     IsEnabled="False" IsVisible="False" VerticalAlignment="Center"/>
+            <!-- TODO: Only enable Ellipse if something changed -->
+            <TextBlock Grid.Column="1" FontSize="24" Foreground="{StaticResource MainGrey}"
+                       Text="{Binding Index}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="20,0"/>
+        </Grid>
+        <Border Grid.Column="1" Background="{StaticResource SameAccent}"
+                BorderThickness="0,0,0,1" BorderBrush="{StaticResource VeryLightBlue}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Margin="15,0,0,0" Padding="0,0,0,30">
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="1*,2*,1*,1*,2*,1*">
+                <Grid.Resources>
+                    <ItemsPanelTemplate x:Key="ThesaurusContainerTemplate">
+                        <WrapPanel Orientation="Horizontal">
+                            <Button Width="30" Height="30" Margin="7.5,0,0,0"
+                                    Classes="selectable-button-effect">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Panel Width="28" Height="28">
+                                            <Ellipse Fill="{StaticResource FullyTransparent}"
+                                                     Stroke="{StaticResource LightGrey}"
+                                                     StrokeThickness="1.4"/>
+                                            <TextBlock Foreground="{StaticResource LightGrey}"
+                                                       Text="+" FontSize="22" FontWeight="Bold"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                        </Panel>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </WrapPanel>
+                    </ItemsPanelTemplate>
+                    <DataTemplate x:Key="ThesaurusFieldTemplate">
+                        <TextBox Background="{StaticResource SameAccent}"
+                                 FontSize="16" BorderThickness="1"
+                                 BorderBrush="{StaticResource LightGrey}"
+                                 Width="160" Height="30" Margin="7.5,0"
+                                 Text="{Binding ChangedDefinition}"/>
+                    </DataTemplate>
+                </Grid.Resources>
+                <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox"
+                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
+                         Text="{Binding ChangedTerm}" FontWeight="Bold"
+                         Watermark="Term"/>
+                <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox"
+                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
+                         Text="{Binding ChangedDefinition}" FontWeight="Bold"
+                         Watermark="Definition"/>
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
+                      RowDefinitions="Auto,Auto" Margin="0,15,0,0"
+                      IsEnabled="{Binding !SynonymsEmpty}"
+                      IsVisible="{Binding !SynonymsEmpty}">
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0"
+                               FontSize="16" FontWeight="Bold"
+                               Foreground="{StaticResource AppBlue}" Text="Synonyms:"/>
+                    <ItemsControl Grid.Row="1" Items="{Binding Synonyms}"
+                                  ItemsPanel="{StaticResource ThesaurusContainerTemplate}"
+                                  ItemTemplate="{StaticResource ThesaurusFieldTemplate}"
+                                  Margin="10,10,0,0"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6"
+                      RowDefinitions="Auto,Auto" Margin="0,15,0,0"
+                      IsEnabled="{Binding !AntonymsEmpty}"
+                      IsVisible="{Binding !AntonymsEmpty}">
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0"
+                               FontSize="16" FontWeight="Bold"
+                               Foreground="{StaticResource AppBlue}" Text="Antonyms:"/>
+                    <ItemsControl Grid.Row="1" Items="{Binding Antonyms}"
+                                  ItemsPanel="{StaticResource ThesaurusContainerTemplate}"
+                                  ItemTemplate="{StaticResource ThesaurusFieldTemplate}"
+                                  Margin="10,10,0,0"/>
+                </Grid>
+            </Grid>
+        </Border>
+        <Button Grid.Column="2" Classes="selectable-button-effect selectable-word-button"
+                Margin="15,0,15,30" Command="{Binding RemoveCommand}"
+                CommandParameter="{Binding $parent[UserControl;1].DataContext.CurrentLesson}">
+            <!-- Bottom-margin Button = Bottom-padding of Border above -->
+            <Button.Template>
+                <ControlTemplate>
+                    <Panel>
+                        <Ellipse Fill="{StaticResource MainRed}" Width="45" Height="45"/>
+                        <Image Source="/Assets/avalonia-logo.ico" Width="45" Height="45"
+                               RenderTransform="scale(0.6)"/>
+                    </Panel>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</UserControl>

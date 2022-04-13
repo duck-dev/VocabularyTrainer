@@ -38,11 +38,11 @@
                                 <ContentControl Grid.Row="1" HorizontalAlignment="Stretch"
                                                 Content="{Binding Item3}">
                                     <ContentControl.Resources>
-                                        <DataTemplate x:Key="SynonymAntonymItem">
+                                        <DataTemplate x:Key="ThesaurusItem">
                                             <Grid ColumnDefinitions="1*,1*,1*" HorizontalAlignment="Stretch">
                                                 <Border Grid.Column="1" Classes="word-item-panel"
                                                         MinHeight="50" Margin="0,5" CornerRadius="5"
-                                                        Background="{StaticResource MainGrey}">
+                                                        Background="{StaticResource LightGrey}">
                                                     <Grid ColumnDefinitions="*,Auto">
                                                         <TextBox Grid.Column="0" Classes="add-page-textbox word-textbox"
                                                                  Height="40" Watermark="Term" HorizontalAlignment="Stretch"
@@ -62,29 +62,24 @@
                                                 </Border>
                                             </Grid>
                                         </DataTemplate>
+                                        <DataTemplate x:Key="ThesaurusItemContainer">
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Vertical"/>
+                                            </ItemsPanelTemplate>
+                                        </DataTemplate>
                                     </ContentControl.Resources>
                                     <ContentControl.DataTemplates>
                                         <DataTemplate DataType="itemStyleControls:SynonymStyle">
                                             <ItemsControl Items="{Binding Synonyms}"
-                                                          ItemTemplate="{StaticResource SynonymAntonymItem}"
-                                                          DataContext="{Binding ElementRef}">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <StackPanel Orientation="Vertical"/>
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                            </ItemsControl>
+                                                          ItemsPanel="{StaticResource ThesaurusItemContainer}"
+                                                          ItemTemplate="{StaticResource ThesaurusItem}"
+                                                          DataContext="{Binding ElementRef}"/>
                                         </DataTemplate>
                                         <DataTemplate DataType="itemStyleControls:AntonymStyle">
                                             <ItemsControl Items="{Binding Antonyms}"
-                                                          ItemTemplate="{StaticResource SynonymAntonymItem}"
-                                                          DataContext="{Binding ElementRef}">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <StackPanel Orientation="Vertical"/>
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                            </ItemsControl>
+                                                          ItemsPanel="{StaticResource ThesaurusItemContainer}"
+                                                          ItemTemplate="{StaticResource ThesaurusItem}"
+                                                          DataContext="{Binding ElementRef}"/>
                                         </DataTemplate>
                                     </ContentControl.DataTemplates>
                                 </ContentControl>
@@ -96,10 +91,9 @@
                                             <Grid ColumnDefinitions="Auto,Auto">
                                                 <Image Grid.Column="0" Width="20" Height="20"
                                                        Source="/Assets/avalonia-logo.ico"/> <!-- Add icon (+) -->
-                                                <TextBlock Grid.Column="1"
+                                                <TextBlock Grid.Column="1" FontSize="16" Margin="7.5,0,0,0"
                                                            Text="{Binding Item2}"
-                                                           Foreground="{StaticResource MainGrey}"
-                                                           FontSize="16" Margin="7.5,0,0,0"/>
+                                                           Foreground="{StaticResource MainGrey}"/>
                                             </Grid>
                                         </ControlTemplate>
                                     </Button.Template>
