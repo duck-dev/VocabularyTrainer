@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:VocabularyTrainer.Models"
+             xmlns:itemStyleControls="clr-namespace:VocabularyTrainer.Models.ItemStyleControls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.OpenLesson.LessonViewWord">
 
@@ -39,8 +40,9 @@
                 <Grid.Resources>
                     <ItemsPanelTemplate x:Key="ThesaurusContainerTemplate">
                         <WrapPanel Orientation="Horizontal">
-                            <Button Width="30" Height="30" Margin="7.5,0,0,0"
-                                    Classes="selectable-button-effect">
+                            <Button Width="30" Height="30" Margin="7.5,0,0,0" Classes="selectable-button-effect" 
+                                    Command="{Binding AddThesaurusItem}" 
+                                    CommandParameter="{Binding $parent[ContentControl].DataContext.Item3}">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Panel Width="28" Height="28">
@@ -73,30 +75,38 @@
                          HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
                          Text="{Binding ChangedDefinition}" FontWeight="Bold"
                          Watermark="Definition"/>
-                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
-                      RowDefinitions="Auto,Auto" Margin="0,15,0,0"
-                      IsEnabled="{Binding !SynonymsEmpty}"
-                      IsVisible="{Binding !SynonymsEmpty}">
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0"
-                               FontSize="16" FontWeight="Bold"
-                               Foreground="{StaticResource AppBlue}" Text="Synonyms:"/>
-                    <ItemsControl Grid.Row="1" Items="{Binding Synonyms}"
-                                  ItemsPanel="{StaticResource ThesaurusContainerTemplate}"
-                                  ItemTemplate="{StaticResource ThesaurusFieldTemplate}"
-                                  Margin="10,10,0,0"/>
-                </Grid>
-                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6"
-                      RowDefinitions="Auto,Auto" Margin="0,15,0,0"
-                      IsEnabled="{Binding !AntonymsEmpty}"
-                      IsVisible="{Binding !AntonymsEmpty}">
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0"
-                               FontSize="16" FontWeight="Bold"
-                               Foreground="{StaticResource AppBlue}" Text="Antonyms:"/>
-                    <ItemsControl Grid.Row="1" Items="{Binding Antonyms}"
-                                  ItemsPanel="{StaticResource ThesaurusContainerTemplate}"
-                                  ItemTemplate="{StaticResource ThesaurusFieldTemplate}"
-                                  Margin="10,10,0,0"/>
-                </Grid>
+                <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Items="{Binding ThesaurusTitleDefinitions}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowDefinitions="Auto,Auto" Margin="0,15,0,0">
+                                <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0"
+                                           FontSize="16" FontWeight="Bold" Foreground="{StaticResource AppBlue}"
+                                           Text="{Binding Item1}"/>
+                                <ContentControl Grid.Row="1" Content="{Binding Item3}">
+                                    <ContentControl.DataTemplates>
+                                        <DataTemplate DataType="itemStyleControls:SynonymStyle">
+                                            <ItemsControl Items="{Binding Synonyms}" Margin="10,10,0,0"
+                                                          ItemsPanel="{StaticResource ThesaurusContainerTemplate}"
+                                                          ItemTemplate="{StaticResource ThesaurusFieldTemplate}"
+                                                          DataContext="{Binding ElementRef}"/>
+                                        </DataTemplate>
+                                        <DataTemplate DataType="itemStyleControls:AntonymStyle">
+                                            <ItemsControl Items="{Binding Antonyms}" Margin="10,10,0,0"
+                                                          ItemsPanel="{StaticResource ThesaurusContainerTemplate}"
+                                                          ItemTemplate="{StaticResource ThesaurusFieldTemplate}"
+                                                          DataContext="{Binding ElementRef}"/>
+                                        </DataTemplate>
+                                    </ContentControl.DataTemplates>
+                                </ContentControl>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
         </Border>
         <Button Grid.Column="2" Classes="selectable-button-effect selectable-word-button"
