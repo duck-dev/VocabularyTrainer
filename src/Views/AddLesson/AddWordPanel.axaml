@@ -19,9 +19,9 @@
         <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid Grid.Row="0" ColumnDefinitions="1*,3.5*,1*,3.5*,1*" Margin="0,10,0,0">
                 <TextBox Grid.Column="1" Classes="add-page-textbox word-textbox"
-                         Text="{Binding Term}" Watermark="Term"/>
+                         Text="{Binding Term}" Watermark="Term" FontWeight="Bold"/>
                 <TextBox Grid.Column="3" Classes="add-page-textbox word-textbox"
-                         Text="{Binding Definition}" Watermark="Definition"/>
+                         Text="{Binding Definition}" Watermark="Definition" FontWeight="Bold"/>
             </Grid>
             <Panel Grid.Row="1" Margin="0,15">
                 <ItemsControl Items="{Binding ThesaurusTitleDefinitions}">
