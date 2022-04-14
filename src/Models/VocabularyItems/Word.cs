@@ -11,10 +11,11 @@ using ReactiveUI;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
 using VocabularyTrainer.UtilityCollection;
+#pragma warning disable CS0659
 
 namespace VocabularyTrainer.Models
 {
-    public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable, IContentVerification<Word>
+    public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable, IContentVerification<Word>, IEquatable<Word>
     {
         private int _index;
         private readonly List<VocabularyItem> _changedSynonyms = new();
@@ -108,14 +109,14 @@ namespace VocabularyTrainer.Models
                 antonym.EqualizeChangedData();
         }
 
-        // internal void DebugUnsavedChanges()
-        // {
-        //     Utilities.Log($"• Word ({this.ChangedTerm} - {this.ChangedDefinition}):\n      ----------------------------");
-        //     foreach (var x in this._changedSynonyms)
-        //         Utilities.Log($"      -S: {x.ChangedDefinition} ({x.Definition})");
-        //     foreach(var y in this._changedAntonyms)
-        //         Utilities.Log($"      -A: {y.ChangedDefinition} ({y.Definition})");
-        // }
+        public bool Equals(Word? other)
+        {
+            return other is not null && other.ChangedTerm.Equals(this.ChangedTerm) && other.Term.Equals(this.Term) 
+                   && other.ChangedDefinition.Equals(this.ChangedDefinition) && other.Definition.Equals(this.Definition) 
+                   && other.Synonyms.SequenceEqual(this.Synonyms) && other.Antonyms.SequenceEqual(this.Antonyms);
+        }
+
+        public override bool Equals(object? obj) => Equals(obj as Word);
 
         protected internal override void SaveChanges()
         {
@@ -167,5 +168,14 @@ namespace VocabularyTrainer.Models
             var lesson = DataManager.Lessons.FirstOrDefault(x => x.VocabularyItems.Contains(this));
             lesson?.NotifyPropertyChanged(nameof(lesson.DataChanged));
         }
+        
+        // internal void DebugUnsavedChanges()
+        // {
+        //     Utilities.Log($"• Word ({this.ChangedTerm} - {this.ChangedDefinition}):\n----------------------------");
+        //     foreach (var x in this.Synonyms)
+        //         Utilities.Log($"      -S: {x.ChangedDefinition} ({x.Definition})");
+        //     foreach(var y in this.Antonyms)
+        //         Utilities.Log($"      -A: {y.ChangedDefinition} ({y.Definition})");
+        // }
     }
 }

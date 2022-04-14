@@ -43,6 +43,8 @@ namespace VocabularyTrainer.Models
                     SubscribeVocabularyChanges(antonym);
             }
         }
+
+        public static bool CheckUnsavedEnabled { get; set; } = true;
         
         public string Name
         {
@@ -80,10 +82,14 @@ namespace VocabularyTrainer.Models
         {
             get
             {
-                foreach (var item in VocabularyItems)
+                // ReSharper disable once InvertIf
+                if (CheckUnsavedEnabled)
                 {
-                    Utilities.CheckUnsavedContent(item, _changedWords);
-                    item.CheckUnsavedContent();
+                    foreach (var item in VocabularyItems)
+                    {
+                        Utilities.CheckUnsavedContent(item, _changedWords);
+                        item.CheckUnsavedContent();
+                    }
                 }
 
                 return !ChangedName.Equals(Name) 
@@ -95,16 +101,6 @@ namespace VocabularyTrainer.Models
         
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        // internal void DebugUnsavedChanges()
-        // {
-        //     Utilities.Log("Lesson:\n-------");
-        //     foreach(var x in _changedWords)
-        //         Utilities.Log($"      • {x.ChangedTerm} ({x.Term}) ---- {x.ChangedDefinition} ({x.Definition})");
-        //     Utilities.Log(" ");
-        //     foreach (var y in VocabularyItems)
-        //         y.DebugUnsavedChanges();
-        // }
 
         internal void SaveChanges()
         {
@@ -125,5 +121,15 @@ namespace VocabularyTrainer.Models
 
         private void SubscribeVocabularyChanges(VocabularyItem item)
             => item.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
+        
+        // internal void DebugUnsavedChanges()
+        // {
+        //     Utilities.Log("Lesson:\n-------");
+        //     foreach(var x in _changedWords)
+        //         Utilities.Log($"      • {x.ChangedTerm} ({x.Term}) ---- {x.ChangedDefinition} ({x.Definition})");
+        //     Utilities.Log(" ");
+        //     foreach (var y in VocabularyItems)
+        //         y.DebugUnsavedChanges();
+        // }
     }
 }

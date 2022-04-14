@@ -88,10 +88,14 @@ namespace VocabularyTrainer.UtilityCollection
             if (!item.MatchesUnsavedContent(collection, out T? identicalItem)) 
                 return false;
             
+            Lesson.CheckUnsavedEnabled = false; // Avoid StackOverflow by disabling check in `DataChanged` get-accessor
+            item.EqualizeChangedData();
+            identicalItem?.EqualizeChangedData();
+            Lesson.CheckUnsavedEnabled = true; // Back to normal
+
             collection.Remove(identicalItem!);
             collection.Remove(item);
-            item.EqualizeChangedData();
-            
+
             return true;
         }
     }
