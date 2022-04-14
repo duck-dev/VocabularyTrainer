@@ -62,22 +62,20 @@
                                                 </Border>
                                             </Grid>
                                         </DataTemplate>
-                                        <DataTemplate x:Key="ThesaurusItemContainer">
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Vertical"/>
-                                            </ItemsPanelTemplate>
-                                        </DataTemplate>
+                                        <ItemsPanelTemplate x:Key="ThesaurusItemContainer">
+                                            <StackPanel Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
                                     </ContentControl.Resources>
                                     <ContentControl.DataTemplates>
                                         <DataTemplate DataType="itemStyleControls:SynonymStyle">
                                             <ItemsControl Items="{Binding Synonyms}"
-                                                          ItemsPanel="{StaticResource ThesaurusItemContainer}"
+                                                          ItemsPanel="{DynamicResource ThesaurusItemContainer}"
                                                           ItemTemplate="{StaticResource ThesaurusItem}"
                                                           DataContext="{Binding ElementRef}"/>
                                         </DataTemplate>
                                         <DataTemplate DataType="itemStyleControls:AntonymStyle">
                                             <ItemsControl Items="{Binding Antonyms}"
-                                                          ItemsPanel="{StaticResource ThesaurusItemContainer}"
+                                                          ItemsPanel="{DynamicResource ThesaurusItemContainer}"
                                                           ItemTemplate="{StaticResource ThesaurusItem}"
                                                           DataContext="{Binding ElementRef}"/>
                                         </DataTemplate>
