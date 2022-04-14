@@ -20,6 +20,10 @@
             <Setter Property="Background" Value="{StaticResource FullyTransparent}"/>
             <Setter Property="Padding" Value="0"/>
         </Style>
+        <Style Selector="TextBox.editable-text:pointerover">
+            <Setter Property="BorderThickness" Value="0,0,0,1.5"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AppBlue}"/>
+        </Style>
         <Style Selector="TextBox.editable-text[IsFocused=True]">
             <Setter Property="Padding" Value="10,0,0,0"/>
         </Style>
