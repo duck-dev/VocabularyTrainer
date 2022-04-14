@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive;
 using System.Text.Json.Serialization;
@@ -43,16 +44,21 @@ namespace VocabularyTrainer.Models
                 InvokeNotifyChanged();
             }
         }
-        
+
+        protected internal NotifyCollectionChangedAction ChangedAction { get; set; } = NotifyCollectionChangedAction.Reset;
+
         internal IList? ContainerCollection { get; set; }
-        
+
         protected ReactiveCommand<ICollection<VocabularyItem>, Unit> RemoveCommandCollection { get; }
 
         public bool MatchesUnsavedContent(IEnumerable<VocabularyItem> collection, out VocabularyItem? identicalItem)
         {
-            identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(this.ChangedDefinition));
+            identicalItem = collection.FirstOrDefault(x => x.ChangedAction == NotifyCollectionChangedAction.Remove && 
+                                                           x.ChangedDefinition.Equals(this.ChangedDefinition));
             return identicalItem is not null && !ReferenceEquals(identicalItem, this);
         }
+
+        public virtual void EqualizeChangedData() => this.Definition = this.ChangedDefinition;
 
         public bool Equals(VocabularyItem? other)
             => other is not null && other.ChangedDefinition.Equals(this.ChangedDefinition);

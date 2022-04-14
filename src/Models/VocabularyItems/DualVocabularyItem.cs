@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using VocabularyTrainer.Interfaces;
 
@@ -30,9 +31,16 @@ namespace VocabularyTrainer.Models
 
         public bool MatchesUnsavedContent(IEnumerable<DualVocabularyItem> collection, out DualVocabularyItem? identicalItem)
         {
-            identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(this.ChangedDefinition)
-                                                               && x.ChangedTerm.Equals(this.ChangedTerm));
+            identicalItem = collection.FirstOrDefault(x => x.ChangedAction == NotifyCollectionChangedAction.Remove
+                                                            && x.ChangedDefinition.Equals(this.ChangedDefinition)
+                                                            && x.ChangedTerm.Equals(this.ChangedTerm));
             return identicalItem is not null && !ReferenceEquals(identicalItem, this);
+        }
+
+        public override void EqualizeChangedData()
+        {
+            base.EqualizeChangedData();
+            this.Term = this.ChangedTerm;
         }
 
         protected internal override void SaveChanges()

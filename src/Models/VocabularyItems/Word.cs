@@ -88,12 +88,34 @@ namespace VocabularyTrainer.Models
 
         public bool MatchesUnsavedContent(IEnumerable<Word> collection, out Word? identicalItem)
         {
-            identicalItem = collection.FirstOrDefault(x => x.ChangedDefinition.Equals(this.ChangedDefinition)
+            identicalItem = collection.FirstOrDefault(x => x.ChangedAction == NotifyCollectionChangedAction.Remove
+                                                           && x.ChangedDefinition.Equals(this.ChangedDefinition)
                                                            && x.ChangedTerm.Equals(this.ChangedTerm)
                                                            && x.Synonyms.SequenceEqual(this.Synonyms)
                                                            && x.Antonyms.SequenceEqual(this.Antonyms));
             return identicalItem is not null && !ReferenceEquals(identicalItem, this);
         }
+
+        public override void EqualizeChangedData()
+        {
+            base.EqualizeChangedData();
+            
+            _changedSynonyms.Clear();
+            _changedAntonyms.Clear();
+            foreach (var synonym in this.Synonyms)
+                synonym.EqualizeChangedData();
+            foreach (var antonym in this.Antonyms)
+                antonym.EqualizeChangedData();
+        }
+
+        // internal void DebugUnsavedChanges()
+        // {
+        //     Utilities.Log($"• Word ({this.ChangedTerm} - {this.ChangedDefinition}):\n      ----------------------------");
+        //     foreach (var x in this._changedSynonyms)
+        //         Utilities.Log($"      -S: {x.ChangedDefinition} ({x.Definition})");
+        //     foreach(var y in this._changedAntonyms)
+        //         Utilities.Log($"      -A: {y.ChangedDefinition} ({y.Definition})");
+        // }
 
         protected internal override void SaveChanges()
         {

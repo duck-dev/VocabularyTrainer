@@ -19,5 +19,11 @@ namespace VocabularyTrainer.ViewModels
             CurrentLesson.SaveChanges();
             DataManager.SaveData();
         }
+
+        // private void DebugUnsavedChanges()
+        // {
+        //     UtilityCollection.Utilities.Log("--------------------------------------------------------------------");
+        //     CurrentLesson.DebugUnsavedChanges();
+        // }
     }
 }

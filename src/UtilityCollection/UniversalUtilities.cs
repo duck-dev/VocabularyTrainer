@@ -63,6 +63,7 @@ namespace VocabularyTrainer.UtilityCollection
                 
                 foreach (var item in items)
                 {
+                    item.ChangedAction = args.Action;
                     NotifyItemAdded?.Invoke(item);
                     if (CheckUnsavedContent(item, collection))
                         continue;
@@ -86,7 +87,11 @@ namespace VocabularyTrainer.UtilityCollection
         {
             if (!item.MatchesUnsavedContent(collection, out T? identicalItem)) 
                 return false;
+            
             collection.Remove(identicalItem!);
+            collection.Remove(item);
+            item.EqualizeChangedData();
+            
             return true;
         }
     }
