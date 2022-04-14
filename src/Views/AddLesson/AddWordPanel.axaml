@@ -39,27 +39,23 @@
                                                 Content="{Binding Item3}">
                                     <ContentControl.Resources>
                                         <DataTemplate x:Key="ThesaurusItem">
-                                            <Grid ColumnDefinitions="1*,1*,1*" HorizontalAlignment="Stretch">
-                                                <Border Grid.Column="1" Classes="word-item-panel"
-                                                        MinHeight="50" Margin="0,5" CornerRadius="5"
-                                                        Background="{StaticResource LightGrey}">
-                                                    <Grid ColumnDefinitions="*,Auto">
-                                                        <TextBox Grid.Column="0" Classes="add-page-textbox word-textbox"
-                                                                 Height="40" Watermark="Term" HorizontalAlignment="Stretch"
-                                                                 Margin="10,0"
-                                                                 Text="{Binding Definition}"/>
-                                                        <Button Grid.Column="1" Classes="selectable-button" Width="40" Height="40"
-                                                                Command="{Binding Remove}"
-                                                                Margin="10,0">
-                                                            <Button.Template>
-                                                                <ControlTemplate>
-                                                                    <Image Source="/Assets/avalonia-logo.ico"
-                                                                           Width="40" Height="40"/> <!-- Trash icon -->
-                                                                </ControlTemplate>
-                                                            </Button.Template>
-                                                        </Button>
-                                                    </Grid>
-                                                </Border>
+                                            <Grid ColumnDefinitions="1*,1*,1*" HorizontalAlignment="Stretch" Margin="0,5">
+                                                <Grid Grid.Column="1" ColumnDefinitions="*, Auto">
+                                                    <TextBox Grid.Column="0" Classes="add-page-textbox word-textbox"
+                                                             Height="40" Watermark="Term" HorizontalAlignment="Stretch"
+                                                             Margin="10,0" BorderThickness="0,0,0,3"
+                                                             BorderBrush="{StaticResource DarkAppBlue}"
+                                                             Text="{Binding Definition}"/>
+                                                    <Button Grid.Column="1" Classes="selectable-button" Margin="5,0,0,0"
+                                                            Command="{Binding Remove}">
+                                                        <Button.Template>
+                                                            <ControlTemplate>
+                                                                <Image Source="/Assets/avalonia-logo.ico"
+                                                                       Width="35" Height="35"/> <!-- Trash icon -->
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+                                                </Grid>
                                             </Grid>
                                         </DataTemplate>
                                         <ItemsPanelTemplate x:Key="ThesaurusItemContainer">
