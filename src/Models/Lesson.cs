@@ -113,6 +113,14 @@ namespace VocabularyTrainer.Models
             NotifyPropertyChanged(nameof(DataChanged));
         }
 
+        internal void DiscardChanges()
+        {
+            this.ChangedName = this.Name;
+            this.ChangedDescription = this.Description;
+            foreach(var word in VocabularyItems)
+                word.EqualizeChangedData();
+        }
+
         private void AddWord()
         {
             var word = new Word();

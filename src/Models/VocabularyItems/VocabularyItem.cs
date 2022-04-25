@@ -58,7 +58,7 @@ namespace VocabularyTrainer.Models
             return identicalItem is not null && !ReferenceEquals(identicalItem, this);
         }
 
-        public virtual void EqualizeChangedData() => this.Definition = this.ChangedDefinition;
+        public virtual void EqualizeChangedData() => this.ChangedDefinition = this.Definition;
 
         public bool Equals(VocabularyItem? other)
             => other is not null && other.ChangedDefinition.Equals(this.ChangedDefinition);
