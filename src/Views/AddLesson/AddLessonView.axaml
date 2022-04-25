@@ -22,7 +22,8 @@
             <Grid ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right">
                 <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" 
                         Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}" 
-                        Margin="0,0,20,0" Content="Cancel" Command="{Binding MainWindowRef.ReturnHome}">
+                        Margin="0,0,20,0" Content="Cancel" Command="{Binding MainWindowRef.ReturnHome}"
+                        CommandParameter="False">
                     <Button.Styles>
                         <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="{StaticResource VariantMainGrey}"/>
