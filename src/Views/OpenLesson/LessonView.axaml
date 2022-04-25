@@ -37,7 +37,7 @@
                 <TextBox Grid.Column="0" Grid.Row="0" Classes="editable-text" Text="{Binding CurrentLesson.ChangedName}"
                          VerticalAlignment="Center" Height="50" FontSize="36" FontWeight="Bold" MaxLength="35"
                          VerticalContentAlignment="Center"/>
-                <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="Auto,Auto">
+                <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="30,0,0,0">
                     <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Content="Cancel"
                             Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
                             Command="{Binding DiscardChanges}" Margin="0,0,15,0">
