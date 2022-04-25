@@ -40,7 +40,7 @@
                 <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="Auto,Auto">
                     <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Content="Cancel"
                             Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
-                            Margin="0,0,15,0">
+                            Command="{Binding DiscardChanges}" Margin="0,0,15,0">
                         <Button.Styles>
                             <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
                                 <Setter Property="Background" Value="{StaticResource VariantMainGrey}"/>

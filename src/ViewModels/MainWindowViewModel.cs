@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.ViewModels
@@ -21,10 +22,17 @@ namespace VocabularyTrainer.ViewModels
 
         private LessonListViewModel NewLessonList => new(DataManager.Lessons, this);
 
-        internal void ReturnHome()
+        internal void ReturnHome(bool discardChanges = true)
         {
-            if (_content is LessonListViewModel)
-                return;
+            switch (_content)
+            {
+                case LessonListViewModel:
+                    return;
+                case IDiscardableChanges discardable when discardChanges:
+                    discardable.DiscardChanges();
+                    break;
+            }
+
             this.Content = NewLessonList;
         }
     }
