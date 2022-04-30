@@ -23,7 +23,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Classes="selectable-button-effect" Command="{Binding ClickCommand}" 
-                            Margin="0,7.5" PointerEnter="OnPointerEnter" PointerLeave="OnPointerLeave">
+                            Margin="0,7.5">
                         <Button.Template>
                             <ControlTemplate>
                                 <Grid RowDefinitions="Auto,Auto">
@@ -36,7 +36,7 @@
                                     </Grid>
                                     <TextBlock Grid.Row="1" FontSize="14" Foreground="{StaticResource MainGrey}" 
                                                Text="{Binding Description}" TextWrapping="Wrap"
-                                               IsVisible="{Binding DescriptionEnabled}"
+                                               IsVisible="{Binding $parent[Button].IsPointerOver}"
                                                MaxWidth="{Binding $parent[ItemsControl].Bounds.Width}"
                                                Margin="0,5,0,0"/>
                                 </Grid>
