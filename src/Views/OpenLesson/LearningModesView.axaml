@@ -10,38 +10,40 @@
         <viewModels:LearningModesViewModel/>
     </UserControl.DataContext>
 
-    <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Center">
+    <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" Margin="30,0">
         <TextBlock Grid.Row="0" FontSize="24" Foreground="{StaticResource MainGrey}" Text="Learn"
                    FontWeight="Light"/>
-        <ItemsControl Grid.Row="1" Items="{Binding LearningModes}" HorizontalAlignment="Center"
-                      BorderBrush="{StaticResource MainGrey}" BorderThickness="0,1,0,0" Padding="0,7.5,0,0">
+        <ItemsControl Grid.Row="1" Items="{Binding LearningModes}" HorizontalAlignment="Stretch"
+                      BorderBrush="{StaticResource MainGrey}" BorderThickness="0,1,0,0" 
+                      Padding="0,7.5,0,0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Classes="selectable-button-effect" Command="{Binding ClickCommand}" 
-                            Margin="0,7.5">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Grid RowDefinitions="Auto,Auto">
-                                    <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto">
-                                        <Image Grid.Column="0" Width="26" Height="26"
-                                               Source="{Binding ModeIcon}"/>
-                                        <TextBlock Grid.Column="1" Foreground="{StaticResource AppBlue}" 
-                                                   FontSize="24" FontWeight="Bold" Margin="15,0,0,0" 
-                                                   Text="{Binding Name}"/>
-                                    </Grid>
-                                    <TextBlock Grid.Row="1" FontSize="14" Foreground="{StaticResource MainGrey}" 
-                                               Text="{Binding Description}" TextWrapping="Wrap"
-                                               IsVisible="{Binding $parent[Button].IsPointerOver}"
-                                               MaxWidth="{Binding $parent[ItemsControl].Bounds.Width}"
-                                               Margin="0,5,0,0"/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Button.Template>
+                            Margin="0,5" Background="{StaticResource FullyTransparent}" Padding="4"
+                            CornerRadius="5" HorizontalAlignment="Stretch">
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="{StaticResource VeryLightGrey}"/>
+                            </Style>
+                        </Button.Styles>
+                        <Grid RowDefinitions="Auto,Auto">
+                            <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto">
+                                <Image Grid.Column="0" Width="26" Height="26"
+                                       Source="{Binding ModeIcon}"/>
+                                <TextBlock Grid.Column="1" Foreground="{StaticResource AppBlue}" 
+                                           FontSize="24" FontWeight="Bold" Margin="15,0,0,5" 
+                                           Text="{Binding Name}"/>
+                            </Grid>
+                            <TextBlock Grid.Row="1" FontSize="14" Foreground="{StaticResource MainGrey}" 
+                                       Text="{Binding Description}" TextWrapping="Wrap" TextTrimming="WordEllipsis"
+                                       IsVisible="{Binding $parent[Button].IsPointerOver}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
