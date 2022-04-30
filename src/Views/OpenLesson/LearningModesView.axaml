@@ -2,7 +2,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:VocabularyTrainer.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.OpenLesson.LearningModesView">
-    
+
+    <UserControl.DataContext>
+        <viewModels:LearningModesViewModel/>
+    </UserControl.DataContext>
+
+    <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Center">
+        <TextBlock Grid.Row="0" FontSize="24" Foreground="{StaticResource MainGrey}" Text="Learn"
+                   FontWeight="Light"/>
+        <ItemsControl Grid.Row="1" Items="{Binding LearningModes}" HorizontalAlignment="Center"
+                      BorderBrush="{StaticResource MainGrey}" BorderThickness="0,1,0,0" Padding="0,7.5,0,0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Command="{Binding get_Item3}" Margin="0,7.5">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid ColumnDefinitions="Auto,Auto">
+                                    <Image Grid.Column="0" Source="{Binding Item1}"
+                                           Width="26" Height="26"/>
+                                    <TextBlock Grid.Column="1" Foreground="{StaticResource AppBlue}" FontSize="24"
+                                               FontWeight="Bold"
+                                               Margin="15,0,0,0" Text="{Binding Item2}">
+                                    </TextBlock>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 </UserControl>
