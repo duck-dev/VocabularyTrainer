@@ -22,16 +22,20 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Command="{Binding get_Item3}" Margin="0,7.5">
+                    <Button Classes="selectable-button-effect" Command="{Binding ClickCommand}" 
+                            Margin="0,7.5">
                         <Button.Template>
                             <ControlTemplate>
-                                <Grid ColumnDefinitions="Auto,Auto">
-                                    <Image Grid.Column="0" Source="{Binding Item1}"
-                                           Width="26" Height="26"/>
-                                    <TextBlock Grid.Column="1" Foreground="{StaticResource AppBlue}" FontSize="24"
-                                               FontWeight="Bold"
-                                               Margin="15,0,0,0" Text="{Binding Item2}">
-                                    </TextBlock>
+                                <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
+                                    <Image Grid.Column="0" Grid.Row="0" Width="26" Height="26"
+                                           Source="{Binding ModeIcon}"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Foreground="{StaticResource AppBlue}" 
+                                               FontSize="24" FontWeight="Bold" Margin="15,0,0,0" 
+                                               Text="{Binding Name}"/>
+                                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" 
+                                               FontSize="14" Foreground="{StaticResource MainGrey}" FontWeight="Light" 
+                                               Text="{Binding Description}" 
+                                               IsVisible="{Binding DescriptionEnabled}"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>

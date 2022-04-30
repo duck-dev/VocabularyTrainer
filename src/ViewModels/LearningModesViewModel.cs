@@ -1,43 +1,23 @@
-using System;
-using System.IO;
-using System.Reactive;
-using Avalonia;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
-using ReactiveUI;
+using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.ViewModels
 {
     public sealed class LearningModesViewModel : ViewModelBase
     {
-        private static readonly string _assetsPath =
-            Path.Combine(("avares:" + Path.DirectorySeparatorChar + Path.DirectorySeparatorChar + "VocabularyTrainer"), "Assets");
-
-        private Tuple<Bitmap, string, ReactiveCommand<Unit,Unit>>[] LearningModes { get; } =
+        private LearningModeItem[] LearningModes { get; } =
         {
-            new (CreateImage("avalonia-logo.ico"), "Flashcards", 
-                ReactiveCommand.Create(() => UtilityCollection.Utilities.Log("Flashcards"))),
-            new (CreateImage("avalonia-logo.ico"), "Write", 
-                ReactiveCommand.Create(() => UtilityCollection.Utilities.Log("Write"))),
-            new (CreateImage("avalonia-logo.ico"), "Multiple Choice", 
-                ReactiveCommand.Create(() => UtilityCollection.Utilities.Log("Multiple Choice"))),
-            new (CreateImage("avalonia-logo.ico"), "Synonyms and Antonyms", 
-                ReactiveCommand.Create(() => UtilityCollection.Utilities.Log("Synonyms and Antonyms"))),
-            new (CreateImage("avalonia-logo.ico"), "Vocabulary list", 
-                ReactiveCommand.Create(() => UtilityCollection.Utilities.Log("Vocabulary list"))),
+            new ("avalonia-logo.ico", "Flashcards", "Memorize vocabulary super fast by flipping flashcards.",
+                () => UtilityCollection.Utilities.Log("Flashcards")),
+            new ("avalonia-logo.ico", "Write", 
+                "The best solution to learn the exact spelling of a word and it's quite similar to an exam too.",
+                () => UtilityCollection.Utilities.Log("Write")),
+            new ("avalonia-logo.ico", "Multiple Choice", "Choose from 4 options and pick the correct answer.",
+                () => UtilityCollection.Utilities.Log("Multiple Choice")),
+            new ("avalonia-logo.ico", "Synonyms and Antonyms", "Focus on learning synonyms and antonyms only.",
+                () => UtilityCollection.Utilities.Log("Synonyms and Antonyms")),
+            new ("avalonia-logo.ico", "Vocabulary list", 
+                "Do you prefer just looking at a list of words with their term and definition? Then this is your choice.",
+                () => UtilityCollection.Utilities.Log("Vocabulary list")),
         };
-
-        private static Bitmap CreateImage(string fileName)
-        {
-            string path = Path.Combine(_assetsPath, fileName);
-            var uri = new Uri(path);
-            
-            var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            var asset = assets?.Open(uri);
-            
-            if (asset is null)
-                throw new InvalidDataException("The asset doesn't exist!");
-            return new Bitmap(asset);
-        }
     }
 }
