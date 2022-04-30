@@ -23,19 +23,22 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Classes="selectable-button-effect" Command="{Binding ClickCommand}" 
-                            Margin="0,7.5">
+                            Margin="0,7.5" PointerEnter="OnPointerEnter" PointerLeave="OnPointerLeave">
                         <Button.Template>
                             <ControlTemplate>
-                                <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
-                                    <Image Grid.Column="0" Grid.Row="0" Width="26" Height="26"
-                                           Source="{Binding ModeIcon}"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Foreground="{StaticResource AppBlue}" 
-                                               FontSize="24" FontWeight="Bold" Margin="15,0,0,0" 
-                                               Text="{Binding Name}"/>
-                                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" 
-                                               FontSize="14" Foreground="{StaticResource MainGrey}" FontWeight="Light" 
-                                               Text="{Binding Description}" 
-                                               IsVisible="{Binding DescriptionEnabled}"/>
+                                <Grid RowDefinitions="Auto,Auto">
+                                    <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto">
+                                        <Image Grid.Column="0" Width="26" Height="26"
+                                               Source="{Binding ModeIcon}"/>
+                                        <TextBlock Grid.Column="1" Foreground="{StaticResource AppBlue}" 
+                                                   FontSize="24" FontWeight="Bold" Margin="15,0,0,0" 
+                                                   Text="{Binding Name}"/>
+                                    </Grid>
+                                    <TextBlock Grid.Row="1" FontSize="14" Foreground="{StaticResource MainGrey}" 
+                                               Text="{Binding Description}" TextWrapping="Wrap"
+                                               IsVisible="{Binding DescriptionEnabled}"
+                                               MaxWidth="{Binding $parent[ItemsControl].Bounds.Width}"
+                                               Margin="0,5,0,0"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
