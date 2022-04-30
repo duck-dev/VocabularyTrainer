@@ -34,10 +34,10 @@
                         <Grid RowDefinitions="Auto,Auto">
                             <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto">
                                 <Image Grid.Column="0" Width="26" Height="26"
-                                       Source="{Binding ModeIcon}"/>
+                                       Source="{Binding ModeIcon}" VerticalAlignment="Center"/>
                                 <TextBlock Grid.Column="1" Foreground="{StaticResource AppBlue}" 
                                            FontSize="24" FontWeight="Bold" Margin="15,0,0,5" 
-                                           Text="{Binding Name}"/>
+                                           Text="{Binding Name}" VerticalAlignment="Center"/>
                             </Grid>
                             <TextBlock Grid.Row="1" FontSize="14" Foreground="{StaticResource MainGrey}" 
                                        Text="{Binding Description}" TextWrapping="Wrap" TextTrimming="WordEllipsis"
