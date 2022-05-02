@@ -1,4 +1,3 @@
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.ViewModels.LearningModes;
 
