@@ -1,11 +1,11 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace VocabularyTrainer.Views.OpenLesson
+namespace VocabularyTrainer.Views.LearningModes
 {
-    public class LessonViewWord : UserControl
+    public partial class FlashcardsView : UserControl
     {
-        public LessonViewWord()
+        public FlashcardsView()
         {
             InitializeComponent();
         }
