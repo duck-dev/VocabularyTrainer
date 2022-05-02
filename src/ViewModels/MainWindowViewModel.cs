@@ -10,9 +10,12 @@ namespace VocabularyTrainer.ViewModels
 
         public MainWindowViewModel()
         {
+            Instance = this;
             DataManager.LoadData();
             _content = Content = NewLessonList;
         } 
+        
+        internal static MainWindowViewModel? Instance { get; private set; }
 
         internal ViewModelBase Content
         {
