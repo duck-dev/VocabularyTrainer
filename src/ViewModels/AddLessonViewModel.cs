@@ -10,11 +10,11 @@ namespace VocabularyTrainer.ViewModels
         public AddLessonViewModel() 
             => VocabularyItems.CalculateIndexReactive(this, false, nameof(AdjustableItemsString));
 
+        public ObservableCollection<Word> VocabularyItems { get; } = new() { new Word() };
         internal MainWindowViewModel? MainWindowRef { get; init; }
         
         private string CurrentName { get; set; } = string.Empty;
         private string CurrentDescription { get; set; } = string.Empty;
-        public ObservableCollection<Word> VocabularyItems { get; } = new() { new Word() };
         private string AdjustableItemsString => VocabularyItems.Count == 1 ? "item" : "items";
 
         private void AddWord()
