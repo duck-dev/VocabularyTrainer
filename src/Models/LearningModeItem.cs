@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Reactive;
 using Avalonia;
 using Avalonia.Media.Imaging;
@@ -22,22 +21,20 @@ namespace VocabularyTrainer.Models
             this.ClickCommand = ReactiveCommand.Create(clickAction);
         }
         
-        internal Bitmap ModeIcon { get; }
+        internal Bitmap? ModeIcon { get; }
         internal string Name { get; }
         internal string Description { get; }
         internal ReactiveCommand<Unit,Unit> ClickCommand { get; }
 
-        private static Bitmap CreateImage(string fileName)
+        private static Bitmap? CreateImage(string fileName)
         {
             string path = Path.Combine(_assetsPath, fileName);
             var uri = new Uri(path);
             
             var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
             var asset = assets?.Open(uri);
-            
-            if (asset is null)
-                throw new InvalidDataException("The asset doesn't exist!");
-            return new Bitmap(asset);
+
+            return asset is null ? null : new Bitmap(asset);
         }
     }
 }
