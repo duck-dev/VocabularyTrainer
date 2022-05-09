@@ -59,6 +59,15 @@
         </Border>
         <Panel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="1*,4*,1*">
+                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Foreground="{StaticResource MainGrey}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="\{0\}/\{1\}">
+                            <Binding Path="WordIndexCorrected"/>
+                            <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
                 <Button Grid.Column="0" Grid.Row="1" Classes="selectable-button-effect" Margin="15,0"
                         Command="{Binding PreviousWord}">
                     <Button.Template>

@@ -17,7 +17,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 #pragma warning restore CS8618
         {
             _wordsList = lesson.VocabularyItems.ToArray();
-            NextWord();
+            this.CurrentWord = _wordsList[_wordIndex];
         }
 
         private Word CurrentWord
@@ -26,21 +26,26 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             set => this.RaiseAndSetIfChanged(ref _currentWord, value);
         }
 
+        private int WordIndexCorrected => _wordIndex + 1;
+
         private void PreviousWord()
         {
+            _wordIndex--;
             if (_wordIndex < 0 || _wordIndex >= _wordsList.Length)
                 _wordIndex = _wordsList.Length - 1;
 
-            this.CurrentWord = _wordsList[_wordIndex--];
-            UtilityCollection.Utilities.Log($"{this.CurrentWord.Term}/{this.CurrentWord.Definition}");
+            this.CurrentWord = _wordsList[_wordIndex];
+            this.RaisePropertyChanged(nameof(WordIndexCorrected));
         }
 
         private void NextWord()
         {
-            if (_wordIndex >= _wordsList.Length)
+            _wordIndex++;
+            if (_wordIndex >= _wordsList.Length || _wordIndex < 0)
                 _wordIndex = 0;
 
-            this.CurrentWord = _wordsList[_wordIndex++];
+            this.CurrentWord = _wordsList[_wordIndex];
+            this.RaisePropertyChanged(nameof(WordIndexCorrected));
         }
 
         private void ShuffleWords()
@@ -50,6 +55,8 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             
             _wordIndex = 0;
             this.CurrentWord = _wordsList[0];
+            
+            this.RaisePropertyChanged(nameof(WordIndexCorrected));
         }
     }
 }
