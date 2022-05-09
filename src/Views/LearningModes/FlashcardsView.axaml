@@ -60,7 +60,7 @@
         <Panel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="1*,4*,1*">
                 <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                           Foreground="{StaticResource MainGrey}">
+                           Foreground="{StaticResource MainGrey}" FontSize="24">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="\{0\}/\{1\}">
                             <Binding Path="WordIndexCorrected"/>
