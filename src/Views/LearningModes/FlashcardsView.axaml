@@ -28,18 +28,33 @@
                         </TextBlock.Text>
                     </TextBlock>
                 </Grid>
-                <Button Grid.Row="2" Classes="selectable-button-effect" Margin="30,0,30,30">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Grid ColumnDefinitions="Auto,Auto">
-                                <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="34" Height="34" 
-                                       Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                <TextBlock Grid.Column="1" FontSize="36" Foreground="{StaticResource MainRed}"
-                                           FontWeight="Bold" Text="Back to lesson" VerticalAlignment="Center"/>
-                            </Grid>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                <Grid Grid.Row="2" RowDefinitions="Auto,Auto" Margin="30,0,30,30">
+                    <Button Grid.Row="0" Classes="selectable-button-effect" Margin="0,0,0,30"
+                            Command="{Binding ShuffleWords}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid ColumnDefinitions="Auto,Auto">
+                                    <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="34" Height="34" 
+                                           Margin="0,0,15,0" VerticalAlignment="Center"/> <!-- Shuffle image green -->
+                                    <TextBlock Grid.Column="1" FontSize="36" Foreground="{StaticResource MainGreen}"
+                                               FontWeight="Bold" Text="Shuffle words" VerticalAlignment="Center"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Grid.Row="1" Classes="selectable-button-effect">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid ColumnDefinitions="Auto,Auto">
+                                    <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="34" Height="34" 
+                                           Margin="0,0,15,0" VerticalAlignment="Center"/> <!-- Back-Button image red -->
+                                    <TextBlock Grid.Column="1" FontSize="36" Foreground="{StaticResource MainRed}"
+                                               FontWeight="Bold" Text="Back to lesson" VerticalAlignment="Center"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
             </Grid>
         </Border>
         <Panel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

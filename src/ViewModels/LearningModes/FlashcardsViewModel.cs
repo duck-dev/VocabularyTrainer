@@ -41,13 +41,15 @@ namespace VocabularyTrainer.ViewModels.LearningModes
                 _wordIndex = 0;
 
             this.CurrentWord = _wordsList[_wordIndex++];
-            UtilityCollection.Utilities.Log($"{this.CurrentWord.Term}/{this.CurrentWord.Definition}");
         }
 
         private void ShuffleWords()
         {
             var rnd = new Random();
             _wordsList = _wordsList.OrderBy(item => rnd.Next()).ToArray();
+            
+            _wordIndex = 0;
+            this.CurrentWord = _wordsList[0];
         }
     }
 }
