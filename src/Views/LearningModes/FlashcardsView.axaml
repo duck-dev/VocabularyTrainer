@@ -28,7 +28,18 @@
                         </TextBlock.Text>
                     </TextBlock>
                 </Grid>
-                <Button Grid.Row="2"></Button>
+                <Button Grid.Row="2" Classes="selectable-button" Margin="30,0,30,30">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid ColumnDefinitions="Auto,Auto">
+                                <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="34" Height="34" 
+                                       Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" FontSize="36" Foreground="{StaticResource MainRed}"
+                                           FontWeight="Bold" Text="Back to lesson" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
         </Border>
     </Grid>
