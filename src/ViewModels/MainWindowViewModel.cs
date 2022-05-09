@@ -16,6 +16,7 @@ namespace VocabularyTrainer.ViewModels
         } 
         
         internal static MainWindowViewModel? Instance { get; private set; }
+        internal static Lesson? CurrentLesson { get; set; }
 
         internal ViewModelBase Content
         {

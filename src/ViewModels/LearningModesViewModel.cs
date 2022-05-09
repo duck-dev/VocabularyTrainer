@@ -1,3 +1,4 @@
+using System;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.ViewModels.LearningModes;
 
@@ -21,10 +22,13 @@ namespace VocabularyTrainer.ViewModels
                 OpenLearningMode<VocabularyListViewModel>),
         };
 
-        private static void OpenLearningMode<T>() where T : LearningModeViewModelBase, new()
+        private static void OpenLearningMode<T>() where T : LearningModeViewModelBase
         {
-            var viewModel = new T();
-            if(MainWindowViewModel.Instance is { } mainInstance)
+            if (MainWindowViewModel.CurrentLesson is null)
+                throw new Exception("MainWindowViewModel.CurrentLesson is null!");
+            
+            var viewModelObj = Activator.CreateInstance(typeof(T), MainWindowViewModel.CurrentLesson);
+            if(MainWindowViewModel.Instance is { } mainInstance && viewModelObj is T viewModel)
                 mainInstance.Content = viewModel;
         }
     }

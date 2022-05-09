@@ -36,6 +36,7 @@ namespace VocabularyTrainer.ViewModels
             {
                 MainViewModel = _parentViewModel
             };
+            MainWindowViewModel.CurrentLesson = lesson;
         }
     }
 }
