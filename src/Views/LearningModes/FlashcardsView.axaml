@@ -5,4 +5,31 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LearningModes.FlashcardsView">
     
+    <UserControl.Styles>
+        <StyleInclude Source="/src/Styles/ProgressSliderStyle.axaml"/>
+    </UserControl.Styles>
+    
+    <Grid ColumnDefinitions="1*,2*">
+        <Border Grid.Column="0" Background="{StaticResource VeryLightGrey}" 
+                BorderBrush="{StaticResource MainGrey}" BorderThickness="0,0,2,0"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid RowDefinitions="Auto,*,Auto">
+                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="20,30">
+                    <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,15"
+                            Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
+                            Value="1"/> <!-- Replace `Value` with count of completed words -->
+                    <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="24"
+                               HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="\{0\}/\{1\} words completed.">
+                                <Binding Path="CurrentLesson.VocabularyItems.Count"/> <!-- Replace with count of completed words -->
+                                <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+                <Button Grid.Row="2"></Button>
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>
