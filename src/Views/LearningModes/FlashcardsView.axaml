@@ -9,7 +9,7 @@
         <StyleInclude Source="/src/Styles/ProgressSliderStyle.axaml"/>
     </UserControl.Styles>
     
-    <Grid ColumnDefinitions="1*,2*">
+    <Grid ColumnDefinitions="1*,3*">
         <Border Grid.Column="0" Background="{StaticResource VeryLightGrey}" 
                 BorderBrush="{StaticResource MainGrey}" BorderThickness="0,0,2,0"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
