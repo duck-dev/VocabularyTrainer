@@ -29,6 +29,13 @@
                 <Setter Property="RenderTransform" Value="scale(0.90)"/>
         </Style>
         
+        <Style Selector="Button.highlight-no-change:pointerover /template/ ContentPresenter">
+                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+        </Style>
+        <Style Selector="Button.highlight-no-change:pressed /template/ ContentPresenter">
+                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+        </Style>
+        
         <!-- TextBox -->
         
         <Style Selector="TextBox">

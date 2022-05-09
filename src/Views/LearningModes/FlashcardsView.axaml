@@ -28,7 +28,7 @@
                         </TextBlock.Text>
                     </TextBlock>
                 </Grid>
-                <Button Grid.Row="2" Classes="selectable-button" Margin="30,0,30,30">
+                <Button Grid.Row="2" Classes="selectable-button-effect" Margin="30,0,30,30">
                     <Button.Template>
                         <ControlTemplate>
                             <Grid ColumnDefinitions="Auto,Auto">
@@ -42,5 +42,32 @@
                 </Button>
             </Grid>
         </Border>
+        <Panel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="1*,4*,1*">
+                <Button Grid.Column="0" Grid.Row="1" Classes="selectable-button-effect" Margin="15,0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="/Assets/avalonia-logo.ico" Width="68" Height="68"/> <!-- Left-Arrow image -->
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Grid.Column="1" Grid.Row="1" Classes="selectable-button highlight-no-change" 
+                        Background="{StaticResource SameAccent}" BorderThickness="0"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Viewbox Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" StretchDirection="UpOnly"
+                             Margin="10,0">
+                        <TextBlock Text="This could be a full sentence." FontWeight="Bold" TextAlignment="Center"
+                                   Foreground="{StaticResource OppositeAccent}"/>
+                    </Viewbox>
+                </Button>
+                <Button Grid.Column="2" Grid.Row="1" Classes="selectable-button-effect" Margin="15,0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="/Assets/avalonia-logo.ico" Width="68" Height="68"/> <!-- Right-Arrow image -->
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Panel>
     </Grid>
 </UserControl>
