@@ -11,8 +11,7 @@ namespace VocabularyTrainer.ViewModels
             => VocabularyItems.CalculateIndexReactive(this, false, nameof(AdjustableItemsString));
 
         public ObservableCollection<Word> VocabularyItems { get; } = new() { new Word() };
-        internal MainWindowViewModel? MainWindowRef { get; init; }
-        
+
         private string CurrentName { get; set; } = string.Empty;
         private string CurrentDescription { get; set; } = string.Empty;
         private string AdjustableItemsString => VocabularyItems.Count == 1 ? "item" : "items";
@@ -27,7 +26,7 @@ namespace VocabularyTrainer.ViewModels
         {
             var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems);
             DataManager.AddData(lesson);
-            MainWindowRef?.ReturnHome();
+            MainViewModel?.ReturnHome();
         }
     }
 }

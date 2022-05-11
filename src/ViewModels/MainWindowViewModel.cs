@@ -17,14 +17,13 @@ namespace VocabularyTrainer.ViewModels
         
         internal static MainWindowViewModel? Instance { get; private set; }
         internal static Lesson? CurrentLesson { get; set; }
+        private static LessonListViewModel NewLessonList => new(DataManager.Lessons);
 
         internal ViewModelBase Content
         {
             get => _content; 
             set => this.RaiseAndSetIfChanged(ref _content, value);
         }
-
-        private LessonListViewModel NewLessonList => new(DataManager.Lessons, this);
 
         internal void ReturnHome(bool discardChanges = true)
         {

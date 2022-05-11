@@ -11,8 +11,6 @@ namespace VocabularyTrainer.ViewModels
             this.CurrentLesson = lesson;
             lesson.VocabularyItems.CalculateIndexReactive(this, true, nameof(AdjustableItemsString));
         }
-        
-        internal MainWindowViewModel? MainViewModel { get; init; }
 
         private Lesson CurrentLesson { get; }
         private string AdjustableItemsString => CurrentLesson.VocabularyItems.Count == 1 ? "item" : "items";

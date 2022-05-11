@@ -8,11 +8,9 @@ namespace VocabularyTrainer.ViewModels
     public class LessonListViewModel : ViewModelBase
     {
         private readonly ObservableCollection<Lesson> _items;
-        private readonly MainWindowViewModel _parentViewModel;
 
-        public LessonListViewModel(IEnumerable<Lesson> items, MainWindowViewModel parentViewModel)
+        public LessonListViewModel(IEnumerable<Lesson> items)
         {
-            _parentViewModel = parentViewModel;
             _items = Items = new ObservableCollection<Lesson>(items);
         }
 
@@ -24,18 +22,14 @@ namespace VocabularyTrainer.ViewModels
 
         private void OpenAddPage()
         {
-            _parentViewModel.Content = new AddLessonViewModel
-            {
-                MainWindowRef = _parentViewModel
-            };
+            if(MainViewModel is not null)
+                MainViewModel.Content = new AddLessonViewModel();
         }
 
         private void OpenLesson(Lesson lesson)
         {
-            _parentViewModel.Content = new LessonViewModel(lesson)
-            {
-                MainViewModel = _parentViewModel
-            };
+            if(MainViewModel is not null)
+                MainViewModel.Content = new LessonViewModel(lesson);
             MainWindowViewModel.CurrentLesson = lesson;
         }
     }
