@@ -10,5 +10,11 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         }
         
         protected Lesson CurrentLesson { get; }
+
+        protected void ReturnToLesson()
+        {
+            if(MainViewModel is not null)
+                MainViewModel.Content = new LessonViewModel(this.CurrentLesson);
+        }
     }
 }

@@ -42,7 +42,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Grid.Row="1" Classes="selectable-button-effect">
+                    <Button Grid.Row="1" Classes="selectable-button-effect" Command="{Binding ReturnToLesson}">
                         <Button.Template>
                             <ControlTemplate>
                                 <Grid ColumnDefinitions="Auto,Auto">
