@@ -3,6 +3,7 @@ using System.Linq;
 //using Avalonia.Media.Transformation;
 //using Avalonia.VisualTree;
 using ReactiveUI;
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.ViewModels.LearningModes
@@ -22,7 +23,9 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             _wordsList = lesson.VocabularyItems.ToArray();
             _currentWord = _wordsList[_wordIndex];
+            
             this.DisplayedTerm = _currentWord.Term;
+            this.LearningMode = LearningModeType.Flashcards;
         }
 
         private string DisplayedTerm
@@ -52,9 +55,15 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         private void PickWord()
         {
             _flipped = false;
-            _currentWord = _wordsList[_wordIndex];
+            var word = _wordsList[_wordIndex];
+            
+            _currentWord = word;
             this.DisplayedTerm = _currentWord.Term;
             this.RaisePropertyChanged(nameof(WordIndexCorrected));
+
+            var knownState = word.KnownInModes[this.LearningMode];
+            if(knownState < LearningState.KnownOnce)
+                ChangeLearningState(word, LearningState.KnownOnce);
         }
 
         private void ShuffleWords()

@@ -8,6 +8,7 @@ using System.Reactive;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using ReactiveUI;
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
 using VocabularyTrainer.UtilityCollection;
@@ -32,13 +33,18 @@ namespace VocabularyTrainer.Models
             };
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
             SubscribeCollectionsChanged();
+            
+            foreach(LearningModeType value in Enum.GetValues(typeof(LearningModeType)))
+                KnownInModes.Add(value, LearningState.NotAsked);
         }
 
         [JsonConstructor]
-        public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms) : this()
+        public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms, 
+            Dictionary<LearningModeType, LearningState> knownInModes) : this()
         {
             this.Synonyms = synonyms;
             this.Antonyms = antonyms;
+            this.KnownInModes = knownInModes;
             
             foreach (var item in Synonyms)
                 item.ContainerCollection = this.Synonyms;
@@ -50,6 +56,7 @@ namespace VocabularyTrainer.Models
 
         public ObservableCollection<VocabularyItem> Synonyms { get; } = new();
         public ObservableCollection<VocabularyItem> Antonyms { get; } = new();
+        public Dictionary<LearningModeType, LearningState> KnownInModes { get; } = new();
 
         [JsonIgnore]
         public int Index
@@ -63,7 +70,7 @@ namespace VocabularyTrainer.Models
                 NotifyPropertyChanged();
             }
         }
-        
+
         internal bool DataChanged => !ChangedTerm.Equals(Term) || !ChangedDefinition.Equals(Definition) 
                                      || Synonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition)) 
                                      || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
