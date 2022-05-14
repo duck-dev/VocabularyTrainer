@@ -20,6 +20,9 @@ namespace VocabularyTrainer.Models
 {
     public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable, IContentVerification<Word>, IEquatable<Word>
     {
+        private ObservableCollection<VocabularyItem> _synonyms = new();
+        private ObservableCollection<VocabularyItem> _antonyms = new();
+        
         private int _index;
         private readonly List<VocabularyItem> _changedSynonyms = new();
         private readonly List<VocabularyItem> _changedAntonyms = new();
@@ -56,8 +59,26 @@ namespace VocabularyTrainer.Models
             SubscribeCollectionsChanged(); // Must be called after assigning properties: Synonyms/Antonyms
         }
 
-        public ObservableCollection<VocabularyItem> Synonyms { get; } = new();
-        public ObservableCollection<VocabularyItem> Antonyms { get; } = new();
+        public ObservableCollection<VocabularyItem> Synonyms
+        {
+            get => _synonyms;
+            private set
+            {
+                _synonyms = value;
+                NotifyPropertyChanged(nameof(Synonyms));
+            }
+        }
+
+        public ObservableCollection<VocabularyItem> Antonyms
+        {
+            get => _antonyms;
+            private set
+            {
+                _antonyms = value;
+                NotifyPropertyChanged(nameof(Antonyms));
+            }
+        }
+        
         public Dictionary<LearningModeType, LearningState> KnownInModes { get; } = new();
 
         [JsonIgnore]
@@ -109,9 +130,13 @@ namespace VocabularyTrainer.Models
         public override void EqualizeChangedData()
         {
             base.EqualizeChangedData();
+
+            this.Synonyms = new ObservableCollection<VocabularyItem>(Synonyms.Where(x => !_changedSynonyms.Contains(x)));
+            this.Antonyms = new ObservableCollection<VocabularyItem>(Antonyms.Where(x => !_changedAntonyms.Contains(x)));
             
             _changedSynonyms.Clear();
             _changedAntonyms.Clear();
+            
             foreach (var synonym in this.Synonyms)
                 synonym.EqualizeChangedData();
             foreach (var antonym in this.Antonyms)

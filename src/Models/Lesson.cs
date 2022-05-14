@@ -10,13 +10,15 @@ using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.Models
 {
-    public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
+    public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper, IDiscardableChanges
     {
         private string _name;
         private string _description;
+        private ObservableCollection<Word> _vocabularyItems;
+        
         private string _changedName = string.Empty;
         private string _changedDescription = string.Empty;
-        private readonly List<Word> _changedWords = new(); 
+        private readonly List<Word> _changedWords = new();
         
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -28,7 +30,7 @@ namespace VocabularyTrainer.Models
         {
             this.Name = _name = name;
             this.Description = _description = description;
-            this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
+            _vocabularyItems = this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
             VocabularyItems.CollectionChanged += (sender, args) =>
             {
                 Utilities.AddChangedItems(_changedWords, args);
@@ -60,7 +62,16 @@ namespace VocabularyTrainer.Models
             get => _description; 
             private set => this.ChangedDescription = _description = value;
         }
-        public ObservableCollection<Word> VocabularyItems { get; }
+
+        public ObservableCollection<Word> VocabularyItems
+        {
+            get => _vocabularyItems;
+            private set
+            {
+                _vocabularyItems = value;
+                NotifyPropertyChanged(nameof(VocabularyItems));
+            }
+        }
 
         private string ChangedName
         {
@@ -105,6 +116,16 @@ namespace VocabularyTrainer.Models
         
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        
+        public void DiscardChanges()
+        {
+            this.ChangedName = this.Name;
+            this.ChangedDescription = this.Description;
+            this.VocabularyItems = new ObservableCollection<Word>(this.VocabularyItems.Where(x => !_changedWords.Contains(x)));
+            _changedWords.Clear();
+            foreach (var word in this.VocabularyItems)
+                word.EqualizeChangedData();
+        }
 
         internal void SaveChanges()
         {
@@ -115,14 +136,6 @@ namespace VocabularyTrainer.Models
             _changedWords.Clear();
             
             NotifyPropertyChanged(nameof(DataChanged));
-        }
-
-        internal void DiscardChanges()
-        {
-            this.ChangedName = this.Name;
-            this.ChangedDescription = this.Description;
-            foreach(var word in VocabularyItems)
-                word.EqualizeChangedData();
         }
 
         internal void InvokeNotifyChanges() => NotifyCollectionsChanged?.Invoke();
