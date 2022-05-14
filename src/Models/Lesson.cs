@@ -19,6 +19,9 @@ namespace VocabularyTrainer.Models
         private readonly List<Word> _changedWords = new(); 
         
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        internal delegate void NotifyChanged();
+        internal event NotifyChanged? NotifyCollectionsChanged;
         
         [JsonConstructor]
         public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems)
@@ -31,6 +34,7 @@ namespace VocabularyTrainer.Models
                 Utilities.AddChangedItems(_changedWords, args);
                 if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
                     NotifyPropertyChanged(nameof(DataChanged));
+                InvokeNotifyChanges();
             };
 
             Utilities.NotifyItemAdded += SubscribeVocabularyChanges; 
@@ -120,6 +124,8 @@ namespace VocabularyTrainer.Models
             foreach(var word in VocabularyItems)
                 word.EqualizeChangedData();
         }
+
+        internal void InvokeNotifyChanges() => NotifyCollectionsChanged?.Invoke();
 
         private void AddWord()
         {

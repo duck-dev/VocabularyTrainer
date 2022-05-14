@@ -1,4 +1,5 @@
 using System;
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.ViewModels.LearningModes;
 
@@ -9,17 +10,17 @@ namespace VocabularyTrainer.ViewModels
         private LearningModeItem[] LearningModes { get; } =
         {
             new ("avalonia-logo.ico", "Flashcards", "Memorize vocabulary super fast by flipping flashcards.",
-                OpenLearningMode<FlashcardsViewModel>),
+                OpenLearningMode<FlashcardsViewModel>, LearningModeType.Flashcards),
             new ("avalonia-logo.ico", "Write", 
                 "The best solution to learn the exact spelling of a word and it's quite similar to an exam too.",
-                OpenLearningMode<WritingViewModel>),
+                OpenLearningMode<WritingViewModel>, LearningModeType.Write),
             new ("avalonia-logo.ico", "Multiple Choice", "Choose from 4 options and pick the correct answer.",
-                OpenLearningMode<MultipleChoiceViewModel>),
+                OpenLearningMode<MultipleChoiceViewModel>, LearningModeType.MultipleChoice),
             new ("avalonia-logo.ico", "Synonyms and Antonyms", "Focus on learning synonyms and antonyms only.",
-                OpenLearningMode<ThesaurusViewModel>),
+                OpenLearningMode<ThesaurusViewModel>, LearningModeType.Thesaurus),
             new ("avalonia-logo.ico", "Vocabulary list", 
                 "Do you prefer just looking at a list of words with their term and definition? Then this is your choice.",
-                OpenLearningMode<VocabularyListViewModel>),
+                OpenLearningMode<VocabularyListViewModel>, LearningModeType.VocabularyList),
         };
 
         private static void OpenLearningMode<T>() where T : LearningModeViewModelBase

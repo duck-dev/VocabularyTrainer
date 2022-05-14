@@ -25,7 +25,7 @@
                 <DataTemplate>
                     <Button Classes="selectable-button-effect" Command="{Binding ClickCommand}" 
                             Margin="0,5" Background="{StaticResource FullyTransparent}" Padding="4"
-                            CornerRadius="5" HorizontalAlignment="Stretch">
+                            CornerRadius="5" HorizontalAlignment="Stretch" IsEnabled="{Binding Enabled}">
                         <Button.Styles>
                             <Style Selector="Button:pointerover /template/ ContentPresenter">
                                 <Setter Property="Background" Value="{StaticResource VeryLightGrey}"/>

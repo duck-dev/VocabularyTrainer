@@ -12,6 +12,8 @@ using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
 using VocabularyTrainer.UtilityCollection;
+using VocabularyTrainer.ViewModels;
+
 #pragma warning disable CS0659
 
 namespace VocabularyTrainer.Models
@@ -160,6 +162,7 @@ namespace VocabularyTrainer.Models
                 Utilities.AddChangedItems(_changedSynonyms, args);
                 if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
                     NotifyDataChanged();
+                MainWindowViewModel.CurrentLesson?.InvokeNotifyChanges();
             };
             Antonyms.CollectionChanged += (sender, args) =>
             {
@@ -167,6 +170,7 @@ namespace VocabularyTrainer.Models
                 Utilities.AddChangedItems(_changedAntonyms, args);
                 if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
                     NotifyDataChanged();
+                MainWindowViewModel.CurrentLesson?.InvokeNotifyChanges();
             };
         }
 
