@@ -1,3 +1,4 @@
+using System.Linq;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
@@ -11,9 +12,11 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         protected LearningModeViewModelBase(Lesson lesson)
         {
             this.CurrentLesson = lesson;
+            WordsList = lesson.VocabularyItems.ToArray();
         }
         
         protected Lesson CurrentLesson { get; }
+        protected Word[] WordsList { get; set; }
         protected LearningModeType LearningMode { get; init; }
 
         protected int KnownWords
@@ -61,6 +64,13 @@ namespace VocabularyTrainer.ViewModels.LearningModes
                     this.KnownWords--;
                     break;
             }
+        }
+
+        protected virtual void ResetKnownWords()
+        {
+            this.KnownWords = 0;
+            foreach (var word in WordsList)
+                word.KnownInModes[this.LearningMode] = LearningState.NotAsked;
         }
     }
 }

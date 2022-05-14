@@ -10,7 +10,6 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 {
     public sealed class FlashcardsViewModel : LearningModeViewModelBase
     {
-        private Word[] _wordsList;
         private int _wordIndex;
         
         private Word _currentWord;
@@ -21,8 +20,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         public FlashcardsViewModel(Lesson lesson) : base(lesson)
 #pragma warning restore CS8618
         {
-            _wordsList = lesson.VocabularyItems.ToArray();
-            _currentWord = _wordsList[_wordIndex];
+            _currentWord = WordsList[_wordIndex];
             
             this.DisplayedTerm = _currentWord.Term;
             this.LearningMode = LearningModeType.Flashcards;
@@ -39,23 +37,25 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         private void PreviousWord()
         {
             _wordIndex--;
-            if (_wordIndex < 0 || _wordIndex >= _wordsList.Length)
-                _wordIndex = _wordsList.Length - 1;
-            PickWord();
+            bool resetWords = _wordIndex >= WordsList.Length || _wordIndex < 0;
+            if (resetWords)
+                _wordIndex = WordsList.Length - 1;
+            PickWord(resetWords);
         }
 
         private void NextWord()
         {
             _wordIndex++;
-            if (_wordIndex >= _wordsList.Length || _wordIndex < 0)
+            bool resetWords = _wordIndex >= WordsList.Length || _wordIndex < 0;
+            if (resetWords)
                 _wordIndex = 0;
-            PickWord();
+            PickWord(resetWords);
         }
 
-        private void PickWord()
+        private void PickWord(bool resetKnownWords = false)
         {
             _flipped = false;
-            var word = _wordsList[_wordIndex];
+            var word = WordsList[_wordIndex];
             
             _currentWord = word;
             this.DisplayedTerm = _currentWord.Term;
@@ -64,15 +64,22 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             var knownState = word.KnownInModes[this.LearningMode];
             if(knownState < LearningState.KnownOnce)
                 ChangeLearningState(word, LearningState.KnownOnce);
+            
+            // Create display when the words should be reset and only reset upon confirming
+            // Remove parameter in PickWord(), move this code below to this specific confirmation method,
+            // ... set NextWord() and PreviousWord() back to normal.
+            if(resetKnownWords)
+                ResetKnownWords();
         }
 
         private void ShuffleWords()
         {
             var rnd = new Random();
-            _wordsList = _wordsList.OrderBy(_ => rnd.Next()).ToArray();
+            WordsList = WordsList.OrderBy(_ => rnd.Next()).ToArray();
             
             _wordIndex = 0;
-            _currentWord = _wordsList[0];
+            _currentWord = WordsList[0];
+            this.DisplayedTerm = _currentWord.Term;
             
             this.RaisePropertyChanged(nameof(WordIndexCorrected));
         }
