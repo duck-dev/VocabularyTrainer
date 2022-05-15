@@ -165,6 +165,21 @@ namespace VocabularyTrainer.Models
         {
             this.Synonyms = new ObservableCollection<VocabularyItem>(Synonyms.Where(x => !_changedSynonyms.Contains(x)));
             this.Antonyms = new ObservableCollection<VocabularyItem>(Antonyms.Where(x => !_changedAntonyms.Contains(x)));
+
+            // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
+            foreach (var synonym in _changedSynonyms.ToArray())
+            {
+                if(synonym.ChangedAction == NotifyCollectionChangedAction.Remove)
+                    this.Synonyms.Add(synonym);
+            }
+
+            // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
+            foreach (var antonym in _changedAntonyms.ToArray())
+            {
+                if(antonym.ChangedAction == NotifyCollectionChangedAction.Remove)
+                    this.Antonyms.Add(antonym);
+            }
+            
         }
 
         private void Remove(IVocabularyContainer<Word> parent) 

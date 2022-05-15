@@ -116,11 +116,14 @@ namespace VocabularyTrainer.Models
             this.ChangedName = this.Name;
             this.ChangedDescription = this.Description;
             this.VocabularyItems = new ObservableCollection<Word>(this.VocabularyItems.Where(x => !_changedWords.Contains(x)));
+            foreach (var word in _changedWords.Where(word => word.ChangedAction == NotifyCollectionChangedAction.Remove).ToArray())
+                this.VocabularyItems.Add(word);
+
             _changedWords.Clear();
             foreach (var word in this.VocabularyItems)
             {
-                word.EqualizeChangedData();
                 word.ClearCollections();
+                word.EqualizeChangedData();
             }
         }
 
