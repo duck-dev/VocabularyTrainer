@@ -150,7 +150,7 @@ namespace VocabularyTrainer.Models
 
         public override bool Equals(object? obj) => Equals(obj as Word);
 
-        protected internal override void SaveChanges()
+        public override void SaveChanges()
         {
             base.SaveChanges();
             foreach (var item in Synonyms)

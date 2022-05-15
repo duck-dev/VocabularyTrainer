@@ -68,7 +68,7 @@ namespace VocabularyTrainer.Models
         protected void InvokeNotifyChanged()
             => NotifyChanged?.Invoke();
 
-        protected internal virtual void SaveChanges()
+        public virtual void SaveChanges()
             => this.Definition = ChangedDefinition;
 
         protected virtual void Remove()

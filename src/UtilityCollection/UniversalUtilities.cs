@@ -89,7 +89,9 @@ namespace VocabularyTrainer.UtilityCollection
                 return false;
             
             Lesson.CheckUnsavedEnabled = false; // Avoid StackOverflow by disabling check in `DataChanged` get-accessor
+            item.SaveChanges();
             item.EqualizeChangedData();
+            identicalItem?.SaveChanges();
             identicalItem?.EqualizeChangedData();
             Lesson.CheckUnsavedEnabled = true; // Back to normal
 
