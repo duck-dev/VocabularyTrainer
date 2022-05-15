@@ -37,7 +37,8 @@ namespace VocabularyTrainer.Models
                 new Tuple<string, string, ItemStyleBase<Word>>("Antonyms:", "Add Antonym", new AntonymStyle(this))
             };
             RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
-            SubscribeCollectionsChanged();
+            SubscribeSynonyms();
+            SubscribeAntonyms();
             
             foreach(LearningModeType value in Enum.GetValues(typeof(LearningModeType)))
                 KnownInModes.Add(value, LearningState.NotAsked);
@@ -55,8 +56,6 @@ namespace VocabularyTrainer.Models
                 item.ContainerCollection = this.Synonyms;
             foreach (var item in Antonyms)
                 item.ContainerCollection = this.Antonyms;
-            
-            SubscribeCollectionsChanged(); // Must be called after assigning properties: Synonyms/Antonyms
         }
 
         public ObservableCollection<VocabularyItem> Synonyms
@@ -65,6 +64,7 @@ namespace VocabularyTrainer.Models
             private set
             {
                 _synonyms = value;
+                SubscribeSynonyms();
                 NotifyPropertyChanged(nameof(Synonyms));
             }
         }
@@ -75,6 +75,7 @@ namespace VocabularyTrainer.Models
             private set
             {
                 _antonyms = value;
+                SubscribeAntonyms();
                 NotifyPropertyChanged(nameof(Antonyms));
             }
         }
@@ -131,9 +132,6 @@ namespace VocabularyTrainer.Models
         {
             base.EqualizeChangedData();
 
-            this.Synonyms = new ObservableCollection<VocabularyItem>(Synonyms.Where(x => !_changedSynonyms.Contains(x)));
-            this.Antonyms = new ObservableCollection<VocabularyItem>(Antonyms.Where(x => !_changedAntonyms.Contains(x)));
-            
             _changedSynonyms.Clear();
             _changedAntonyms.Clear();
             
@@ -163,6 +161,12 @@ namespace VocabularyTrainer.Models
             _changedAntonyms.Clear();
         }
 
+        internal void ClearCollections()
+        {
+            this.Synonyms = new ObservableCollection<VocabularyItem>(Synonyms.Where(x => !_changedSynonyms.Contains(x)));
+            this.Antonyms = new ObservableCollection<VocabularyItem>(Antonyms.Where(x => !_changedAntonyms.Contains(x)));
+        }
+
         private void Remove(IVocabularyContainer<Word> parent) 
             => parent.VocabularyItems.Remove(this);
 
@@ -179,29 +183,36 @@ namespace VocabularyTrainer.Models
             }
         }
 
-        private void SubscribeCollectionsChanged()
+        private void SubscribeSynonyms()
         {
             Synonyms.CollectionChanged += (sender, args) =>
             {
                 // NotifyPropertyChanged(nameof(SynonymsEmpty));
                 Utilities.AddChangedItems(_changedSynonyms, args);
-                if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
-                    NotifyDataChanged();
-                MainWindowViewModel.CurrentLesson?.InvokeNotifyChanges();
+                NotifyChanges(args);
             };
+        }
+        
+        private void SubscribeAntonyms()
+        {
             Antonyms.CollectionChanged += (sender, args) =>
             {
                 // NotifyPropertyChanged(nameof(AntonymsEmpty));
                 Utilities.AddChangedItems(_changedAntonyms, args);
-                if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
-                    NotifyDataChanged();
-                MainWindowViewModel.CurrentLesson?.InvokeNotifyChanges();
+                NotifyChanges(args);
             };
         }
 
-        private void NotifyDataChanged()
+        private static void NotifyChanges(NotifyCollectionChangedEventArgs args)
         {
-            var lesson = DataManager.Lessons.FirstOrDefault(x => x.VocabularyItems.Contains(this));
+            if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
+                NotifyDataChanged();
+            MainWindowViewModel.CurrentLesson?.InvokeNotifyChanges();
+        }
+
+        private static void NotifyDataChanged()
+        {
+            var lesson = MainWindowViewModel.CurrentLesson;
             lesson?.NotifyPropertyChanged(nameof(lesson.DataChanged));
         }
         

@@ -31,13 +31,6 @@ namespace VocabularyTrainer.Models
             this.Name = _name = name;
             this.Description = _description = description;
             _vocabularyItems = this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
-            VocabularyItems.CollectionChanged += (sender, args) =>
-            {
-                Utilities.AddChangedItems(_changedWords, args);
-                if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
-                    NotifyPropertyChanged(nameof(DataChanged));
-                InvokeNotifyChanges();
-            };
 
             Utilities.NotifyItemAdded += SubscribeVocabularyChanges; 
             foreach (var word in VocabularyItems)
@@ -69,6 +62,7 @@ namespace VocabularyTrainer.Models
             private set
             {
                 _vocabularyItems = value;
+                _vocabularyItems.CollectionChanged += OnVocabularyItemsChanged;
                 NotifyPropertyChanged(nameof(VocabularyItems));
             }
         }
@@ -124,7 +118,10 @@ namespace VocabularyTrainer.Models
             this.VocabularyItems = new ObservableCollection<Word>(this.VocabularyItems.Where(x => !_changedWords.Contains(x)));
             _changedWords.Clear();
             foreach (var word in this.VocabularyItems)
+            {
                 word.EqualizeChangedData();
+                word.ClearCollections();
+            }
         }
 
         internal void SaveChanges()
@@ -148,6 +145,14 @@ namespace VocabularyTrainer.Models
 
         private void SubscribeVocabularyChanges(VocabularyItem item)
             => item.NotifyChanged += () => NotifyPropertyChanged(nameof(DataChanged));
+
+        private void OnVocabularyItemsChanged(object? sender, NotifyCollectionChangedEventArgs args)
+        {
+            Utilities.AddChangedItems(_changedWords, args);
+            if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
+                NotifyPropertyChanged(nameof(DataChanged));
+            InvokeNotifyChanges();
+        } 
         
         // internal void DebugUnsavedChanges()
         // {
