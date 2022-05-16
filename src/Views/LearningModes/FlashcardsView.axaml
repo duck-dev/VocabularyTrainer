@@ -2,61 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:learningModes="clr-namespace:VocabularyTrainer.Views.LearningModes"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LearningModes.FlashcardsView">
     
-    <UserControl.Styles>
-        <StyleInclude Source="/src/Styles/ProgressSliderStyle.axaml"/>
-    </UserControl.Styles>
-    
     <Grid ColumnDefinitions="1*,3*">
-        <Border Grid.Column="0" Background="{StaticResource VeryLightGrey}" 
-                BorderBrush="{StaticResource MainGrey}" BorderThickness="0,0,2,0"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid RowDefinitions="Auto,*,Auto">
-                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="20,30">
-                    <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,15"
-                            Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
-                            Value="{Binding KnownWords}"/>
-                    <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="24"
-                               HorizontalAlignment="Center">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="\{0\}/\{1\} words completed.">
-                                <Binding Path="KnownWords"/>
-                                <Binding Path="CurrentLesson.VocabularyItems.Count"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </Grid>
-                <Grid Grid.Row="2" RowDefinitions="Auto,Auto" Margin="30,0,30,30">
-                    <Button Grid.Row="0" Classes="selectable-button-effect" Margin="0,0,0,30"
-                            Command="{Binding ShuffleWords}">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Grid ColumnDefinitions="Auto,Auto">
-                                    <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="34" Height="34" 
-                                           Margin="0,0,15,0" VerticalAlignment="Center"/> <!-- Shuffle image green -->
-                                    <TextBlock Grid.Column="1" FontSize="36" Foreground="{StaticResource MainGreen}"
-                                               FontWeight="Bold" Text="Shuffle words" VerticalAlignment="Center"/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button Grid.Row="1" Classes="selectable-button-effect" Command="{Binding ReturnToLesson}">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Grid ColumnDefinitions="Auto,Auto">
-                                    <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="34" Height="34" 
-                                           Margin="0,0,15,0" VerticalAlignment="Center"/> <!-- Back-Button image red -->
-                                    <TextBlock Grid.Column="1" FontSize="36" Foreground="{StaticResource MainRed}"
-                                               FontWeight="Bold" Text="Back to lesson" VerticalAlignment="Center"/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </Grid>
-            </Grid>
-        </Border>
+        <learningModes:LearningModeSidebarView Grid.Column="0" DataContext="{Binding}"/>
         <Panel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="1*,4*,1*">
                 <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"

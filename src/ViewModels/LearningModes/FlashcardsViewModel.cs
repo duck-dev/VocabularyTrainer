@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 //using Avalonia.Media.Transformation;
 //using Avalonia.VisualTree;
 using ReactiveUI;
@@ -72,15 +70,13 @@ namespace VocabularyTrainer.ViewModels.LearningModes
                 ResetKnownWords();
         }
 
-        private void ShuffleWords()
+        protected override void ShuffleWords()
         {
-            var rnd = new Random();
-            WordsList = WordsList.OrderBy(_ => rnd.Next()).ToArray();
-            
+            base.ShuffleWords();
+
             _wordIndex = 0;
             _currentWord = WordsList[0];
             this.DisplayedTerm = _currentWord.Term;
-            
             this.RaisePropertyChanged(nameof(WordIndexCorrected));
         }
 

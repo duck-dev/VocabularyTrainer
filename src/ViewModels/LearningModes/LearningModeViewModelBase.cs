@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
@@ -71,6 +72,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             this.KnownWords = 0;
             foreach (var word in WordsList)
                 word.KnownInModes[this.LearningMode] = LearningState.NotAsked;
+        }
+
+        protected virtual void ShuffleWords()
+        {
+            var rnd = new Random();
+            WordsList = WordsList.OrderBy(_ => rnd.Next()).ToArray();
         }
     }
 }
