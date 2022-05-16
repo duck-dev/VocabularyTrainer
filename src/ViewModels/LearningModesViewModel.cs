@@ -13,7 +13,7 @@ namespace VocabularyTrainer.ViewModels
                 OpenLearningMode<FlashcardsViewModel>, LearningModeType.Flashcards),
             new ("avalonia-logo.ico", "Write", 
                 "The best solution to learn the exact spelling of a word and it's quite similar to an exam too.",
-                OpenLearningMode<WritingViewModel>, LearningModeType.Write),
+                OpenLearningMode<WriteViewModel>, LearningModeType.Write),
             new ("avalonia-logo.ico", "Multiple Choice", "Choose from 4 options and pick the correct answer.",
                 OpenLearningMode<MultipleChoiceViewModel>, LearningModeType.MultipleChoice),
             new ("avalonia-logo.ico", "Synonyms and Antonyms", "Focus on learning synonyms and antonyms only.",
