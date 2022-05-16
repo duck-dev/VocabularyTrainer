@@ -68,7 +68,7 @@ namespace VocabularyTrainer.UtilityCollection
                     if (CheckUnsavedContent(item, collection))
                         continue;
                     
-                    if (collection.Contains(item))
+                    if (collection.Contains(item, ReferenceEqualityComparer.Instance))
                         collection.Remove(item);
                     else
                         collection.Add(item);
