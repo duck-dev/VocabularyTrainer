@@ -6,7 +6,7 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Height" Value="32"/>
-        <Setter Property="Background" Value="{StaticResource VeryLightBlue}"/>
+        <Setter Property="Background" Value="{StaticResource VeryLightGrey}"/>
         <Setter Property="Foreground" Value="{StaticResource MainGreen}"/>
         <Setter Property="IsHitTestVisible" Value="False"/>
     </Style>

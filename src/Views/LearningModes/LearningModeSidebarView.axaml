@@ -16,7 +16,7 @@
             <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="20,30">
                 <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,15"
                         Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
-                        Value="{Binding KnownWords}"/>
+                        Value="{Binding KnownWords}" Background="{StaticResource LightGrey}"/>
                 <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="24"
                            HorizontalAlignment="Center">
                     <TextBlock.Text>
