@@ -48,12 +48,12 @@ namespace VocabularyTrainer.Models
         public string Name
         {
             get => _name; 
-            private set => this.ChangedName = _name = value;
+            private set => this.ChangedName = _name = value.Trim();
         }
         public string Description
         {
             get => _description; 
-            private set => this.ChangedDescription = _description = value;
+            private set => this.ChangedDescription = _description = value.Trim();
         }
 
         public ObservableCollection<Word> VocabularyItems
@@ -72,7 +72,7 @@ namespace VocabularyTrainer.Models
             get => _changedName;
             set
             {
-                _changedName = value;
+                _changedName = value.Trim();
                 NotifyPropertyChanged(nameof(DataChanged));
             }
         }
@@ -82,7 +82,7 @@ namespace VocabularyTrainer.Models
             get => _changedDescription;
             set
             {
-                _changedDescription = value;
+                _changedDescription = value.Trim();
                 NotifyPropertyChanged(nameof(DataChanged));
             }
         }
