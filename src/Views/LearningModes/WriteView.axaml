@@ -8,8 +8,41 @@
     
     <Grid ColumnDefinitions="1*,3*">
         <learningModes:LearningModeSidebarView Grid.Column="0"/>
-        <Panel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            
-        </Panel>
+        <Grid Grid.Column="1" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+              Margin="30,0">
+            <Viewbox Grid.Row="0" Height="84" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="{StaticResource OppositeAccent}" Text="eine Vokabel"/>
+            </Viewbox>
+            <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30,0">
+                <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" Margin="30,0,30,30">
+                    <TextBox Grid.Column="0" BorderBrush="{StaticResource OppositeAccent}" BorderThickness="0,0,0,2"
+                             CornerRadius="0" Background="{StaticResource FullyTransparent}"
+                             AcceptsReturn="False" AcceptsTab="False" Height="60" FontSize="42" HorizontalAlignment="Stretch" 
+                             VerticalContentAlignment="Center" Padding="0,0,0,5" Margin="0,0,25,0">
+                        <TextBox.Styles>
+                            <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+                                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                            </Style>
+                            <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+                                <Setter Property="BorderThickness" Value="0,0,0,3"/>
+                                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                            </Style>
+                        </TextBox.Styles>
+                    </TextBox>
+                    <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Width="170" Height="60"
+                            Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}">
+                        <TextBlock Foreground="{StaticResource SameAccent}" FontSize="22" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Text="Answer"/>
+                    </Button>
+                </Grid>
+                <Button Grid.Row="1" Classes="selectable-button-effect" HorizontalAlignment="Center">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <TextBlock FontSize="22" Foreground="{StaticResource MainRed}" Text="Show solution"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
