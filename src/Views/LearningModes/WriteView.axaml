@@ -20,7 +20,7 @@
                 </TextBlock.Text>
             </TextBlock>
             <Viewbox Grid.Row="0" Height="84" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                <TextBlock Foreground="{StaticResource OppositeAccent}" Text="eine Vokabel"/>
+                <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/>
             </Viewbox>
             <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30,0">
                 <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" Margin="30,0,30,30">
