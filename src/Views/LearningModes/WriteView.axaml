@@ -28,7 +28,8 @@
                              CornerRadius="0" Background="{StaticResource FullyTransparent}"
                              AcceptsReturn="False" AcceptsTab="False" Height="60" FontSize="42" HorizontalAlignment="Stretch" 
                              VerticalContentAlignment="Center" Padding="0,0,0,5" Margin="0,0,25,0"
-                             Text="{Binding Answer}">
+                             Text="{Binding Answer}" Foreground="{Binding AnswerColor}"
+                             IsReadOnly="{Binding IsAnswerReadonly}">
                         <TextBox.Styles>
                             <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
                                 <Setter Property="Background" Value="{TemplateBinding Background}"/>
@@ -46,7 +47,8 @@
                                    HorizontalAlignment="Center" VerticalAlignment="Center" Text="Answer"/>
                     </Button>
                 </Grid>
-                <Button Grid.Row="1" Classes="selectable-button-effect" HorizontalAlignment="Center">
+                <Button Grid.Row="1" Classes="selectable-button-effect" HorizontalAlignment="Center"
+                        Command="{Binding ShowSolution}">
                     <Button.Template>
                         <ControlTemplate>
                             <TextBlock FontSize="22" Foreground="{StaticResource MainRed}" Text="Show solution"/>

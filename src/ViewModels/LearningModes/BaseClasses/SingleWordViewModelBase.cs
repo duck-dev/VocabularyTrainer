@@ -1,6 +1,9 @@
+using Avalonia;
+using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.ViewModels.LearningModes
 {
@@ -8,11 +11,19 @@ namespace VocabularyTrainer.ViewModels.LearningModes
     {
         private int _wordIndex;
         private string _displayedTerm;
+        private string? _answer;
+        private SolidColorBrush _answerColor;
+        private bool _isAnswerReadonly;
+
+        private readonly SolidColorBrush _fallbackColorBlack = new(Color.Parse("#000000"));
+        private readonly SolidColorBrush _fallbackColorRed = new(Color.Parse("#FF0000"));
 
         protected SingleWordViewModelBase(Lesson lesson) : base(lesson)
         {
             CurrentWord = WordsList[_wordIndex];
             _displayedTerm = this.DisplayedTerm = CurrentWord.Term;
+            _answerColor = this.AnswerColor = Utilities.GetResourceFromStyle<SolidColorBrush,Application>
+                                              (Application.Current, "OppositeAccent", 1) ?? _fallbackColorBlack;
         }
         
         protected Word CurrentWord { get; private set; }
@@ -23,8 +34,24 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         }
 
         protected int WordIndexCorrected => _wordIndex + 1;
-        
-        protected string? Answer { get; set; }
+
+        protected string? Answer
+        {
+            get => _answer; 
+            set => this.RaiseAndSetIfChanged(ref _answer, value);
+        }
+
+        protected SolidColorBrush AnswerColor
+        {
+            get => _answerColor; 
+            set => this.RaiseAndSetIfChanged(ref _answerColor, value);
+        }
+
+        protected bool IsAnswerReadonly
+        {
+            get => _isAnswerReadonly; 
+            set => this.RaiseAndSetIfChanged(ref _isAnswerReadonly, value);
+        }
 
         protected void CheckAnswer()
         {
@@ -33,7 +60,10 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         protected void ShowSolution()
         {
-            
+            this.Answer = CurrentWord.Definition;
+            this.AnswerColor = Utilities.GetResourceFromStyle<SolidColorBrush, Application>
+                               (Application.Current, "MainRed", 1) ?? _fallbackColorRed;
+            this.IsAnswerReadonly = true;
         }
         
         protected void PreviousWord()
