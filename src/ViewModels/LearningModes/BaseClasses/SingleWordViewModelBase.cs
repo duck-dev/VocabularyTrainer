@@ -8,12 +8,11 @@ namespace VocabularyTrainer.ViewModels.LearningModes
     {
         private int _wordIndex;
         private string? _displayedTerm;
+        private int _seenWords;
 
-        protected SingleWordViewModelBase(Lesson lesson) : base(lesson)
-        {
-            CurrentWord = WordsList[_wordIndex];
-        }
-        
+        protected SingleWordViewModelBase(Lesson lesson) : base(lesson) 
+            => CurrentWord = WordsList[_wordIndex];
+
         protected Word CurrentWord { get; private set; }
         protected string? DisplayedTerm
         {
@@ -25,6 +24,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         protected int WordIndexCorrected => _wordIndex + 1;
 
         protected bool IsCurrentWordDifficult => this.CurrentWord.IsDifficult;
+        
+        protected int SeenWords
+        {
+            get => _seenWords; 
+            private set => this.RaiseAndSetIfChanged(ref _seenWords, value);
+        }
 
         protected void PreviousWord()
         {
@@ -80,6 +85,29 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             
         }
 
+        protected virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState)
+        {
+            if (previousState is LearningState.WrongOnce or LearningState.VeryHard)
+                return;
+
+            switch (newState)
+            {
+                case >= LearningState.KnownOnce:
+                    this.SeenWords++;
+                    break;
+                case LearningState.WrongOnce or LearningState.VeryHard:
+                    this.SeenWords--;
+                    break;
+            }
+        }
+
+        protected virtual void ResetKnownWords()
+        {
+            this.SeenWords = 0;
+            foreach (var word in WordsList)
+                word.SeenInModes[this.LearningMode] = LearningState.NotAsked;
+        }
+
         internal virtual void SetDifficultTerm(VocabularyItem? item = null)
         {
             (item ?? CurrentWord).IsDifficult = true; // Remove from lists specifically for difficult items if needed
@@ -90,6 +118,25 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             (item ?? CurrentWord).IsDifficult = false; // Remove from lists specifically for difficult items if needed
             DataManager.SaveData();
+        }
+        
+        private void ChangeLearningState(Word word, bool known)
+        {
+            var state = word.SeenInModes[this.LearningMode];
+            word.SeenInModes[this.LearningMode] = known switch
+            {
+                true when state < LearningState.KnownPerfectly => ++state,
+                false when state > LearningState.VeryHard => --state,
+                _ => word.SeenInModes[this.LearningMode]
+            };
+            VisualizeLearningProgress(state, word.SeenInModes[this.LearningMode]);
+        }
+        
+        private void ChangeLearningState(Word word, LearningState state)
+        {
+            var previousState = word.SeenInModes[this.LearningMode];
+            word.SeenInModes[this.LearningMode] = state;
+            VisualizeLearningProgress(previousState, state);
         }
     }
 }

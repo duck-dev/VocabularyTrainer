@@ -8,7 +8,6 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 {
     public abstract class LearningModeViewModelBase : ViewModelBase
     {
-        private int _knownWords;
         private bool _shuffleButtonEnabled;
         
         protected LearningModeViewModelBase(Lesson lesson)
@@ -22,12 +21,6 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         protected Word[] WordsList { get; set; }
         protected LearningModeType LearningMode { get; init; }
 
-        protected int KnownWords
-        {
-            get => _knownWords; 
-            private set => this.RaiseAndSetIfChanged(ref _knownWords, value);
-        }
-        
         protected bool ShuffleButtonEnabled
         {
             get => _shuffleButtonEnabled;
@@ -38,48 +31,6 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             if(MainViewModel is not null)
                 MainViewModel.Content = new LessonViewModel(this.CurrentLesson);
-        }
-
-        protected void ChangeLearningState(Word word, bool known)
-        {
-            var state = word.SeenInModes[this.LearningMode];
-            word.SeenInModes[this.LearningMode] = known switch
-            {
-                true when state < LearningState.KnownPerfectly => ++state,
-                false when state > LearningState.VeryHard => --state,
-                _ => word.SeenInModes[this.LearningMode]
-            };
-            VisualizeLearningProgress(state, word.SeenInModes[this.LearningMode]);
-        }
-
-        protected void ChangeLearningState(Word word, LearningState state)
-        {
-            var previousState = word.SeenInModes[this.LearningMode];
-            word.SeenInModes[this.LearningMode] = state;
-            VisualizeLearningProgress(previousState, state);
-        }
-
-        protected virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState)
-        {
-            if (previousState is LearningState.WrongOnce or LearningState.VeryHard)
-                return;
-
-            switch (newState)
-            {
-                case >= LearningState.KnownOnce:
-                    this.KnownWords++;
-                    break;
-                case LearningState.WrongOnce or LearningState.VeryHard:
-                    this.KnownWords--;
-                    break;
-            }
-        }
-
-        protected virtual void ResetKnownWords()
-        {
-            this.KnownWords = 0;
-            foreach (var word in WordsList)
-                word.SeenInModes[this.LearningMode] = LearningState.NotAsked;
         }
 
         protected virtual void ShuffleWords()
