@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Media;
 using ReactiveUI;
@@ -15,6 +16,8 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         
         private readonly SolidColorBrush _fallbackColorBlack = new(Color.Parse("#000000"));
         private readonly SolidColorBrush _fallbackColorRed = new(Color.Parse("#FF0000"));
+
+        public event EventHandler? ReadyToFocus;
 
         protected AnswerViewModelBase(Lesson lesson) : base(lesson)
         {
@@ -68,6 +71,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             this.IsSolutionShown = true;
             this.AnswerColor = Utilities.GetResourceFromStyle<SolidColorBrush, Application>
                 (Application.Current, "MainRed", 1) ?? _fallbackColorRed;
+        }
+
+        protected override void PickWord(bool resetKnownWords = false)
+        {
+            base.PickWord(resetKnownWords);
+            ReadyToFocus?.Invoke(this, EventArgs.Empty);
         }
     }
 }

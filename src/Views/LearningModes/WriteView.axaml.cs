@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using VocabularyTrainer.ViewModels.LearningModes;
 
 namespace VocabularyTrainer.Views.LearningModes
 {
@@ -9,7 +10,12 @@ namespace VocabularyTrainer.Views.LearningModes
         {
             InitializeComponent();
             var textbox = this.Get<TextBox>("MainAnswerTextbox");
-            textbox.Initialized += (sender, args) => textbox.Focus();
+            textbox.Initialized += (_, _) =>
+            {
+                textbox.Focus();
+                if (this.DataContext is AnswerViewModelBase dataContext)
+                    dataContext.ReadyToFocus += (_, _) => textbox.Focus();
+            };
         }
 
         private void InitializeComponent()
