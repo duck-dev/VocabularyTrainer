@@ -23,15 +23,6 @@ namespace VocabularyTrainer.Views.Shapes
         public static readonly StyledProperty<double> CanvasTopProperty =
             AvaloniaProperty.Register<StarShape, double>(nameof(CanvasTop));
 
-        // public static readonly StyledProperty<Brush> FillProperty =
-        //     AvaloniaProperty.Register<StarShape, Brush>(nameof(Fill));
-        //
-        // public static readonly StyledProperty<Brush> StrokeProperty =
-        //     AvaloniaProperty.Register<StarShape, Brush>(nameof(Stroke));
-        //
-        // public static readonly StyledProperty<double> StrokeThicknessProperty =
-        //     AvaloniaProperty.Register<StarShape, double>(nameof(StrokeThickness));
-        
         public static readonly StyledProperty<Geometry?> DataProperty =
             AvaloniaProperty.Register<Path, Geometry?>(nameof(Data));
         
@@ -81,27 +72,6 @@ namespace VocabularyTrainer.Views.Shapes
         
         private EventHandler? GeometryChangedHandler => _geometryChangedHandler ??= GeometryChanged;
 
-        // public Brush Fill
-        // {
-        //     get => GetValue(FillProperty);
-        //     set => SetValue(FillProperty, value);
-        // }
-        //
-        // public Brush Stroke
-        // {
-        //     get => GetValue(StrokeProperty);
-        //     set => SetValue(StrokeProperty, value);
-        // }
-        //
-        // public double StrokeThickness
-        // {
-        //     get => GetValue(StrokeThicknessProperty);
-        //     set => SetValue(StrokeThicknessProperty, value);
-        // }
-        
-        /// <summary>
-        /// Gets or sets the content to display.
-        /// </summary>
         [Content]
         public object? Content
         {
