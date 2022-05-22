@@ -79,11 +79,17 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             
         }
-        
-        internal virtual void SetDifficultTerm(VocabularyItem? item = null) 
-            => (item ?? CurrentWord).IsDifficult = true; // Remove from lists specifically for difficult items if needed
 
-        internal virtual void RemoveDifficultTerm(VocabularyItem? item = null) 
-            => (item ?? CurrentWord).IsDifficult = false; // Remove from lists specifically for difficult items if needed
+        internal virtual void SetDifficultTerm(VocabularyItem? item = null)
+        {
+            (item ?? CurrentWord).IsDifficult = true; // Remove from lists specifically for difficult items if needed
+            DataManager.SaveData();
+        }
+
+        internal virtual void RemoveDifficultTerm(VocabularyItem? item = null)
+        {
+            (item ?? CurrentWord).IsDifficult = false; // Remove from lists specifically for difficult items if needed
+            DataManager.SaveData();
+        }
     }
 }
