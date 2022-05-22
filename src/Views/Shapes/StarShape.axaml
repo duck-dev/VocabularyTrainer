@@ -1,0 +1,36 @@
+<shapes:StarShape xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:shapes="clr-namespace:VocabularyTrainer.Views.Shapes"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VocabularyTrainer.Views.Shapes.StarShape"
+             Stretch="Fill">
+
+    <Grid Width="{Binding $parent[shapes:StarShape].Width}" Height="{Binding $parent[shapes:StarShape].Height}">
+        <Grid.Resources>
+            <Canvas x:Key="AppBar" Width="{Binding $parent[shapes:StarShape].Width}" 
+                    Height="{Binding $parent[shapes:StarShape].Height}" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                <Path Width="{Binding $parent[shapes:StarShape].Width}" Stretch="Fill" 
+                      Fill="{Binding $parent[shapes:StarShape].Fill}"
+                      Height="{Binding $parent[shapes:StarShape].PathHeight}"
+                      Canvas.Left="{Binding $parent[shapes:StarShape].CanvasLeft}" 
+                      Canvas.Top="{Binding $parent[shapes:StarShape].CanvasTop}" 
+                      Data="F1 M 17.4167,32.25L 32.9107,32.25L 38,18L 43.0893,32.25L 58.5833,32.25L 45.6798,41.4944L 51.4583,56L 38,48.0833L 26.125,56L 30.5979,41.7104L 17.4167,32.25 Z "/>
+            </Canvas>
+            <ControlTemplate x:Key="StarToggleButton" TargetType="{x:Type ToggleButton}">
+                <Canvas Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                        Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                    <Path x:Name="ButtonPath" Width="{Binding $parent[shapes:StarShape].PathWidth}" 
+                          Height="{Binding $parent[shapes:StarShape].PathHeight}" 
+                          Canvas.Left="{Binding $parent[shapes:StarShape].CanvasLeft}" 
+                          Canvas.Top="{Binding $parent[shapes:StarShape].CanvasTop}"
+                          Fill="{Binding $parent[shapes:StarShape].Fill}" 
+                          Stroke="{Binding $parent[shapes:StarShape].Stroke}" 
+                          StrokeThickness="{Binding $parent[shapes:StarShape].StrokeThickness}" Stretch="Fill"
+                          Data="F1 M 17.416,32.25L 32.910,32.25L 38,18L 43.089,32.25L 58.583,32.25L 45.679,41.494L 51.458,56L 38,48.083L 26.125,56L 30.597,41.710L 17.416,32.25 Z "/>
+                </Canvas>
+            </ControlTemplate>
+        </Grid.Resources>
+    </Grid>
+</shapes:StarShape>
