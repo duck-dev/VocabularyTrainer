@@ -19,6 +19,15 @@
         <Style Selector="Button.selectable-word-button:pressed">
             <Setter Property="RenderTransform" Value="scale(0.85)"/>
         </Style>
+        <Style Selector="TextBox.main-textbox">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="0,7.5,0,0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="AcceptsReturn" Value="False"/>
+            <Setter Property="AcceptsTab" Value="False"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
     </UserControl.Styles>
 
     <Grid ColumnDefinitions="Auto,*,Auto" MinHeight="80" Margin="0,10,0,15">
@@ -100,14 +109,10 @@
                         </Grid>
                     </DataTemplate>
                 </Grid.Resources>
-                <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox" Watermark="Term"
-                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
-                         Text="{Binding ChangedTerm}" FontWeight="Bold" AcceptsReturn="False" AcceptsTab="False"
-                         TextWrapping="WrapWithOverflow"/>
-                <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox" Watermark="Definition"
-                         HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
-                         Text="{Binding ChangedDefinition}" FontWeight="Bold" AcceptsReturn="False" AcceptsTab="False"
-                         TextWrapping="WrapWithOverflow"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox main-textbox" Watermark="Term"
+                         Text="{Binding ChangedTerm}"/>
+                <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox main-textbox" Watermark="Definition"
+                         Text="{Binding ChangedDefinition}"/>
                 <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Items="{Binding ThesaurusTitleDefinitions}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
