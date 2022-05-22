@@ -46,11 +46,11 @@ namespace VocabularyTrainer.Models
 
         [JsonConstructor]
         public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms, 
-            Dictionary<LearningModeType, LearningState> knownInModes) : this()
+            Dictionary<LearningModeType, LearningState> seenInModes) : this()
         {
             this.Synonyms = synonyms;
             this.Antonyms = antonyms;
-            this.SeenInModes = knownInModes;
+            this.SeenInModes = seenInModes;
             
             foreach (var item in Synonyms)
                 item.ContainerCollection = this.Synonyms;
