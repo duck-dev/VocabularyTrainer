@@ -25,12 +25,13 @@
             </Viewbox>
             <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30,0">
                 <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" Margin="30,0,30,30">
-                    <TextBox Grid.Column="0" BorderBrush="{StaticResource OppositeAccent}" BorderThickness="0,0,0,2"
+                    <TextBox Grid.Column="0" Name="MainAnswerTextbox"
+                             BorderBrush="{StaticResource OppositeAccent}" BorderThickness="0,0,0,2"
                              CornerRadius="0" Background="{StaticResource FullyTransparent}"
                              AcceptsReturn="False" AcceptsTab="False" Height="60" FontSize="42" HorizontalAlignment="Stretch" 
                              VerticalContentAlignment="Center" Padding="0,0,0,5" Margin="0,0,25,0"
                              Text="{Binding Answer}" Foreground="{Binding AnswerColor}"
-                             IsReadOnly="{Binding IsAnswerReadonly}">
+                             IsReadOnly="{Binding IsAnswerReadonly}" Focusable="True">
                         <TextBox.Styles>
                             <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
                                 <Setter Property="Background" Value="{TemplateBinding Background}"/>

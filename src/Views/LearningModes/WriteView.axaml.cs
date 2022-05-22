@@ -8,6 +8,8 @@ namespace VocabularyTrainer.Views.LearningModes
         public WriteView()
         {
             InitializeComponent();
+            var textbox = this.Get<TextBox>("MainAnswerTextbox");
+            textbox.Initialized += (sender, args) => textbox.Focus();
         }
 
         private void InitializeComponent()
