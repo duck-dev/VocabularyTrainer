@@ -60,6 +60,6 @@
             </Grid>
         </Grid>
         <ContentControl Grid.Column="1" Content="{Binding SolutionPanel}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                        IsEnabled="{Binding IsSolutionShown}"/>
+                        IsVisible="{Binding IsSolutionShown}"/>
     </Grid>
 </UserControl>

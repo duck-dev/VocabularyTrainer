@@ -42,20 +42,20 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         protected void ChangeLearningState(Word word, bool known)
         {
-            var state = word.KnownInModes[this.LearningMode];
-            word.KnownInModes[this.LearningMode] = known switch
+            var state = word.SeenInModes[this.LearningMode];
+            word.SeenInModes[this.LearningMode] = known switch
             {
                 true when state < LearningState.KnownPerfectly => ++state,
                 false when state > LearningState.VeryHard => --state,
-                _ => word.KnownInModes[this.LearningMode]
+                _ => word.SeenInModes[this.LearningMode]
             };
-            VisualizeLearningProgress(state, word.KnownInModes[this.LearningMode]);
+            VisualizeLearningProgress(state, word.SeenInModes[this.LearningMode]);
         }
 
         protected void ChangeLearningState(Word word, LearningState state)
         {
-            var previousState = word.KnownInModes[this.LearningMode];
-            word.KnownInModes[this.LearningMode] = state;
+            var previousState = word.SeenInModes[this.LearningMode];
+            word.SeenInModes[this.LearningMode] = state;
             VisualizeLearningProgress(previousState, state);
         }
 
@@ -79,7 +79,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             this.KnownWords = 0;
             foreach (var word in WordsList)
-                word.KnownInModes[this.LearningMode] = LearningState.NotAsked;
+                word.SeenInModes[this.LearningMode] = LearningState.NotAsked;
         }
 
         protected virtual void ShuffleWords()

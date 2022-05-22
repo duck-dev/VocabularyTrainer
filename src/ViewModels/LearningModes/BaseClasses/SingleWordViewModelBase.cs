@@ -35,7 +35,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             PickWord(resetWords);
         }
 
-        protected void NextWord()
+        protected internal virtual void NextWord()
         {
             _wordIndex++;
             bool resetWords = _wordIndex >= WordsList.Length || _wordIndex < 0;
@@ -52,7 +52,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             this.RaisePropertyChanged(nameof(IsCurrentWordDifficult));
             this.RaisePropertyChanged(nameof(WordIndexCorrected));
 
-            var knownState = word.KnownInModes[this.LearningMode];
+            var knownState = word.SeenInModes[this.LearningMode];
             if(knownState < LearningState.KnownOnce)
                 ChangeLearningState(word, LearningState.KnownOnce);
             

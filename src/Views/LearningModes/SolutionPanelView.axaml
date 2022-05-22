@@ -23,13 +23,15 @@
             <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Grid.Column="0" Classes="highlight-no-change selectable-button-effect" Width="240" Height="70" 
                         Background="{StaticResource MainGreen}" Foreground="{StaticResource SameAccent}"
-                        Margin="35,0" IsVisible="{Binding !IsAnswerCorrect}">
+                        Margin="35,0" IsVisible="{Binding !IsAnswerCorrect}"
+                        Command="{Binding AnswerViewModel.CountCorrect}">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Count my answer as correct!"
                                Foreground="{StaticResource SameAccent}" FontSize="16"/>
                 </Button>
                 <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Margin="35,0"
                         HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="70"
-                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}">
+                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
+                        Command="{Binding AnswerViewModel.NextWord}">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Next word"
                                Foreground="{StaticResource SameAccent}" FontSize="20"/>
                 </Button>

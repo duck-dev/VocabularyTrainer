@@ -59,7 +59,15 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             get => _answerColor; 
             set => this.RaiseAndSetIfChanged(ref _answerColor, value);
         }
-        
+
+        protected internal override void NextWord()
+        {
+            base.NextWord();
+            this.IsSolutionShown = false;
+            this.AnswerColor = _blackColor;
+            this.Answer = string.Empty;
+        }
+
         protected void CheckAnswer()
         {
             OpenSolutionPanel(this.DisplayedTerm, this.Answer, true); // TODO: Check answer
@@ -74,6 +82,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             base.PickWord(resetKnownWords);
             ReadyToFocus?.Invoke(this, EventArgs.Empty);
+        }
+
+        internal void CountCorrect()
+        {
+            // TODO: Count word as correct
+            NextWord();
         }
 
         private void OpenSolutionPanel(string? term, string? definition, bool answerCorrect)
