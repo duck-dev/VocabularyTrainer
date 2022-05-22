@@ -9,11 +9,13 @@ namespace VocabularyTrainer.ViewModels.LearningModes
     public abstract class LearningModeViewModelBase : ViewModelBase
     {
         private int _knownWords;
+        private bool _shuffleButtonEnabled;
         
         protected LearningModeViewModelBase(Lesson lesson)
         {
             this.CurrentLesson = lesson;
             WordsList = lesson.VocabularyItems.ToArray();
+            ShuffleButtonEnabled = true;
         }
         
         protected Lesson CurrentLesson { get; }
@@ -24,6 +26,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             get => _knownWords; 
             private set => this.RaiseAndSetIfChanged(ref _knownWords, value);
+        }
+        
+        protected bool ShuffleButtonEnabled
+        {
+            get => _shuffleButtonEnabled;
+            set => this.RaiseAndSetIfChanged(ref _shuffleButtonEnabled, value);
         }
 
         protected void ReturnToLesson()

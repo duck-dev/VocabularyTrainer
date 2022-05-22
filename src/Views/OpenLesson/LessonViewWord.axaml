@@ -100,14 +100,14 @@
                         </Grid>
                     </DataTemplate>
                 </Grid.Resources>
-                <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox"
+                <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox" Watermark="Term"
                          HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
-                         Text="{Binding ChangedTerm}" FontWeight="Bold"
-                         Watermark="Term"/>
-                <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox"
+                         Text="{Binding ChangedTerm}" FontWeight="Bold" AcceptsReturn="False" AcceptsTab="False"
+                         TextWrapping="WrapWithOverflow"/>
+                <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox" Watermark="Definition"
                          HorizontalAlignment="Stretch" Height="40" Margin="0,7.5,0,0"
-                         Text="{Binding ChangedDefinition}" FontWeight="Bold"
-                         Watermark="Definition"/>
+                         Text="{Binding ChangedDefinition}" FontWeight="Bold" AcceptsReturn="False" AcceptsTab="False"
+                         TextWrapping="WrapWithOverflow"/>
                 <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Items="{Binding ThesaurusTitleDefinitions}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
