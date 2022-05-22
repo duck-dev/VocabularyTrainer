@@ -26,14 +26,19 @@ namespace VocabularyTrainer.Models
         }
 
         [JsonConstructor]
-        public VocabularyItem(string definition) : this()
-            => this.Definition = definition;
+        public VocabularyItem(string definition, bool isDifficult) : this()
+        {
+            this.Definition = definition;
+            this.IsDifficult = isDifficult;
+        }
 
         public string Definition
         {
             get => _definition; 
             set => this.ChangedDefinition = _definition = value.Trim();
         }
+
+        public bool IsDifficult { get; set; }
 
         internal string ChangedDefinition
         {

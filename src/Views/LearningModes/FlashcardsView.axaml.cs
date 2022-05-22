@@ -1,5 +1,7 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using VocabularyTrainer.ViewModels.LearningModes;
 
 namespace VocabularyTrainer.Views.LearningModes
 {
@@ -13,6 +15,18 @@ namespace VocabularyTrainer.Views.LearningModes
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void OnStarChecked(object? sender, RoutedEventArgs e)
+        {
+            if (this.DataContext is SingleWordViewModelBase dataContext)
+                dataContext.SetDifficultTerm();
+        }
+
+        private void OnStarUnchecked(object? sender, RoutedEventArgs e)
+        {
+            if (this.DataContext is SingleWordViewModelBase dataContext)
+                dataContext.RemoveDifficultTerm();
         }
     }
 }
