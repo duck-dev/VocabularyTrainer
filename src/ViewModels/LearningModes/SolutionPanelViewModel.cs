@@ -10,6 +10,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         private string? _term;
         private string? _definition;
         private string? _explanationText;
+        private bool _isAnswerCorrect;
 
         internal string? Term
         {
@@ -31,7 +32,16 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             set => this.RaiseAndSetIfChanged(ref _explanationText, value);
         }
 
-        internal void SetExplanationText(bool answerCorrect) 
-            => this.ExplanationText = answerCorrect ? ExplanationCorrect : ExplanationWrong;
+        private bool IsAnswerCorrect
+        {
+            get => _isAnswerCorrect;
+            set => this.RaiseAndSetIfChanged(ref _isAnswerCorrect, value);
+        }
+
+        internal void SetExplanationText(bool answerCorrect)
+        {
+            this.ExplanationText = answerCorrect ? ExplanationCorrect : ExplanationWrong;
+            this.IsAnswerCorrect = answerCorrect;
+        }
     }
 }

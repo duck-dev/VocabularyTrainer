@@ -20,12 +20,20 @@
                     <TextBlock Foreground="{Binding AnswerViewModel.AnswerColor}" FontWeight="Bold" Text="{Binding Definition}"/>
                 </Viewbox>
             </Grid>
-            <Button Grid.Row="2" Classes="highlight-no-change selectable-button-effect" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="60"
-                    Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Got it! Next word..."
-                           Foreground="{StaticResource SameAccent}" FontSize="20"/>
-            </Button>
+            <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Grid.Column="0" Classes="highlight-no-change selectable-button-effect" Width="240" Height="70" 
+                        Background="{StaticResource MainGreen}" Foreground="{StaticResource SameAccent}"
+                        Margin="35,0" IsVisible="{Binding !IsAnswerCorrect}">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Count my answer as correct!"
+                               Foreground="{StaticResource SameAccent}" FontSize="16"/>
+                </Button>
+                <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Margin="35,0"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="70"
+                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Next word"
+                               Foreground="{StaticResource SameAccent}" FontSize="20"/>
+                </Button>
+            </Grid>
         </Grid>
     </Panel>
 </UserControl>
