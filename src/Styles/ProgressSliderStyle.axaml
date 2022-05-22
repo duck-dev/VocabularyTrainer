@@ -7,7 +7,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Height" Value="32"/>
         <Setter Property="Background" Value="{StaticResource VeryLightGrey}"/>
-        <Setter Property="Foreground" Value="{StaticResource MainGreen}"/>
+        <Setter Property="Foreground" Value="{StaticResource AppBlue}"/>
         <Setter Property="IsHitTestVisible" Value="False"/>
     </Style>
     <Style Selector="Slider.progress-slider:horizontal">
