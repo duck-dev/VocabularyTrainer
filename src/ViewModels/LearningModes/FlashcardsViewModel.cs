@@ -8,14 +8,24 @@ namespace VocabularyTrainer.ViewModels.LearningModes
     public sealed class FlashcardsViewModel : SingleWordViewModelBase
     {
         private bool _flipped;
-        
-        public FlashcardsViewModel(Lesson lesson) : base(lesson) 
-            => this.LearningMode = LearningModeType.Flashcards;
+
+        public FlashcardsViewModel(Lesson lesson) : base(lesson)
+        {
+            SetWord();
+            this.LearningMode = LearningModeType.Flashcards;
+        }
 
         protected override void PickWord(bool resetKnownWords = false)
         {
             base.PickWord(resetKnownWords);
+            SetWord();
             _flipped = false;
+        }
+
+        protected override void ShuffleWords()
+        {
+            base.ShuffleWords();
+            SetWord();
         }
 
         private void FlipCard()
