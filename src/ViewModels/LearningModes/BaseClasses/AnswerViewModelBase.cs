@@ -13,7 +13,10 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         private bool _isSolutionShown;
         private SolutionPanelViewModel? _solutionPanel;
         private SolidColorBrush _answerColor;
-        
+
+        private int _knownWords;
+        private int _wrongWords;
+
         private readonly SolidColorBrush _blackColor 
             = Utilities.GetResourceFromStyle<SolidColorBrush,Application>(Application.Current, "OppositeAccent", 1) 
               ?? new(Color.Parse("#000000"));
@@ -30,6 +33,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             _answerColor = this.AnswerColor = _blackColor;
             this.IsSolutionShown = false;
+        }
+        
+        protected internal SolidColorBrush AnswerColor
+        {
+            get => _answerColor; 
+            set => this.RaiseAndSetIfChanged(ref _answerColor, value);
         }
         
         protected string? Answer
@@ -53,11 +62,17 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             get => _solutionPanel;
             set => this.RaiseAndSetIfChanged(ref _solutionPanel, value);
         }
-        
-        protected internal SolidColorBrush AnswerColor
+
+        protected int KnownWords
         {
-            get => _answerColor; 
-            set => this.RaiseAndSetIfChanged(ref _answerColor, value);
+            get => _knownWords;
+            set => this.RaiseAndSetIfChanged(ref _knownWords, value);
+        }
+
+        protected int WrongWords
+        {
+            get => _wrongWords;
+            set => this.RaiseAndSetIfChanged(ref _wrongWords, value);
         }
 
         protected internal override void NextWord()
