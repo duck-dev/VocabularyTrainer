@@ -19,7 +19,8 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <Viewbox Grid.Row="0" Height="84" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Viewbox Grid.Row="0" Height="84" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                     IsVisible="{Binding !IsSolutionShown}">
                 <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/>
             </Viewbox>
             <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30,0">
@@ -42,7 +43,7 @@
                     </TextBox>
                     <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Width="170" Height="60"
                             Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
-                            Command="{Binding CheckAnswer}">
+                            Command="{Binding CheckAnswer}" IsEnabled="{Binding !IsSolutionShown}">
                         <TextBlock Foreground="{StaticResource SameAccent}" FontSize="22" 
                                    HorizontalAlignment="Center" VerticalAlignment="Center" Text="Answer"/>
                     </Button>
@@ -57,5 +58,7 @@
                 </Button>
             </Grid>
         </Grid>
+        <ContentControl Grid.Column="1" Content="{Binding SolutionPanel}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        IsEnabled="{Binding IsSolutionShown}"/>
     </Grid>
 </UserControl>

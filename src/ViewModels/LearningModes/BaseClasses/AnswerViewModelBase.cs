@@ -45,7 +45,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             set => this.RaiseAndSetIfChanged(ref _solutionPanel, value);
         }
         
-        protected SolidColorBrush AnswerColor
+        protected internal SolidColorBrush AnswerColor
         {
             get => _answerColor; 
             set => this.RaiseAndSetIfChanged(ref _answerColor, value);
@@ -58,14 +58,16 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         
         protected void ShowSolution()
         {
-            this.AnswerColor = Utilities.GetResourceFromStyle<SolidColorBrush, Application>
-                (Application.Current, "MainRed", 1) ?? _fallbackColorRed;
-
-            this.SolutionPanel ??= new SolutionPanelViewModel();
+            this.SolutionPanel ??= new SolutionPanelViewModel
+            {
+                AnswerViewModel = this
+            };
             this.SolutionPanel.Term = this.DisplayedTerm;
             this.SolutionPanel.Definition = this.Definition;
             
             this.IsSolutionShown = true;
+            this.AnswerColor = Utilities.GetResourceFromStyle<SolidColorBrush, Application>
+                (Application.Current, "MainRed", 1) ?? _fallbackColorRed;
         }
     }
 }

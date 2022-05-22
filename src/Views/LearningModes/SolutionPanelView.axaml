@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VocabularyTrainer.Views.LearningModes.SolutionPanelView">
+    
+    <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource OppositeAccent}"
+               Opacity="0.7"/>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30">
+            <Viewbox Grid.Row="0" Height="84" Margin="0,30" HorizontalAlignment="Center">
+                <TextBlock Foreground="{StaticResource SameAccent}" FontWeight="Bold" Text="{Binding Term}"/>
+            </Viewbox>
+            <Viewbox Grid.Row="1" Height="28" Margin="0,30" HorizontalAlignment="Center">
+                <TextBlock Foreground="{StaticResource SameAccent}" Text="The seeked definition is..."/>
+            </Viewbox>
+            <Viewbox Grid.Row="2" Height="130" Margin="0,30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="{Binding AnswerViewModel.AnswerColor}" FontWeight="Bold" Text="{Binding Definition}"/>
+            </Viewbox>
+            <Button Grid.Row="3" Classes="highlight-no-change selectable-button-effect"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="60" Margin="0,75,0,0"
+                    Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Got it! Next word..."
+                           Foreground="{StaticResource SameAccent}" FontSize="20"/>
+            </Button>
+        </Grid>
+    </Panel>
+</UserControl>
