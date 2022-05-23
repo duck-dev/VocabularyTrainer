@@ -15,14 +15,14 @@ namespace VocabularyTrainer.UtilityCollection
         public static void ChangeLearningState(Word word, SingleWordViewModelBase singleWordViewModel, bool known)
         {
             var learningMode = singleWordViewModel.LearningMode;
-            var state = word.SeenInModes[learningMode];
-            word.SeenInModes[learningMode] = known switch
+            var state = word.LearningStateInModes[learningMode];
+            word.LearningStateInModes[learningMode] = known switch
             {
                 true when state < LearningState.KnownPerfectly => ++state,
                 false when state > LearningState.VeryHard => --state,
-                _ => word.SeenInModes[learningMode]
+                _ => word.LearningStateInModes[learningMode]
             };
-            singleWordViewModel.VisualizeLearningProgress(state, word.SeenInModes[learningMode]);
+            singleWordViewModel.VisualizeLearningProgress(state, word.LearningStateInModes[learningMode]);
         }
         
         /// <summary>
@@ -35,8 +35,8 @@ namespace VocabularyTrainer.UtilityCollection
         public static void ChangeLearningState(Word word, SingleWordViewModelBase singleWordViewModel, LearningState state)
         {
             var learningMode = singleWordViewModel.LearningMode;
-            var previousState = word.SeenInModes[learningMode];
-            word.SeenInModes[learningMode] = state;
+            var previousState = word.LearningStateInModes[learningMode];
+            word.LearningStateInModes[learningMode] = state;
             singleWordViewModel.VisualizeLearningProgress(previousState, state);
         }
     }

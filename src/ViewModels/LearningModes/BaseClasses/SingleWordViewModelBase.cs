@@ -58,7 +58,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             this.RaisePropertyChanged(nameof(IsCurrentWordDifficult));
             this.RaisePropertyChanged(nameof(WordIndexCorrected));
 
-            var knownState = word.SeenInModes[this.LearningMode];
+            var knownState = word.LearningStateInModes[this.LearningMode];
             if(knownState < LearningState.KnownOnce)
                 Utilities.ChangeLearningState(word, this, LearningState.KnownOnce);
             
@@ -106,7 +106,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             this.SeenWords = 0;
             foreach (var word in WordsList)
-                word.SeenInModes[this.LearningMode] = LearningState.NotAsked;
+                word.LearningStateInModes[this.LearningMode] = LearningState.NotAsked;
         }
 
         internal virtual void SetDifficultTerm(VocabularyItem? item = null)

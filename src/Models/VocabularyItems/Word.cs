@@ -41,16 +41,17 @@ namespace VocabularyTrainer.Models
             SubscribeAntonyms();
             
             foreach(LearningModeType value in Enum.GetValues(typeof(LearningModeType)))
-                SeenInModes.Add(value, LearningState.NotAsked);
+                LearningStateInModes.Add(value, LearningState.NotAsked);
         }
 
         [JsonConstructor]
-        public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms, 
-            Dictionary<LearningModeType, LearningState> seenInModes) : this()
+        public Word(ObservableCollection<VocabularyItem> synonyms, 
+                    ObservableCollection<VocabularyItem> antonyms, 
+                    Dictionary<LearningModeType, LearningState> learningStateInModes) : this()
         {
             this.Synonyms = synonyms;
             this.Antonyms = antonyms;
-            this.SeenInModes = seenInModes;
+            this.LearningStateInModes = learningStateInModes;
             
             foreach (var item in Synonyms)
                 item.ContainerCollection = this.Synonyms;
@@ -80,7 +81,7 @@ namespace VocabularyTrainer.Models
             }
         }
         
-        public Dictionary<LearningModeType, LearningState> SeenInModes { get; } = new();
+        public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; } = new();
 
         [JsonIgnore]
         public int Index
@@ -99,9 +100,6 @@ namespace VocabularyTrainer.Models
                                      || Synonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition)) 
                                      || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
                                      || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
-
-        // private bool SynonymsEmpty => Synonyms.Count <= 0;
-        // private bool AntonymsEmpty => Antonyms.Count <= 0;
 
         private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
@@ -202,7 +200,6 @@ namespace VocabularyTrainer.Models
         {
             Synonyms.CollectionChanged += (sender, args) =>
             {
-                // NotifyPropertyChanged(nameof(SynonymsEmpty));
                 Utilities.AddChangedItems(_changedSynonyms, args);
                 NotifyChanges(args);
             };
@@ -212,7 +209,6 @@ namespace VocabularyTrainer.Models
         {
             Antonyms.CollectionChanged += (sender, args) =>
             {
-                // NotifyPropertyChanged(nameof(AntonymsEmpty));
                 Utilities.AddChangedItems(_changedAntonyms, args);
                 NotifyChanges(args);
             };
