@@ -101,7 +101,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         internal void CountCorrect()
         {
-            // TODO: Count word as correct (use utility-method)
+            Utilities.ChangeLearningState(CurrentWord, this, true);
             NextWord();
         }
 
