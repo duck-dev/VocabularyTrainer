@@ -1,6 +1,7 @@
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.ViewModels.LearningModes
 {
@@ -40,7 +41,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             PickWord(resetWords);
         }
 
-        protected internal virtual void NextWord()
+        protected virtual void NextWord()
         {
             _wordIndex++;
             bool resetWords = _wordIndex >= WordsList.Length || _wordIndex < 0;
@@ -59,7 +60,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
             var knownState = word.SeenInModes[this.LearningMode];
             if(knownState < LearningState.KnownOnce)
-                ChangeLearningState(word, LearningState.KnownOnce);
+                Utilities.ChangeLearningState(word, this, LearningState.KnownOnce);
             
             // Create display when the words should be reset and only reset upon confirming
             // Remove parameter in PickWord(), move this code below to this specific confirmation method,
@@ -85,7 +86,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             
         }
 
-        protected virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState)
+        protected internal virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState)
         {
             if (previousState is LearningState.WrongOnce or LearningState.VeryHard)
                 return;
@@ -118,25 +119,6 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             (item ?? CurrentWord).IsDifficult = false; // Remove from lists specifically for difficult items if needed
             DataManager.SaveData();
-        }
-        
-        private void ChangeLearningState(Word word, bool known)
-        {
-            var state = word.SeenInModes[this.LearningMode];
-            word.SeenInModes[this.LearningMode] = known switch
-            {
-                true when state < LearningState.KnownPerfectly => ++state,
-                false when state > LearningState.VeryHard => --state,
-                _ => word.SeenInModes[this.LearningMode]
-            };
-            VisualizeLearningProgress(state, word.SeenInModes[this.LearningMode]);
-        }
-        
-        private void ChangeLearningState(Word word, LearningState state)
-        {
-            var previousState = word.SeenInModes[this.LearningMode];
-            word.SeenInModes[this.LearningMode] = state;
-            VisualizeLearningProgress(previousState, state);
         }
     }
 }

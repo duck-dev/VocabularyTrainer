@@ -75,7 +75,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             set => this.RaiseAndSetIfChanged(ref _wrongWords, value);
         }
 
-        protected internal override void NextWord()
+        protected override void NextWord()
         {
             base.NextWord();
             this.IsSolutionShown = false;
@@ -101,7 +101,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         internal void CountCorrect()
         {
-            // TODO: Count word as correct
+            // TODO: Count word as correct (use utility-method)
             NextWord();
         }
 

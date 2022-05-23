@@ -19,7 +19,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         
         protected Lesson CurrentLesson { get; }
         protected Word[] WordsList { get; set; }
-        protected LearningModeType LearningMode { get; init; }
+        protected internal LearningModeType LearningMode { get; init; }
 
         protected bool ShuffleButtonEnabled
         {
