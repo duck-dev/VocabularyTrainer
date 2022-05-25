@@ -44,7 +44,8 @@
                     </TextBox>
                     <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Width="180" Height="60"
                             Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
-                            Command="{Binding CheckAnswer}" IsEnabled="{Binding !IsSolutionShown}">
+                            Command="{Binding CheckAnswer}" IsEnabled="{Binding !IsSolutionShown}"
+                            HotKey="Enter">
                         <TextBlock Foreground="{StaticResource SameAccent}" FontSize="22" 
                                    HorizontalAlignment="Center" VerticalAlignment="Center" Text="Answer"/>
                     </Button>
