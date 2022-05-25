@@ -33,8 +33,9 @@ namespace VocabularyTrainer.Models
         {
             identicalItem = collection.FirstOrDefault(x => x.ChangedAction == NotifyCollectionChangedAction.Remove
                                                             && x.ChangedDefinition.Equals(this.ChangedDefinition)
-                                                            && x.ChangedTerm.Equals(this.ChangedTerm));
-            return identicalItem is not null && !ReferenceEquals(identicalItem, this);
+                                                            && x.ChangedTerm.Equals(this.ChangedTerm)
+                                                            && !ReferenceEquals(x, this));
+            return identicalItem is not null;
         }
 
         public override void EqualizeChangedData()
