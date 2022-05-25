@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -5,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.UtilityCollection;
 
@@ -26,11 +28,13 @@ namespace VocabularyTrainer.Models
         internal event NotifyChanged? NotifyCollectionsChanged;
         
         [JsonConstructor]
-        public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems)
+        public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems, 
+                      Dictionary<LearningModeType, bool> isShuffledInModes)
         {
             this.Name = _name = name;
             this.Description = _description = description;
             _vocabularyItems = this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
+            this.IsShuffledInModes = isShuffledInModes;
 
             Utilities.NotifyItemAdded += SubscribeVocabularyChanges; 
             foreach (var word in VocabularyItems)
@@ -43,7 +47,7 @@ namespace VocabularyTrainer.Models
             }
         }
 
-        public static bool CheckUnsavedEnabled { get; set; } = true;
+        internal static bool CheckUnsavedEnabled { get; set; } = true;
         
         public string Name
         {
@@ -66,6 +70,8 @@ namespace VocabularyTrainer.Models
                 NotifyPropertyChanged(nameof(VocabularyItems));
             }
         }
+
+        public Dictionary<LearningModeType, bool> IsShuffledInModes { get; } = new();
 
         private string ChangedName
         {
@@ -106,6 +112,15 @@ namespace VocabularyTrainer.Models
                        || VocabularyItems.Any(x => x.DataChanged) 
                        || _changedWords.Count > 0;
             }
+        }
+        
+        internal static Dictionary<LearningModeType, bool> InitShuffledDictionary()
+        {
+            var dict = new Dictionary<LearningModeType, bool>();
+            foreach(LearningModeType value in Enum.GetValues(typeof(LearningModeType)))
+                dict.Add(value, false);
+            
+            return dict;
         }
         
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 

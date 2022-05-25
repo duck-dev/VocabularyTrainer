@@ -2,6 +2,7 @@ using System;
 using Avalonia;
 using Avalonia.Media;
 using ReactiveUI;
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.UtilityCollection;
 
@@ -75,6 +76,11 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             set => this.RaiseAndSetIfChanged(ref _wrongWords, value);
         }
 
+        protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState)
+        {
+            base.VisualizeLearningProgress(previousState, newState);
+        }
+
         protected override void NextWord()
         {
             base.NextWord();
@@ -93,9 +99,9 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             OpenSolutionPanel(this.DisplayedTerm, this.Definition, false);
         }
 
-        protected override void PickWord(bool resetKnownWords = false)
+        protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
         {
-            base.PickWord(resetKnownWords);
+            base.PickWord(resetKnownWords, goForward);
             ReadyToFocus?.Invoke(this, EventArgs.Empty);
         }
 

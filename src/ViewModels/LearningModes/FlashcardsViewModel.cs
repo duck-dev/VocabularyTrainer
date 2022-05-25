@@ -12,12 +12,11 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         public FlashcardsViewModel(Lesson lesson) : base(lesson)
         {
             SetWord();
-            this.LearningMode = LearningModeType.Flashcards;
         }
 
-        protected override void PickWord(bool resetKnownWords = false)
+        protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
         {
-            base.PickWord(resetKnownWords);
+            base.PickWord(resetKnownWords, goForward);
             SetWord();
             _flipped = false;
         }
@@ -26,6 +25,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             base.ShuffleWords();
             SetWord();
+        }
+        
+        protected override void InitCurrentWord()
+        {
+            SetLearningMode(LearningModeType.Flashcards);
+            base.InitCurrentWord();
         }
 
         private void FlipCard()

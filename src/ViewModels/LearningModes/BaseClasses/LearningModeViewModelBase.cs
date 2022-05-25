@@ -19,7 +19,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         
         protected Lesson CurrentLesson { get; }
         protected Word[] WordsList { get; set; }
-        protected internal LearningModeType LearningMode { get; init; }
+        protected internal LearningModeType LearningMode { get; private set; }
 
         protected bool ShuffleButtonEnabled
         {
@@ -37,6 +37,11 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             var rnd = new Random();
             WordsList = WordsList.OrderBy(_ => rnd.Next()).ToArray();
+            CurrentLesson.IsShuffledInModes[this.LearningMode] = true;
+            DataManager.SaveData();
         }
+        
+        protected void SetLearningMode(LearningModeType mode) 
+            => this.LearningMode = mode;
     }
 }

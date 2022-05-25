@@ -24,7 +24,7 @@ namespace VocabularyTrainer.ViewModels
 
         private void CreateLesson()
         {
-            var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems);
+            var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems, Lesson.InitShuffledDictionary());
             DataManager.AddData(lesson);
             MainViewModel?.ReturnHome();
         }

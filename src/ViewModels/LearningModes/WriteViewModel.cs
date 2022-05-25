@@ -1,3 +1,4 @@
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.ViewModels.LearningModes
@@ -9,9 +10,9 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             SetWord();
         }
 
-        protected override void PickWord(bool resetKnownWords = false)
+        protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
         {
-            base.PickWord(resetKnownWords);
+            base.PickWord(resetKnownWords, goForward);
             SetWord();
         }
 
@@ -19,6 +20,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             base.ShuffleWords();
             SetWord();
+        }
+
+        protected override void InitCurrentWord()
+        {
+            SetLearningMode(LearningModeType.Write);
+            base.InitCurrentWord();
         }
     }
 }

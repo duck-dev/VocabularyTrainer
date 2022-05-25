@@ -18,8 +18,10 @@ namespace VocabularyTrainer.UtilityCollection
             var state = word.LearningStateInModes[learningMode];
             word.LearningStateInModes[learningMode] = known switch
             {
-                true when state < LearningState.KnownPerfectly => ++state,
-                false when state > LearningState.VeryHard => --state,
+                true when state < LearningState.KnownPerfectly && state != LearningState.WrongOnce => state + 1,
+                true when state == LearningState.WrongOnce => LearningState.KnownOnce,
+                false when state > LearningState.VeryHard && state != LearningState.KnownOnce => state - 1,
+                false when state == LearningState.KnownOnce => LearningState.WrongOnce,
                 _ => word.LearningStateInModes[learningMode]
             };
             singleWordViewModel.VisualizeLearningProgress(state, word.LearningStateInModes[learningMode]);
