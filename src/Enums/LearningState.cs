@@ -1,13 +1,16 @@
+using System;
+
 namespace VocabularyTrainer.Enums
 {
+    [Flags]
     public enum LearningState
     {
-        NotAsked = -2,
+        VeryHard = 1,
+        WrongOnce = 2,
         
-        VeryHard = -1,
-        WrongOnce = 0,
+        NotAsked = 4,
         
-        KnownOnce = 1,
-        KnownPerfectly = 2
+        KnownOnce = 8,
+        KnownPerfectly = 16
     }
 }
