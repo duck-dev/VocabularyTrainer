@@ -1,4 +1,5 @@
 using VocabularyTrainer.Enums;
+using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.ViewModels.LearningModes;
 
@@ -38,6 +39,8 @@ namespace VocabularyTrainer.UtilityCollection
         {
             var learningMode = singleWordViewModel.LearningMode;
             var previousState = word.LearningStateInModes[learningMode];
+            if (previousState == state)
+                return;
             word.LearningStateInModes[learningMode] = state;
             singleWordViewModel.VisualizeLearningProgress(previousState, state);
         }
