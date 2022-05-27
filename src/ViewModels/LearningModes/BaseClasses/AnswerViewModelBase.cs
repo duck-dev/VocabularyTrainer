@@ -91,7 +91,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         protected void CheckAnswer()
         {
-            OpenSolutionPanel(this.DisplayedTerm, this.Answer, true); // TODO: Check answer
+            OpenSolutionPanel(this.DisplayedTerm, this.Definition, true); // TODO: Check answer
         }
         
         protected void ShowSolution()
