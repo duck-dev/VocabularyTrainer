@@ -230,6 +230,7 @@ namespace VocabularyTrainer.Models
         // internal void DebugUnsavedChanges()
         // {
         //     Utilities.Log($"• Word ({this.ChangedTerm} - {this.ChangedDefinition}):\n----------------------------");
+        //     Utilities.Log($"  _changedSynonyms.Count: {_changedSynonyms.Count}, _changedAntonyms.Count: {_changedAntonyms.Count}");
         //     foreach (var x in this.Synonyms)
         //         Utilities.Log($"      -S: {x.ChangedDefinition} ({x.Definition})");
         //     foreach(var y in this.Antonyms)

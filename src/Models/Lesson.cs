@@ -29,7 +29,11 @@ namespace VocabularyTrainer.Models
         
         [JsonConstructor]
         public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems, 
-                      Dictionary<LearningModeType, bool> isShuffledInModes)
+            Dictionary<LearningModeType, bool> isShuffledInModes) : this(name, description, vocabularyItems, isShuffledInModes, true)
+        { }
+
+        public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems,
+            Dictionary<LearningModeType, bool> isShuffledInModes, bool fromJson)
         {
             this.Name = _name = name;
             this.Description = _description = description;
@@ -44,6 +48,9 @@ namespace VocabularyTrainer.Models
                     SubscribeVocabularyChanges(synonym);
                 foreach (var antonym in word.Antonyms)
                     SubscribeVocabularyChanges(antonym);
+                
+                if(!fromJson)
+                    word.EqualizeChangedData();
             }
         }
 
