@@ -31,7 +31,7 @@
                              AcceptsReturn="False" AcceptsTab="False" Height="60" FontSize="42" HorizontalAlignment="Stretch" 
                              VerticalContentAlignment="Center" Padding="0,0,0,5" Margin="0,0,25,0"
                              Text="{Binding Answer}" Foreground="{Binding AnswerColor}"
-                             IsReadOnly="{Binding IsAnswerReadonly}" Focusable="True">
+                             IsReadOnly="{Binding IsSolutionShown}" Focusable="True">
                         <TextBox.Styles>
                             <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
                                 <Setter Property="Background" Value="{TemplateBinding Background}"/>
