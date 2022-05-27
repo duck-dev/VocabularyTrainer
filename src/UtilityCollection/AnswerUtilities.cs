@@ -8,7 +8,7 @@ namespace VocabularyTrainer.UtilityCollection
     public static partial class Utilities
     {
         /// <summary>
-        /// Automatically change the learning state of a <see cref="Word"/> in a specific learning mode by one step.
+        /// Automatically change the <see cref="LearningState"/> of a <see cref="Word"/> in a specific learning mode by one step.
         /// </summary>
         /// <param name="word">The <see cref="Word"/> whose learning state should be changed.</param>
         /// <param name="singleWordViewModel">The currently active <see cref="SingleWordViewModelBase"/> (learning mode).</param>
@@ -29,12 +29,12 @@ namespace VocabularyTrainer.UtilityCollection
         }
         
         /// <summary>
-        /// Change the learning state of a <see cref="Word"/> in a specific learning mode to a specified value.
+        /// Change the <see cref="LearningState"/> of a <see cref="Word"/> in a specific learning mode to a specified value.
         /// This method is mostly used for the "Flashcards" learning mode.
         /// </summary>
         /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.Word,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
         /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.Word,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
-        /// <param name="state">The value (state) to be set.</param>
+        /// <param name="state">The value (<see cref="LearningState"/>) to be set.</param>
         public static void ChangeLearningState(Word word, SingleWordViewModelBase singleWordViewModel, LearningState state)
         {
             var learningMode = singleWordViewModel.LearningMode;
