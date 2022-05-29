@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
+using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.UtilityCollection;
 
@@ -76,8 +77,8 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
             Word previousWord = WordsList[newIndex];
             LearningState knownState = previousWord.LearningStateInModes[this.LearningMode];
-            if(knownState < LearningState.KnownOnce)
-                Utilities.ChangeLearningState(previousWord, this, LearningState.KnownOnce);
+            if(knownState.CustomHasFlag(LearningState.NotAsked))
+                Utilities.RemoveLearningState(previousWord, this, LearningState.NotAsked);
         }
         
         protected override void ShuffleWords()
@@ -99,7 +100,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         protected internal virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState)
         {
-            if(newState != LearningState.NotAsked)
+            if(!newState.CustomHasFlag(LearningState.NotAsked))
                 this.SeenWords++;
             DataManager.SaveData();
         }
@@ -108,14 +109,14 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             this.SeenWords = 0;
             foreach (var word in WordsList)
-                Utilities.ChangeLearningState(word, this, LearningState.NotAsked);
+                Utilities.AddLearningState(word, this, LearningState.NotAsked);
         }
 
         protected virtual void InitCurrentWord()
         {
             Dictionary<LearningModeType, bool> shuffledDict = CurrentLesson.IsShuffledInModes;
             if (shuffledDict[this.LearningMode] == true 
-                || WordsList.All(x => x.LearningStateInModes[this.LearningMode] != LearningState.NotAsked))
+                || WordsList.All(x => !x.LearningStateInModes[this.LearningMode].CustomHasFlag(LearningState.NotAsked)))
             {
                 shuffledDict[this.LearningMode] = false;
                 _wordIndex = 0;
@@ -125,10 +126,10 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             
             for (int i = 0; i < WordsList.Length; i++)
             {
-                if (WordsList[i].LearningStateInModes[this.LearningMode] != LearningState.NotAsked) 
+                if (!WordsList[i].LearningStateInModes[this.LearningMode].CustomHasFlag(LearningState.NotAsked)) 
                     continue;
                 
-                this.SeenWords = WordsList.Count(x => x.LearningStateInModes[this.LearningMode] != LearningState.NotAsked);
+                this.SeenWords = WordsList.Count(x => !x.LearningStateInModes[this.LearningMode].CustomHasFlag(LearningState.NotAsked));
                 _wordIndex = i;
                 break;
             }
