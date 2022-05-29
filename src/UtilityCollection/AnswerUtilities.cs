@@ -17,14 +17,17 @@ namespace VocabularyTrainer.UtilityCollection
         {
             var learningMode = singleWordViewModel.LearningMode;
             var state = word.LearningStateInModes[learningMode];
-            word.LearningStateInModes[learningMode] = known switch
+
+            if (state == LearningState.NotAsked)
             {
-                true when state < LearningState.KnownPerfectly && state != LearningState.WrongOnce => state + 1,
-                true when state == LearningState.WrongOnce => LearningState.KnownOnce,
-                false when state > LearningState.VeryHard && state != LearningState.KnownOnce => state - 1,
-                false when state == LearningState.KnownOnce => LearningState.WrongOnce,
-                _ => word.LearningStateInModes[learningMode]
-            };
+                state = known ? LearningState.KnownOnce : LearningState.WrongOnce;
+                singleWordViewModel.VisualizeLearningProgress(state, word.LearningStateInModes[learningMode]);
+                return;
+            }
+
+            state &= ~LearningState.NotAsked;
+            state = known ? state.Next(false, LearningState.NotAsked) : state.Previous(false, LearningState.NotAsked);
+
             singleWordViewModel.VisualizeLearningProgress(state, word.LearningStateInModes[learningMode]);
         }
         
