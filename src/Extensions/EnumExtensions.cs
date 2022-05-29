@@ -17,7 +17,7 @@ namespace VocabularyTrainer.Extensions
             var newEnumeration = enumeration.GenericEnumToInt();
             var newValue = value.GenericEnumToInt();
 
-            return (newEnumeration & newValue) == newValue;
+            return (newEnumeration & newValue) != 0;
         }
 
         /// <summary>
