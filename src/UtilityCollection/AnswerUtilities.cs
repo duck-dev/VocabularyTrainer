@@ -15,20 +15,23 @@ namespace VocabularyTrainer.UtilityCollection
         /// <param name="known">Did the user answer correctly or not?</param>
         public static void ChangeLearningState(Word word, SingleWordViewModelBase singleWordViewModel, bool known)
         {
-            var learningMode = singleWordViewModel.LearningMode;
-            var state = word.LearningStateInModes[learningMode];
+            LearningModeType learningMode = singleWordViewModel.LearningMode;
+            LearningState originalState = word.LearningStateInModes[learningMode];
+            LearningState newState = originalState;
 
-            if (state == LearningState.NotAsked)
+            if (originalState == LearningState.NotAsked)
             {
-                state = known ? LearningState.KnownOnce : LearningState.WrongOnce;
-                singleWordViewModel.VisualizeLearningProgress(state, word.LearningStateInModes[learningMode]);
+                newState = known ? LearningState.KnownOnce : LearningState.WrongOnce;
+                singleWordViewModel.VisualizeLearningProgress(originalState, newState);
+                word.LearningStateInModes[learningMode] = newState;
                 return;
             }
 
-            state &= ~LearningState.NotAsked;
-            state = known ? state.Next(false, LearningState.NotAsked) : state.Previous(false, LearningState.NotAsked);
+            newState &= ~LearningState.NotAsked;
+            newState = known ? newState.Next(false, LearningState.NotAsked) : newState.Previous(false, LearningState.NotAsked);
 
-            singleWordViewModel.VisualizeLearningProgress(state, word.LearningStateInModes[learningMode]);
+            singleWordViewModel.VisualizeLearningProgress(originalState, newState);
+            word.LearningStateInModes[learningMode] = newState;
         }
         
         /// <summary>
@@ -37,15 +40,15 @@ namespace VocabularyTrainer.UtilityCollection
         /// </summary>
         /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.Word,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
         /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.Word,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
-        /// <param name="state">The value (<see cref="LearningState"/>) to be set.</param>
-        public static void ChangeLearningState(Word word, SingleWordViewModelBase singleWordViewModel, LearningState state)
+        /// <param name="newState">The value (<see cref="LearningState"/>) to be set.</param>
+        public static void ChangeLearningState(Word word, SingleWordViewModelBase singleWordViewModel, LearningState newState)
         {
-            var learningMode = singleWordViewModel.LearningMode;
-            var previousState = word.LearningStateInModes[learningMode];
-            if (previousState == state)
+            LearningModeType learningMode = singleWordViewModel.LearningMode;
+            LearningState previousState = word.LearningStateInModes[learningMode];
+            if (previousState == newState)
                 return;
-            word.LearningStateInModes[learningMode] = state;
-            singleWordViewModel.VisualizeLearningProgress(previousState, state);
+            word.LearningStateInModes[learningMode] = newState;
+            singleWordViewModel.VisualizeLearningProgress(previousState, newState);
         }
     }
 }
