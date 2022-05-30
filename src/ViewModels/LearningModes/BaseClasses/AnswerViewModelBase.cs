@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using Avalonia;
 using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
+using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.UtilityCollection;
 
@@ -10,6 +12,9 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 {
     public abstract class AnswerViewModelBase : SingleWordViewModelBase
     {
+        private const LearningState KnownFlags = LearningState.KnownOnce | LearningState.KnownPerfectly;
+        private const LearningState WrongFlags = LearningState.WrongOnce | LearningState.VeryHard;
+        
         private string? _answer;
         private bool _isSolutionShown;
         private SolutionPanelViewModel? _solutionPanel;
@@ -19,13 +24,13 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         private int _wrongWords;
 
         private readonly SolidColorBrush _blackColor 
-            = Utilities.GetResourceFromStyle<SolidColorBrush,Application>(Application.Current, "OppositeAccent", 1) 
+            = Utilities.GetResourceFromStyle<SolidColorBrush,Application>(Application.Current, "OppositeAccent", 2) 
               ?? new(Color.Parse("#000000"));
         private readonly SolidColorBrush _greenColor
-            = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainGreen", 1)
+            = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainGreen", 2)
               ?? new(Color.Parse("#0CA079"));
         private readonly SolidColorBrush _redColor 
-            = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainRed", 1) 
+            = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainRed", 2) 
               ?? new(Color.Parse("#FF0000"));
 
         public event EventHandler? ReadyToFocus;
@@ -34,6 +39,9 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         {
             _answerColor = this.AnswerColor = _blackColor;
             this.IsSolutionShown = false;
+            this.IsAnswerMode = true;
+            this.KnownWords = lesson.VocabularyItems.Where(x => x.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags)).Count();
+            this.WrongWords = lesson.VocabularyItems.Where(x => x.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags)).Count();
         }
         
         protected internal SolidColorBrush AnswerColor
@@ -79,6 +87,17 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState)
         {
             base.VisualizeLearningProgress(previousState, newState);
+            if (newState.CustomHasFlag(KnownFlags))
+            {
+                if (previousState.CustomHasFlag(WrongFlags))
+                    this.WrongWords--;
+                this.KnownWords++;
+            } else if (newState.CustomHasFlag(WrongFlags))
+            {
+                if (previousState.CustomHasFlag(KnownFlags))
+                    this.KnownWords--;
+                this.WrongWords++;
+            }
         }
 
         protected override void NextWord()

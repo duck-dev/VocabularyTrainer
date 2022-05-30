@@ -17,15 +17,17 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             ShuffleButtonEnabled = true;
         }
         
+        protected internal LearningModeType LearningMode { get; private set; }
         protected Lesson CurrentLesson { get; }
         protected Word[] WordsList { get; set; }
-        protected internal LearningModeType LearningMode { get; private set; }
 
         protected bool ShuffleButtonEnabled
         {
             get => _shuffleButtonEnabled;
             set => this.RaiseAndSetIfChanged(ref _shuffleButtonEnabled, value);
         }
+        
+        protected bool IsAnswerMode { get; init; }
 
         protected void ReturnToLesson()
         {
