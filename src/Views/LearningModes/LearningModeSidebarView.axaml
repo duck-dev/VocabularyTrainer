@@ -13,19 +13,55 @@
             BorderBrush="{StaticResource MainGrey}" BorderThickness="0,0,2,0"
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid RowDefinitions="Auto,*,Auto">
-            <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="20,30">
-                <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,15"
-                        Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
-                        Value="{Binding SeenWords}" Background="{StaticResource LightGrey}"/>
-                <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="24"
-                           HorizontalAlignment="Center">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="\{0\}/\{1\} words completed.">
-                            <Binding Path="SeenWords"/>
-                            <Binding Path="CurrentLesson.VocabularyItems.Count"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
+            <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" Margin="20,30">
+                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,15">
+                    <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,12.5"
+                            Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
+                            Value="{Binding SeenWords}" Background="{StaticResource LightGrey}"/>
+                    <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
+                               HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="\{0\}/\{1\} completed">
+                                <Binding Path="SeenWords"/>
+                                <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="Auto,Auto" Margin="0,0,0,15">
+                    <Slider Grid.Row="0" Classes="progress-slider" Height="45" Margin="0,0,0,12.5"
+                            Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
+                            Value="{Binding KnownWords}" Background="{StaticResource LightGrey}"
+                            Foreground="{StaticResource MainGreen}" IsVisible="{Binding IsAnswerMode}"
+                            IsEnabled="{Binding IsAnswerMode}"/>
+                    <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
+                               HorizontalAlignment="Center" IsVisible="{Binding IsAnswerMode}"
+                               IsEnabled="{Binding IsAnswerMode}">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="\{0\}/\{1\} correct">
+                                <Binding Path="KnownWords"/>
+                                <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Row="2" RowDefinitions="Auto,Auto">
+                    <Slider Grid.Row="0" Classes="progress-slider" Height="45" Margin="0,0,0,12.5"
+                            Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
+                            Value="{Binding WrongWords}" Background="{StaticResource LightGrey}"
+                            Foreground="{StaticResource MainRed}" IsVisible="{Binding IsAnswerMode}"
+                            IsEnabled="{Binding IsAnswerMode}"/>
+                    <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
+                               HorizontalAlignment="Center" IsVisible="{Binding IsAnswerMode}"
+                               IsEnabled="{Binding IsAnswerMode}">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="\{0\}/\{1\} wrong">
+                                <Binding Path="WrongWords"/>
+                                <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
             </Grid>
             <Grid Grid.Row="2" RowDefinitions="Auto,Auto" Margin="30,0,30,30">
                 <Button Grid.Row="0" Classes="selectable-button-effect" Margin="0,0,0,30"
