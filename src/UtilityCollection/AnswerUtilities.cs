@@ -9,11 +9,11 @@ namespace VocabularyTrainer.UtilityCollection
     {
         
         /// <summary>
-        /// Add a specific range of <see cref="LearningState"/> to a <see cref="Word"/> in a specific learning mode.
+        /// Add a specific <see cref="LearningState"/> to a <see cref="Word"/> in a specific learning mode.
         /// </summary>
         /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.Word,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
         /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.Word,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
-        /// <param name="states">The range of states to be added.</param>
+        /// <param name="state">The state to be added.</param>
         public static void AddLearningState(Word word, SingleWordViewModelBase singleWordViewModel, LearningState state)
         {
             LearningModeType learningMode = singleWordViewModel.LearningMode;
@@ -24,11 +24,11 @@ namespace VocabularyTrainer.UtilityCollection
         }
 
         /// <summary>
-        /// Remove a specific range of <see cref="LearningState"/> from a <see cref="Word"/> in a specific learning mode.
+        /// Remove a specific <see cref="LearningState"/> from a <see cref="Word"/> in a specific learning mode.
         /// </summary>
         /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.Word,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
         /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.Word,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
-        /// <param name="states">The range of states to be removed.</param>
+        /// <param name="state">The state to be removed.</param>
         public static void RemoveLearningState(Word word, SingleWordViewModelBase singleWordViewModel, LearningState state)
         {
             LearningModeType learningMode = singleWordViewModel.LearningMode;
