@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
@@ -75,6 +77,47 @@ namespace VocabularyTrainer.UtilityCollection
             LearningState previousState = word.LearningStateInModes[learningMode];
             word.LearningStateInModes[learningMode] = result;
             singleWordViewModel.VisualizeLearningProgress(previousState, result);
+        }
+
+        /// <summary>
+        /// An implementation of the Levenshtein-Distance to calculate the needed number of edits to make the two given
+        /// strings exactly equal, considering edits as either insertions, deletions or substitutions.
+        /// </summary>
+        /// <param name="a">First string to compare.</param>
+        /// <param name="b">Second string to compare.</param>
+        /// <returns>The number of needed edits to make the two given strings equal.</returns>
+        public static int LevenshteinDistance(string a, string b)
+        {
+            int n = a.Length;
+            int m = b.Length;
+            
+            if (n == 0)
+                return m;
+            if (m == 0)
+                return n;
+            
+            int[,] matrix = new int[n+1, m+1];
+
+            for (int i = 0; i <= n; matrix[i,0] = i++) { }
+            for (int j = 0; j <= m; matrix[0,j] = j++) { }
+
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 1; j <= m; j++)
+                {
+                    int cost = a[i-1] == b[j-1] ? 0 : 1;
+                    IEnumerable<int> values = new[]
+                    {
+                        matrix[i-1, j] + 1,
+                        matrix[i, j-1] + 1,
+                        matrix[i-1, j-1] + cost
+                    };
+
+                    matrix[i, j] = values.Min();
+                }
+            }
+
+            return matrix[n, m];
         }
     }
 }
