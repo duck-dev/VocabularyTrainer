@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using VocabularyTrainer.Enums;
@@ -80,8 +81,9 @@ namespace VocabularyTrainer.UtilityCollection
         }
 
         /// <summary>
-        /// An implementation of the Levenshtein-Distance to calculate the needed number of edits to make the two given
-        /// strings exactly equal, considering edits as either insertions, deletions or substitutions.
+        /// An implementation of the Damerau-Levenshtein-Distance to calculate the needed number of edits to make the two given
+        /// strings exactly equal,
+        /// considering edits as either insertions, deletions, substitutions or transpositions of two adjacent characters (Damerau).
         /// </summary>
         /// <param name="a">First string to compare.</param>
         /// <param name="b">Second string to compare.</param>
@@ -108,12 +110,15 @@ namespace VocabularyTrainer.UtilityCollection
                     int cost = a[i-1] == b[j-1] ? 0 : 1;
                     IEnumerable<int> values = new[]
                     {
-                        matrix[i-1, j] + 1,
-                        matrix[i, j-1] + 1,
-                        matrix[i-1, j-1] + cost
+                        matrix[i-1, j] + 1, // Deletion
+                        matrix[i, j-1] + 1, // Insertion
+                        matrix[i-1, j-1] + cost // Substitution
                     };
+                    int distance = matrix[i, j] = values.Min();
+                    if (i > 1 && j > 1 && a[i-1] == b[j-2] && a[i-2] == b[j-1])
+                        distance = Math.Min(distance, matrix[i-2, j-2] + cost); // Transposition
 
-                    matrix[i, j] = values.Min();
+                    matrix[i, j] = distance;
                 }
             }
 
