@@ -14,6 +14,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
     {
         private const LearningState KnownFlags = LearningState.KnownOnce | LearningState.KnownPerfectly;
         private const LearningState WrongFlags = LearningState.WrongOnce | LearningState.VeryHard;
+        private const int MistakeTolerance = 1;
         
         private string? _answer;
         private bool _isSolutionShown;
@@ -40,8 +41,8 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             _answerColor = this.AnswerColor = _blackColor;
             this.IsSolutionShown = false;
             this.IsAnswerMode = true;
-            this.KnownWords = lesson.VocabularyItems.Where(x => x.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags)).Count();
-            this.WrongWords = lesson.VocabularyItems.Where(x => x.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags)).Count();
+            this.KnownWords = lesson.VocabularyItems.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags));
+            this.WrongWords = lesson.VocabularyItems.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags));
         }
         
         protected internal SolidColorBrush AnswerColor
@@ -87,12 +88,12 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState)
         {
             base.VisualizeLearningProgress(previousState, newState);
-            if (newState.CustomHasFlag(KnownFlags))
+            if (newState.CustomHasFlag(KnownFlags) && !previousState.CustomHasFlag(KnownFlags))
             {
                 if (previousState.CustomHasFlag(WrongFlags))
                     this.WrongWords--;
                 this.KnownWords++;
-            } else if (newState.CustomHasFlag(WrongFlags))
+            } else if (newState.CustomHasFlag(WrongFlags) && !previousState.CustomHasFlag(WrongFlags))
             {
                 if (previousState.CustomHasFlag(KnownFlags))
                     this.KnownWords--;
@@ -110,12 +111,16 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         protected void CheckAnswer()
         {
-            OpenSolutionPanel(this.DisplayedTerm, this.Definition, true); // TODO: Check answer
+            bool correct = this.Definition is not null && this.Answer is not null && (this.Definition.Equals(Answer) 
+                || Utilities.LevenshteinDistance(Definition, Answer) <= MistakeTolerance);
+            OpenSolutionPanel(this.DisplayedTerm, this.Definition, correct);
+            Utilities.ChangeLearningState(CurrentWord, this, correct);
         }
         
         protected void ShowSolution()
         {
             OpenSolutionPanel(this.DisplayedTerm, this.Definition, false);
+            Utilities.ChangeLearningState(CurrentWord, this, false);
         }
 
         protected override void PickWord(bool resetKnownWords = false, bool goForward = true)

@@ -62,7 +62,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             // Remove parameter in PickWord(), move this code below to this specific confirmation method,
             // ... set NextWord() and PreviousWord() back to normal.
             if ((this.SeenWords == WordsList.Length && ((goForward && _wordIndex == 0) || (!goForward && _wordIndex == WordsList.Length - 1))) 
-                || resetKnownWords) // Looking at performance, checking `resetKnownWords` should come first, but it looks horrible
+                || resetKnownWords) // Looking at micro-performance, checking `resetKnownWords` should come first, but it looks horrible
             {
                 ResetKnownWords();
                 return;
@@ -100,7 +100,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         protected internal virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState)
         {
-            if(!newState.CustomHasFlag(LearningState.NotAsked))
+            if(!newState.CustomHasFlag(LearningState.NotAsked) && previousState.CustomHasFlag(LearningState.NotAsked))
                 this.SeenWords++;
             DataManager.SaveData();
         }
