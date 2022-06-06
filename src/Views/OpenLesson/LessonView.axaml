@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:openLesson="clr-namespace:VocabularyTrainer.Views.OpenLesson"
+             xmlns:views="clr-namespace:VocabularyTrainer.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LessonView">
 
@@ -64,14 +65,7 @@
                          Foreground="{StaticResource MainGrey}" HorizontalAlignment="Stretch"
                          VerticalContentAlignment="Center" MaxLength="150"/>
             </Grid>
-            <Expander Grid.Row="1" ExpandDirection="Down" Margin="0,15,0,0" Padding="0">
-                <Expander.Header>
-                    <TextBlock Foreground="{StaticResource MainGrey}" FontSize="18" Text="Expand more options:"/>
-                </Expander.Header>
-                <Expander.Content>
-                            
-                </Expander.Content>
-            </Expander>
+            <views:LessonOptions Grid.Row="1" Margin="0,15,0,0"/>
             <TextBlock Grid.Row="2" Classes="add-page-heading" Margin="0,30,0,0">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="Words ({0} {1}):">
