@@ -33,7 +33,7 @@
         <!-- <Button Grid.Column="1" Command="{Binding DebugUnsavedChanges}" HotKey="Enter" -->
         <!--         IsVisible="False"/> --> <!-- Only for debugging purposes -->
         <openLesson:LearningModesView Grid.Column="0"/>
-        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*" Margin="40,0,40,15">
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,*" Margin="40,0,40,15">
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
                 <TextBox Grid.Column="0" Grid.Row="0" Classes="editable-text" Text="{Binding CurrentLesson.ChangedName}"
                          VerticalAlignment="Center" Height="50" FontSize="36" FontWeight="Bold" MaxLength="35"
@@ -64,7 +64,15 @@
                          Foreground="{StaticResource MainGrey}" HorizontalAlignment="Stretch"
                          VerticalContentAlignment="Center" MaxLength="150"/>
             </Grid>
-            <TextBlock Grid.Row="1" Classes="add-page-heading" Margin="0,30,0,0">
+            <Expander Grid.Row="1" ExpandDirection="Down" Margin="0,15,0,0" Padding="0">
+                <Expander.Header>
+                    <TextBlock Foreground="{StaticResource MainGrey}" FontSize="18" Text="Expand more options:"/>
+                </Expander.Header>
+                <Expander.Content>
+                            
+                </Expander.Content>
+            </Expander>
+            <TextBlock Grid.Row="2" Classes="add-page-heading" Margin="0,30,0,0">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="Words ({0} {1}):">
                         <Binding Path="CurrentLesson.VocabularyItems.Count"/>
@@ -72,7 +80,7 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <Border Grid.Row="2" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"
+            <Border Grid.Row="3" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"
                     Margin="0,10,0,0">
                 <Grid RowDefinitions="*,Auto">
                     <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">

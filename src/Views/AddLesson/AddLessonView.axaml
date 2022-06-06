@@ -51,8 +51,7 @@
                     <TextBox Grid.Row="1" Classes="add-page-textbox" Watermark="A quick description..." MaxLength="150"
                              VerticalContentAlignment="Top" Height="120" Text="{Binding CurrentDescription}"
                              TextWrapping="Wrap" Margin="0,7.5,0,15"/>
-                    <Expander Grid.Row="2" ExpandDirection="Down" Margin="0,0,0,15" Padding="0"
-                              Background="{StaticResource FullyTransparent}" BorderThickness="0">
+                    <Expander Grid.Row="2" ExpandDirection="Down" Margin="0,0,0,25" Padding="0">
                         <Expander.Header>
                             <TextBlock Foreground="{StaticResource MainGrey}" FontSize="18" Text="Expand more options:"/>
                         </Expander.Header>
