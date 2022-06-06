@@ -1,0 +1,67 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style Selector="Expander">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <ToggleButton x:Name="ExpanderHeader"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}"
+                                  IsEnabled="{TemplateBinding IsEnabled}"/>
+                    <Border x:Name="ExpanderContent"
+                            Padding="{DynamicResource ExpanderContentPadding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{DynamicResource ExpanderDropDownBorderBrush}"
+                            IsVisible="{TemplateBinding IsExpanded, Mode=TwoWay}">
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                    </Border>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Expander[ExpandDirection=Down] /template/ ToggleButton#ExpanderHeader /template/ Border#ToggleButtonBackground">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <Style Selector="Expander[ExpandDirection=Down] /template/ Border#ExpanderContent">
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style Selector="Expander /template/ ToggleButton#ExpanderHeader">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border x:Name="ToggleButtonBackground">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Border x:Name="ExpandCollapseChevronBorder" Grid.Column="0"
+                                Width="32" Height="32" Margin="0,7,7,7" RenderTransformOrigin="50%,50%">
+                            <Path x:Name="ExpandCollapseChevron"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  RenderTransformOrigin="50%,50%" Stretch="None"
+                                  Stroke="{DynamicResource ExpanderChevronForeground}" StrokeThickness="1"/>
+                            <Border.RenderTransform>
+                                <RotateTransform/>
+                            </Border.RenderTransform>
+                        </Border>
+                        <ContentPresenter Grid.Column="1" x:Name="PART_ContentPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="Center"
+                                          Background="{StaticResource FullyTransparent}"
+                                          BorderBrush="{StaticResource FullyTransparent}" BorderThickness="0"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

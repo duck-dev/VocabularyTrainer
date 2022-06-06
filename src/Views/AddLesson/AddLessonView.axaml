@@ -17,11 +17,11 @@
 
     <Grid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" RowDefinitions="Auto,*" Margin="0,40">
         <Panel Grid.Column="1" Grid.Row="0" Margin="20,0,20,15">
-            <TextBlock Classes="add-page-title" HorizontalAlignment="Left" VerticalAlignment="Center" 
+            <TextBlock Classes="add-page-title" HorizontalAlignment="Left" VerticalAlignment="Center"
                        Text="Create a new lesson"/>
             <Grid ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right">
-                <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" 
-                        Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}" 
+                <Button Grid.Column="0" Classes="selectable-button-effect add-page-button"
+                        Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
                         Margin="0,0,20,0" Content="Cancel" Command="{Binding MainViewModel.ReturnHome}"
                         CommandParameter="False">
                     <Button.Styles>
@@ -30,8 +30,8 @@
                         </Style>
                     </Button.Styles>
                 </Button>
-                <Button Grid.Column="1" Classes="selectable-button-effect add-page-button" 
-                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}" 
+                <Button Grid.Column="1" Classes="selectable-button-effect add-page-button"
+                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
                         Margin="20,0,0,0" Content="Create Lesson" Command="{Binding CreateLesson}">
                     <Button.Styles>
                         <Style Selector="Button.add-page-button:pointerover /template/ ContentPresenter">
@@ -44,14 +44,23 @@
         <Panel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
                           VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
-                <Grid RowDefinitions="Auto,Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                <Grid RowDefinitions="Auto,Auto,Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="20,0">
                     <TextBox Grid.Row="0" Classes="add-page-textbox" Watermark="Name of the lesson" MaxLength="35"
                              Text="{Binding CurrentName}" Margin="0,15,0,7.5"/>
                     <TextBox Grid.Row="1" Classes="add-page-textbox" Watermark="A quick description..." MaxLength="150"
                              VerticalContentAlignment="Top" Height="120" Text="{Binding CurrentDescription}"
                              TextWrapping="Wrap" Margin="0,7.5,0,15"/>
-                    <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto">
+                    <Expander Grid.Row="2" ExpandDirection="Down" Margin="0,0,0,15" Padding="0"
+                              Background="{StaticResource FullyTransparent}" BorderThickness="0">
+                        <Expander.Header>
+                            <TextBlock Foreground="{StaticResource MainGrey}" FontSize="18" Text="Expand more options:"/>
+                        </Expander.Header>
+                        <Expander.Content>
+                            
+                        </Expander.Content>
+                    </Expander>
+                    <Grid Grid.Row="3" RowDefinitions="Auto,Auto,Auto">
                         <TextBlock Grid.Row="0" Classes="add-page-heading">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="Words ({0} {1}):">
@@ -60,7 +69,7 @@
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
-                        <ItemsControl Grid.Row="1" Items="{Binding VocabularyItems}" 
+                        <ItemsControl Grid.Row="1" Items="{Binding VocabularyItems}"
                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -73,7 +82,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <Button Grid.Row="2" Classes="selectable-button-effect add-word-button" 
+                        <Button Grid.Row="2" Classes="selectable-button-effect add-word-button"
                                 Command="{Binding AddWord}">
                             <TextBlock Text="Add a new word" Foreground="{StaticResource MainGrey}" FontSize="30"
                                        FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
