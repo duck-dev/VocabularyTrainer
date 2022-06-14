@@ -11,11 +11,11 @@
         
         <!-- Selectable -->
         
-        <Style Selector="Button.selectable-button:pointerover">
+        <Style Selector=":is(InputElement).selectable-button:pointerover">
                 <Setter Property="Cursor" Value="Hand"/>
         </Style>
         
-        <Style Selector="Button.selectable-button-effect">
+        <Style Selector=":is(InputElement).selectable-button-effect">
                 <Setter Property="Transitions">
                         <Transitions>
                                 <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
@@ -23,18 +23,18 @@
                 </Setter>
                 <Setter Property="RenderTransform" Value="scale(1)"/>
         </Style>
-        <Style Selector="Button.selectable-button-effect:pointerover">
+        <Style Selector=":is(InputElement).selectable-button-effect:pointerover">
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="RenderTransform" Value="scale(0.95)"/>
         </Style>
-        <Style Selector="Button.selectable-button-effect:pressed">
+        <Style Selector=":is(InputElement).selectable-button-effect:pressed">
                 <Setter Property="RenderTransform" Value="scale(0.90)"/>
         </Style>
         
-        <Style Selector="Button.highlight-no-change:pointerover /template/ ContentPresenter">
+        <Style Selector=":is(InputElement).highlight-no-change:pointerover /template/ ContentPresenter">
                 <Setter Property="Background" Value="{TemplateBinding Background}"/>
         </Style>
-        <Style Selector="Button.highlight-no-change:pressed /template/ ContentPresenter">
+        <Style Selector=":is(InputElement).highlight-no-change:pressed /template/ ContentPresenter">
                 <Setter Property="Background" Value="{TemplateBinding Background}"/>
         </Style>
         
