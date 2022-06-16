@@ -16,11 +16,13 @@ namespace VocabularyTrainer.ViewModels
 
         private string CurrentName { get; set; } = string.Empty;
         private string CurrentDescription { get; set; } = string.Empty;
+        private LessonOptions CurrentOptions { get; set; }
         private string AdjustableItemsString => VocabularyItems.Count == 1 ? "item" : "items";
         
         protected override void ChangeTolerance(ErrorTolerance newTolerance)
         {
-            // Change setting in lesson 
+            if(newTolerance != ErrorTolerance.Custom)
+                CurrentOptions = LessonOptions.MatchTolerance(newTolerance);
         }
 
         private void AddWord()

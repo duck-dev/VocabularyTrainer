@@ -25,7 +25,8 @@ namespace VocabularyTrainer.ViewModels
         
         protected override void ChangeTolerance(ErrorTolerance newTolerance)
         {
-            // Change setting in lesson
+            if(newTolerance != ErrorTolerance.Custom)
+                CurrentLesson.Options = LessonOptions.MatchTolerance(newTolerance);
         }
 
         private void SaveChanges()
