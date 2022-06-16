@@ -10,7 +10,39 @@
             <TextBlock Foreground="{StaticResource MainGrey}" FontSize="18" Text="More options:"/>
         </Expander.Header>
         <Expander.Content>
-                            
+            <ListBox Items="{Binding ErrorToleranceTemplates}" SelectionMode="AlwaysSelected,Single"
+                     Background="{StaticResource FullyTransparent}" SelectedIndex="{Binding SelectedTolerance}">
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Width" Value="160"/>
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="5,0"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:pointerover">
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                        <Setter Property="Background" Value="{StaticResource AppBlue}"/>
+                    </Style>
+                </ListBox.Styles>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Item2}" Foreground="{StaticResource OppositeAccent}"
+                                   FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Expander.Content>
     </Expander>
 </UserControl>
