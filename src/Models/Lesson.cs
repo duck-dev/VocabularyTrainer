@@ -17,6 +17,7 @@ namespace VocabularyTrainer.Models
         private string _name;
         private string _description;
         private ObservableCollection<Word> _vocabularyItems;
+        private LessonOptions _options;
         
         private string _changedName = string.Empty;
         private string _changedDescription = string.Empty;
@@ -28,9 +29,12 @@ namespace VocabularyTrainer.Models
         internal event NotifyChanged? NotifyCollectionsChanged;
         
         [JsonConstructor]
-        public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems, 
-            Dictionary<LearningModeType, bool> isShuffledInModes) : this(name, description, vocabularyItems, isShuffledInModes, true)
-        { }
+        public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems,
+            Dictionary<LearningModeType, bool> isShuffledInModes, LessonOptions options)
+            : this(name, description, vocabularyItems, isShuffledInModes, true)
+        {
+            this.Options = options;
+        }
 
         public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems,
             Dictionary<LearningModeType, bool> isShuffledInModes, bool fromJson)
@@ -39,6 +43,7 @@ namespace VocabularyTrainer.Models
             this.Description = _description = description;
             _vocabularyItems = this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
             this.IsShuffledInModes = isShuffledInModes;
+            this.Options = LessonOptions.BalancedTolerance;
 
             Utilities.NotifyItemAdded += SubscribeVocabularyChanges; 
             foreach (var word in VocabularyItems)
@@ -80,6 +85,12 @@ namespace VocabularyTrainer.Models
 
         public Dictionary<LearningModeType, bool> IsShuffledInModes { get; } = new();
 
+        public LessonOptions Options
+        {
+            get => _options; 
+            set => this.ChangedOptions = _options = value;
+        }
+
         private string ChangedName
         {
             get => _changedName;
@@ -100,6 +111,8 @@ namespace VocabularyTrainer.Models
             }
         }
 
+        private LessonOptions ChangedOptions { get; set; }
+
         internal bool DataChanged
         {
             get
@@ -117,7 +130,8 @@ namespace VocabularyTrainer.Models
                 return !ChangedName.Equals(Name) 
                        || !ChangedDescription.Equals(Description)
                        || VocabularyItems.Any(x => x.DataChanged) 
-                       || _changedWords.Count > 0;
+                       || _changedWords.Count > 0
+                       || !this.ChangedOptions.Equals(this.Options);
             }
         }
         
