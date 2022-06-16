@@ -1,11 +1,13 @@
 using System.Collections.ObjectModel;
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.ViewModels.BaseClasses;
 
 namespace VocabularyTrainer.ViewModels
 {
-    public class AddLessonViewModel : ViewModelBase, IVocabularyContainer<Word>
+    public class AddLessonViewModel : LessonViewModelBase, IVocabularyContainer<Word>
     {
         public AddLessonViewModel() 
             => VocabularyItems.CalculateIndexReactive(this, false, nameof(AdjustableItemsString));
@@ -15,6 +17,11 @@ namespace VocabularyTrainer.ViewModels
         private string CurrentName { get; set; } = string.Empty;
         private string CurrentDescription { get; set; } = string.Empty;
         private string AdjustableItemsString => VocabularyItems.Count == 1 ? "item" : "items";
+        
+        protected override void ChangeTolerance(ErrorTolerance newTolerance)
+        {
+            // Change setting in lesson 
+        }
 
         private void AddWord()
         {

@@ -1,10 +1,12 @@
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.ViewModels.BaseClasses;
 
 namespace VocabularyTrainer.ViewModels
 {
-    public class LessonViewModel : ViewModelBase, IDiscardableChanges
+    public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
     {
         public LessonViewModel(Lesson lesson)
         {
@@ -21,6 +23,11 @@ namespace VocabularyTrainer.ViewModels
             MainViewModel?.ReturnHome(false);
         }
         
+        protected override void ChangeTolerance(ErrorTolerance newTolerance)
+        {
+            // Change setting in lesson
+        }
+
         private void SaveChanges()
         {
             CurrentLesson.SaveChanges();
