@@ -40,7 +40,7 @@ public abstract class LessonViewModelBase : ViewModelBase
         {
             ErrorTolerance currentValue = enumValues[i];
             ErrorToleranceTemplates[i] = new Tuple<string, ErrorTolerance>(currentValue.ToString(), currentValue);
-            if (currentValue == DefaultTolerance)
+            if (MainWindowViewModel.Instance is { Content: AddLessonViewModel } && currentValue == DefaultTolerance)
                 this.SelectedTolerance = i;
         }
     }

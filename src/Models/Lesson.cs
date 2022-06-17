@@ -37,8 +37,6 @@ namespace VocabularyTrainer.Models
             : this(name, description, vocabularyItems, isShuffledInModes, true)
         {
             this.Options = options;
-            if (MainWindowViewModel.Instance is {Content: LessonViewModelBase viewModel})
-                viewModel.SelectedTolerance = (int)options.CurrentTolerance;
         }
 
         public Lesson(string name, string description, IEnumerable<Word> vocabularyItems, 

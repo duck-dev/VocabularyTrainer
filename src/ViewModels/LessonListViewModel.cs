@@ -28,8 +28,12 @@ namespace VocabularyTrainer.ViewModels
 
         private void OpenLesson(Lesson lesson)
         {
-            if(MainViewModel is not null)
-                MainViewModel.Content = new LessonViewModel(lesson);
+            if (MainViewModel is null)
+                return;
+
+            var lessonViewModel = new LessonViewModel(lesson);
+            MainViewModel.Content = lessonViewModel;
+            lessonViewModel.SelectedTolerance = (int)lesson.Options.CurrentTolerance;
             MainWindowViewModel.CurrentLesson = lesson;
         }
     }
