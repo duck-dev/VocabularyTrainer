@@ -1,30 +1,27 @@
 using System;
+using System.Text.Json.Serialization;
 using VocabularyTrainer.Enums;
 
 namespace VocabularyTrainer.Models;
 
 public struct LessonOptions : IEquatable<LessonOptions>
 {
-    internal int CorrectionSteps { get; set; }
-    internal bool TolerateSwappedLetters { get; set; }
-    internal bool IgnoreAccentMarks { get; set; }
-    internal bool IgnoreHyphens { get; set; }
-    internal bool IgnorePunctuation { get; set; }
-    internal bool IgnoreCapitalization { get; set; }
+    [JsonInclude] public int CorrectionSteps { get; set; }
+    [JsonInclude] public bool TolerateSwappedLetters { get; set; }
+    [JsonInclude] public bool IgnoreAccentMarks { get; set; }
+    [JsonInclude] public bool IgnoreHyphens { get; set; }
+    [JsonInclude] public bool IgnorePunctuation { get; set; }
+    [JsonInclude] public bool IgnoreCapitalization { get; set; }
 
-    internal static LessonOptions MatchTolerance(ErrorTolerance tolerance)
+    internal ErrorTolerance CurrentTolerance
     {
-        switch (tolerance)
+        get
         {
-            case ErrorTolerance.High:
-                return HighTolerance;
-            case ErrorTolerance.Balanced:
-                return BalancedTolerance;
-            case ErrorTolerance.Low:
-                return LowTolerance;
-            case ErrorTolerance.Custom:
-            default:
-                throw new ArgumentOutOfRangeException(nameof(tolerance), tolerance, null);
+            if (this.Equals(HighTolerance))
+                return ErrorTolerance.High;
+            if (this.Equals(BalancedTolerance))
+                return ErrorTolerance.Balanced;
+            return this.Equals(LowTolerance) ? ErrorTolerance.Low : ErrorTolerance.Custom;
         }
     }
 
@@ -57,6 +54,22 @@ public struct LessonOptions : IEquatable<LessonOptions>
         IgnorePunctuation = false,
         IgnoreCapitalization = false
     };
+    
+    internal static LessonOptions MatchTolerance(ErrorTolerance tolerance)
+    {
+        switch (tolerance)
+        {
+            case ErrorTolerance.High:
+                return HighTolerance;
+            case ErrorTolerance.Balanced:
+                return BalancedTolerance;
+            case ErrorTolerance.Low:
+                return LowTolerance;
+            case ErrorTolerance.Custom:
+            default:
+                throw new ArgumentOutOfRangeException(nameof(tolerance), tolerance, null);
+        }
+    }
 
     public bool Equals(LessonOptions other)
     {

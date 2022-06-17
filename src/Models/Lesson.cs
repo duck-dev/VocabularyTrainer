@@ -9,6 +9,8 @@ using System.Text.Json.Serialization;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.UtilityCollection;
+using VocabularyTrainer.ViewModels;
+using VocabularyTrainer.ViewModels.BaseClasses;
 
 namespace VocabularyTrainer.Models
 {
@@ -17,10 +19,11 @@ namespace VocabularyTrainer.Models
         private string _name;
         private string _description;
         private ObservableCollection<Word> _vocabularyItems;
-        private LessonOptions _options;
+        private LessonOptions _options = LessonOptions.BalancedTolerance;
         
         private string _changedName = string.Empty;
         private string _changedDescription = string.Empty;
+        private LessonOptions _changedOptions;
         private readonly List<Word> _changedWords = new();
         
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -34,9 +37,11 @@ namespace VocabularyTrainer.Models
             : this(name, description, vocabularyItems, isShuffledInModes, true)
         {
             this.Options = options;
+            if (MainWindowViewModel.Instance is {Content: LessonViewModelBase viewModel})
+                viewModel.SelectedTolerance = (int)options.CurrentTolerance;
         }
 
-        public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems,
+        public Lesson(string name, string description, IEnumerable<Word> vocabularyItems, 
             Dictionary<LearningModeType, bool> isShuffledInModes, bool fromJson)
         {
             this.Name = _name = name;
@@ -87,8 +92,18 @@ namespace VocabularyTrainer.Models
 
         public LessonOptions Options
         {
-            get => _options; 
+            get => _options;
             set => this.ChangedOptions = _options = value;
+        }
+
+        internal LessonOptions ChangedOptions
+        {
+            get => _changedOptions;
+            set
+            {
+                _changedOptions = value;
+                NotifyPropertyChanged(nameof(DataChanged));
+            }
         }
 
         private string ChangedName
@@ -110,8 +125,6 @@ namespace VocabularyTrainer.Models
                 NotifyPropertyChanged(nameof(DataChanged));
             }
         }
-
-        private LessonOptions ChangedOptions { get; set; }
 
         internal bool DataChanged
         {
@@ -167,6 +180,7 @@ namespace VocabularyTrainer.Models
         {
             this.Name = ChangedName;
             this.Description = ChangedDescription;
+            this.Options = ChangedOptions;
             foreach (var word in VocabularyItems)
                 word.SaveChanges();
             _changedWords.Clear();

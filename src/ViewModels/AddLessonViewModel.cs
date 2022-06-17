@@ -7,10 +7,13 @@ using VocabularyTrainer.ViewModels.BaseClasses;
 
 namespace VocabularyTrainer.ViewModels
 {
-    public class AddLessonViewModel : LessonViewModelBase, IVocabularyContainer<Word>
+    public sealed class AddLessonViewModel : LessonViewModelBase, IVocabularyContainer<Word>
     {
-        public AddLessonViewModel() 
-            => VocabularyItems.CalculateIndexReactive(this, false, nameof(AdjustableItemsString));
+        public AddLessonViewModel()
+        {
+            VocabularyItems.CalculateIndexReactive(this, false, nameof(AdjustableItemsString));
+            Initialize();
+        }
 
         public ObservableCollection<Word> VocabularyItems { get; } = new() { new Word() };
 

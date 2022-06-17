@@ -8,13 +8,9 @@ namespace VocabularyTrainer.ViewModels
 {
     public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
     {
-        public LessonViewModel(Lesson lesson)
-        {
-            this.CurrentLesson = lesson;
-            lesson.VocabularyItems.CalculateIndexReactive(this, true, nameof(AdjustableItemsString));
-        }
+        public LessonViewModel(Lesson lesson) => Initialize(lesson);
 
-        private Lesson CurrentLesson { get; }
+        private Lesson CurrentLesson { get; set; } = null!;
         private string AdjustableItemsString => CurrentLesson.VocabularyItems.Count == 1 ? "item" : "items";
 
         public void DiscardChanges()
@@ -26,7 +22,16 @@ namespace VocabularyTrainer.ViewModels
         protected override void ChangeTolerance(ErrorTolerance newTolerance)
         {
             if(newTolerance != ErrorTolerance.Custom)
-                CurrentLesson.Options = LessonOptions.MatchTolerance(newTolerance);
+                CurrentLesson.ChangedOptions = LessonOptions.MatchTolerance(newTolerance);
+        }
+
+        protected sealed override void Initialize(Lesson? lesson = null)
+        {
+            if (lesson is null)
+                return;
+            this.CurrentLesson = lesson;
+            lesson.VocabularyItems.CalculateIndexReactive(this, true, nameof(AdjustableItemsString));
+            base.Initialize(lesson); // Must be at the end
         }
 
         private void SaveChanges()
