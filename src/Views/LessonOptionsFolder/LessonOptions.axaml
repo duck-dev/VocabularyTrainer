@@ -53,6 +53,18 @@
                         </ListBox>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
+                <views:LessonOptionItem Description="Correction steps">
+                    <views:LessonOptionItem.TooltipText>
+                        How many edit operations have to be performed in order to correct your written answer to the actual definition?
+Operations are: Insertion, Deletion, Substitution and Transposition. 
+                    </views:LessonOptionItem.TooltipText>
+                    <views:LessonOptionItem.MainContent>
+                        <NumericUpDown Increment="1" Minimum="0" AllowSpin="True" ButtonSpinnerLocation="Right" 
+                                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                       ShowButtonSpinner="True" ClipValueToMinMax="True" ParsingNumberStyle="Integer"
+                                       Width="140" Height="20"/>
+                    </views:LessonOptionItem.MainContent>
+                </views:LessonOptionItem>
             </StackPanel>
         </Expander.Content>
     </Expander>
