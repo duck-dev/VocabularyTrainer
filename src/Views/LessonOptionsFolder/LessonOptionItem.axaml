@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:VocabularyTrainer.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VocabularyTrainer.Views.LessonOptionItem">
+    <Grid RowDefinitions="Auto,Auto">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,10">
+            <TextBlock Grid.Column="0" FontSize="18" FontWeight="Bold" Foreground="{StaticResource OppositeAccent}"
+                       Text="{Binding $parent[views:LessonOptionItem].Description}" Margin="0,0,10,0"/>
+            <Grid Grid.Column="1" Width="20" Height="20">
+                <Ellipse Fill="{StaticResource MainGrey}"
+                         ToolTip.Tip="{Binding $parent[views:LessonOptionItem].TooltipText}" ToolTip.Placement="Right"/>
+                <TextBlock FontSize="16" FontWeight="Bold" Foreground="{StaticResource SameAccent}" Text="i"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           ToolTip.Tip="{Binding $parent[views:LessonOptionItem].TooltipText}" ToolTip.Placement="Right"/>
+            </Grid>
+        </Grid>
+        <ContentControl Grid.Row="1" Content="{Binding $parent[views:LessonOptionItem].MainContent}"/>
+    </Grid>
+</UserControl>
