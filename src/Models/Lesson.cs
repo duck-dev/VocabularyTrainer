@@ -34,19 +34,17 @@ namespace VocabularyTrainer.Models
         [JsonConstructor]
         public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems,
             Dictionary<LearningModeType, bool> isShuffledInModes, LessonOptions options)
-            : this(name, description, vocabularyItems, isShuffledInModes, true)
-        {
-            this.Options = options;
-        }
+            : this(name, description, vocabularyItems, isShuffledInModes, options, true) 
+        { }
 
         public Lesson(string name, string description, IEnumerable<Word> vocabularyItems, 
-            Dictionary<LearningModeType, bool> isShuffledInModes, bool fromJson)
+            Dictionary<LearningModeType, bool> isShuffledInModes, LessonOptions options, bool fromJson)
         {
             this.Name = _name = name;
             this.Description = _description = description;
             _vocabularyItems = this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
+            this.Options = options;
             this.IsShuffledInModes = isShuffledInModes;
-            this.Options = LessonOptions.BalancedTolerance;
 
             Utilities.NotifyItemAdded += SubscribeVocabularyChanges; 
             foreach (var word in VocabularyItems)
