@@ -8,10 +8,14 @@ namespace VocabularyTrainer.ViewModels.BaseClasses;
 public abstract class LessonViewModelBase : ViewModelBase
 {
     private const ErrorTolerance DefaultTolerance = ErrorTolerance.Balanced;
+    private const int HigherSettingsOpacity = 1;
+    private const float LowerSettingsOpacity = 0.6f;
     
     private int _selectedTolerance;
     private Tuple<string, ErrorTolerance>[] _errorToleranceTemplates = null!;
     private LessonOptions _currentOptions = null!;
+    private bool _individualSettingsEnabled;
+    private float _individualSettingsOpacity;
     
     protected Tuple<string, ErrorTolerance>[] ErrorToleranceTemplates
     {
@@ -27,7 +31,10 @@ public abstract class LessonViewModelBase : ViewModelBase
             if (value == _selectedTolerance || value < 0 || value >= ErrorToleranceTemplates.Length)
                 return;
             this.RaiseAndSetIfChanged(ref _selectedTolerance, value);
-            ChangeTolerance(ErrorToleranceTemplates[_selectedTolerance].Item2);
+            
+            ErrorTolerance newTolerance = ErrorToleranceTemplates[_selectedTolerance].Item2;
+            ChangeTolerance(newTolerance);
+            IndividualSettingsEnabled = newTolerance == ErrorTolerance.Custom;
         }
     }
 
@@ -35,6 +42,22 @@ public abstract class LessonViewModelBase : ViewModelBase
     {
         get => _currentOptions; 
         set => this.RaiseAndSetIfChanged(ref _currentOptions, value);
+    }
+
+    protected bool IndividualSettingsEnabled
+    {
+        get => _individualSettingsEnabled;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _individualSettingsEnabled, value);
+            IndividualSettingsOpacity = value == true ? HigherSettingsOpacity : LowerSettingsOpacity;
+        }
+    }
+
+    protected float IndividualSettingsOpacity
+    {
+        get => _individualSettingsOpacity;
+        set => this.RaiseAndSetIfChanged(ref _individualSettingsOpacity, value);
     }
 
     protected virtual void ChangeTolerance(ErrorTolerance newTolerance)

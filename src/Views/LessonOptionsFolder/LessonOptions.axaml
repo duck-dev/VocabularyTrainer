@@ -55,7 +55,8 @@ Choose from 3 pre-defined templates (High, Balanced, Low) or customize your own 
                         </ListBox>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
-                <StackPanel Margin="40,0,0,0">
+                <StackPanel Margin="40,0,0,0" IsEnabled="{Binding IndividualSettingsEnabled}" 
+                            Opacity="{Binding IndividualSettingsOpacity}">
                     <views:LessonOptionItem Description="Correction steps" IsInlined="True">
                         <views:LessonOptionItem.TooltipText>
                             How many edit operations have to be performed in order to correct your written answer to the actual definition?
