@@ -65,6 +65,14 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                                        Width="140" Height="20"/>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
+                <views:LessonOptionItem Description="Tolerate swapped letters">
+                    <views:LessonOptionItem.TooltipText>
+                        Tolerate swapped letters (for example: "letter" - "lettre")?
+                    </views:LessonOptionItem.TooltipText>
+                    <views:LessonOptionItem.MainContent>
+                        <CheckBox Content="Tolerate swapped letters?"/>
+                    </views:LessonOptionItem.MainContent>
+                </views:LessonOptionItem>
             </StackPanel>
         </Expander.Content>
     </Expander>
