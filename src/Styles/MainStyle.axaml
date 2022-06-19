@@ -47,17 +47,17 @@
         <!-- CheckBox -->
         
         <Style Selector="CheckBox">
-                <Setter Property="BorderBrush" Value="{StaticResource AppBlue}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource AppBlue}"/>
         </Style>
         <Style Selector="CheckBox /template/ ContentPresenter">
                 <Setter Property="CornerRadius" Value="5"/>
         </Style>
         <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
-                <Setter Property="BorderBrush" Value="{StaticResource AppBlue}"/>
-                <Setter Property="Background" Value="{StaticResource AppBlue}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource AppBlue}"/>
+                <Setter Property="Background" Value="{DynamicResource AppBlue}"/>
         </Style>
         <Style Selector="CheckBox:indeterminate /template/ Border#NormalRectangle">
-                <Setter Property="BorderBrush" Value="{StaticResource MainGrey}"/>
-                <Setter Property="Background" Value="{StaticResource MainGrey}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MainGrey}"/>
+                <Setter Property="Background" Value="{DynamicResource MainGrey}"/>
         </Style>
 </Styles>
