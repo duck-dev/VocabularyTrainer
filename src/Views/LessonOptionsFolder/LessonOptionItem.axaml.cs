@@ -12,6 +12,8 @@ public partial class LessonOptionItem : UserControl
         AvaloniaProperty.Register<LessonOptionItem, string>(nameof(TooltipText));
     public static readonly StyledProperty<string> DescriptionProperty =
         AvaloniaProperty.Register<LessonOptionItem, string>(nameof(Description));
+    public static readonly StyledProperty<bool> IsInlinedProperty =
+        AvaloniaProperty.Register<LessonOptionItem, bool>(nameof(IsInlined));
     
     public LessonOptionItem()
     {
@@ -34,6 +36,12 @@ public partial class LessonOptionItem : UserControl
     {
         get => GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
+    }
+    
+    public bool IsInlined
+    {
+        get => GetValue(IsInlinedProperty);
+        set => SetValue(IsInlinedProperty, value);
     }
 
     private void InitializeComponent()

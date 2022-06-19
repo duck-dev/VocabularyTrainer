@@ -12,7 +12,7 @@
         </Expander.Header>
         <Expander.Content>
             <StackPanel>
-                <views:LessonOptionItem Description="Error tolerance">
+                <views:LessonOptionItem Description="Error tolerance" IsInlined="False">
                     <views:LessonOptionItem.TooltipText>
                         How tolerant should the program be in checking your written answer compared to the actual definition?
 Choose from 3 pre-defined templates (High, Balanced, Low) or customize your own settings!
@@ -20,7 +20,8 @@ Choose from 3 pre-defined templates (High, Balanced, Low) or customize your own 
                     <views:LessonOptionItem.MainContent>
                         <ListBox Items="{Binding ErrorToleranceTemplates}" SelectionMode="AlwaysSelected,Single"
                                  Background="{StaticResource FullyTransparent}"
-                                 SelectedIndex="{Binding SelectedTolerance}">
+                                 SelectedIndex="{Binding SelectedTolerance}"
+                                 DataContext="{Binding $parent[UserControl].DataContext}">
                             <ListBox.Styles>
                                 <Style Selector="ListBoxItem">
                                     <Setter Property="Padding" Value="0"/>
@@ -54,58 +55,60 @@ Choose from 3 pre-defined templates (High, Balanced, Low) or customize your own 
                         </ListBox>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
-                <views:LessonOptionItem Description="Correction steps">
-                    <views:LessonOptionItem.TooltipText>
-                        How many edit operations have to be performed in order to correct your written answer to the actual definition?
-Operations are: Insertion, Deletion, Substitution and Transposition. 
-                    </views:LessonOptionItem.TooltipText>
-                    <views:LessonOptionItem.MainContent>
-                        <NumericUpDown Increment="1" Minimum="0" AllowSpin="True" ButtonSpinnerLocation="Right" 
-                                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                       ShowButtonSpinner="True" ClipValueToMinMax="True" ParsingNumberStyle="Integer"
-                                       Width="140" Height="20"/>
-                    </views:LessonOptionItem.MainContent>
-                </views:LessonOptionItem>
-                <views:LessonOptionItem Description="Tolerate swapped letters">
-                    <views:LessonOptionItem.TooltipText>
-                        Tolerate swapped letters (for example: "letter" - "lettre" isn't counted as a mistake)?
-                    </views:LessonOptionItem.TooltipText>
-                    <views:LessonOptionItem.MainContent>
-                        <CheckBox Content="Tolerate swapped letters?"/>
-                    </views:LessonOptionItem.MainContent>
-                </views:LessonOptionItem>
-                <views:LessonOptionItem Description="Ignore accent marks">
-                    <views:LessonOptionItem.TooltipText>
-                        Ignore accent marks (for example: "é" and "e" interchangeable)?
-                    </views:LessonOptionItem.TooltipText>
-                    <views:LessonOptionItem.MainContent>
-                        <CheckBox Content="Ignore accent marks?"/>
-                    </views:LessonOptionItem.MainContent>
-                </views:LessonOptionItem>
-                <views:LessonOptionItem Description="Ignore hyphens">
-                    <views:LessonOptionItem.TooltipText>
-                        Should you be able to use a space instead of the hyphen ("-")?
-                    </views:LessonOptionItem.TooltipText>
-                    <views:LessonOptionItem.MainContent>
-                        <CheckBox Content="Ignore hyphens?"/>
-                    </views:LessonOptionItem.MainContent>
-                </views:LessonOptionItem>
-                <views:LessonOptionItem Description="Ignore punctuation">
-                    <views:LessonOptionItem.TooltipText>
-                        Should punctuation be ignored (. , ? ! : ;)?
-                    </views:LessonOptionItem.TooltipText>
-                    <views:LessonOptionItem.MainContent>
-                        <CheckBox Content="Ignore punctuation?"/>
-                    </views:LessonOptionItem.MainContent>
-                </views:LessonOptionItem>
-                <views:LessonOptionItem Description="Ignore capitalization">
-                    <views:LessonOptionItem.TooltipText>
-                        Ignore capitalization?
-                    </views:LessonOptionItem.TooltipText>
-                    <views:LessonOptionItem.MainContent>
-                        <CheckBox Content="Ignore capitalization?"/>
-                    </views:LessonOptionItem.MainContent>
-                </views:LessonOptionItem>
+                <StackPanel Margin="40,0,0,0">
+                    <views:LessonOptionItem Description="Correction steps" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            How many edit operations have to be performed in order to correct your written answer to the actual definition?
+Operations are: Insertion, Deletion, Substitution and Transposition.
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <NumericUpDown Increment="1" Minimum="0" AllowSpin="True" ButtonSpinnerLocation="Right"
+                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                           ShowButtonSpinner="True" ClipValueToMinMax="True" ParsingNumberStyle="Integer"
+                                           Width="140" Height="20"/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                    <views:LessonOptionItem Description="Tolerate swapped letters" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Tolerate swapped letters (for example: "letter" - "lettre" isn't counted as a mistake)?
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                    <views:LessonOptionItem Description="Ignore accent marks" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Ignore accent marks (for example: "é" and "e" interchangeable)?
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                    <views:LessonOptionItem Description="Ignore hyphens" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Should you be able to use a space instead of the hyphen ("-")?
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                    <views:LessonOptionItem Description="Ignore punctuation" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Should punctuation be ignored (. , ? ! : ;)?
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                    <views:LessonOptionItem Description="Ignore capitalization" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Ignore capitalization?
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                </StackPanel>
             </StackPanel>
         </Expander.Content>
     </Expander>

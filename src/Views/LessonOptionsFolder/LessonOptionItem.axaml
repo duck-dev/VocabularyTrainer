@@ -3,22 +3,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
+             xmlns:customControls="clr-namespace:VocabularyTrainer.CustomControls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LessonOptionItem"
-             Margin="0,0,0,10">
-    <Grid RowDefinitions="Auto,Auto">
-        <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,10">
-            <TextBlock Grid.Column="0" FontSize="18" FontWeight="Bold" Foreground="{StaticResource OppositeAccent}"
-                       Text="{Binding $parent[views:LessonOptionItem].Description}" Margin="0,0,10,0"/>
-            <Grid Grid.Column="1" Width="20" Height="20">
-                <Ellipse Fill="{StaticResource MainGrey}"
-                         ToolTip.Tip="{Binding $parent[views:LessonOptionItem].TooltipText}" ToolTip.Placement="Right"/>
-                <TextBlock FontSize="16" FontWeight="Bold" Foreground="{StaticResource SameAccent}" Text="i"
-                           HorizontalAlignment="Center" VerticalAlignment="Center"
-                           ToolTip.Tip="{Binding $parent[views:LessonOptionItem].TooltipText}" ToolTip.Placement="Right"/>
-            </Grid>
+             Margin="0,0,0,15">
+    <UserControl.Resources>
+        <TextBlock x:Key="DescriptionTemplate" FontSize="18" FontWeight="Bold" Foreground="{StaticResource OppositeAccent}"
+                   Text="{Binding $parent[views:LessonOptionItem].Description}" Margin="0,0,10,0"
+                   VerticalAlignment="Center"/>
+        <Grid x:Key="InfoButtonTemplate" Width="20" Height="20" VerticalAlignment="Center">
+            <Ellipse Fill="{StaticResource MainGrey}"
+                     ToolTip.Tip="{Binding $parent[views:LessonOptionItem].TooltipText}" ToolTip.Placement="Right"/>
+            <TextBlock FontSize="16" FontWeight="Bold" Foreground="{StaticResource SameAccent}" Text="i"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       ToolTip.Tip="{Binding $parent[views:LessonOptionItem].TooltipText}" ToolTip.Placement="Right"/>
         </Grid>
-        <ContentControl Grid.Row="1" Content="{Binding $parent[views:LessonOptionItem].MainContent}"
-                        HorizontalAlignment="Left"/>
-    </Grid>
+    </UserControl.Resources>
+    
+    <ContentControl Content="{Binding $parent[views:LessonOptionItem].IsInlined}">
+        <ContentControl.DataTemplates>
+            <customControls:BoolTemplateSelector>
+                <DataTemplate x:Key="True">
+                    <Grid ColumnDefinitions="Auto,Auto,Auto">
+                        <ContentControl Grid.Column="0" Content="{Binding $parent[views:LessonOptionItem].MainContent}"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                        <ContentControl Grid.Column="1" Content="{StaticResource DescriptionTemplate}"/>
+                        <ContentControl Grid.Column="2" Content="{StaticResource InfoButtonTemplate}"/>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate x:Key="False">
+                    <Grid RowDefinitions="Auto,Auto">
+                        <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,10">
+                            <ContentControl Grid.Column="0" Content="{StaticResource DescriptionTemplate}"/>
+                            <ContentControl Grid.Column="1" Content="{StaticResource InfoButtonTemplate}"/>
+                        </Grid>
+                        <ContentControl Grid.Row="1" Content="{Binding $parent[views:LessonOptionItem].MainContent}" 
+                                        HorizontalAlignment="Left"/>
+                    </Grid>
+                </DataTemplate>
+            </customControls:BoolTemplateSelector>
+        </ContentControl.DataTemplates>
+    </ContentControl>
 </UserControl>
