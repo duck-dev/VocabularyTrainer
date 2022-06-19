@@ -73,6 +73,14 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                         <CheckBox Content="Tolerate swapped letters?"/>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
+                <views:LessonOptionItem Description="Ignore accent marks">
+                    <views:LessonOptionItem.TooltipText>
+                        Ignore accent marks (for example: "é" and "e" interchangeable)?
+                    </views:LessonOptionItem.TooltipText>
+                    <views:LessonOptionItem.MainContent>
+                        <CheckBox Content="Ignore accent marks?"/>
+                    </views:LessonOptionItem.MainContent>
+                </views:LessonOptionItem>
             </StackPanel>
         </Expander.Content>
     </Expander>
