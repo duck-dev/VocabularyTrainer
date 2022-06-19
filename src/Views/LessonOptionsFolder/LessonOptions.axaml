@@ -67,7 +67,7 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                 </views:LessonOptionItem>
                 <views:LessonOptionItem Description="Tolerate swapped letters">
                     <views:LessonOptionItem.TooltipText>
-                        Tolerate swapped letters (for example: "letter" - "lettre")?
+                        Tolerate swapped letters (for example: "letter" - "lettre" isn't counted as a mistake)?
                     </views:LessonOptionItem.TooltipText>
                     <views:LessonOptionItem.MainContent>
                         <CheckBox Content="Tolerate swapped letters?"/>
@@ -76,6 +76,14 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                 <views:LessonOptionItem Description="Ignore accent marks">
                     <views:LessonOptionItem.TooltipText>
                         Ignore accent marks (for example: "é" and "e" interchangeable)?
+                    </views:LessonOptionItem.TooltipText>
+                    <views:LessonOptionItem.MainContent>
+                        <CheckBox Content="Ignore accent marks?"/>
+                    </views:LessonOptionItem.MainContent>
+                </views:LessonOptionItem>
+                <views:LessonOptionItem Description="Ignore hyphens">
+                    <views:LessonOptionItem.TooltipText>
+                        Should you be able to use a space instead of the hyphen ("-")?
                     </views:LessonOptionItem.TooltipText>
                     <views:LessonOptionItem.MainContent>
                         <CheckBox Content="Ignore accent marks?"/>
