@@ -19,10 +19,15 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <Viewbox Grid.Row="0" Height="84" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                     IsVisible="{Binding !IsSolutionShown}">
-                <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/>
-            </Viewbox>
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                  IsVisible="{Binding !IsSolutionShown}" Margin="30,0">
+                <Viewbox Grid.Column="0" Height="84" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,60,0">
+                    <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/>
+                </Viewbox>
+                <ToggleButton Grid.Column="1" x:Name="Star" Classes="star-toggle" VerticalAlignment="Center"
+                              Checked="OnStarChecked" Unchecked="OnStarUnchecked" IsChecked="{Binding IsCurrentWordDifficult}"
+                              Template="{StaticResource ToggleStarShapeTemplate}" Width="64" Height="64"/>
+            </Grid>
             <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="30,0">
                 <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" Margin="30,0,30,30">
                     <TextBox Grid.Column="0" Name="MainAnswerTextbox"
