@@ -40,7 +40,7 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
         {
             if (_tolerateSwappedLetters == value)
                 return;
-            _tolerateSwappedLetters= value;
+            _tolerateSwappedLetters = value;
             ViewModel?.ChangeSettings();
             NotifyPropertyChanged();
         }
@@ -116,7 +116,7 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
     
     internal LessonViewModelBase? ViewModel { get; set; }
 
-    internal static LessonOptions HighTolerance { get; } = new()
+    internal static LessonOptions HighTolerance => new()
     {
         CorrectionSteps = 3,
         TolerateSwappedLetters = true,
@@ -126,7 +126,7 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
         IgnoreCapitalization = true
     };
     
-    internal static LessonOptions BalancedTolerance { get; } = new()
+    internal static LessonOptions BalancedTolerance => new()
     {
         CorrectionSteps = 2,
         TolerateSwappedLetters = true,
@@ -136,7 +136,7 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
         IgnoreCapitalization = false
     };
 
-    internal static LessonOptions LowTolerance { get; } = new()
+    internal static LessonOptions LowTolerance => new()
     {
         CorrectionSteps = 1,
         TolerateSwappedLetters = false,

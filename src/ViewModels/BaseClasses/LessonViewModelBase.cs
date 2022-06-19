@@ -40,7 +40,7 @@ public abstract class LessonViewModelBase : ViewModelBase
 
     protected LessonOptions CurrentOptions
     {
-        get => _currentOptions; 
+        get => _currentOptions;
         set => this.RaiseAndSetIfChanged(ref _currentOptions, value);
     }
 
