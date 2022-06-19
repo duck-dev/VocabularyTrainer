@@ -97,6 +97,14 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                         <CheckBox Content="Ignore punctuation?"/>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
+                <views:LessonOptionItem Description="Ignore capitalization">
+                    <views:LessonOptionItem.TooltipText>
+                        Ignore capitalization?
+                    </views:LessonOptionItem.TooltipText>
+                    <views:LessonOptionItem.MainContent>
+                        <CheckBox Content="Ignore capitalization?"/>
+                    </views:LessonOptionItem.MainContent>
+                </views:LessonOptionItem>
             </StackPanel>
         </Expander.Content>
     </Expander>
