@@ -89,6 +89,14 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                         <CheckBox Content="Ignore hyphens?"/>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
+                <views:LessonOptionItem Description="Ignore punctuation">
+                    <views:LessonOptionItem.TooltipText>
+                        Should punctuation be ignored (. , ? ! : ;)?
+                    </views:LessonOptionItem.TooltipText>
+                    <views:LessonOptionItem.MainContent>
+                        <CheckBox Content="Ignore punctuation?"/>
+                    </views:LessonOptionItem.MainContent>
+                </views:LessonOptionItem>
             </StackPanel>
         </Expander.Content>
     </Expander>
