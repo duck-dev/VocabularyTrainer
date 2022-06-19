@@ -18,9 +18,16 @@ namespace VocabularyTrainer.ViewModels
             CurrentLesson.DiscardChanges();
             MainViewModel?.ReturnHome(false);
         }
-        
+
+        protected internal override void ChangeSettings()
+        {
+            base.ChangeSettings();
+            CurrentLesson.ChangedOptions = CurrentOptions;
+        }
+
         protected override void ChangeTolerance(ErrorTolerance newTolerance)
         {
+            base.ChangeTolerance(newTolerance);
             if(newTolerance != ErrorTolerance.Custom)
                 CurrentLesson.ChangedOptions = LessonOptions.MatchTolerance(newTolerance);
         }
@@ -31,6 +38,10 @@ namespace VocabularyTrainer.ViewModels
                 return;
             this.CurrentLesson = lesson;
             lesson.VocabularyItems.CalculateIndexReactive(this, true, nameof(AdjustableItemsString));
+
+            var newOptions = lesson.Options;
+            newOptions.ViewModel = this;
+            CurrentOptions = newOptions;
             base.Initialize(lesson); // Must be at the end
         }
 

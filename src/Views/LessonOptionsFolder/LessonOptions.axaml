@@ -65,7 +65,8 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                             <NumericUpDown Increment="1" Minimum="0" AllowSpin="True" ButtonSpinnerLocation="Right"
                                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                            ShowButtonSpinner="True" ClipValueToMinMax="True" ParsingNumberStyle="Integer"
-                                           Width="140" Height="20"/>
+                                           Width="140" Height="20" Value="{Binding CurrentOptions.CorrectionSteps, Mode=TwoWay}"
+                                           DataContext="{Binding $parent[UserControl].DataContext}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Tolerate swapped letters" IsInlined="True">
@@ -73,7 +74,8 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                             Tolerate swapped letters (for example: "letter" - "lettre" isn't counted as a mistake)?
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <CheckBox/>
+                            <CheckBox IsChecked="{Binding CurrentOptions.TolerateSwappedLetters, Mode=TwoWay}"
+                                      DataContext="{Binding $parent[UserControl].DataContext}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ignore accent marks" IsInlined="True">
@@ -81,7 +83,8 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                             Ignore accent marks (for example: "é" and "e" interchangeable)?
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <CheckBox/>
+                            <CheckBox IsChecked="{Binding CurrentOptions.IgnoreAccentMarks, Mode=TwoWay}"
+                                      DataContext="{Binding $parent[UserControl].DataContext}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ignore hyphens" IsInlined="True">
@@ -89,7 +92,8 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                             Should you be able to use a space instead of the hyphen ("-")?
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <CheckBox/>
+                            <CheckBox IsChecked="{Binding CurrentOptions.IgnoreHyphens, Mode=TwoWay}"
+                                      DataContext="{Binding $parent[UserControl].DataContext}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ignore punctuation" IsInlined="True">
@@ -97,7 +101,8 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                             Should punctuation be ignored (. , ? ! : ;)?
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <CheckBox/>
+                            <CheckBox IsChecked="{Binding CurrentOptions.IgnorePunctuation, Mode=TwoWay}"
+                                      DataContext="{Binding $parent[UserControl].DataContext}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ignore capitalization" IsInlined="True">
@@ -105,7 +110,8 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                             Ignore capitalization?
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <CheckBox/>
+                            <CheckBox IsChecked="{Binding CurrentOptions.IgnoreCapitalization, Mode=TwoWay}"
+                                      DataContext="{Binding $parent[UserControl].DataContext}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                 </StackPanel>

@@ -1,17 +1,106 @@
 using System;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 using VocabularyTrainer.Enums;
+using VocabularyTrainer.Interfaces;
+using VocabularyTrainer.ViewModels.BaseClasses;
 
 namespace VocabularyTrainer.Models;
 
-public struct LessonOptions : IEquatable<LessonOptions>
+public struct LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHelper
 {
-    [JsonInclude] public int CorrectionSteps { get; set; }
-    [JsonInclude] public bool TolerateSwappedLetters { get; set; }
-    [JsonInclude] public bool IgnoreAccentMarks { get; set; }
-    [JsonInclude] public bool IgnoreHyphens { get; set; }
-    [JsonInclude] public bool IgnorePunctuation { get; set; }
-    [JsonInclude] public bool IgnoreCapitalization { get; set; }
+    private int _correctionSteps;
+    private bool _tolerateSwappedLetters;
+    private bool _ignoreAccentMarks;
+    private bool _ignoreHyphens;
+    private bool _ignorePunctuation;
+    private bool _ignoreCapitalization;
+    
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    [JsonInclude]
+    public int CorrectionSteps
+    {
+        get => _correctionSteps;
+        set
+        {
+            if (_correctionSteps == value)
+                return;
+            _correctionSteps = value;
+            ViewModel?.ChangeSettings();
+            NotifyPropertyChanged();
+        }
+    }
+
+    [JsonInclude]
+    public bool TolerateSwappedLetters
+    {
+        get => _tolerateSwappedLetters;
+        set
+        {
+            if (_tolerateSwappedLetters == value)
+                return;
+            _tolerateSwappedLetters= value;
+            ViewModel?.ChangeSettings();
+            NotifyPropertyChanged();
+        }
+    }
+
+    [JsonInclude]
+    public bool IgnoreAccentMarks
+    {
+        get => _ignoreAccentMarks;
+        set
+        {
+            if (_ignoreAccentMarks == value)
+                return;
+            _ignoreAccentMarks = value;
+            ViewModel?.ChangeSettings();
+            NotifyPropertyChanged();
+        }
+    }
+
+    [JsonInclude]
+    public bool IgnoreHyphens
+    {
+        get => _ignoreHyphens;
+        set
+        {
+            if (_ignoreHyphens == value)
+                return;
+            _ignoreHyphens = value;
+            ViewModel?.ChangeSettings();
+            NotifyPropertyChanged();
+        }
+    }
+
+    [JsonInclude]
+    public bool IgnorePunctuation
+    {
+        get => _ignorePunctuation;
+        set
+        {
+            if (_ignorePunctuation == value)
+                return;
+            _ignorePunctuation = value;
+            ViewModel?.ChangeSettings();
+            NotifyPropertyChanged();
+        }
+    }
+
+    [JsonInclude]
+    public bool IgnoreCapitalization
+    {
+        get => _ignoreCapitalization;
+        set
+        {
+            if (_ignoreCapitalization == value)
+                return;
+            _ignoreCapitalization = value;
+            ViewModel?.ChangeSettings();
+            NotifyPropertyChanged();
+        }
+    }
 
     internal ErrorTolerance CurrentTolerance
     {
@@ -24,6 +113,8 @@ public struct LessonOptions : IEquatable<LessonOptions>
             return this.Equals(LowTolerance) ? ErrorTolerance.Low : ErrorTolerance.Custom;
         }
     }
+    
+    internal LessonViewModelBase? ViewModel { get; set; }
 
     internal static LessonOptions HighTolerance { get; } = new()
     {
@@ -70,6 +161,9 @@ public struct LessonOptions : IEquatable<LessonOptions>
                 throw new ArgumentOutOfRangeException(nameof(tolerance), tolerance, null);
         }
     }
+    
+    public void NotifyPropertyChanged(string propertyName = "") 
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     public bool Equals(LessonOptions other)
     {

@@ -11,6 +11,7 @@ public abstract class LessonViewModelBase : ViewModelBase
     
     private int _selectedTolerance;
     private Tuple<string, ErrorTolerance>[] _errorToleranceTemplates = null!;
+    private LessonOptions _currentOptions;
     
     protected Tuple<string, ErrorTolerance>[] ErrorToleranceTemplates
     {
@@ -30,7 +31,22 @@ public abstract class LessonViewModelBase : ViewModelBase
         }
     }
 
-    protected abstract void ChangeTolerance(ErrorTolerance newTolerance);
+    protected LessonOptions CurrentOptions
+    {
+        get => _currentOptions; 
+        set => this.RaiseAndSetIfChanged(ref _currentOptions, value);
+    }
+
+    protected virtual void ChangeTolerance(ErrorTolerance newTolerance)
+    {
+        if (newTolerance == ErrorTolerance.Custom) 
+            return;
+        var newOptions = LessonOptions.MatchTolerance(newTolerance);
+        newOptions.ViewModel = this;
+        this.CurrentOptions = newOptions;
+    }
+
+    protected internal virtual void ChangeSettings() { }
 
     protected virtual void Initialize(Lesson? lesson = null)
     {

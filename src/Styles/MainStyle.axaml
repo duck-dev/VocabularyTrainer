@@ -48,6 +48,7 @@
         
         <Style Selector="CheckBox">
                 <Setter Property="BorderBrush" Value="{DynamicResource AppBlue}"/>
+                <Setter Property="IsThreeState" Value="False"/>
         </Style>
         <Style Selector="CheckBox /template/ ContentPresenter">
                 <Setter Property="CornerRadius" Value="5"/>
