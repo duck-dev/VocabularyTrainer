@@ -1,5 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shapes="clr-namespace:VocabularyTrainer.Views.Shapes">
         
         <StyleInclude Source="/src/Styles/ExpanderStyle.axaml"/>
         
@@ -60,5 +61,17 @@
         <Style Selector="CheckBox:indeterminate /template/ Border#NormalRectangle">
                 <Setter Property="BorderBrush" Value="{DynamicResource MainGrey}"/>
                 <Setter Property="Background" Value="{DynamicResource MainGrey}"/>
+        </Style>
+        
+        <!-- ToggleButton -->
+        
+        <Style Selector="ToggleButton.star-toggle">
+                <Setter Property="ToolTip.Tip" Value="Label this word as difficult so that more focus is placed on asking this word."/>
+        </Style>
+        <Style Selector="ToggleButton.star-toggle:unchecked /template/ shapes|StarShape">
+                <Setter Property="Fill" Value="{StaticResource FullyTransparent}"/>
+        </Style>
+        <Style Selector="ToggleButton.star-toggle:checked /template/ shapes|StarShape">
+                <Setter Property="Fill" Value="{StaticResource MainYellow}"/>
         </Style>
 </Styles>
