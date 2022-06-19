@@ -158,6 +158,7 @@ namespace VocabularyTrainer.Models
         {
             this.ChangedName = this.Name;
             this.ChangedDescription = this.Description;
+            this.ChangedOptions = this.Options;
             this.VocabularyItems = new ObservableCollection<Word>(this.VocabularyItems.Where(x => !_changedWords.Contains(x)));
             foreach (var word in _changedWords.Where(word => word.ChangedAction == NotifyCollectionChangedAction.Remove).ToArray())
                 this.VocabularyItems.Add(word);
