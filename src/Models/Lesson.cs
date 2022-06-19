@@ -9,8 +9,6 @@ using System.Text.Json.Serialization;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.UtilityCollection;
-using VocabularyTrainer.ViewModels;
-using VocabularyTrainer.ViewModels.BaseClasses;
 
 namespace VocabularyTrainer.Models
 {
@@ -23,7 +21,7 @@ namespace VocabularyTrainer.Models
         
         private string _changedName = string.Empty;
         private string _changedDescription = string.Empty;
-        private LessonOptions _changedOptions;
+        private LessonOptions _changedOptions = null!;
         private readonly List<Word> _changedWords = new();
         
         public event PropertyChangedEventHandler? PropertyChanged;

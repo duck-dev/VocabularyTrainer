@@ -7,7 +7,7 @@ using VocabularyTrainer.ViewModels.BaseClasses;
 
 namespace VocabularyTrainer.Models;
 
-public struct LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHelper
+public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHelper
 {
     private int _correctionSteps;
     private bool _tolerateSwappedLetters;
@@ -165,14 +165,14 @@ public struct LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedH
     public void NotifyPropertyChanged(string propertyName = "") 
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-    public bool Equals(LessonOptions other)
+    public bool Equals(LessonOptions? other)
     {
-        return CorrectionSteps == other.CorrectionSteps 
-               && TolerateSwappedLetters == other.TolerateSwappedLetters 
-               && IgnoreAccentMarks == other.IgnoreAccentMarks 
-               && IgnoreHyphens == other.IgnoreHyphens 
-               && IgnorePunctuation == other.IgnorePunctuation 
-               && IgnoreCapitalization == other.IgnoreCapitalization;
+        return other is not null && CorrectionSteps == other.CorrectionSteps 
+                                 && TolerateSwappedLetters == other.TolerateSwappedLetters 
+                                 && IgnoreAccentMarks == other.IgnoreAccentMarks 
+                                 && IgnoreHyphens == other.IgnoreHyphens 
+                                 && IgnorePunctuation == other.IgnorePunctuation 
+                                 && IgnoreCapitalization == other.IgnoreCapitalization;
     }
     public override bool Equals(object? obj) => obj is LessonOptions other && Equals(other);
     public override int GetHashCode() 

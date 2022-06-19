@@ -11,7 +11,7 @@ public abstract class LessonViewModelBase : ViewModelBase
     
     private int _selectedTolerance;
     private Tuple<string, ErrorTolerance>[] _errorToleranceTemplates = null!;
-    private LessonOptions _currentOptions;
+    private LessonOptions _currentOptions = null!;
     
     protected Tuple<string, ErrorTolerance>[] ErrorToleranceTemplates
     {
