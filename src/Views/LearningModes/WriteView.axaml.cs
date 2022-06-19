@@ -27,13 +27,13 @@ namespace VocabularyTrainer.Views.LearningModes
         private void OnStarChecked(object? sender, RoutedEventArgs e)
         {
             if (this.DataContext is SingleWordViewModelBase dataContext)
-                dataContext.SetDifficultTerm();
+                dataContext.SetDifficultTerm(true);
         }
 
         private void OnStarUnchecked(object? sender, RoutedEventArgs e)
         {
             if (this.DataContext is SingleWordViewModelBase dataContext)
-                dataContext.RemoveDifficultTerm();
+                dataContext.SetDifficultTerm(false);
         }
     }
 }
