@@ -15,6 +15,7 @@
                 <views:LessonOptionItem Description="Error tolerance">
                     <views:LessonOptionItem.TooltipText>
                         How tolerant should the program be in checking your written answer compared to the actual definition?
+Choose from 3 pre-defined templates (High, Balanced, Low) or customize your own settings!
                     </views:LessonOptionItem.TooltipText>
                     <views:LessonOptionItem.MainContent>
                         <ListBox Items="{Binding ErrorToleranceTemplates}" SelectionMode="AlwaysSelected,Single"
