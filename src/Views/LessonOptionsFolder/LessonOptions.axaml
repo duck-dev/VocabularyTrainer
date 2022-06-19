@@ -86,7 +86,7 @@ Operations are: Insertion, Deletion, Substitution and Transposition.
                         Should you be able to use a space instead of the hyphen ("-")?
                     </views:LessonOptionItem.TooltipText>
                     <views:LessonOptionItem.MainContent>
-                        <CheckBox Content="Ignore accent marks?"/>
+                        <CheckBox Content="Ignore hyphens?"/>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
             </StackPanel>
