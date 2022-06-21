@@ -124,5 +124,26 @@ namespace VocabularyTrainer.UtilityCollection
 
             return matrix[n, m];
         }
+
+        public static string? ModifyAnswer(string? originalNullable, Lesson lesson)
+        {
+            if (originalNullable is not { } originalString)
+                return null;
+
+            string result = originalString;
+            
+            var settings = lesson.Options;
+            if (settings.IgnoreAccentMarks)
+                result = result.RemoveDiacritics();
+            if (settings.IgnoreHyphens)
+                result = result.RemoveHyphens();
+            if (settings.IgnorePunctuation)
+                result = result.RemovePunctuation();
+            if (settings.IgnoreCapitalization)
+                result = result.ToLowerInvariant();
+
+            result = result.Trim().TrimUnnecessarySpaces();
+            return result;
+        }
     }
 }

@@ -14,8 +14,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes
     {
         private const LearningState KnownFlags = LearningState.KnownOnce | LearningState.KnownPerfectly;
         private const LearningState WrongFlags = LearningState.WrongOnce | LearningState.VeryHard;
-        private const int MistakeTolerance = 1;
-        
+
         private string? _answer;
         private bool _isSolutionShown;
         private SolutionPanelViewModel? _solutionPanel;
@@ -111,8 +110,13 @@ namespace VocabularyTrainer.ViewModels.LearningModes
 
         protected void CheckAnswer()
         {
-            bool correct = this.Definition is not null && this.Answer is not null && (this.Definition.Equals(Answer) 
-                || Utilities.LevenshteinDistance(Definition, Answer) <= MistakeTolerance);
+            string? modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
+            string? modifiedDefinition = Utilities.ModifyAnswer(Definition, CurrentLesson);
+            int mistakeTolerance = CurrentLesson.Options.CorrectionSteps;
+            
+            bool correct = this.Definition is not null && modifiedAnswer is not null && modifiedDefinition is not null 
+                           && (modifiedDefinition.Equals(modifiedAnswer) 
+                               || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer) <= mistakeTolerance);
             OpenSolutionPanel(this.DisplayedTerm, this.Definition, correct);
             Utilities.ChangeLearningState(CurrentWord, this, correct);
         }
