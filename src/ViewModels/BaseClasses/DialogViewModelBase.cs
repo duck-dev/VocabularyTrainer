@@ -27,7 +27,7 @@ public abstract class DialogViewModelBase : ViewModelBase
         
     protected string[] ButtonTexts { get; }
         
-    protected bool IgnoreDialog { get; set; }
+    //protected bool IgnoreDialog { get; set; }
         
     protected static void CloseDialog()
     {

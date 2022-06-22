@@ -42,8 +42,8 @@
                                            Text="{Binding ButtonTexts[1]}"/>
                             </Viewbox>
                         </Button>
-                        <CheckBox Grid.Row="2" Classes="dialog-checkbox" BorderBrush="{StaticResource MainGrey}"
-                                  IsChecked="{Binding IgnoreDialog}" Content="Don't show again"/>
+                        <!-- <CheckBox Grid.Row="2" Classes="dialog-checkbox" BorderBrush="{StaticResource MainGrey}" -->
+                        <!--           IsChecked="{Binding IgnoreDialog}" Content="Don't show again"/> -->
                     </Grid>
                 </DockPanel>
             </Panel>
