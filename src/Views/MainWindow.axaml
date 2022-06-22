@@ -26,10 +26,12 @@
             </Button>
         </Panel>
         
-        <UserControl Content="{Binding Content}" DockPanel.Dock="Bottom"
-                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Panel>
+            <UserControl Content="{Binding Content}" DockPanel.Dock="Bottom"
+                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         
-        <UserControl Content="{Binding CurrentDialog}"
-                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <UserControl Content="{Binding CurrentDialog}"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Panel>
     </DockPanel>
 </Window>
