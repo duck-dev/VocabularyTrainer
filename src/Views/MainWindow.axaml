@@ -28,5 +28,8 @@
         
         <UserControl Content="{Binding Content}" DockPanel.Dock="Bottom"
                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        
+        <UserControl Content="{Binding CurrentDialog}"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </DockPanel>
 </Window>

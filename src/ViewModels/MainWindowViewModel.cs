@@ -1,12 +1,14 @@
 ﻿using ReactiveUI;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.ViewModels.BaseClasses;
 
 namespace VocabularyTrainer.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
         private ViewModelBase _content;
+        private DialogViewModelBase? _currentDialog;
 
         public MainWindowViewModel()
         {
@@ -23,6 +25,12 @@ namespace VocabularyTrainer.ViewModels
         {
             get => _content; 
             set => this.RaiseAndSetIfChanged(ref _content, value);
+        }
+        
+        internal DialogViewModelBase? CurrentDialog
+        {
+            get => _currentDialog;
+            set => this.RaiseAndSetIfChanged(ref _currentDialog, value);
         }
 
         internal void ReturnHome(bool discardChanges = true)
