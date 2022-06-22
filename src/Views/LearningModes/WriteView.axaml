@@ -3,11 +3,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:learningModes="clr-namespace:VocabularyTrainer.Views.LearningModes"
+             xmlns:views="clr-namespace:VocabularyTrainer.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LearningModes.WriteView">
     
     <Grid ColumnDefinitions="1*,3*">
-        <learningModes:LearningModeSidebarView Grid.Column="0"/>
+        <learningModes:LearningModeSidebarView Grid.Column="0">
+            <learningModes:LearningModeSidebarView.AdditionalContent>
+                <StackPanel Orientation="Vertical">
+                    <views:LessonOptionItem Description="Ask Term" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Should the program display the Term and you have to answer with the Definition? Both can be ticked.
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                    <views:LessonOptionItem Description="Ask Definition" IsInlined="True" Margin="0,0,0,10">
+                        <views:LessonOptionItem.TooltipText>
+                            Should the program display the Definition and you have to answer with the Term? Both can be ticked.
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                </StackPanel>
+            </learningModes:LearningModeSidebarView.AdditionalContent>
+        </learningModes:LearningModeSidebarView>
         <Grid Grid.Column="1" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
               Margin="30,0">
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"
