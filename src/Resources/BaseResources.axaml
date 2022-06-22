@@ -22,6 +22,9 @@
               <SolidColorBrush x:Key="MainRed" Color="#FF0000"/>
               <SolidColorBrush x:Key="MainYellow" Color="#FCC100"/>
               
+              <SolidColorBrush x:Key="LightRedContextMenu" Color="#D4735B"/>
+              <SolidColorBrush x:Key="DarkerLightRedContextMenu" Color="#C96047"/>
+              
               <ControlTemplate x:Key="ToggleStarShapeTemplate">
                      <shapes:StarShape PathWidth="41.1667" PathHeight="38" CanvasLeft="17.4167" CanvasTop="18"
                                        StrokeThickness="1" Stroke="{StaticResource OppositeAccent}" Stretch="Fill"

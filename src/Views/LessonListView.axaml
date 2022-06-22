@@ -23,6 +23,22 @@
                         <Button Classes="selectable-button-effect lesson-button" 
                                 Command="{Binding $parent[UserControl].DataContext.OpenLesson}"
                                 CommandParameter="{Binding}">
+                            <Button.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Remove Lesson"
+                                              Command="{Binding $parent[UserControl].DataContext.RemoveElement}"
+                                              CommandParameter="{Binding}">
+                                        <MenuItem.Styles>
+                                            <Style Selector="MenuItem:pointerover /template/ Border">
+                                                <Setter Property="Background" Value="{StaticResource LightRedContextMenu}"/>
+                                            </Style>
+                                            <Style Selector="MenuItem:pressed /template/ Border">
+                                                <Setter Property="Background" Value="{StaticResource DarkerLightRedContextMenu}"/>
+                                            </Style>
+                                        </MenuItem.Styles>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Button.ContextMenu>
                             <Grid RowDefinitions="*,*">
                                 <Grid Grid.Row="0" RowDefinitions="Auto,Auto" VerticalAlignment="Center">
                                     <Viewbox Grid.Row="0" Height="40" StretchDirection="Both" Margin="0,0,0,10">
