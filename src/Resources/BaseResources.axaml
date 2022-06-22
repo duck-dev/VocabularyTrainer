@@ -17,6 +17,7 @@
               <SolidColorBrush x:Key="VariantMainGrey" Color="#707070"/>
               <SolidColorBrush x:Key="LightGrey" Color="#A8ADB5"/>
               <SolidColorBrush x:Key="VeryLightGrey" Color="#BFC6C9"/>
+              <SolidColorBrush x:Key="DarkenedDialogBackground" Color="#66000000"/>
               
               <SolidColorBrush x:Key="MainGreen" Color="#0CA079"/>
               <SolidColorBrush x:Key="MainRed" Color="#FF0000"/>
