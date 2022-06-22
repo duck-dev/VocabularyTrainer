@@ -36,5 +36,13 @@
         <DependentUpon>LessonOptions.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="src\Views\LearningModes\SecondaryElements\LearningModeSidebarView.axaml.cs">
+        <DependentUpon>LearningModeSidebarView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="src\Views\LearningModes\SecondaryElements\SolutionPanelView.axaml.cs">
+        <DependentUpon>SolutionPanelView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>
