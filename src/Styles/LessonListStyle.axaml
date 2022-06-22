@@ -32,4 +32,26 @@
         <Setter Property="BorderBrush" Value="{StaticResource AppBlue}"/>
         <Setter Property="BorderThickness" Value="3"/>
     </Style>
+    
+    <!-- "No Elements" panel/text -->
+    
+    <Style Selector="WrapPanel.no-elements-panel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="20,0"/>
+    </Style>
+    
+    <Style Selector="StackPanel.no-elements-panel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="TextBlock.no-elements-text">
+        <Setter Property="Foreground" Value="{StaticResource MainGrey}"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
 </Styles>

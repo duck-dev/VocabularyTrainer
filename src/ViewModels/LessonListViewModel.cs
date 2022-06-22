@@ -15,6 +15,7 @@ namespace VocabularyTrainer.ViewModels
         public LessonListViewModel(IEnumerable<Lesson> items)
         {
             _items = Items = new ObservableCollection<Lesson>(items);
+            _items.CollectionChanged += (sender, args) => this.RaisePropertyChanged(nameof(EmptyCollection));
         }
 
         private ObservableCollection<Lesson> Items
@@ -22,6 +23,8 @@ namespace VocabularyTrainer.ViewModels
             get => _items;
             init => this.RaiseAndSetIfChanged(ref _items, value);
         }
+        
+        private bool EmptyCollection => Items.Count == 0;
 
         private void OpenAddPage()
         {

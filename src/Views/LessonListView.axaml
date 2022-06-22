@@ -11,6 +11,24 @@
     </UserControl.Styles>
     
     <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,12.5">
+        <WrapPanel Classes="no-elements-panel" IsEnabled="{Binding EmptyCollection}" IsVisible="{Binding EmptyCollection}">
+            <TextBlock Classes="no-elements-text" Margin="0,0,8,0">
+                There are no lessons yet. You can add a new lesson by using the blue button
+            </TextBlock>
+            <StackPanel Classes="no-elements-panel">
+                <Viewbox Width="40" Height="40" VerticalAlignment="Center">
+                    <Grid Width="24" Height="24">
+                        <Ellipse Stroke="{StaticResource AppBlue}" StrokeThickness="1.333"
+                                 Fill="{StaticResource FullyTransparent}"/>
+                        <TextBlock Text="+" FontSize="16" FontWeight="Bold" TextAlignment="Center"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Foreground="{StaticResource AppBlue}"/>
+                    </Grid>
+                </Viewbox>
+                <TextBlock Classes="no-elements-text" Margin="8,0,0,0" Text="in the bottom-right corner."/>
+            </StackPanel>
+        </WrapPanel>
+        
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <ItemsControl Items="{Binding Items}">
                 <ItemsControl.ItemsPanel>
