@@ -11,17 +11,20 @@
             <TextBlock Foreground="{StaticResource MainGrey}" FontSize="22" Text="Options:"/>
         </Expander.Header>
         <Expander.Content>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <views:LessonOptionItem Description="Shuffle words automatically" IsInlined="True">
-                    <views:LessonOptionItem.TooltipText>
-                        Shuffle words automatically upon starting the learning mode?
-                    </views:LessonOptionItem.TooltipText>
-                    <views:LessonOptionItem.MainContent>
-                        <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"/>
-                    </views:LessonOptionItem.MainContent>
-                </views:LessonOptionItem>
-                <ContentControl Content="{Binding $parent[secondaryElements:LearningModeSettingsView].AdditionalContent}"/>
-            </StackPanel>
+            <ScrollViewer VerticalAlignment="Top" HorizontalAlignment="Left"
+                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <views:LessonOptionItem Description="Shuffle words automatically" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Shuffle words automatically upon starting the learning mode?
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
+                    <ContentControl Content="{Binding $parent[secondaryElements:LearningModeSettingsView].AdditionalContent}"/>
+                </StackPanel>
+            </ScrollViewer>
         </Expander.Content>
     </Expander>
 </UserControl>

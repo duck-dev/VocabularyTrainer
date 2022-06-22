@@ -11,7 +11,7 @@
         <learningModes:LearningModeSidebarView Grid.Column="0">
             <learningModes:LearningModeSidebarView.AdditionalContent>
                 <StackPanel Orientation="Vertical">
-                    <views:LessonOptionItem Description="Ask Term" IsInlined="True">
+                    <views:LessonOptionItem Description="Ask Term" IsInlined="True" Margin="0,10,0,0">
                         <views:LessonOptionItem.TooltipText>
                             Should the program display the Term and you have to answer with the Definition? Both can be ticked.
                         </views:LessonOptionItem.TooltipText>
