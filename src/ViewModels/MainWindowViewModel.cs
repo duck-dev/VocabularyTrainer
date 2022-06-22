@@ -19,7 +19,7 @@ namespace VocabularyTrainer.ViewModels
         
         internal static MainWindowViewModel? Instance { get; private set; }
         internal static Lesson? CurrentLesson { get; set; }
-        private static LessonListViewModel NewLessonList => new(DataManager.Lessons);
+        internal static LessonListViewModel NewLessonList => new(DataManager.Lessons);
 
         internal ViewModelBase Content
         {
@@ -40,11 +40,17 @@ namespace VocabularyTrainer.ViewModels
                 case LessonListViewModel:
                     return;
                 case IDiscardableChanges discardable when discardChanges:
-                    discardable.DiscardChanges();
+                {
+                    if (discardable.DataChanged)
+                        discardable.ConfirmDiscarding();
+                    else
+                        this.Content = NewLessonList;
+                    break;
+                }
+                default:
+                    this.Content = NewLessonList;
                     break;
             }
-
-            this.Content = NewLessonList;
         }
     }
 }
