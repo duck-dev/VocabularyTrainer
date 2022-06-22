@@ -7,7 +7,7 @@ namespace VocabularyTrainer.Views.LearningModes.SecondaryElements;
 public partial class LearningModeSettingsView : UserControl
 {
     public static readonly StyledProperty<object?> AdditionalContentProperty =
-        AvaloniaProperty.Register<LearningModeSettingsView, object?>(nameof(Content));
+        AvaloniaProperty.Register<LearningModeSettingsView, object?>(nameof(AdditionalContent));
     
     public LearningModeSettingsView()
     {

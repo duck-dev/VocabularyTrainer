@@ -7,7 +7,7 @@ namespace VocabularyTrainer.Views.LearningModes
     public partial class LearningModeSidebarView : UserControl
     {
         public static readonly StyledProperty<object?> AdditionalContentProperty =
-            AvaloniaProperty.Register<LearningModeSidebarView, object?>(nameof(Content));
+            AvaloniaProperty.Register<LearningModeSidebarView, object?>(nameof(AdditionalContent));
         
         public LearningModeSidebarView()
         {
