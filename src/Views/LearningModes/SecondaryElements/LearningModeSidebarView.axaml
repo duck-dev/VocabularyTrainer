@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:secondaryElements="clr-namespace:VocabularyTrainer.Views.LearningModes.SecondaryElements"
+             xmlns:learningModes="clr-namespace:VocabularyTrainer.Views.LearningModes"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LearningModes.LearningModeSidebarView">
     
@@ -13,8 +15,8 @@
             BorderBrush="{StaticResource MainGrey}" BorderThickness="0,0,2,0"
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid RowDefinitions="Auto,*,Auto">
-            <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" Margin="20,30">
-                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,15">
+            <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" Margin="20,30,20,10">
+                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,10">
                     <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,12.5"
                             Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
                             Value="{Binding SeenWords}" Background="{StaticResource LightGrey}"/>
@@ -28,7 +30,7 @@
                         </TextBlock.Text>
                     </TextBlock>
                 </Grid>
-                <Grid Grid.Row="1" RowDefinitions="Auto,Auto" Margin="0,0,0,15">
+                <Grid Grid.Row="1" RowDefinitions="Auto,Auto" Margin="0,0,0,10">
                     <Slider Grid.Row="0" Classes="progress-slider" Height="45" Margin="0,0,0,12.5"
                             Minimum="0" Maximum="{Binding CurrentLesson.VocabularyItems.Count}"
                             Value="{Binding KnownWords}" Background="{StaticResource LightGrey}"
@@ -63,6 +65,8 @@
                     </TextBlock>
                 </Grid>
             </Grid>
+            <secondaryElements:LearningModeSettingsView AdditionalContent="{Binding $parent[learningModes:LearningModeSidebarView].AdditionalContent}"
+                                                        Grid.Row="1"/>
             <Grid Grid.Row="2" RowDefinitions="Auto,Auto" Margin="30,0,30,30">
                 <Button Grid.Row="0" Classes="selectable-button-effect" Margin="0,0,0,30"
                         Command="{Binding ShuffleWords}" IsEnabled="{Binding ShuffleButtonEnabled}">

@@ -11,7 +11,7 @@
             <TextBlock Foreground="{StaticResource MainGrey}" FontSize="18" Text="More options:"/>
         </Expander.Header>
         <Expander.Content>
-            <StackPanel>
+            <StackPanel Orientation="Vertical">
                 <views:LessonOptionItem Description="Error tolerance" IsInlined="False">
                     <views:LessonOptionItem.TooltipText>
                         How tolerant should the program be in checking your written answer compared to the actual definition?
