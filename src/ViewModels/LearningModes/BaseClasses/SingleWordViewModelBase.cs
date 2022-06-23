@@ -38,6 +38,9 @@ namespace VocabularyTrainer.ViewModels.LearningModes
             private set => this.RaiseAndSetIfChanged(ref _seenWords, value);
         }
 
+        protected bool AskTerm { get; set; }
+        protected bool AskDefinition { get; set; }
+
         protected void PreviousWord()
         {
             _wordIndex--;

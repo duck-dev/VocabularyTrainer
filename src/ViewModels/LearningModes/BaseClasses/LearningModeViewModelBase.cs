@@ -28,6 +28,8 @@ namespace VocabularyTrainer.ViewModels.LearningModes
         }
         
         protected bool IsAnswerMode { get; init; }
+        
+        protected bool ShuffleWordsAutomatically { get; set; }
 
         protected void ReturnToLesson()
         {

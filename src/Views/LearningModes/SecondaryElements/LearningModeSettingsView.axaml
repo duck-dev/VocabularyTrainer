@@ -19,7 +19,8 @@
                             Shuffle words automatically upon starting the learning mode?
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"/>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
+                                      IsChecked="{Binding ShuffleWordsAutomatically}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                     <ContentControl Content="{Binding $parent[secondaryElements:LearningModeSettingsView].AdditionalContent}"/>

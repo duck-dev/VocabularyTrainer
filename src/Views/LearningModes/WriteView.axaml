@@ -8,7 +8,7 @@
              x:Class="VocabularyTrainer.Views.LearningModes.WriteView">
     
     <Grid ColumnDefinitions="1*,3*">
-        <learningModes:LearningModeSidebarView Grid.Column="0">
+        <learningModes:LearningModeSidebarView Grid.Column="0" DataContext="{Binding}">
             <learningModes:LearningModeSidebarView.AdditionalContent>
                 <StackPanel Orientation="Vertical">
                     <views:LessonOptionItem Description="Ask Term" IsInlined="True" Margin="0,10,0,0">
@@ -16,7 +16,8 @@
                             Should the program display the Term and you have to answer with the Definition? Both can be ticked.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"/>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
+                                      IsChecked="{Binding AskTerm}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ask Definition" IsInlined="True" Margin="0,0,0,10">
@@ -24,7 +25,8 @@
                             Should the program display the Definition and you have to answer with the Term? Both can be ticked.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"/>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
+                                      IsChecked="{Binding AskDefinition}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                 </StackPanel>
