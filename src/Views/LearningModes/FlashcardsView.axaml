@@ -29,6 +29,15 @@
                                       IsChecked="{Binding AskDefinition}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
+                    <views:LessonOptionItem Description="Show synonyms and antonyms" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Should the synonyms and antonyms be displayed alongside the definition?
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
+                                      IsChecked="{Binding ShowThesaurus}"/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
                 </StackPanel>
             </learningModes:LearningModeSidebarView.AdditionalContent>
         </learningModes:LearningModeSidebarView>
