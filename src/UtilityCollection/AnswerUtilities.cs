@@ -88,7 +88,7 @@ public static partial class Utilities
     /// <param name="a">First string to compare.</param>
     /// <param name="b">Second string to compare.</param>
     /// <returns>The number of needed edits to make the two given strings equal.</returns>
-    public static int LevenshteinDistance(string a, string b)
+    public static int LevenshteinDistance(string a, string b, bool ignoreTransposition = false)
     {
         int n = a.Length;
         int m = b.Length;
@@ -116,7 +116,11 @@ public static partial class Utilities
                 };
                 int distance = matrix[i, j] = values.Min();
                 if (i > 1 && j > 1 && a[i-1] == b[j-2] && a[i-2] == b[j-1])
+                {
+                    if (ignoreTransposition)
+                        cost = 0;
                     distance = Math.Min(distance, matrix[i-2, j-2] + cost); // Transposition
+                }
 
                 matrix[i, j] = distance;
             }

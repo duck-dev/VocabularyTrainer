@@ -113,10 +113,10 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         string? modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
         string? modifiedDefinition = Utilities.ModifyAnswer(Definition, CurrentLesson);
         int mistakeTolerance = CurrentLesson.Options.CorrectionSteps;
-            
-        bool correct = this.Definition is not null && modifiedAnswer is not null && modifiedDefinition is not null 
-                       && (modifiedDefinition.Equals(modifiedAnswer) 
-                           || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer) <= mistakeTolerance);
+
+        bool tolerateTransposition = CurrentLesson.Options.TolerateSwappedLetters;
+        bool correct = modifiedAnswer is not null && modifiedDefinition is not null && (modifiedDefinition.Equals(modifiedAnswer) 
+                           || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition) <= mistakeTolerance);
         OpenSolutionPanel(this.DisplayedTerm, this.Definition, correct);
         Utilities.ChangeLearningState(CurrentWord, this, correct);
     }
