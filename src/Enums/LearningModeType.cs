@@ -1,11 +1,10 @@
-namespace VocabularyTrainer.Enums
+namespace VocabularyTrainer.Enums;
+
+public enum LearningModeType
 {
-    public enum LearningModeType
-    {
-        Flashcards,
-        Write,
-        MultipleChoice,
-        Thesaurus,
-        VocabularyList
-    }
+    Flashcards,
+    Write,
+    MultipleChoice,
+    Thesaurus,
+    VocabularyList
 }

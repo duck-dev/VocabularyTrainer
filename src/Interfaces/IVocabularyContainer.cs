@@ -1,10 +1,9 @@
 using System.Collections.ObjectModel;
 using VocabularyTrainer.Models;
 
-namespace VocabularyTrainer.Interfaces
+namespace VocabularyTrainer.Interfaces;
+
+public interface IVocabularyContainer<T> where T : VocabularyItem
 {
-    public interface IVocabularyContainer<T> where T : VocabularyItem
-    {
-        ObservableCollection<T> VocabularyItems { get; }
-    }
+    ObservableCollection<T> VocabularyItems { get; }
 }

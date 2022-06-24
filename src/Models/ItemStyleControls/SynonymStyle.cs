@@ -1,7 +1,6 @@
-namespace VocabularyTrainer.Models.ItemStyleControls
+namespace VocabularyTrainer.Models.ItemStyleControls;
+
+public class SynonymStyle : ItemStyleBase<Word>
 {
-    public class SynonymStyle : ItemStyleBase<Word>
-    {
-        public SynonymStyle(Word word) : base(word) { }
-    }
+    public SynonymStyle(Word word) : base(word) { }
 }

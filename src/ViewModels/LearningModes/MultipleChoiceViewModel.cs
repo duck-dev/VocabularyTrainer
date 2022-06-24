@@ -1,9 +1,8 @@
 using VocabularyTrainer.Models;
 
-namespace VocabularyTrainer.ViewModels.LearningModes
+namespace VocabularyTrainer.ViewModels.LearningModes;
+
+public sealed class MultipleChoiceViewModel : LearningModeViewModelBase
 {
-    public sealed class MultipleChoiceViewModel : LearningModeViewModelBase
-    {
-        public MultipleChoiceViewModel(Lesson lesson) : base(lesson) { }
-    }
+    public MultipleChoiceViewModel(Lesson lesson) : base(lesson) { }
 }

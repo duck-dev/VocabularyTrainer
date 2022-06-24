@@ -1,8 +1,7 @@
-namespace VocabularyTrainer.Interfaces
+namespace VocabularyTrainer.Interfaces;
+
+public interface IDiscardableChanges
 {
-    public interface IDiscardableChanges
-    {
-        bool DataChanged { get; }
-        void ConfirmDiscarding();
-    }
+    bool DataChanged { get; }
+    void ConfirmDiscarding();
 }

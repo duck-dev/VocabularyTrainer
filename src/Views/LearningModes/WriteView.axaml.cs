@@ -3,37 +3,36 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using VocabularyTrainer.ViewModels.LearningModes;
 
-namespace VocabularyTrainer.Views.LearningModes
+namespace VocabularyTrainer.Views.LearningModes;
+
+public partial class WriteView : UserControl
 {
-    public partial class WriteView : UserControl
+    public WriteView()
     {
-        public WriteView()
+        InitializeComponent();
+        var textbox = this.Get<TextBox>("MainAnswerTextbox");
+        textbox.Initialized += (_, _) =>
         {
-            InitializeComponent();
-            var textbox = this.Get<TextBox>("MainAnswerTextbox");
-            textbox.Initialized += (_, _) =>
-            {
-                textbox.Focus();
-                if (this.DataContext is AnswerViewModelBase dataContext)
-                    dataContext.ReadyToFocus += (_, _) => textbox.Focus();
-            };
-        }
+            textbox.Focus();
+            if (this.DataContext is AnswerViewModelBase dataContext)
+                dataContext.ReadyToFocus += (_, _) => textbox.Focus();
+        };
+    }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
+    }
         
-        private void OnStarChecked(object? sender, RoutedEventArgs e)
-        {
-            if (this.DataContext is SingleWordViewModelBase dataContext)
-                dataContext.SetDifficultTerm(true);
-        }
+    private void OnStarChecked(object? sender, RoutedEventArgs e)
+    {
+        if (this.DataContext is SingleWordViewModelBase dataContext)
+            dataContext.SetDifficultTerm(true);
+    }
 
-        private void OnStarUnchecked(object? sender, RoutedEventArgs e)
-        {
-            if (this.DataContext is SingleWordViewModelBase dataContext)
-                dataContext.SetDifficultTerm(false);
-        }
+    private void OnStarUnchecked(object? sender, RoutedEventArgs e)
+    {
+        if (this.DataContext is SingleWordViewModelBase dataContext)
+            dataContext.SetDifficultTerm(false);
     }
 }

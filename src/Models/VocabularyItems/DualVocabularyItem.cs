@@ -4,50 +4,49 @@ using System.Collections.Specialized;
 using System.Linq;
 using VocabularyTrainer.Interfaces;
 
-namespace VocabularyTrainer.Models
+namespace VocabularyTrainer.Models;
+
+public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocabularyItem>
 {
-    public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocabularyItem>
-    {
-        private string _term = string.Empty;
-        private string _changedTerm = string.Empty;
+    private string _term = string.Empty;
+    private string _changedTerm = string.Empty;
         
-        public DualVocabularyItem(IList? containerCollection = null) : base(containerCollection) { }
+    public DualVocabularyItem(IList? containerCollection = null) : base(containerCollection) { }
 
-        public string Term
-        {
-            get => _term; 
-            set => this.ChangedTerm = _term = value.Trim();
-        }
+    public string Term
+    {
+        get => _term; 
+        set => this.ChangedTerm = _term = value.Trim();
+    }
 
-        internal string ChangedTerm
+    internal string ChangedTerm
+    {
+        get => _changedTerm;
+        set
         {
-            get => _changedTerm;
-            set
-            {
-                _changedTerm = value.Trim();
-                InvokeNotifyChanged();
-            }
+            _changedTerm = value.Trim();
+            InvokeNotifyChanged();
         }
+    }
 
-        public bool MatchesUnsavedContent(IEnumerable<DualVocabularyItem> collection, out DualVocabularyItem? identicalItem)
-        {
-            identicalItem = collection.FirstOrDefault(x => x.ChangedAction == NotifyCollectionChangedAction.Remove
-                                                            && x.ChangedDefinition.Equals(this.ChangedDefinition)
-                                                            && x.ChangedTerm.Equals(this.ChangedTerm)
-                                                            && !ReferenceEquals(x, this));
-            return identicalItem is not null;
-        }
+    public bool MatchesUnsavedContent(IEnumerable<DualVocabularyItem> collection, out DualVocabularyItem? identicalItem)
+    {
+        identicalItem = collection.FirstOrDefault(x => x.ChangedAction == NotifyCollectionChangedAction.Remove
+                                                       && x.ChangedDefinition.Equals(this.ChangedDefinition)
+                                                       && x.ChangedTerm.Equals(this.ChangedTerm)
+                                                       && !ReferenceEquals(x, this));
+        return identicalItem is not null;
+    }
 
-        public override void EqualizeChangedData()
-        {
-            base.EqualizeChangedData();
-            this.ChangedTerm = this.Term;
-        }
+    public override void EqualizeChangedData()
+    {
+        base.EqualizeChangedData();
+        this.ChangedTerm = this.Term;
+    }
 
-        public override void SaveChanges()
-        {
-            base.SaveChanges();
-            this.Term = ChangedTerm;
-        }
+    public override void SaveChanges()
+    {
+        base.SaveChanges();
+        this.Term = ChangedTerm;
     }
 }

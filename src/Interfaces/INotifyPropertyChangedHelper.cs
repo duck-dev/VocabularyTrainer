@@ -1,10 +1,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace VocabularyTrainer.Interfaces
+namespace VocabularyTrainer.Interfaces;
+
+public interface INotifyPropertyChangedHelper : INotifyPropertyChanged
 {
-    public interface INotifyPropertyChangedHelper : INotifyPropertyChanged
-    {
-        void NotifyPropertyChanged([CallerMemberName] string propertyName = "");
-    }
+    void NotifyPropertyChanged([CallerMemberName] string propertyName = "");
 }

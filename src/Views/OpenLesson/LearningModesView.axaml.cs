@@ -1,18 +1,17 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace VocabularyTrainer.Views.OpenLesson
-{
-    public class LearningModesView : UserControl
-    {
-        public LearningModesView()
-        {
-            InitializeComponent();
-        }
+namespace VocabularyTrainer.Views.OpenLesson;
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+public class LearningModesView : UserControl
+{
+    public LearningModesView()
+    {
+        InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }

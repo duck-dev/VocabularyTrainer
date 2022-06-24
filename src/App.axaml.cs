@@ -4,27 +4,26 @@ using Avalonia.Markup.Xaml;
 using VocabularyTrainer.ViewModels;
 using VocabularyTrainer.Views;
 
-namespace VocabularyTrainer
+namespace VocabularyTrainer;
+
+public class App : Application
 {
-    public class App : Application
+    public override void Initialize()
     {
-        public override void Initialize()
+        AvaloniaXamlLoader.Load(this);
+    }
+
+    public override void OnFrameworkInitializationCompleted()
+    {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            AvaloniaXamlLoader.Load(this);
+            var window = new MainWindow();
+            var viewModel = new MainWindowViewModel();
+
+            window.DataContext = viewModel;
+            desktop.MainWindow = window;
         }
 
-        public override void OnFrameworkInitializationCompleted()
-        {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                var window = new MainWindow();
-                var viewModel = new MainWindowViewModel();
-
-                window.DataContext = viewModel;
-                desktop.MainWindow = window;
-            }
-
-            base.OnFrameworkInitializationCompleted();
-        }
+        base.OnFrameworkInitializationCompleted();
     }
 }

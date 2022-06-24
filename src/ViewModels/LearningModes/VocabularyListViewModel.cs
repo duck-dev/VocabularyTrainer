@@ -1,9 +1,8 @@
 using VocabularyTrainer.Models;
 
-namespace VocabularyTrainer.ViewModels.LearningModes
+namespace VocabularyTrainer.ViewModels.LearningModes;
+
+public sealed class VocabularyListViewModel : LearningModeViewModelBase
 {
-    public sealed class VocabularyListViewModel : LearningModeViewModelBase
-    {
-        public VocabularyListViewModel(Lesson lesson) : base(lesson) { }
-    }
+    public VocabularyListViewModel(Lesson lesson) : base(lesson) { }
 }

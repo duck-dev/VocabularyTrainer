@@ -3,54 +3,53 @@ using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.ViewModels.BaseClasses;
 
-namespace VocabularyTrainer.ViewModels
+namespace VocabularyTrainer.ViewModels;
+
+public class MainWindowViewModel : ViewModelBase
 {
-    public class MainWindowViewModel : ViewModelBase
+    private ViewModelBase _content;
+    private DialogViewModelBase? _currentDialog;
+
+    public MainWindowViewModel()
     {
-        private ViewModelBase _content;
-        private DialogViewModelBase? _currentDialog;
-
-        public MainWindowViewModel()
-        {
-            Instance = this;
-            DataManager.LoadData();
-            _content = Content = NewLessonList;
-        } 
+        Instance = this;
+        DataManager.LoadData();
+        _content = Content = NewLessonList;
+    } 
         
-        internal static MainWindowViewModel? Instance { get; private set; }
-        internal static Lesson? CurrentLesson { get; set; }
-        internal static LessonListViewModel NewLessonList => new(DataManager.Lessons);
+    internal static MainWindowViewModel? Instance { get; private set; }
+    internal static Lesson? CurrentLesson { get; set; }
+    internal static LessonListViewModel NewLessonList => new(DataManager.Lessons);
 
-        internal ViewModelBase Content
-        {
-            get => _content; 
-            set => this.RaiseAndSetIfChanged(ref _content, value);
-        }
+    internal ViewModelBase Content
+    {
+        get => _content; 
+        set => this.RaiseAndSetIfChanged(ref _content, value);
+    }
         
-        internal DialogViewModelBase? CurrentDialog
-        {
-            get => _currentDialog;
-            set => this.RaiseAndSetIfChanged(ref _currentDialog, value);
-        }
+    internal DialogViewModelBase? CurrentDialog
+    {
+        get => _currentDialog;
+        set => this.RaiseAndSetIfChanged(ref _currentDialog, value);
+    }
 
-        internal void ReturnHome(bool discardChanges = true)
+    internal void ReturnHome(bool discardChanges = true)
+    {
+        switch (_content)
         {
-            switch (_content)
+            case LessonListViewModel:
+                return;
+            case IDiscardableChanges discardable when discardChanges:
             {
-                case LessonListViewModel:
-                    return;
-                case IDiscardableChanges discardable when discardChanges:
-                {
-                    if (discardable.DataChanged)
-                        discardable.ConfirmDiscarding();
-                    else
-                        this.Content = NewLessonList;
-                    break;
-                }
-                default:
+                if (discardable.DataChanged)
+                    discardable.ConfirmDiscarding();
+                else
                     this.Content = NewLessonList;
-                    break;
+                break;
             }
+            default:
+                this.Content = NewLessonList;
+                break;
         }
     }
 }

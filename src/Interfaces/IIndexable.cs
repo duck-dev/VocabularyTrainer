@@ -1,7 +1,6 @@
-namespace VocabularyTrainer.Interfaces
+namespace VocabularyTrainer.Interfaces;
+
+public interface IIndexable
 {
-    public interface IIndexable
-    {
-        int Index { get; set; }
-    }
+    int Index { get; set; }
 }

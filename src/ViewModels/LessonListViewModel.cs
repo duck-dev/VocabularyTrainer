@@ -6,60 +6,59 @@ using ReactiveUI;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.ViewModels.Dialogs;
 
-namespace VocabularyTrainer.ViewModels
+namespace VocabularyTrainer.ViewModels;
+
+public class LessonListViewModel : ViewModelBase
 {
-    public class LessonListViewModel : ViewModelBase
+    private readonly ObservableCollection<Lesson> _items;
+
+    public LessonListViewModel(IEnumerable<Lesson> items)
     {
-        private readonly ObservableCollection<Lesson> _items;
+        _items = Items = new ObservableCollection<Lesson>(items);
+        _items.CollectionChanged += (sender, args) => this.RaisePropertyChanged(nameof(EmptyCollection));
+    }
 
-        public LessonListViewModel(IEnumerable<Lesson> items)
-        {
-            _items = Items = new ObservableCollection<Lesson>(items);
-            _items.CollectionChanged += (sender, args) => this.RaisePropertyChanged(nameof(EmptyCollection));
-        }
-
-        private ObservableCollection<Lesson> Items
-        {
-            get => _items;
-            init => this.RaiseAndSetIfChanged(ref _items, value);
-        }
+    private ObservableCollection<Lesson> Items
+    {
+        get => _items;
+        init => this.RaiseAndSetIfChanged(ref _items, value);
+    }
         
-        private bool EmptyCollection => Items.Count == 0;
+    private bool EmptyCollection => Items.Count == 0;
 
-        private void OpenAddPage()
-        {
-            if(MainViewModel is not null)
-                MainViewModel.Content = new AddLessonViewModel();
-        }
+    private void OpenAddPage()
+    {
+        if(MainViewModel is not null)
+            MainViewModel.Content = new AddLessonViewModel();
+    }
 
-        private void OpenLesson(Lesson lesson)
-        {
-            if (MainViewModel is null)
-                return;
+    private void OpenLesson(Lesson lesson)
+    {
+        if (MainViewModel is null)
+            return;
 
-            var lessonViewModel = new LessonViewModel(lesson);
-            MainViewModel.Content = lessonViewModel;
-            lessonViewModel.SelectedTolerance = (int)lesson.Options.CurrentTolerance;
-            MainWindowViewModel.CurrentLesson = lesson;
-        }
+        var lessonViewModel = new LessonViewModel(lesson);
+        MainViewModel.Content = lessonViewModel;
+        lessonViewModel.SelectedTolerance = (int)lesson.Options.CurrentTolerance;
+        MainWindowViewModel.CurrentLesson = lesson;
+    }
 
-        private void RemoveLesson(Lesson lesson)
-        {
-            if (MainViewModel is null)
-                return;
+    private void RemoveLesson(Lesson lesson)
+    {
+        if (MainViewModel is null)
+            return;
             
-            Action confirmAction = () =>
-            {
-                Items.Remove(lesson);
-                DataManager.Lessons.Remove(lesson);
-                DataManager.SaveData();
-            };
-            string dialogTitle = $"Do you really want to remove the lesson \"{lesson.Name}\"?";
-            MainViewModel.CurrentDialog = new ConfirmationDialogViewModel(dialogTitle,
-                new [] { Color.Parse("#D64045"), Color.Parse("#808080") },
-                new[] { Colors.White, Colors.White },
-                new[] { "Remove", "Cancel" },
-                confirmAction);
-        }
+        Action confirmAction = () =>
+        {
+            Items.Remove(lesson);
+            DataManager.Lessons.Remove(lesson);
+            DataManager.SaveData();
+        };
+        string dialogTitle = $"Do you really want to remove the lesson \"{lesson.Name}\"?";
+        MainViewModel.CurrentDialog = new ConfirmationDialogViewModel(dialogTitle,
+            new [] { Color.Parse("#D64045"), Color.Parse("#808080") },
+            new[] { Colors.White, Colors.White },
+            new[] { "Remove", "Cancel" },
+            confirmAction);
     }
 }
