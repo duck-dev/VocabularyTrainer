@@ -129,7 +129,7 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
     internal static LessonOptions BalancedTolerance => new()
     {
         CorrectionSteps = 2,
-        TolerateSwappedLetters = true,
+        TolerateSwappedLetters = false,
         IgnoreAccentMarks = true,
         IgnoreHyphens = false,
         IgnorePunctuation = true,
