@@ -9,6 +9,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes;
 public abstract class LearningModeViewModelBase : ViewModelBase
 {
     private bool _shuffleButtonEnabled;
+    private bool _shuffleWordsAutomatically;
         
     protected LearningModeViewModelBase(Lesson lesson)
     {
@@ -28,8 +29,17 @@ public abstract class LearningModeViewModelBase : ViewModelBase
     }
         
     protected bool IsAnswerMode { get; init; }
-        
-    protected bool ShuffleWordsAutomatically { get; set; }
+
+    protected bool ShuffleWordsAutomatically
+    {
+        get => _shuffleWordsAutomatically;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _shuffleWordsAutomatically, value);
+            CurrentLesson.LearningModeSettings.ShuffleWordsAutomatically[LearningMode] = value;
+            DataManager.SaveData();
+        }
+    }
 
     protected void ReturnToLesson()
     {
@@ -47,4 +57,11 @@ public abstract class LearningModeViewModelBase : ViewModelBase
         
     protected void SetLearningMode(LearningModeType mode) 
         => this.LearningMode = mode;
+
+    protected void InitializeSettings()
+    {
+        LearningModeOptions settings = CurrentLesson.LearningModeSettings;
+        if(settings.ShuffleWordsAutomatically.ContainsKey(LearningMode))
+            this.ShuffleWordsAutomatically = settings.ShuffleWordsAutomatically[LearningMode];
+    }
 }

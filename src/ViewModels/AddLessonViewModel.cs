@@ -28,7 +28,8 @@ public sealed class AddLessonViewModel : LessonViewModelBase, IVocabularyContain
 
     private void CreateLesson()
     {
-        var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems, Lesson.InitShuffledDictionary(), CurrentOptions, false);
+        var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems, Lesson.InitShuffledDictionary(), 
+            CurrentOptions, new LearningModeOptions(), false);
         DataManager.AddData(lesson);
         MainViewModel?.ReturnHome();
     }

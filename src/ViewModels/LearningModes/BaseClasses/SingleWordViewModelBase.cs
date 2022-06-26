@@ -15,9 +15,21 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     private string? _displayedTerm;
     private int _seenWords;
 
+    private bool _askTerm;
+    private bool _askDefinition;
+
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     protected SingleWordViewModelBase(Lesson lesson) : base(lesson)
-        => InitCurrentWord();
+    {
+        InitCurrentWord();
+        
+        InitializeSettings();
+        LearningModeOptions settings = CurrentLesson.LearningModeSettings;
+        if(settings.AskTermInModes.ContainsKey(LearningMode))
+            this.AskTerm = settings.AskTermInModes[LearningMode];
+        if(settings.AskDefinitionInModes.ContainsKey(LearningMode))
+            this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
+    }
 
     protected Word CurrentWord { get; private set; } = null!;
 
@@ -38,8 +50,27 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         private set => this.RaiseAndSetIfChanged(ref _seenWords, value);
     }
 
-    protected bool AskTerm { get; set; }
-    protected bool AskDefinition { get; set; }
+    protected bool AskTerm
+    {
+        get => _askTerm;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _askTerm, value);
+            CurrentLesson.LearningModeSettings.AskTermInModes[LearningMode] = value;
+            DataManager.SaveData();
+        }
+    }
+
+    protected bool AskDefinition
+    {
+        get => _askDefinition;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _askDefinition, value);
+            CurrentLesson.LearningModeSettings.AskDefinitionInModes[LearningMode] = value;
+            DataManager.SaveData();
+        }
+    }
 
     protected void PreviousWord()
     {

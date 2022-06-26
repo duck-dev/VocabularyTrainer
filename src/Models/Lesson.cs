@@ -31,17 +31,18 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
         
     [JsonConstructor]
     public Lesson(string name, string description, ObservableCollection<Word> vocabularyItems,
-        Dictionary<LearningModeType, bool> isShuffledInModes, LessonOptions options)
-        : this(name, description, vocabularyItems, isShuffledInModes, options, true) 
+        Dictionary<LearningModeType, bool> isShuffledInModes, LessonOptions options, LearningModeOptions learningModeSettings)
+        : this(name, description, vocabularyItems, isShuffledInModes, options, learningModeSettings, true) 
     { }
 
     public Lesson(string name, string description, IEnumerable<Word> vocabularyItems, 
-        Dictionary<LearningModeType, bool> isShuffledInModes, LessonOptions options, bool fromJson)
+        Dictionary<LearningModeType, bool> isShuffledInModes, LessonOptions options, LearningModeOptions learningModeSettings, bool fromJson)
     {
         this.Name = _name = name;
         this.Description = _description = description;
         _vocabularyItems = this.VocabularyItems = new ObservableCollection<Word>(vocabularyItems);
         this.Options = options;
+        this.LearningModeSettings = learningModeSettings;
         this.IsShuffledInModes = isShuffledInModes;
 
         Utilities.NotifyItemAdded += SubscribeVocabularyChanges; 
@@ -89,6 +90,8 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
         get => _options;
         set => this.ChangedOptions = _options = value;
     }
+    
+    public LearningModeOptions LearningModeSettings { get; set; }
 
     internal LessonOptions ChangedOptions
     {
