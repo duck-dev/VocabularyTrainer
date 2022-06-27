@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -123,8 +124,18 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
 
     protected void SetWord()
     {
-        this.DisplayedTerm = CurrentWord.Term;
-        this.Definition = CurrentWord.Definition;
+        if (AskTerm == AskDefinition)
+        {
+            var rnd = new Random();
+            int num = rnd.Next(0, 2);
+            this.DisplayedTerm = num == 0 ? CurrentWord.Term : CurrentWord.Definition;
+            this.Definition = num == 0 ? CurrentWord.Definition : CurrentWord.Term;
+        }
+        else
+        {
+            this.DisplayedTerm = AskTerm ? CurrentWord.Term : CurrentWord.Definition;
+            this.Definition = AskTerm ? CurrentWord.Definition : CurrentWord.Term;
+        }
     }
 
     protected void SetThesaurus()

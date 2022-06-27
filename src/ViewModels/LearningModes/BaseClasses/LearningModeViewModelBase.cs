@@ -54,7 +54,7 @@ public abstract class LearningModeViewModelBase : ViewModelBase
         CurrentLesson.IsShuffledInModes[this.LearningMode] = true;
         DataManager.SaveData();
     }
-        
+
     protected void SetLearningMode(LearningModeType mode) 
         => this.LearningMode = mode;
 
@@ -63,5 +63,13 @@ public abstract class LearningModeViewModelBase : ViewModelBase
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         if(settings.ShuffleWordsAutomatically.ContainsKey(LearningMode))
             this.ShuffleWordsAutomatically = settings.ShuffleWordsAutomatically[LearningMode];
+
+        ApplySettings();
+    }
+    
+    private void ApplySettings()
+    {
+        if(ShuffleWordsAutomatically)
+            ShuffleWords();
     }
 }
