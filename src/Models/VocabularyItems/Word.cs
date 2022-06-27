@@ -101,6 +101,9 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
                                                            || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
                                                            || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
 
+    internal bool HasSynonyms => Synonyms.Count > 0;
+    internal bool HasAntonyms => Antonyms.Count > 0;
+
     private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
     private ReactiveCommand<IVocabularyContainer<Word>, Unit> RemoveCommand { get; }

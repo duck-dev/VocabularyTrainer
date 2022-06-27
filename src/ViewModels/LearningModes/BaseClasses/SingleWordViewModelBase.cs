@@ -12,6 +12,7 @@ namespace VocabularyTrainer.ViewModels.LearningModes;
 
 public abstract class SingleWordViewModelBase : LearningModeViewModelBase
 {
+    private Word _currentWord = null!;
     private int _wordIndex;
     private string? _displayedTerm;
     private int _seenWords;
@@ -32,7 +33,11 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
     }
 
-    protected Word CurrentWord { get; private set; } = null!;
+    protected Word CurrentWord
+    {
+        get => _currentWord; 
+        private set => this.RaiseAndSetIfChanged(ref _currentWord, value);
+    }
 
     protected string? DisplayedTerm
     {

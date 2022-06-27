@@ -6,7 +6,15 @@
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LearningModes.FlashcardsView">
-    
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.thesaurus-display-text">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
+            <Setter Property="Margin" Value="7.5,0"/>
+        </Style>
+    </UserControl.Styles>
+
     <Grid ColumnDefinitions="1*,3*">
         <learningModes:LearningModeSidebarView Grid.Column="0" DataContext="{Binding}">
             <learningModes:LearningModeSidebarView.AdditionalContent>
@@ -69,11 +77,59 @@
                                       Checked="OnStarChecked" Unchecked="OnStarUnchecked" IsChecked="{Binding IsCurrentWordDifficult}"
                                       Template="{StaticResource ToggleStarShapeTemplate}" Margin="0,10,10,0"
                                       Width="76" Height="76"/>
-                        <Viewbox Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" StretchDirection="UpOnly"
-                                 Margin="10,0">
-                            <TextBlock Text="{Binding DisplayedTerm}" FontWeight="Bold" TextAlignment="Center"
-                                       Foreground="{StaticResource OppositeAccent}"/>
-                        </Viewbox>
+                        <Grid RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <Viewbox Grid.Row="0" Height="54" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                         StretchDirection="UpOnly" Margin="10,0,10,20">
+                                    <TextBlock Text="{Binding DisplayedTerm}" FontWeight="Bold" TextAlignment="Center"
+                                               Foreground="{StaticResource OppositeAccent}"/>
+                                </Viewbox>
+                                <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Center"
+                                       IsEnabled="{Binding ShowThesaurus}" IsVisible="{Binding ShowThesaurus}">
+                                    <Grid Grid.Row="0" ColumnDefinitions="Auto,*" HorizontalAlignment="Center" Margin="0,0,0,10"
+                                          IsVisible="{Binding CurrentWord.HasSynonyms}">
+                                        <TextBlock Grid.Column="0" Classes="thesaurus-display-text" FontWeight="Bold"
+                                                   Foreground="{StaticResource AppBlue}" Text="Synonyms:"
+                                                   VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        <ItemsControl Grid.Column="1" Items="{Binding CurrentWord.Synonyms}"
+                                                      VerticalAlignment="Center">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Classes="thesaurus-display-text"
+                                                               Text="{Binding Definition}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                    <Grid Grid.Row="1" ColumnDefinitions="Auto,*" HorizontalAlignment="Center"
+                                          IsVisible="{Binding CurrentWord.HasAntonyms}">
+                                        <TextBlock Grid.Column="0" Classes="thesaurus-display-text" FontWeight="Bold"
+                                                   Foreground="{StaticResource AppBlue}" Text="Antonyms:"
+                                                   VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        <ItemsControl Grid.Column="1" Items="{Binding CurrentWord.Antonyms}"
+                                                      VerticalAlignment="Center">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Classes="thesaurus-display-text"
+                                                               Text="{Binding Definition}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Panel>
                 </Button>
                 <Button Grid.Column="2" Grid.Row="1" Classes="selectable-button-effect" Margin="15,0"
