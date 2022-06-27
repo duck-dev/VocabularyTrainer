@@ -16,6 +16,7 @@ public abstract class LessonViewModelBase : ViewModelBase
     private LessonOptions _currentOptions = null!;
     private bool _individualSettingsEnabled;
     private float _individualSettingsOpacity;
+    private bool _initializedTolerance;
     
     protected Tuple<string, ErrorTolerance>[] ErrorToleranceTemplates
     {
@@ -33,6 +34,12 @@ public abstract class LessonViewModelBase : ViewModelBase
             this.RaiseAndSetIfChanged(ref _selectedTolerance, value);
             
             ErrorTolerance newTolerance = ErrorToleranceTemplates[_selectedTolerance].Item2;
+            if (!_initializedTolerance && MainWindowViewModel.CurrentLesson is { } lesson && newTolerance != lesson.Options.CurrentTolerance)
+            {
+                _initializedTolerance = true;
+                SelectedTolerance = (int)lesson.Options.CurrentTolerance;
+                return;
+            }
             ChangeTolerance(newTolerance);
             IndividualSettingsEnabled = newTolerance == ErrorTolerance.Custom;
         }
