@@ -34,7 +34,8 @@ public abstract class LessonViewModelBase : ViewModelBase
             this.RaiseAndSetIfChanged(ref _selectedTolerance, value);
             
             ErrorTolerance newTolerance = ErrorToleranceTemplates[_selectedTolerance].Item2;
-            if (!_initializedTolerance && MainWindowViewModel.CurrentLesson is { } lesson && newTolerance != lesson.Options.CurrentTolerance)
+            if (this is not AddLessonViewModel && !_initializedTolerance && MainWindowViewModel.CurrentLesson is { } lesson 
+                && newTolerance != lesson.Options.CurrentTolerance)
             {
                 _initializedTolerance = true;
                 SelectedTolerance = (int)lesson.Options.CurrentTolerance;
