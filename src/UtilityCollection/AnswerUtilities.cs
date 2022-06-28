@@ -87,6 +87,7 @@ public static partial class Utilities
     /// </summary>
     /// <param name="a">First string to compare.</param>
     /// <param name="b">Second string to compare.</param>
+    /// <param name="ignoreTransposition">Ignore the transposition of adjacent characters (swapped letters) => no mistake.</param>
     /// <returns>The number of needed edits to make the two given strings equal.</returns>
     public static int LevenshteinDistance(string a, string b, bool ignoreTransposition = false)
     {
