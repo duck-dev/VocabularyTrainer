@@ -118,7 +118,7 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
 
     internal static LessonOptions HighTolerance => new()
     {
-        CorrectionSteps = 3,
+        CorrectionSteps = 2,
         TolerateSwappedLetters = true,
         IgnoreAccentMarks = true,
         IgnoreHyphens = true,
@@ -128,7 +128,7 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
     
     internal static LessonOptions BalancedTolerance => new()
     {
-        CorrectionSteps = 2,
+        CorrectionSteps = 1,
         TolerateSwappedLetters = false,
         IgnoreAccentMarks = true,
         IgnoreHyphens = false,
@@ -138,7 +138,7 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
 
     internal static LessonOptions LowTolerance => new()
     {
-        CorrectionSteps = 1,
+        CorrectionSteps = 0,
         TolerateSwappedLetters = false,
         IgnoreAccentMarks = false,
         IgnoreHyphens = false,
