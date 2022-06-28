@@ -11,12 +11,12 @@ public static partial class Extensions
     /// </summary>
     /// <param name="enumeration">The extended enum value.</param>
     /// <param name="value">The flag value.</param>
-    /// <returns>Has flag?</returns>
+    /// <returns>Does the passed enumeration contain the specified flag?</returns>
     public static bool CustomHasFlag<T>(this T enumeration, T value)
         where T : struct, Enum, IComparable, IConvertible, IFormattable
     {
-        var newEnumeration = enumeration.GenericEnumToInt();
-        var newValue = value.GenericEnumToInt();
+        int newEnumeration = enumeration.GenericEnumToInt();
+        int newValue = value.GenericEnumToInt();
 
         return (newEnumeration & newValue) != 0;
     }
@@ -81,8 +81,9 @@ public static partial class Extensions
     /// <returns>The converted <see cref="int"/>.</returns>
     private static int GenericEnumToInt<T>(this T enumeration) where T : struct, Enum, IComparable, IConvertible, IFormattable
     {
-        var parsed = Enum.Parse(typeof(T), enumeration.ToString()) as Enum;
-        var value = Convert.ToInt32(parsed);
+        if (Enum.Parse(typeof(T), enumeration.ToString()) is not Enum parsed)
+            throw new FormatException("Could not convert the alleged enum to an integer.");
+        int value = Convert.ToInt32(parsed);
 
         return value;
     }
