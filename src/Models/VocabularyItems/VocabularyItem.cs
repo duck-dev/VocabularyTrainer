@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive;
 using System.Text.Json.Serialization;
 using ReactiveUI;
+using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
 #pragma warning disable CS0659
 
@@ -23,13 +24,16 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     {
         this.ContainerCollection = containerCollection;
         this.RemoveCommandCollection = ReactiveCommand.Create<ICollection<VocabularyItem>>(Remove);
+        this.LearningStateInModes.Add(LearningModeType.Thesaurus, LearningState.NotAsked);
     }
 
     [JsonConstructor]
-    public VocabularyItem(string definition, bool isDifficult) : this()
+    public VocabularyItem(string definition, bool isDifficult, Dictionary<LearningModeType, LearningState> learningStateInModes) 
+        : this()
     {
         this.Definition = definition;
         this.IsDifficult = isDifficult;
+        this.LearningStateInModes = learningStateInModes;
     }
 
     public string Definition
@@ -39,6 +43,8 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     }
 
     public bool IsDifficult { get; set; }
+    
+    public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; } = new();
 
     internal string ChangedDefinition
     {

@@ -39,20 +39,21 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         RemoveCommand = ReactiveCommand.Create<IVocabularyContainer<Word>>(Remove);
         SubscribeSynonyms();
         SubscribeAntonyms();
-            
-        foreach(LearningModeType value in Enum.GetValues(typeof(LearningModeType)))
-            LearningStateInModes.Add(value, LearningState.NotAsked);
+
+        foreach (LearningModeType value in Enum.GetValues(typeof(LearningModeType)))
+        {
+            if(value != LearningModeType.Thesaurus)
+                LearningStateInModes.Add(value, LearningState.NotAsked);
+        }
     }
 
     [JsonConstructor]
     public Word(ObservableCollection<VocabularyItem> synonyms, 
-        ObservableCollection<VocabularyItem> antonyms, 
-        Dictionary<LearningModeType, LearningState> learningStateInModes) : this()
+        ObservableCollection<VocabularyItem> antonyms) : this()
     {
         this.Synonyms = synonyms;
         this.Antonyms = antonyms;
-        this.LearningStateInModes = learningStateInModes;
-            
+
         foreach (var item in Synonyms)
             item.ContainerCollection = this.Synonyms;
         foreach (var item in Antonyms)
@@ -80,8 +81,6 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
             NotifyPropertyChanged(nameof(Antonyms));
         }
     }
-        
-    public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; } = new();
 
     [JsonIgnore]
     public int Index
