@@ -22,7 +22,7 @@ public static partial class Extensions
         var stringBuilder = new StringBuilder(capacity: normalizedString.Length);
         
         // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
-        foreach (var c in normalizedString.EnumerateRunes())
+        foreach (Rune c in normalizedString.EnumerateRunes())
         {
             var unicodeCategory = Rune.GetUnicodeCategory(c);
             if (unicodeCategory != UnicodeCategory.NonSpacingMark)
