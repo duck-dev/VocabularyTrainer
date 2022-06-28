@@ -130,6 +130,12 @@ public static partial class Utilities
         return matrix[n, m];
     }
 
+    /// <summary>
+    /// Modify a specific string to comply with the lesson options.
+    /// </summary>
+    /// <param name="originalNullable">The original unmodified nullable string.</param>
+    /// <param name="lesson">The current lesson that contains the relevant settings.</param>
+    /// <returns>A modified string, according to the selected lesson options.</returns>
     public static string? ModifyAnswer(string? originalNullable, Lesson lesson)
     {
         if (originalNullable is not { } originalString)
