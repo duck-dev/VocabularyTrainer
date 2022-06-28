@@ -15,9 +15,9 @@ public static partial class Extensions
     public static Color Lerp(this Color color, Color to, float amount)
     {
         byte a = (byte) ((float) color.A).Lerp(to.A, amount),
-            r = (byte) ((float) color.R).Lerp(to.R, amount),
-            g = (byte) ((float) color.G).Lerp(to.G, amount),
-            b = (byte) ((float) color.B).Lerp(to.B, amount);
+             r = (byte) ((float) color.R).Lerp(to.R, amount),
+             g = (byte) ((float) color.G).Lerp(to.G, amount),
+             b = (byte) ((float) color.B).Lerp(to.B, amount);
         return Color.FromArgb(a, r, g, b);
     }
 
@@ -25,14 +25,13 @@ public static partial class Extensions
     /// Chooses the specified dark or light tint, based on the background's brightness.
     /// Dark background => Light tint and vice-versa.
     /// </summary>
-    /// <param name="backgroundColor">The background color, whose brightness determines the foreground tint.</param>
+    /// <param name="backgroundColor">The background color whose brightness determines the foreground tint.</param>
     /// <param name="darkColor">The dark tint.</param>
     /// <param name="lightColor">The light tint.</param>
-    /// <param name="threshold">The threshold, at which the color becomes dark upwards and light downwards.
+    /// <param name="threshold">The threshold, at which the adjusted color becomes dark upwards and light downwards.
     ///                         Default value: 110</param>
     /// <returns>The adjusted foreground color.</returns>
-    public static Color AdjustForegroundBrightness(this Color backgroundColor, Color darkColor, Color lightColor,
-        int threshold = 110)
+    public static Color AdjustForegroundBrightness(this Color backgroundColor, Color darkColor, Color lightColor, int threshold = 110)
         => ((PerceivedBrightness(backgroundColor) > threshold) ? darkColor : lightColor);
 
     /// <summary>
@@ -42,10 +41,9 @@ public static partial class Extensions
     /// <returns>The brightness represented as an integer.</returns>
     public static int PerceivedBrightness(this Color color)
     {
-        return (int) Math.Sqrt(
-            color.R * color.R * .299 +
-            color.G * color.G * .587 +
-            color.B * color.B * .114);
+        return (int) Math.Sqrt(color.R * color.R * .299 +
+                               color.G * color.G * .587 +
+                               color.B * color.B * .114);
     }
 
     /// <summary>
@@ -74,14 +72,14 @@ public static partial class Extensions
     public static Color AdjustTint(this Color color, Color goal, float amount) => color.Lerp(goal, amount);
 
     /// <summary>
-    /// Return the hexadecimal representation of a <see cref="Color"/>.
+    /// Return the hexadecimal representation of a <see cref="Color"/> as a <see cref="string"/>.
     /// </summary>
-    /// <param name="color">The color to use for the hexadecimal representation.</param>
-    /// <returns>The hexadecimal representation of this <see cref="Color"/></returns>
+    /// <param name="color">The <see cref="Color"/> to use for the hexadecimal representation.</param>
+    /// <returns>The hexadecimal representation of this <see cref="Color"/> as a <see cref="string"/></returns>
     public static string ToHexString(this Color color) => $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
 
-    public static Color WithR(this Color color, byte r) =>
-        new(color.A, r, color.G, color.B);
+    public static Color WithR(this Color color, byte r) 
+        => new(color.A, r, color.G, color.B);
 
     public static Color WithRG(this Color color, byte r, byte g)
         => new(color.A, r, g, color.B);
