@@ -49,7 +49,7 @@ public static partial class Extensions
         TParent callerParent, bool updateInstantly = true, params string[] propertiesToUpdate) 
         where TItem : class, IIndexable where TParent : INotifyPropertyChangedHelper
     {
-        CalculateIndex(collection, updateInstantly);
+        collection.CalculateIndex(updateInstantly);
         collection.CollectionChanged += (sender, args) =>
         {
             foreach (string property in propertiesToUpdate)
@@ -73,7 +73,7 @@ public static partial class Extensions
         TParent callerParent, bool updateInstantly = true, params string[] propertiesToUpdate) 
         where TItem : class, IIndexable where TParent : ReactiveObject
     {
-        CalculateIndex(collection, updateInstantly);
+        collection.CalculateIndex(updateInstantly);
         collection.CollectionChanged += (sender, args) =>
         {
             foreach (string property in propertiesToUpdate)
