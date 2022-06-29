@@ -31,7 +31,8 @@ public struct LearningModeOptions
     public LearningModeOptions(Dictionary<LearningModeType, bool> shuffleWordsAutomatically, 
                                Dictionary<LearningModeType, bool> askTermInModes,
                                Dictionary<LearningModeType, bool> askDefinitionInModes,
-                               Dictionary<LearningModeType, bool> showThesaurusInModes)
+                               Dictionary<LearningModeType, bool> showThesaurusInModes,
+                               bool askSynonyms, bool askAntonyms)
     {
         this.ShuffleWordsAutomatically = shuffleWordsAutomatically;
         this.AskTermInModes = askTermInModes;
@@ -48,4 +49,8 @@ public struct LearningModeOptions
     
     // Flashcards, Vocabulary List
     public Dictionary<LearningModeType, bool> ShowThesaurusInModes { get; set; } = new();
+    
+    // Synonyms and Antonyms
+    public bool AskSynonyms { get; set; } = true;
+    public bool AskAntonyms { get; set; } = true;
 }
