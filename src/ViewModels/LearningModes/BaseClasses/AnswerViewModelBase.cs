@@ -12,8 +12,8 @@ namespace VocabularyTrainer.ViewModels.LearningModes;
 
 public abstract class AnswerViewModelBase : SingleWordViewModelBase
 {
-    private const LearningState KnownFlags = LearningState.KnownOnce | LearningState.KnownPerfectly;
-    private const LearningState WrongFlags = LearningState.WrongOnce | LearningState.VeryHard;
+    protected const LearningState KnownFlags = LearningState.KnownOnce | LearningState.KnownPerfectly;
+    protected const LearningState WrongFlags = LearningState.WrongOnce | LearningState.VeryHard;
 
     private string? _answer;
     private bool _isSolutionShown;
@@ -126,20 +126,8 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         OpenSolutionPanel(this.DisplayedTerm, this.Definition, false);
         Utilities.ChangeLearningState(CurrentWord, this, false);
     }
-
-    protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
-    {
-        base.PickWord(resetKnownWords, goForward);
-        ReadyToFocus?.Invoke(this, EventArgs.Empty);
-    }
-
-    internal void CountCorrect()
-    {
-        Utilities.ChangeLearningState(CurrentWord, this, true);
-        NextWord();
-    }
-
-    private void OpenSolutionPanel(string? term, string? definition, bool answerCorrect)
+    
+    protected void OpenSolutionPanel(string? term, string? definition, bool answerCorrect)
     {
         this.SolutionPanel ??= new SolutionPanelViewModel
         {
@@ -151,5 +139,17 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
 
         this.AnswerColor = answerCorrect ? _greenColor : _redColor;
         this.IsSolutionShown = true;
+    }
+
+    protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
+    {
+        base.PickWord(resetKnownWords, goForward);
+        ReadyToFocus?.Invoke(this, EventArgs.Empty);
+    }
+
+    internal void CountCorrect()
+    {
+        Utilities.ChangeLearningState(CurrentWord, this, true);
+        NextWord();
     }
 }
