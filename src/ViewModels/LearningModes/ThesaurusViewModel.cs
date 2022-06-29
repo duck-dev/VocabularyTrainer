@@ -185,6 +185,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         else if (antonymChosen && CurrentWord.Antonyms.Count > 0)
         {
             collection = new List<VocabularyItem>(CurrentWord.Antonyms.Clone());
+            collection.AddRange(CurrentWord.Synonyms);
             collection.Add(CurrentWord);
             this.ThesaurusType = AntonymType;
             this.IndefiniteArticle = IndefiniteWithVowel;
