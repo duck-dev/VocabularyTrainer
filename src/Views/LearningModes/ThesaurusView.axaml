@@ -6,32 +6,43 @@
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
              xmlns:secondaryElements="clr-namespace:VocabularyTrainer.Views.LearningModes.SecondaryElements"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="VocabularyTrainer.Views.LearningModes.WriteView">
+             x:Class="VocabularyTrainer.Views.LearningModes.ThesaurusView">
     <Grid ColumnDefinitions="1*,3*">
         <learningModes:LearningModeSidebarView Grid.Column="0" DataContext="{Binding}">
             <learningModes:LearningModeSidebarView.AdditionalContent>
                 <StackPanel Orientation="Vertical">
-                    <views:LessonOptionItem Description="Ask Term" IsInlined="True" Margin="0,10,0,0">
+                    <views:LessonOptionItem Description="Ask Synonyms" IsInlined="True" Margin="0,10,0,0">
                         <views:LessonOptionItem.TooltipText>
-                            Should the program display the Term and you have to answer with the Definition? Both can be ticked.
+                            Should synonyms be asked?
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
                             <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
-                                      IsChecked="{Binding AskTerm}"/>
+                                      IsChecked="{Binding AskSynonyms}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
-                    <views:LessonOptionItem Description="Ask Definition" IsInlined="True" Margin="0,0,0,25">
+                    <views:LessonOptionItem Description="Ask Antonyms" IsInlined="True" Margin="0,0,0,25">
                         <views:LessonOptionItem.TooltipText>
-                            Should the program display the Definition and you have to answer with the Term? Both can be ticked.
+                            Should antonyms be asked?
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
                             <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
-                                      IsChecked="{Binding AskDefinition}"/>
+                                      IsChecked="{Binding AskAntonyms}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
                 </StackPanel>
             </learningModes:LearningModeSidebarView.AdditionalContent>
         </learningModes:LearningModeSidebarView>
-        <secondaryElements:AnswerView Grid.Column="1" DataContext="{Binding}"/>
+        <secondaryElements:AnswerView Grid.Column="1" DataContext="{Binding}">
+            <secondaryElements:AnswerView.AdditionalTitle>
+                <TextBlock Foreground="{StaticResource OppositeAccent}" FontSize="28">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Specify {0} {1} for:">
+                            <Binding Path="IndefiniteArticle"/>
+                            <Binding Path="ThesaurusType"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </secondaryElements:AnswerView.AdditionalTitle>
+        </secondaryElements:AnswerView>
     </Grid>
 </UserControl>

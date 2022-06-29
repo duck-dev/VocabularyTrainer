@@ -3,9 +3,9 @@ using Avalonia.Markup.Xaml;
 
 namespace VocabularyTrainer.Views.LearningModes;
 
-public partial class WriteView : UserControl
+public partial class ThesaurusView : UserControl
 {
-    public WriteView()
+    public ThesaurusView()
     {
         InitializeComponent();
     }

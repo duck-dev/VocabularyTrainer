@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:secondaryElements="clr-namespace:VocabularyTrainer.Views.LearningModes.SecondaryElements"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VocabularyTrainer.Views.LearningModes.SecondaryElements.AnswerView">
+    <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+              Margin="30,0">
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"
+                       Foreground="{StaticResource MainGrey}" Margin="0,0,0,50">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="\{0\}/\{1\}">
+                        <Binding Path="WordIndexCorrected"/>
+                        <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Grid Grid.Row="0" RowDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <ContentControl Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,22.5"
+                                Content="{Binding $parent[secondaryElements:AnswerView].AdditionalTitle}"/>
+                <Grid Grid.Row="1" ColumnDefinitions="*,Auto" HorizontalAlignment="Center"  Margin="30,0"
+                      IsVisible="{Binding !IsSolutionShown}">
+                    <Viewbox Grid.Column="0" Height="84" HorizontalAlignment="Right" VerticalAlignment="Center"
+                             Margin="0,0,60,0">
+                        <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/>
+                    </Viewbox>
+                    <ToggleButton Grid.Column="1" x:Name="Star" Classes="star-toggle" VerticalAlignment="Center"
+                                  Checked="OnStarChecked" Unchecked="OnStarUnchecked"
+                                  IsChecked="{Binding IsCurrentWordDifficult}"
+                                  Template="{StaticResource ToggleStarShapeTemplate}" Width="64" Height="64"/>
+                </Grid>
+            </Grid>
+            <!-- <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Center" VerticalAlignment="Bottom" -->
+            <!--       IsVisible="{Binding !IsSolutionShown}" Margin="30,0"> -->
+            <!--     <Viewbox Grid.Column="0" Height="84" HorizontalAlignment="Right" VerticalAlignment="Center" -->
+            <!--              Margin="0,0,60,0"> -->
+            <!--         <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/> -->
+            <!--     </Viewbox> -->
+            <!--     <ToggleButton Grid.Column="1" x:Name="Star" Classes="star-toggle" VerticalAlignment="Center" -->
+            <!--                   Checked="OnStarChecked" Unchecked="OnStarUnchecked" -->
+            <!--                   IsChecked="{Binding IsCurrentWordDifficult}" -->
+            <!--                   Template="{StaticResource ToggleStarShapeTemplate}" Width="64" Height="64"/> -->
+            <!-- </Grid> -->
+            <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                  Margin="30,0">
+                <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" Margin="30,0,30,30">
+                    <TextBox Grid.Column="0" Name="MainAnswerTextbox"
+                             BorderBrush="{StaticResource OppositeAccent}" BorderThickness="0,0,0,2"
+                             CornerRadius="0" Background="{StaticResource FullyTransparent}"
+                             AcceptsReturn="False" AcceptsTab="False" Height="60" FontSize="42"
+                             HorizontalAlignment="Stretch"
+                             VerticalContentAlignment="Center" Padding="0,0,0,5" Margin="0,0,25,0"
+                             Text="{Binding Answer}" Foreground="{Binding AnswerColor}"
+                             IsReadOnly="{Binding IsSolutionShown}" Focusable="True">
+                        <TextBox.Styles>
+                            <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+                                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                            </Style>
+                            <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+                                <Setter Property="BorderThickness" Value="0,0,0,3"/>
+                                <Setter Property="Background" Value="{TemplateBinding Background}"/>
+                            </Style>
+                        </TextBox.Styles>
+                    </TextBox>
+                    <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Width="180"
+                            Height="60"
+                            Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
+                            Command="{Binding CheckAnswer}" IsEnabled="{Binding !IsSolutionShown}"
+                            HotKey="Enter">
+                        <TextBlock Foreground="{StaticResource SameAccent}" FontSize="22"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Text="Answer"/>
+                    </Button>
+                </Grid>
+                <Button Grid.Row="1" Classes="selectable-button-effect" HorizontalAlignment="Center"
+                        Command="{Binding ShowSolution}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <TextBlock FontSize="22" Foreground="{StaticResource MainRed}" Text="Show solution"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Grid>
+        <ContentControl Content="{Binding SolutionPanel}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        IsVisible="{Binding IsSolutionShown}"/>
+    </Panel>
+</UserControl>
