@@ -53,7 +53,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     protected int SeenWords
     {
         get => _seenWords; 
-        private set => this.RaiseAndSetIfChanged(ref _seenWords, value);
+        set => this.RaiseAndSetIfChanged(ref _seenWords, value);
     }
 
     protected bool AskTerm
@@ -143,11 +143,6 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         }
     }
 
-    protected void SetThesaurus()
-    {
-            
-    }
-
     protected internal virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState)
     {
         if(!newState.CustomHasFlag(LearningState.NotAsked) && previousState.CustomHasFlag(LearningState.NotAsked))
@@ -189,7 +184,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
 
     internal virtual void SetDifficultTerm(bool difficult, VocabularyItem? item = null)
     {
-        (item ?? CurrentWord).IsDifficult = difficult; // Remove from lists specifically for difficult items if needed
+        (item ?? CurrentWord).IsDifficult = difficult;
         DataManager.SaveData();
     }
 
