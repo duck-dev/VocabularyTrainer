@@ -18,7 +18,7 @@ using VocabularyTrainer.ViewModels;
 
 namespace VocabularyTrainer.Models;
 
-public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable, IContentVerification<Word>, IEquatable<Word>
+public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable, IContentVerification<Word>, IEquatable<Word>, ICloneable
 {
     private ObservableCollection<VocabularyItem> _synonyms = new();
     private ObservableCollection<VocabularyItem> _antonyms = new();
@@ -160,6 +160,14 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         _changedSynonyms.Clear();
         _changedAntonyms.Clear();
     }
+    
+    public override object Clone() => new Word(_synonyms, _antonyms)
+    {
+        Term = this.Term,
+        Definition = this.Definition,
+        IsDifficult = this.IsDifficult,
+        LearningStateInModes = this.LearningStateInModes
+    };
 
     internal void ClearCollections()
     {

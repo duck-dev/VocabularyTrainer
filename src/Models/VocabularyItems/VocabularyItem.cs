@@ -12,7 +12,7 @@ using VocabularyTrainer.Interfaces;
 
 namespace VocabularyTrainer.Models;
 
-public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<VocabularyItem>
+public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<VocabularyItem>, ICloneable
 {
     private string _definition = string.Empty;
     private string _changedDefinition = string.Empty;
@@ -44,7 +44,7 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
 
     public bool IsDifficult { get; set; }
     
-    public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; } = new();
+    public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; protected init; } = new();
 
     internal string ChangedDefinition
     {
@@ -75,6 +75,10 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
         => other is not null && other.ChangedDefinition.Equals(this.ChangedDefinition);
 
     public override bool Equals(object? obj) => Equals(obj as VocabularyItem);
+    public virtual object Clone() => new VocabularyItem(_definition, IsDifficult, LearningStateInModes)
+    {
+        ContainerCollection = this.ContainerCollection
+    };
 
     protected void InvokeNotifyChanged()
         => NotifyChanged?.Invoke();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -6,7 +7,7 @@ using VocabularyTrainer.Interfaces;
 
 namespace VocabularyTrainer.Models;
 
-public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocabularyItem>
+public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocabularyItem>, ICloneable
 {
     private string _term = string.Empty;
     private string _changedTerm = string.Empty;
@@ -49,4 +50,12 @@ public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocab
         base.SaveChanges();
         this.Term = ChangedTerm;
     }
+    
+    public override object Clone() => new DualVocabularyItem(this.ContainerCollection)
+    {
+        Term = _term,
+        Definition = this.Definition,
+        IsDifficult = this.IsDifficult,
+        LearningStateInModes = this.LearningStateInModes
+    };
 }
