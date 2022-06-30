@@ -39,12 +39,12 @@
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid RowDefinitions="Auto,Auto,Auto,Auto" Margin="40,0,40,15" 
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Grid Grid.Row="0" ColumnDefinitions="66*,33*" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch">
+                <Grid Grid.Row="0" ColumnDefinitions="60*,40*" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch">
                     <customControls:InextensibleTextBox Grid.Column="0" Grid.Row="0" Classes="editable-text" Text="{Binding CurrentLesson.ChangedName}"
                                                         MinHeight="52" FontSize="36" FontWeight="Bold" MaxLength="35"
                                                         HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
                                                         HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                                        TextWrapping="Wrap"/>
+                                                        TextWrapping="NoWrap"/>
                     <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,*" Margin="30,0,0,0" HorizontalAlignment="Stretch">
                         <Button Grid.Column="0" Classes="selectable-button-effect" Content="Cancel"
                                 Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
