@@ -178,7 +178,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         if (synonymChosen && CurrentWord.Synonyms.Count > 0)
         {
             collection = new List<VocabularyItem>(CurrentWord.Synonyms.Clone());
-            collection.Add(CurrentWord);
             this.ThesaurusType = SynonymType;
             this.IndefiniteArticle = IndefiniteWithoutVowel;
         }
@@ -186,7 +185,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         {
             collection = new List<VocabularyItem>(CurrentWord.Antonyms.Clone());
             collection.AddRange(CurrentWord.Synonyms);
-            collection.Add(CurrentWord);
             this.ThesaurusType = AntonymType;
             this.IndefiniteArticle = IndefiniteWithVowel;
         }
@@ -195,6 +193,8 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
             NextWord();
             return;
         }
+        
+        collection.Add(CurrentWord);
         
         int index = rnd.Next(0, collection.Count);
         this.DisplayedTerm = collection[index].Definition;
