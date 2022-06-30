@@ -51,5 +51,7 @@ public class MainWindowViewModel : ViewModelBase
                 this.Content = NewLessonList;
                 break;
         }
+
+        CurrentLesson = null;
     }
 }
