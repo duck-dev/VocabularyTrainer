@@ -73,8 +73,8 @@
                     <TextBox Grid.Column="0" Grid.Row="1" Classes="editable-text" Margin="0,10,0,0"
                              Text="{Binding CurrentLesson.ChangedDescription}" TextWrapping="Wrap" FontSize="16"
                              Foreground="{StaticResource MainGrey}" MaxLength="150"
-                             HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
-                             HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                             VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                             AcceptsReturn="False" AcceptsTab="False"/>
                 </customControls:InextensibleGrid>
                 <views:LessonOptions Grid.Row="1" Margin="0,15,0,0"/>
                 <TextBlock Grid.Row="2" Classes="add-page-heading" Margin="0,30,0,0">
