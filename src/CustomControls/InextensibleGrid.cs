@@ -16,7 +16,7 @@ public class InextensibleGrid : Grid, IStyleable
         window.PropertyChanged += (sender, args) =>
         {
             if (args.Property == TopLevel.ClientSizeProperty)
-                MaxWidth = double.MaxValue;
+                MaxWidth = double.MaxValue; // Will trigger the `LayoutUpdated` event and needs to be as big as possible
         };
     }
     
