@@ -63,9 +63,9 @@ Choose from 3 pre-defined templates (High, Balanced, Low) or customize your own 
 Operations are: Insertion, Deletion, Substitution and Transposition.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
-                            <NumericUpDown Increment="1" Minimum="0" AllowSpin="True" ButtonSpinnerLocation="Right"
-                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                           ShowButtonSpinner="True" ClipValueToMinMax="True" ParsingNumberStyle="Integer"
+                            <NumericUpDown Increment="1" Minimum="0" Maximum="2147483647" ClipValueToMinMax="True"
+                                           AllowSpin="True" ButtonSpinnerLocation="Right" ShowButtonSpinner="True"
+                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ParsingNumberStyle="Integer"
                                            Width="140" Height="20" Value="{Binding CurrentOptions.CorrectionSteps, Mode=TwoWay}"
                                            DataContext="{Binding $parent[UserControl].DataContext}"/>
                         </views:LessonOptionItem.MainContent>
