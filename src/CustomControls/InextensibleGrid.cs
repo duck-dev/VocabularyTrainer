@@ -5,11 +5,11 @@ using VocabularyTrainer.Views;
 
 namespace VocabularyTrainer.CustomControls;
 
-public class InextensibleTextBox : TextBox, IStyleable
+public class InextensibleGrid : Grid, IStyleable
 {
-    public InextensibleTextBox()
+    public InextensibleGrid()
     {
-        this.LayoutUpdated += (sender, args) => MaxWidth = Bounds.Width;
+        this.LayoutUpdated += (sender, args) => { MaxWidth = Bounds.Width; };
         
         if (MainWindow.Instance is not { } window)
             return;
@@ -20,5 +20,5 @@ public class InextensibleTextBox : TextBox, IStyleable
         };
     }
     
-    Type IStyleable.StyleKey => typeof(TextBox);
+    Type IStyleable.StyleKey => typeof(Grid);
 }
