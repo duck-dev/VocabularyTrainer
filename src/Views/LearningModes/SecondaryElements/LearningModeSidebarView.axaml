@@ -82,9 +82,9 @@
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid ColumnDefinitions="Auto,Auto">
-                                <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="34" Height="34"
+                                <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="30" Height="30"
                                        Margin="0,0,15,0" VerticalAlignment="Center"/> <!-- Shuffle image green -->
-                                <TextBlock Grid.Column="1" FontSize="36" Foreground="{TemplateBinding Button.Foreground}"
+                                <TextBlock Grid.Column="1" FontSize="32" Foreground="{TemplateBinding Button.Foreground}"
                                            FontWeight="Bold" Text="Shuffle words" VerticalAlignment="Center"/>
                             </Grid>
                         </ControlTemplate>
@@ -94,9 +94,9 @@
                     <Button.Template>
                         <ControlTemplate>
                             <Grid ColumnDefinitions="Auto,Auto">
-                                <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="34" Height="34"
+                                <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="30" Height="30"
                                        Margin="0,0,15,0" VerticalAlignment="Center"/> <!-- Back-Button image red -->
-                                <TextBlock Grid.Column="1" FontSize="36" Foreground="{StaticResource MainRed}"
+                                <TextBlock Grid.Column="1" FontSize="32" Foreground="{StaticResource MainRed}"
                                            FontWeight="Bold" Text="Back to lesson" VerticalAlignment="Center"/>
                             </Grid>
                         </ControlTemplate>
