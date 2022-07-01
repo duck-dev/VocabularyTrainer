@@ -4,7 +4,7 @@
     <Style Selector="TextBlock.add-page-title">
         <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="36"/>
+        <Setter Property="FontSize" Value="32"/>
     </Style>
     
     <Style Selector="TextBlock.add-page-heading">
@@ -29,11 +29,12 @@
     
     <Style Selector="Button.add-page-button">
         <Setter Property="CornerRadius" Value="10"/>
-        <Setter Property="Width" Value="200"/>
         <Setter Property="Height" Value="50"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/> <!-- Each button is assumed to be in a Grid with a fixed ratio. -->
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
     <Style Selector="Border.word-item-panel">

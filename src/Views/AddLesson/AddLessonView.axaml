@@ -5,6 +5,7 @@
              xmlns:viewModels="clr-namespace:VocabularyTrainer.ViewModels"
              xmlns:addLesson="clr-namespace:VocabularyTrainer.Views.AddLesson"
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
+             xmlns:customControls="clr-namespace:VocabularyTrainer.CustomControls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.AddLessonView">
 
@@ -16,12 +17,17 @@
         <StyleInclude Source="/src/Styles/AddPageStyle.axaml"/>
     </UserControl.Styles>
 
-    <Grid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" RowDefinitions="Auto,*" Margin="0,40">
-        <Panel Grid.Column="1" Grid.Row="0" Margin="20,0,20,15">
-            <TextBlock Classes="add-page-title" HorizontalAlignment="Left" VerticalAlignment="Center"
-                       Text="Create a new lesson"/>
-            <Grid ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right">
-                <Button Grid.Column="0" Classes="selectable-button-effect add-page-button"
+    <customControls:InextensibleGrid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" RowDefinitions="Auto,*" Margin="0,40">
+        <customControls:InextensibleGrid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,Auto" Margin="20,0,20,15"
+                                         HorizontalAlignment="Stretch">
+            <TextBlock Grid.Column="0" Classes="add-page-title" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                       Text="Create a new lesson" TextWrapping="Wrap"/>
+            <!-- <Viewbox Grid.Column="0" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"  -->
+            <!--          StretchDirection="DownOnly" Stretch="Uniform" Margin="0,0,20,0"> -->
+            <!--      -->
+            <!-- </Viewbox> -->
+            <Grid Grid.Column="1" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Width="200"
                         Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
                         Margin="0,0,20,0" Content="Cancel" Command="{Binding MainViewModel.ReturnHome}"
                         CommandParameter="False">
@@ -31,7 +37,7 @@
                         </Style>
                     </Button.Styles>
                 </Button>
-                <Button Grid.Column="1" Classes="selectable-button-effect add-page-button"
+                <Button Grid.Column="1" Classes="selectable-button-effect add-page-button" Width="200"
                         Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
                         Margin="20,0,0,0" Content="Create Lesson" Command="{Binding CreateLesson}">
                     <Button.Styles>
@@ -41,7 +47,7 @@
                     </Button.Styles>
                 </Button>
             </Grid>
-        </Panel>
+        </customControls:InextensibleGrid>
         <Panel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
                           VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
@@ -85,5 +91,5 @@
                 </Grid>
             </ScrollViewer>
         </Panel>
-    </Grid>
+    </customControls:InextensibleGrid>
 </UserControl>
