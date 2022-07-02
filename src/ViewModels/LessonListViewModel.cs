@@ -37,8 +37,8 @@ public class LessonListViewModel : ViewModelBase
         if (MainViewModel is null)
             return;
 
-        MainViewModel.Content = new LessonViewModel(lesson);
         MainWindowViewModel.CurrentLesson = lesson;
+        MainViewModel.Content = new LessonViewModel(lesson);
     }
 
     private void RemoveLesson(Lesson lesson)
