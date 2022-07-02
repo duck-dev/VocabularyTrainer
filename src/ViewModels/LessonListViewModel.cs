@@ -37,11 +37,7 @@ public class LessonListViewModel : ViewModelBase
         if (MainViewModel is null)
             return;
 
-        var lessonViewModel = new LessonViewModel(lesson)
-        {
-            SelectedTolerance = (int)lesson.Options.CurrentTolerance
-        };
-        MainViewModel.Content = lessonViewModel;
+        MainViewModel.Content = new LessonViewModel(lesson);
         MainWindowViewModel.CurrentLesson = lesson;
     }
 

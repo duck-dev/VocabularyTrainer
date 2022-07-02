@@ -90,5 +90,6 @@ public abstract class LessonViewModelBase : ViewModelBase
             if (this is AddLessonViewModel && currentValue == DefaultTolerance)
                 this.SelectedTolerance = i;
         }
+        SelectedTolerance = (int)CurrentOptions.CurrentTolerance;
     }
 }

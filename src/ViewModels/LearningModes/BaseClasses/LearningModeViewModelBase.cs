@@ -43,7 +43,7 @@ public abstract class LearningModeViewModelBase : ViewModelBase
 
     protected void ReturnToLesson()
     {
-        if(MainViewModel is not null)
+        if (MainViewModel is not null)
             MainViewModel.Content = new LessonViewModel(this.CurrentLesson);
     }
 
