@@ -8,7 +8,7 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="VocabularyTrainer"
         WindowStartupLocation="CenterScreen"
-        MinWidth="850"
+        MinWidth="990"
         MinHeight="500">
 
     <Design.DataContext>
