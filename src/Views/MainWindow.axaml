@@ -7,7 +7,9 @@
         x:Class="VocabularyTrainer.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="VocabularyTrainer"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        MinWidth="850"
+        MinHeight="500">
 
     <Design.DataContext>
         <viewModels:MainWindowViewModel/>
