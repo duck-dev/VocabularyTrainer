@@ -49,7 +49,7 @@
                     <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,*" Margin="30,0,0,0" HorizontalAlignment="Stretch">
                         <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Content="Cancel"
                                 Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
-                                Command="{Binding ConfirmDiscarding}" Margin="0,0,15,0">
+                                Command="{Binding ConfirmDiscarding}" Margin="0,0,15,0" MinWidth="96">
                             <Button.Styles>
                                 <Style Selector="Button:pointerover /template/ ContentPresenter">
                                     <Setter Property="Background" Value="{StaticResource VariantMainGrey}"/>
@@ -59,7 +59,7 @@
                         <Button Grid.Column="1" Classes="selectable-button-effect add-page-button" Content="Save changes"
                                 Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
                                 Command="{Binding SaveChanges}" IsEnabled="{Binding CurrentLesson.DataChanged}"
-                                Margin="15,0,0,0">
+                                Margin="15,0,0,0" MinWidth="176">
                             <Button.Styles>
                                 <Style Selector="Button:pointerover /template/ ContentPresenter">
                                     <Setter Property="Background" Value="{StaticResource DarkAppBlue}"/>
