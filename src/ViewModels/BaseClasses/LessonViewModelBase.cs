@@ -11,7 +11,7 @@ public abstract class LessonViewModelBase : ViewModelBase
     private const int HigherSettingsOpacity = 1;
     private const float LowerSettingsOpacity = 0.6f;
     
-    private int _selectedTolerance;
+    private int _selectedTolerance = -1;
     private Tuple<string, ErrorTolerance>[] _errorToleranceTemplates = null!;
     private LessonOptions _currentOptions = null!;
     private bool _individualSettingsEnabled;
@@ -26,7 +26,7 @@ public abstract class LessonViewModelBase : ViewModelBase
     
     protected internal int SelectedTolerance
     {
-        get => _selectedTolerance;
+        get => _selectedTolerance >= 0 ? _selectedTolerance : 0;
         set
         {
             if (value == _selectedTolerance || value < 0 || value >= ErrorToleranceTemplates.Length)
