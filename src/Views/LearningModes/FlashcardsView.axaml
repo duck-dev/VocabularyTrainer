@@ -12,6 +12,7 @@
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
             <Setter Property="Margin" Value="7.5,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
     </UserControl.Styles>
 
@@ -83,7 +84,7 @@
                                 <Viewbox Grid.Row="0" Height="54" HorizontalAlignment="Center" VerticalAlignment="Top"
                                          StretchDirection="UpOnly" Margin="10,0,10,20">
                                     <TextBlock Text="{Binding DisplayedTerm}" FontWeight="Bold" TextAlignment="Center"
-                                               Foreground="{StaticResource OppositeAccent}"/>
+                                               Foreground="{StaticResource OppositeAccent}" TextWrapping="Wrap"/>
                                 </Viewbox>
                                 <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Center"
                                        IsEnabled="{Binding ShowThesaurus}" IsVisible="{Binding ShowThesaurus}">

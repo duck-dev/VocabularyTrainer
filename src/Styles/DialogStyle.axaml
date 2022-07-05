@@ -19,7 +19,7 @@
 
     <Style Selector="TextBlock.title-text">
         <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontSize" Value="18"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="Margin" Value="30, 30, 30, 0"/>
