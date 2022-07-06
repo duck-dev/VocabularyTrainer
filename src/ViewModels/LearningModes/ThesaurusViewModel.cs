@@ -21,7 +21,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     private string _thesaurusType = SynonymType;
     private string _indefiniteArticle = IndefiniteWithoutVowel;
 
-    private VocabularyItem? _currentThesaurusItem;
+    private VocabularyItem _currentThesaurusItem = null!;
     private IEnumerable<VocabularyItem> _currentCollection = Array.Empty<VocabularyItem>();
     private IEnumerable<string> _possibleDefinitions = Array.Empty<string>();
 
@@ -45,6 +45,8 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                      synonymStates.Count(x => x.CustomHasFlag(WrongFlags)) + 
                      antonymStates.Count(x => x.CustomHasFlag(WrongFlags));
     }
+
+    protected override int MaximumItems => CurrentLesson.VocabularyItems.Count(x => x.Synonyms.Count > 0 || x.Antonyms.Count > 0);
 
     private bool AskSynonyms
     {
@@ -116,39 +118,39 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
     private new void CountCorrect()
     {
-        if(_currentThesaurusItem is not null)
-            Utilities.ChangeLearningState(_currentThesaurusItem, this, true);
+        Utilities.ChangeLearningState(_currentThesaurusItem, this, true);
         NextWord();
     }
     
     private new void ShowSolution()
     {
         OpenSolutionPanel(this.DisplayedTerm, string.Join(", ", _possibleDefinitions), false);
-        if(_currentThesaurusItem is not null)
-            Utilities.ChangeLearningState(_currentThesaurusItem, this, false);
+        Utilities.ChangeLearningState(_currentThesaurusItem, this, false);
     }
     
     private new void CheckAnswer()
     {
-        string? modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
+        string modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
         int mistakeTolerance = CurrentLesson.Options.CorrectionSteps;
         bool tolerateTransposition = CurrentLesson.Options.TolerateSwappedLetters;
 
         bool correct = false;
         string finalDefinition = string.Join(", ", _possibleDefinitions);
-        foreach (string definition in _currentCollection.Where(x => x != _currentThesaurusItem).Select(x => x.Definition))
+        IEnumerable<string> newCollection = _currentCollection.Where(x => !_currentThesaurusItem.Definition.Equals(x.Definition))
+                                                              .Select(x => x.Definition);
+        foreach (string definition in newCollection)
         {
-            string? modifiedDefinition = Utilities.ModifyAnswer(definition, CurrentLesson);
-            correct = modifiedAnswer is not null && modifiedDefinition is not null && (modifiedDefinition.Equals(modifiedAnswer) 
-                || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition) <= mistakeTolerance);
+            string modifiedDefinition = Utilities.ModifyAnswer(definition, CurrentLesson);
+            correct = modifiedDefinition.Equals(modifiedAnswer) 
+                      || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition) <= mistakeTolerance;
             if (!correct) 
                 continue;
             finalDefinition = definition;
             break;
         }
+        
         OpenSolutionPanel(this.DisplayedTerm, finalDefinition, correct);
-        if(_currentThesaurusItem is not null)
-            Utilities.ChangeLearningState(_currentThesaurusItem, this, correct);
+        Utilities.ChangeLearningState(_currentThesaurusItem, this, correct);
     }
 
     private void SetThesaurus()
@@ -200,6 +202,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         this.DisplayedTerm = collection[index].Definition;
         _currentThesaurusItem = collection[index];
         _currentCollection = collection;
-        _possibleDefinitions = collection.Where(x => x != _currentThesaurusItem).Select(x => x.Definition);
+        _possibleDefinitions = collection.Where(x => !_currentThesaurusItem.Definition.Equals(x.Definition))
+                                         .Select(x => x.Definition);
     }
 }

@@ -13,7 +13,7 @@
                 <TextBlock.Text>
                     <MultiBinding StringFormat="\{0\}/\{1\}">
                         <Binding Path="WordIndexCorrected"/>
-                        <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                        <Binding Path="MaximumItems"/>
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>

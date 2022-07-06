@@ -40,7 +40,7 @@ public static partial class Utilities
             
         ChangeLearningState(word, singleWordViewModel, result);
     }
-        
+
     /// <summary>
     /// Automatically change the <see cref="LearningState"/> of a <see cref="Word"/> in a specific learning mode by one step.
     /// </summary>
@@ -59,8 +59,8 @@ public static partial class Utilities
             return;
         }
 
-        newState &= ~LearningState.NotAsked;
-        newState = known ? newState.Next(false, LearningState.NotAsked) : newState.Previous(false, LearningState.NotAsked);
+        newState = known ? newState.Next(false, LearningState.NotAsked) 
+                         : newState.Previous(false, LearningState.NotAsked);
 
         singleWordViewModel.VisualizeLearningProgress(originalState, newState);
         word.LearningStateInModes[learningMode] = newState;
@@ -133,14 +133,11 @@ public static partial class Utilities
     /// <summary>
     /// Modify a specific string to comply with the lesson options.
     /// </summary>
-    /// <param name="originalNullable">The original unmodified nullable string.</param>
+    /// <param name="originalString">The original unmodified string.</param>
     /// <param name="lesson">The current lesson that contains the relevant settings.</param>
     /// <returns>A modified string, according to the selected lesson options.</returns>
-    public static string? ModifyAnswer(string? originalNullable, Lesson lesson)
+    public static string ModifyAnswer(string originalString, Lesson lesson)
     {
-        if (originalNullable is not { } originalString)
-            return null;
-
         string result = originalString;
             
         var settings = lesson.Options;

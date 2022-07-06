@@ -15,7 +15,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
     protected const LearningState KnownFlags = LearningState.KnownOnce | LearningState.KnownPerfectly;
     protected const LearningState WrongFlags = LearningState.WrongOnce | LearningState.VeryHard;
 
-    private string? _answer;
+    private string _answer = string.Empty;
     private bool _isSolutionShown;
     private SolutionPanelViewModel? _solutionPanel;
     private SolidColorBrush _answerColor;
@@ -50,7 +50,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         set => this.RaiseAndSetIfChanged(ref _answerColor, value);
     }
         
-    protected string? Answer
+    protected string Answer
     {
         get => _answer; 
         set => this.RaiseAndSetIfChanged(ref _answer, value);
@@ -110,13 +110,13 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
 
     protected void CheckAnswer()
     {
-        string? modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
-        string? modifiedDefinition = Utilities.ModifyAnswer(Definition, CurrentLesson);
+        string modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
+        string modifiedDefinition = Utilities.ModifyAnswer(Definition, CurrentLesson);
         int mistakeTolerance = CurrentLesson.Options.CorrectionSteps;
 
         bool tolerateTransposition = CurrentLesson.Options.TolerateSwappedLetters;
-        bool correct = modifiedAnswer is not null && modifiedDefinition is not null && (modifiedDefinition.Equals(modifiedAnswer) 
-                           || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition) <= mistakeTolerance);
+        bool correct = modifiedDefinition.Equals(modifiedAnswer) 
+                       || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition) <= mistakeTolerance;
         OpenSolutionPanel(this.DisplayedTerm, this.Definition, correct);
         Utilities.ChangeLearningState(CurrentWord, this, correct);
     }

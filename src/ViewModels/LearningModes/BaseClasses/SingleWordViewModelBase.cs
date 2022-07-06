@@ -44,9 +44,11 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         get => _displayedTerm;
         set => this.RaiseAndSetIfChanged(ref _displayedTerm, value);
     }
-    protected string? Definition { get; set; }
+
+    protected string Definition { get; set; } = string.Empty;
 
     protected int WordIndexCorrected => _wordIndex + 1;
+    protected virtual int MaximumItems => CurrentLesson.VocabularyItems.Count;
 
     protected bool IsCurrentWordDifficult => this.CurrentWord.IsDifficult;
         

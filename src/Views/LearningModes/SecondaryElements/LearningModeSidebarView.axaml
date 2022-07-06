@@ -25,7 +25,7 @@
                         <TextBlock.Text>
                             <MultiBinding StringFormat="\{0\}/\{1\} completed">
                                 <Binding Path="SeenWords"/>
-                                <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                                <Binding Path="MaximumItems"/>
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
@@ -42,7 +42,7 @@
                         <TextBlock.Text>
                             <MultiBinding StringFormat="\{0\}/\{1\} correct">
                                 <Binding Path="KnownWords"/>
-                                <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                                <Binding Path="MaximumItems"/>
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
@@ -59,7 +59,7 @@
                         <TextBlock.Text>
                             <MultiBinding StringFormat="\{0\}/\{1\} wrong">
                                 <Binding Path="WrongWords"/>
-                                <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                                <Binding Path="MaximumItems"/>
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
