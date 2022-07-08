@@ -12,7 +12,8 @@ public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocab
     private string _term = string.Empty;
     private string _changedTerm = string.Empty;
         
-    public DualVocabularyItem(IList? containerCollection = null) : base(containerCollection) { }
+    protected DualVocabularyItem(IList? containerCollection = null, bool addSelfReference = true) 
+        : base(containerCollection, addSelfReference) { }
 
     public string Term
     {

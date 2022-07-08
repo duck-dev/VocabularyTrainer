@@ -20,11 +20,13 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     public delegate void NotificationEventHandler();
     public event NotificationEventHandler? NotifyChanged;
 
-    public VocabularyItem(IList? containerCollection = null)
+    public VocabularyItem(IList? containerCollection = null, bool addSelfReference = true)
     {
         this.ContainerCollection = containerCollection;
         this.RemoveCommandCollection = ReactiveCommand.Create<ICollection<VocabularyItem>>(Remove);
         this.LearningStateInModes.Add(LearningModeType.Thesaurus, LearningState.NotAsked);
+        if(addSelfReference)
+            this.VocabularyReferences.Add(this);
     }
 
     [JsonConstructor]
@@ -45,6 +47,10 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     public bool IsDifficult { get; set; }
     
     public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; protected init; } = new();
+    
+    protected internal NotifyCollectionChangedAction ChangedAction { get; set; } = NotifyCollectionChangedAction.Reset;
+    
+    protected ReactiveCommand<ICollection<VocabularyItem>, Unit> RemoveCommandCollection { get; }
 
     internal string ChangedDefinition
     {
@@ -56,11 +62,9 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
         }
     }
 
-    protected internal NotifyCollectionChangedAction ChangedAction { get; set; } = NotifyCollectionChangedAction.Reset;
-
     internal IList? ContainerCollection { get; set; }
 
-    protected ReactiveCommand<ICollection<VocabularyItem>, Unit> RemoveCommandCollection { get; }
+    internal List<VocabularyItem> VocabularyReferences = new();
 
     public bool MatchesUnsavedContent(IEnumerable<VocabularyItem> collection, out VocabularyItem? identicalItem)
     {

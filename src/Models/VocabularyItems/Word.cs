@@ -29,7 +29,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
 
     public event PropertyChangedEventHandler? PropertyChanged;
         
-    public Word()
+    public Word(bool addSelfReference = true) : base(addSelfReference: addSelfReference)
     {
         ThesaurusTitleDefinitions = new[]
         {
@@ -47,17 +47,16 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         }
     }
 
-    [JsonConstructor]
-    public Word(ObservableCollection<VocabularyItem> synonyms, 
-        ObservableCollection<VocabularyItem> antonyms) : this()
+    public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms, bool addSelfReference)
+        : this(addSelfReference)
     {
-        this.Synonyms = synonyms;
-        this.Antonyms = antonyms;
+        FillThesaurusItems(synonyms, antonyms, this);
+    }
 
-        foreach (var item in Synonyms)
-            item.ContainerCollection = this.Synonyms;
-        foreach (var item in Antonyms)
-            item.ContainerCollection = this.Antonyms;
+    [JsonConstructor]
+    public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms) : this()
+    {
+        FillThesaurusItems(synonyms, antonyms, this);
     }
 
     public ObservableCollection<VocabularyItem> Synonyms
@@ -235,6 +234,18 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     {
         var lesson = MainWindowViewModel.CurrentLesson;
         lesson?.NotifyPropertyChanged(nameof(lesson.DataChanged));
+    }
+
+    private static void FillThesaurusItems(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms,
+        Word word)
+    {
+        word.Synonyms = synonyms;
+        word.Antonyms = antonyms;
+
+        foreach (var item in word.Synonyms)
+            item.ContainerCollection = word.Synonyms;
+        foreach (var item in word.Antonyms)
+            item.ContainerCollection = word.Antonyms;
     }
         
     // internal void DebugUnsavedChanges()

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.Models.EqualityComparers;
 using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.ViewModels.LearningModes;
@@ -24,9 +26,11 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     private VocabularyItem _currentThesaurusItem = null!;
     private IEnumerable<VocabularyItem> _currentCollection = Array.Empty<VocabularyItem>();
     private IEnumerable<string> _possibleDefinitions = Array.Empty<string>();
+    private readonly List<Word> _thesaurusItems = new List<Word>();
 
     public ThesaurusViewModel(Lesson lesson) : base(lesson)
     {
+        ConstructThesaurusItems();
         SetThesaurus();
         
         IEnumerable<LearningState> wordStates = lesson.VocabularyItems.Select(x => x.LearningStateInModes[LearningMode]).ToArray();
@@ -151,6 +155,73 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         
         OpenSolutionPanel(this.DisplayedTerm, finalDefinition, correct);
         Utilities.ChangeLearningState(_currentThesaurusItem, this, correct);
+    }
+
+    private void ConstructThesaurusItems()
+    {
+        // Remove exact duplicates of Words (independent from order of synonyms or the Term)
+        var distinctWords = CurrentLesson.VocabularyItems.Distinct(new WordEqualityComparer());
+        
+        foreach (Word word in distinctWords)
+        {
+            EvaluateThesaurus(word, word.Synonyms, true);
+            EvaluateThesaurus(word, word.Antonyms, false);
+            
+            Word? equalWord = _thesaurusItems.SingleOrDefault(x => x.Definition == word.Definition);
+            if (equalWord is not null)
+            {
+                foreach(VocabularyItem synonym in word.Synonyms)
+                    equalWord.Synonyms.Add(synonym);
+                foreach(VocabularyItem antonym in word.Antonyms)
+                    equalWord.Antonyms.Add(antonym);
+                continue;
+            }
+            _thesaurusItems.Add(word);
+        }
+
+        void EvaluateThesaurus(Word word, IList<VocabularyItem> thesaurusList, bool isSynonym)
+        {
+            foreach (VocabularyItem item in thesaurusList)
+            {
+                Word? equalWord = _thesaurusItems.SingleOrDefault(x => x.Definition.Equals(item.Definition));
+                if (equalWord is not null)
+                {
+                    IList<VocabularyItem> equalWordThesaurus = isSynonym ? equalWord.Synonyms : equalWord.Antonyms;
+                    IList<VocabularyItem> oppositeThesaurusList = isSynonym ? equalWord.Antonyms : equalWord.Synonyms;
+                    if(!equalWordThesaurus.Any(x => x.Definition.Equals(word.Definition)))
+                        equalWordThesaurus.Add(word);
+
+                    foreach (VocabularyItem synonym in word.Synonyms)
+                    {
+                        if (!equalWordThesaurus.Any(x => x.Definition.Equals(synonym.Definition)))
+                            equalWordThesaurus.Add(synonym);
+                    }
+
+                    foreach (VocabularyItem antonym in word.Antonyms)
+                    {
+                        if (!oppositeThesaurusList.Any(x => x.Definition.Equals(antonym.Definition)))
+                            oppositeThesaurusList.Add(antonym);
+                    }
+                    
+                    continue;
+                }
+                
+                var synonyms = new ObservableCollection<VocabularyItem>(word.Synonyms.Where(x => !x.Equals(item)));
+                var antonyms = new ObservableCollection<VocabularyItem>(word.Antonyms.Where(x => !x.Equals(item)));
+                var mainDefinitionThesaurus = new VocabularyItem(addSelfReference: false)
+                {
+                    Definition = word.Definition
+                };
+                mainDefinitionThesaurus.VocabularyReferences.Add(word);
+                
+                Word newWord = new Word(synonyms, antonyms, false)
+                {
+                    Definition = item.Definition
+                };
+                newWord.VocabularyReferences.Add(item);
+                (isSynonym ? newWord.Synonyms : newWord.Antonyms).Add(mainDefinitionThesaurus);
+            }
+        }
     }
 
     private void SetThesaurus()
