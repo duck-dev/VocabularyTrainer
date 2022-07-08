@@ -30,6 +30,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     public ThesaurusViewModel(Lesson lesson) : base(lesson)
     {
         ConstructThesaurusItems();
+        InitCurrentWord();
         SetThesaurus();
         
         IEnumerable<LearningState> wordStates = lesson.VocabularyItems.Select(x => x.LearningStateInModes[LearningMode]).ToArray();
@@ -104,7 +105,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     protected override void InitCurrentWord()
     {
         SetLearningMode(LearningModeType.Thesaurus);
-        base.InitCurrentWord();
     }
     
     protected override void ResetKnownWords()
@@ -158,8 +158,9 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
     private void ConstructThesaurusItems()
     {
-        // Remove exact duplicates of Words (independent from order of synonyms or the Term)
-        var distinctWords = CurrentLesson.VocabularyItems.Distinct(new WordEqualityComparer());
+        // Remove exact duplicates of words (independent from order of synonyms or the Term) and words without synonyms and antonyms
+        var distinctWords = CurrentLesson.VocabularyItems.Where(x => x.HasSynonyms || x.HasAntonyms)
+                                                                        .Distinct(new WordEqualityComparer());
 
         IList<Word> thesaurusItems = new List<Word>();
         foreach (Word word in distinctWords)
@@ -170,20 +171,31 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
             Word? equalWord = WordsList.SingleOrDefault(x => x.Definition == word.Definition);
             if (equalWord is not null)
             {
-                foreach(VocabularyItem synonym in word.Synonyms)
+                foreach(VocabularyItem synonym in word.Synonyms.ToArray())
                     equalWord.Synonyms.Add(synonym);
-                foreach(VocabularyItem antonym in word.Antonyms)
+                foreach(VocabularyItem antonym in word.Antonyms.ToArray())
                     equalWord.Antonyms.Add(antonym);
                 continue;
             }
             thesaurusItems.Add(word);
         }
 
+        foreach (var x in thesaurusItems)
+        {
+            Utilities.Log($"New Word:\n{x.Definition}");
+            foreach(var y in x.Synonyms)
+                Utilities.Log($"    {y.Definition}");
+            Utilities.Log("-");
+            foreach(var z in x.Antonyms)
+                Utilities.Log($"    {z.Definition}");
+            
+            Utilities.Log("-----------------------------------------------");
+        }
         WordsList = thesaurusItems.ToArray();
 
-        void EvaluateThesaurus(Word word, IList<VocabularyItem> thesaurusList, bool isSynonym)
+        void EvaluateThesaurus(Word word, IEnumerable<VocabularyItem> thesaurusList, bool isSynonym)
         {
-            foreach (VocabularyItem item in thesaurusList)
+            foreach (VocabularyItem item in thesaurusList.ToArray())
             {
                 Word? equalWord = thesaurusItems.SingleOrDefault(x => x.Definition.Equals(item.Definition));
                 if (equalWord is not null)
@@ -193,13 +205,13 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                     if(!equalWordThesaurus.Any(x => x.Definition.Equals(word.Definition)))
                         equalWordThesaurus.Add(word);
 
-                    foreach (VocabularyItem synonym in word.Synonyms)
+                    foreach (VocabularyItem synonym in word.Synonyms.ToArray())
                     {
                         if (!equalWordThesaurus.Any(x => x.Definition.Equals(synonym.Definition)))
                             equalWordThesaurus.Add(synonym);
                     }
 
-                    foreach (VocabularyItem antonym in word.Antonyms)
+                    foreach (VocabularyItem antonym in word.Antonyms.ToArray())
                     {
                         if (!oppositeThesaurusList.Any(x => x.Definition.Equals(antonym.Definition)))
                             oppositeThesaurusList.Add(antonym);

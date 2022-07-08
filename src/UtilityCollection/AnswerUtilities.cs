@@ -50,20 +50,23 @@ public static partial class Utilities
     public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, bool known)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
-        LearningState originalState = word.LearningStateInModes[learningMode];
-        LearningState newState = originalState;
-
-        if (originalState == LearningState.NotAsked)
+        foreach (VocabularyItem item in word.VocabularyReferences)
         {
-            ChangeLearningState(word, singleWordViewModel, known ? LearningState.KnownOnce : LearningState.WrongOnce);
-            return;
+            LearningState originalState = item.LearningStateInModes[learningMode];
+            LearningState newState = originalState;
+
+            if (originalState == LearningState.NotAsked)
+            {
+                ChangeLearningState(item, singleWordViewModel, known ? LearningState.KnownOnce : LearningState.WrongOnce);
+                continue;
+            }
+
+            newState = known ? newState.Next(false, LearningState.NotAsked) 
+                : newState.Previous(false, LearningState.NotAsked);
+
+            singleWordViewModel.VisualizeLearningProgress(originalState, newState);
+            item.LearningStateInModes[learningMode] = newState;
         }
-
-        newState = known ? newState.Next(false, LearningState.NotAsked) 
-                         : newState.Previous(false, LearningState.NotAsked);
-
-        singleWordViewModel.VisualizeLearningProgress(originalState, newState);
-        word.LearningStateInModes[learningMode] = newState;
     }
         
     /// <summary>
@@ -75,9 +78,12 @@ public static partial class Utilities
     public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, LearningState result)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
-        LearningState previousState = word.LearningStateInModes[learningMode];
-        word.LearningStateInModes[learningMode] = result;
-        singleWordViewModel.VisualizeLearningProgress(previousState, result);
+        foreach (VocabularyItem item in word.VocabularyReferences)
+        {
+            LearningState previousState = item.LearningStateInModes[learningMode];
+            item.LearningStateInModes[learningMode] = result;
+            singleWordViewModel.VisualizeLearningProgress(previousState, result);
+        }
     }
 
     /// <summary>
