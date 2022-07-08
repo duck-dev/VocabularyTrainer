@@ -26,7 +26,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     private VocabularyItem _currentThesaurusItem = null!;
     private IEnumerable<VocabularyItem> _currentCollection = Array.Empty<VocabularyItem>();
     private IEnumerable<string> _possibleDefinitions = Array.Empty<string>();
-    private readonly List<Word> _thesaurusItems = new List<Word>();
 
     public ThesaurusViewModel(Lesson lesson) : base(lesson)
     {
@@ -161,13 +160,14 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     {
         // Remove exact duplicates of Words (independent from order of synonyms or the Term)
         var distinctWords = CurrentLesson.VocabularyItems.Distinct(new WordEqualityComparer());
-        
+
+        IList<Word> thesaurusItems = new List<Word>();
         foreach (Word word in distinctWords)
         {
             EvaluateThesaurus(word, word.Synonyms, true);
             EvaluateThesaurus(word, word.Antonyms, false);
             
-            Word? equalWord = _thesaurusItems.SingleOrDefault(x => x.Definition == word.Definition);
+            Word? equalWord = WordsList.SingleOrDefault(x => x.Definition == word.Definition);
             if (equalWord is not null)
             {
                 foreach(VocabularyItem synonym in word.Synonyms)
@@ -176,14 +176,16 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                     equalWord.Antonyms.Add(antonym);
                 continue;
             }
-            _thesaurusItems.Add(word);
+            thesaurusItems.Add(word);
         }
+
+        WordsList = thesaurusItems.ToArray();
 
         void EvaluateThesaurus(Word word, IList<VocabularyItem> thesaurusList, bool isSynonym)
         {
             foreach (VocabularyItem item in thesaurusList)
             {
-                Word? equalWord = _thesaurusItems.SingleOrDefault(x => x.Definition.Equals(item.Definition));
+                Word? equalWord = thesaurusItems.SingleOrDefault(x => x.Definition.Equals(item.Definition));
                 if (equalWord is not null)
                 {
                     IList<VocabularyItem> equalWordThesaurus = isSynonym ? equalWord.Synonyms : equalWord.Antonyms;
