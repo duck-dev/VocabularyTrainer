@@ -79,13 +79,13 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         WrapWords(WordsList.Length - 1, false);
     }
 
-    protected virtual void NextWord()
+    protected virtual void NextWord(bool changeLearningState = true)
     {
         _wordIndex++;
-        WrapWords(0, true);
+        WrapWords(0, true, changeLearningState);
     }
 
-    protected virtual void PickWord(bool resetKnownWords = false, bool goForward = true)
+    protected virtual void PickWord(bool resetKnownWords = false, bool goForward = true, bool changeLearningState = true)
     {
         var word = WordsList[_wordIndex];
             
@@ -104,13 +104,15 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         }
             
         int factor = goForward ? -1 : 1;
-        int newIndex = _wordIndex + factor;
-        if (newIndex < 0)
-            newIndex = WordsList.Length - 1;
-        else if (newIndex >= WordsList.Length)
-            newIndex = 0;
+        int oldIndex = _wordIndex + factor;
+        if (oldIndex < 0)
+            oldIndex = WordsList.Length - 1;
+        else if (oldIndex >= WordsList.Length)
+            oldIndex = 0;
 
-        Word previousWord = WordsList[newIndex];
+        if (!changeLearningState)
+            return;
+        Word previousWord = WordsList[oldIndex];
         LearningState knownState = previousWord.LearningStateInModes[this.LearningMode];
         if(knownState.CustomHasFlag(LearningState.NotAsked))
             Utilities.RemoveLearningState(previousWord, this, LearningState.NotAsked);
@@ -196,13 +198,13 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         DataManager.SaveData();
     }
 
-    private void WrapWords(int newIndex, bool goForward)
+    private void WrapWords(int newIndex, bool goForward, bool changeLearningState = true)
     {
         bool wrapWords = _wordIndex >= WordsList.Length || _wordIndex < 0;
         if (wrapWords)
             _wordIndex = newIndex;
 
         bool resetWords = wrapWords && (this.SeenWords == WordsList.Length || this.SeenWords == WordsList.Length - 1);
-        PickWord(resetWords, goForward);
+        PickWord(resetWords, goForward, changeLearningState);
     }
 }

@@ -100,9 +100,9 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         }
     }
 
-    protected override void NextWord()
+    protected override void NextWord(bool changeLearningState = true)
     {
-        base.NextWord();
+        base.NextWord(changeLearningState);
         this.IsSolutionShown = false;
         this.AnswerColor = _blackColor;
         this.Answer = string.Empty;
@@ -141,9 +141,9 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         this.IsSolutionShown = true;
     }
 
-    protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
+    protected override void PickWord(bool resetKnownWords = false, bool goForward = true, bool changeLearningState = true)
     {
-        base.PickWord(resetKnownWords, goForward);
+        base.PickWord(resetKnownWords, goForward, changeLearningState);
         ReadyToFocus?.Invoke(this, EventArgs.Empty);
     }
 

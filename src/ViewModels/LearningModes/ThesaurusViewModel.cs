@@ -88,9 +88,9 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         set => this.RaiseAndSetIfChanged(ref _indefiniteArticle, value);
     }
 
-    protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
+    protected override void PickWord(bool resetKnownWords = false, bool goForward = true, bool changeLearningState = true)
     {
-        base.PickWord(resetKnownWords, goForward);
+        base.PickWord(resetKnownWords, goForward, changeLearningState);
         SetThesaurus();
     }
 
@@ -299,7 +299,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         }
         else
         {
-            NextWord();
+            NextWord(false);
             return;
         }
         

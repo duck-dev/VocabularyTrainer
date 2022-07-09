@@ -10,9 +10,9 @@ public sealed class WriteViewModel : AnswerViewModelBase
         SetWord();
     }
 
-    protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
+    protected override void PickWord(bool resetKnownWords = false, bool goForward = true, bool changeLearningState = true)
     {
-        base.PickWord(resetKnownWords, goForward);
+        base.PickWord(resetKnownWords, goForward, changeLearningState);
         SetWord();
     }
 

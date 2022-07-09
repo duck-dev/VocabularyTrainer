@@ -32,9 +32,9 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
         }
     }
 
-    protected override void PickWord(bool resetKnownWords = false, bool goForward = true)
+    protected override void PickWord(bool resetKnownWords = false, bool goForward = true, bool changeLearningState = true)
     {
-        base.PickWord(resetKnownWords, goForward);
+        base.PickWord(resetKnownWords, goForward, changeLearningState);
         SetWord();
         _flipped = false;
     }
