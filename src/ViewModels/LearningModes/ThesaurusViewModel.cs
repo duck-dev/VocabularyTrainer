@@ -23,8 +23,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     private string _thesaurusType = SynonymType;
     private string _indefiniteArticle = IndefiniteWithoutVowel;
 
-    private VocabularyItem _currentThesaurusItem = null!;
-    private IEnumerable<VocabularyItem> _currentCollection = Array.Empty<VocabularyItem>();
     private IEnumerable<string> _possibleDefinitions = Array.Empty<string>();
 
     public ThesaurusViewModel(Lesson lesson) : base(lesson, false)
@@ -128,14 +126,14 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
     private new void CountCorrect()
     {
-        Utilities.ChangeLearningState(_currentThesaurusItem, this, true);
+        Utilities.ChangeLearningState(CurrentWord, this, true);
         NextWord();
     }
     
     private new void ShowSolution()
     {
         OpenSolutionPanel(this.DisplayedTerm, string.Join(", ", _possibleDefinitions), false);
-        Utilities.ChangeLearningState(_currentThesaurusItem, this, false);
+        Utilities.ChangeLearningState(CurrentWord, this, false);
     }
     
     private new void CheckAnswer()
@@ -146,9 +144,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
         bool correct = false;
         string finalDefinition = string.Join(", ", _possibleDefinitions);
-        IEnumerable<string> newCollection = _currentCollection.Where(x => !_currentThesaurusItem.Definition.Equals(x.Definition))
-                                                              .Select(x => x.Definition);
-        foreach (string definition in newCollection)
+        foreach (string definition in _possibleDefinitions)
         {
             string modifiedDefinition = Utilities.ModifyAnswer(definition, CurrentLesson);
             correct = modifiedDefinition.Equals(modifiedAnswer) 
@@ -160,7 +156,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         }
         
         OpenSolutionPanel(this.DisplayedTerm, finalDefinition, correct);
-        Utilities.ChangeLearningState(_currentThesaurusItem, this, correct);
+        Utilities.ChangeLearningState(CurrentWord, this, correct);
     }
 
     /// <summary>
@@ -268,8 +264,9 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
             return;
         }
         
+        this.DisplayedTerm = CurrentWord.Definition;
+        
         var rnd = new Random();
-        List<VocabularyItem> collection;
         bool synonymChosen;
         bool antonymChosen;
         if (AskSynonyms == AskAntonyms)
@@ -286,29 +283,19 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
         if (synonymChosen && CurrentWord.Synonyms.Count > 0)
         {
-            collection = new List<VocabularyItem>(CurrentWord.Synonyms.Clone());
+            _possibleDefinitions = CurrentWord.Synonyms.Select(x => x.Definition);
             this.ThesaurusType = SynonymType;
             this.IndefiniteArticle = IndefiniteWithoutVowel;
         }
         else if (antonymChosen && CurrentWord.Antonyms.Count > 0)
         {
-            collection = new List<VocabularyItem>(CurrentWord.Antonyms.Clone());
+            _possibleDefinitions = CurrentWord.Antonyms.Select(x => x.Definition);
             this.ThesaurusType = AntonymType;
             this.IndefiniteArticle = IndefiniteWithVowel;
         }
         else
         {
             NextWord(false);
-            return;
         }
-        
-        collection.Add(CurrentWord);
-        
-        int index = rnd.Next(0, collection.Count);
-        this.DisplayedTerm = collection[index].Definition;
-        _currentThesaurusItem = collection[index];
-        _currentCollection = collection;
-        _possibleDefinitions = collection.Where(x => !_currentThesaurusItem.Definition.Equals(x.Definition))
-                                         .Select(x => x.Definition);
     }
 }
