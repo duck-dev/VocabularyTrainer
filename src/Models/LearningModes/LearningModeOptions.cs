@@ -8,9 +8,9 @@ namespace VocabularyTrainer.Models;
 
 public struct LearningModeOptions
 {
-    private readonly LearningModeType[] _askTermModes = {LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
+    private readonly LearningModeType[] _askTermModes = { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
     private readonly LearningModeType[] _askDefinitionModes = { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
-    private readonly LearningModeType[] _showThesaurusModes = {LearningModeType.Flashcards, LearningModeType.VocabularyList};
+    private readonly LearningModeType[] _showThesaurusModes = { LearningModeType.Flashcards, LearningModeType.VocabularyList };
 
     public LearningModeOptions()
     {
@@ -38,6 +38,8 @@ public struct LearningModeOptions
         this.AskTermInModes = askTermInModes;
         this.AskDefinitionInModes = askDefinitionInModes;
         this.ShowThesaurusInModes = showThesaurusInModes;
+        this.AskSynonyms = askSynonyms;
+        this.AskAntonyms = askAntonyms;
     }
     
     // All modes

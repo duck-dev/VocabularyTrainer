@@ -44,6 +44,10 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         WrongWords = wordStates.Count(x => x.CustomHasFlag(WrongFlags)) + 
                      synonymStates.Count(x => x.CustomHasFlag(WrongFlags)) + 
                      antonymStates.Count(x => x.CustomHasFlag(WrongFlags));
+        
+        LearningModeOptions settings = CurrentLesson.LearningModeSettings;
+        this.AskSynonyms = settings.AskSynonyms;
+        this.AskAntonyms = settings.AskAntonyms;
     }
 
     private bool AskSynonyms
