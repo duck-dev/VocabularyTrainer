@@ -35,7 +35,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
 
     public event EventHandler? ReadyToFocus;
 
-    protected AnswerViewModelBase(Lesson lesson) : base(lesson)
+    protected AnswerViewModelBase(Lesson lesson, bool initializeWords = true) : base(lesson, initializeWords)
     {
         _answerColor = this.AnswerColor = _blackColor;
         this.IsSolutionShown = false;

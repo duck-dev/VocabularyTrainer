@@ -21,16 +21,9 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     private bool _askDefinition;
 
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-    protected SingleWordViewModelBase(Lesson lesson) : base(lesson)
+    protected SingleWordViewModelBase(Lesson lesson, bool initializeWords = true) : base(lesson)
     {
-        InitCurrentWord();
-        
-        InitializeSettings();
-        LearningModeOptions settings = CurrentLesson.LearningModeSettings;
-        if(settings.AskTermInModes.ContainsKey(LearningMode))
-            this.AskTerm = settings.AskTermInModes[LearningMode];
-        if(settings.AskDefinitionInModes.ContainsKey(LearningMode))
-            this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
+        Initialize(lesson, initializeWords);
     }
 
     protected Word CurrentWord
@@ -48,7 +41,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     protected string Definition { get; set; } = string.Empty;
 
     protected int WordIndexCorrected => _wordIndex + 1;
-    protected virtual int MaximumItems => CurrentLesson.VocabularyItems.Count;
+    protected int MaximumItems => WordsList.Length;
 
     protected bool IsCurrentWordDifficult => this.CurrentWord.IsDifficult;
         
@@ -162,7 +155,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     protected virtual void InitCurrentWord()
     {
         Dictionary<LearningModeType, bool> shuffledDict = CurrentLesson.IsShuffledInModes;
-        if (shuffledDict[this.LearningMode] == true 
+        if (shuffledDict[this.LearningMode] == true
             || WordsList.All(x => !x.LearningStateInModes[this.LearningMode].CustomHasFlag(LearningState.NotAsked)))
         {
             shuffledDict[this.LearningMode] = false;
@@ -175,13 +168,26 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         {
             if (!WordsList[i].LearningStateInModes[this.LearningMode].CustomHasFlag(LearningState.NotAsked)) 
                 continue;
-                
-            this.SeenWords = WordsList.Count(x => !x.LearningStateInModes[this.LearningMode].CustomHasFlag(LearningState.NotAsked));
             _wordIndex = i;
             break;
         }
+        this.SeenWords = WordsList.Count(x => !x.LearningStateInModes[this.LearningMode].CustomHasFlag(LearningState.NotAsked));
 
+        this.RaisePropertyChanged(nameof(MaximumItems));
         PickWord(_wordIndex == 0);
+    }
+
+    protected virtual void Initialize(Lesson lesson, bool initializeWords)
+    {
+        if(initializeWords)
+            InitCurrentWord();
+        
+        InitializeSettings();
+        LearningModeOptions settings = CurrentLesson.LearningModeSettings;
+        if(settings.AskTermInModes.ContainsKey(LearningMode))
+            this.AskTerm = settings.AskTermInModes[LearningMode];
+        if(settings.AskDefinitionInModes.ContainsKey(LearningMode))
+            this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
     }
 
     internal virtual void SetDifficultTerm(bool difficult, VocabularyItem? item = null)
