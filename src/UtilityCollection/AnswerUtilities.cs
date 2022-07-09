@@ -61,6 +61,7 @@ public static partial class Utilities
                 continue;
             }
 
+            newState &= ~LearningState.NotAsked;
             newState = known ? newState.Next(false, LearningState.NotAsked) 
                 : newState.Previous(false, LearningState.NotAsked);
 
