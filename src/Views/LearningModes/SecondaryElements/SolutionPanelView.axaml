@@ -31,7 +31,7 @@
                 <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Margin="35,0"
                         HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="70"
                         Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
-                        Command="{Binding AnswerViewModel.NextWord}" HotKey="Enter">
+                        Command="{Binding AnswerViewModel.NextWord}" CommandParameter="True" HotKey="Enter">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Next word"
                                Foreground="{StaticResource SameAccent}" FontSize="20"/>
                 </Button>
