@@ -5,11 +5,13 @@ using VocabularyTrainer.ViewModels.LearningModes;
 
 namespace VocabularyTrainer.Views.LearningModes;
 
-public partial class FlashcardsView : UserControl
+public class FlashcardsView : UserControl
 {
     public FlashcardsView()
     {
         InitializeComponent();
+        var button = this.Get<Button>("FlashcardButton");
+        button.Initialized += (_, _) => { button.Focus(); };
     }
 
     private void InitializeComponent()

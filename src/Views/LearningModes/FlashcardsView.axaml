@@ -69,7 +69,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button Grid.Column="1" Grid.Row="1" Classes="selectable-button highlight-no-change"
+                <Button Grid.Column="1" Grid.Row="1" x:Name="FlashcardButton" Classes="selectable-button highlight-no-change"
                         Background="{StaticResource SameAccent}" BorderThickness="0"
                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HotKey="Enter"
                         Command="{Binding FlipCard}"> <!-- CommandParameter="{Binding $self}" for animation (effects) -->
