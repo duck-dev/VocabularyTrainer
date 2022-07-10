@@ -9,6 +9,9 @@ namespace VocabularyTrainer.ViewModels.LearningModes;
 
 public sealed class FlashcardsViewModel : SingleWordViewModelBase
 {
+    private const string TermType = "Term";
+    private const string DefinitionType = "Definition";
+    
     private bool _flipped;
     private bool _showThesaurus;
 
@@ -19,6 +22,16 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         if (settings.ShowThesaurusInModes.ContainsKey(LearningMode))
             this.ShowThesaurus = settings.ShowThesaurusInModes[LearningMode];
+    }
+
+    private string WordType
+    {
+        get
+        {
+            string term = IsTermChosen ? TermType : DefinitionType;
+            string definition = IsTermChosen ? DefinitionType : TermType;
+            return _flipped ? definition : term; 
+        }
     }
 
     private bool ShowThesaurus
@@ -51,6 +64,12 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
         base.InitCurrentWord();
     }
 
+    protected override void SetWord()
+    {
+        base.SetWord();
+        this.RaisePropertyChanged(nameof(WordType));
+    }
+
     private void FlipCard()
     {
         // Rotation test
@@ -58,6 +77,9 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
         // button.RenderTransform = TransformOperations.Parse(operation); // button = parameter of type `IVisual`
             
         _flipped ^= true; // Toggle bool condition
-        this.DisplayedTerm = _flipped ? CurrentWord.Definition : CurrentWord.Term;
+        string term = AskTerm ? CurrentWord.Term : CurrentWord.Definition;
+        string definition = AskTerm ? CurrentWord.Definition : CurrentWord.Term;
+        this.DisplayedTerm = _flipped ? definition : term;
+        this.RaisePropertyChanged(nameof(WordType));
     }
 }

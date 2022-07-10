@@ -57,7 +57,7 @@
                     <TextBlock.Text>
                         <MultiBinding StringFormat="\{0\}/\{1\}">
                             <Binding Path="WordIndexCorrected"/>
-                            <Binding Path="CurrentLesson.VocabularyItems.Count"/>
+                            <Binding Path="MaximumItems"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -79,15 +79,17 @@
                                       Template="{StaticResource ToggleStarShapeTemplate}" Margin="0,10,10,0"
                                       Width="76" Height="76"/>
                         <Grid RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch">
-                                <Viewbox Grid.Row="0" Height="54" HorizontalAlignment="Center" VerticalAlignment="Top"
+                            <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,36"
+                                       Foreground="{StaticResource OppositeAccent}" FontSize="28" 
+                                       Text="{Binding WordType}"/>
+                            <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Viewbox Grid.Row="0" Height="58" HorizontalAlignment="Center" VerticalAlignment="Top"
                                          StretchDirection="UpOnly" Margin="10,0,10,20">
                                     <TextBlock Text="{Binding DisplayedTerm}" FontWeight="Bold" TextAlignment="Center"
                                                Foreground="{StaticResource OppositeAccent}" TextWrapping="Wrap"/>
                                 </Viewbox>
                                 <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Center"
-                                       IsEnabled="{Binding ShowThesaurus}" IsVisible="{Binding ShowThesaurus}">
+                                      IsEnabled="{Binding ShowThesaurus}" IsVisible="{Binding ShowThesaurus}">
                                     <Grid Grid.Row="0" ColumnDefinitions="Auto,*" HorizontalAlignment="Center" Margin="0,0,0,10"
                                           IsVisible="{Binding CurrentWord.HasSynonyms}">
                                         <TextBlock Grid.Column="0" Classes="thesaurus-display-text" FontWeight="Bold"

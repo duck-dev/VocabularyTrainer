@@ -80,6 +80,8 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             DataManager.SaveData();
         }
     }
+    
+    protected bool IsTermChosen { get; private set; }
 
     protected void PreviousWord()
     {
@@ -132,17 +134,19 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         PickWord(true);
     }
 
-    protected void SetWord()
+    protected virtual void SetWord()
     {
         if (AskTerm == AskDefinition)
         {
             var rnd = new Random();
             int num = rnd.Next(0, 2);
-            this.DisplayedTerm = num == 0 ? CurrentWord.Term : CurrentWord.Definition;
-            this.Definition = num == 0 ? CurrentWord.Definition : CurrentWord.Term;
+            this.IsTermChosen = num == 0;
+            this.DisplayedTerm = IsTermChosen ? CurrentWord.Term : CurrentWord.Definition;
+            this.Definition = IsTermChosen ? CurrentWord.Definition : CurrentWord.Term;
         }
         else
         {
+            this.IsTermChosen = AskTerm;
             this.DisplayedTerm = AskTerm ? CurrentWord.Term : CurrentWord.Definition;
             this.Definition = AskTerm ? CurrentWord.Definition : CurrentWord.Term;
         }
