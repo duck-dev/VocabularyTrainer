@@ -90,6 +90,8 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     protected override void InitCurrentWord()
     {
         SetLearningMode(LearningModeType.Thesaurus);
+        if(MainWindowViewModel.Instance is { } instance)
+            instance.CurrentLearningMode = "Synonyms and Antonyms";
         base.InitCurrentWord();
     }
     

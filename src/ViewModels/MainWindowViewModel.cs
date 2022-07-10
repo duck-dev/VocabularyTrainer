@@ -2,6 +2,7 @@
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.ViewModels.BaseClasses;
+using VocabularyTrainer.ViewModels.LearningModes;
 
 namespace VocabularyTrainer.ViewModels;
 
@@ -9,6 +10,7 @@ public class MainWindowViewModel : ViewModelBase
 {
     private ViewModelBase _content;
     private DialogViewModelBase? _currentDialog;
+    private string _currentLearningMode = string.Empty;
 
     public MainWindowViewModel()
     {
@@ -23,14 +25,27 @@ public class MainWindowViewModel : ViewModelBase
 
     internal ViewModelBase Content
     {
-        get => _content; 
-        set => this.RaiseAndSetIfChanged(ref _content, value);
+        get => _content;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _content, value);
+            
+            if (value is LearningModeViewModelBase) 
+                return;
+            CurrentLearningMode = string.Empty;
+        }
     }
         
     internal DialogViewModelBase? CurrentDialog
     {
         get => _currentDialog;
         set => this.RaiseAndSetIfChanged(ref _currentDialog, value);
+    }
+    
+    internal string CurrentLearningMode
+    {
+        get => _currentLearningMode; 
+        set => this.RaiseAndSetIfChanged(ref _currentLearningMode, value);
     }
 
     internal void ReturnHome(bool discardChanges = true)

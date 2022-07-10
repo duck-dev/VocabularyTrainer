@@ -25,6 +25,8 @@ public sealed class WriteViewModel : AnswerViewModelBase
     protected override void InitCurrentWord()
     {
         SetLearningMode(LearningModeType.Write);
+        if(MainWindowViewModel.Instance is { } instance)
+            instance.CurrentLearningMode = "Write";
         base.InitCurrentWord();
     }
 }

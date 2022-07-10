@@ -61,6 +61,8 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
     protected override void InitCurrentWord()
     {
         SetLearningMode(LearningModeType.Flashcards);
+        if(MainWindowViewModel.Instance is { } instance)
+            MainWindowViewModel.Instance.CurrentLearningMode = "Flashcards";
         base.InitCurrentWord();
     }
 
