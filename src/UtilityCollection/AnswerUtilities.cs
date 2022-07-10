@@ -10,7 +10,6 @@ namespace VocabularyTrainer.UtilityCollection;
 
 public static partial class Utilities
 {
-        
     /// <summary>
     /// Add a specific <see cref="LearningState"/> to a <see cref="Word"/> in a specific learning mode.
     /// </summary>
@@ -50,10 +49,12 @@ public static partial class Utilities
     public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, bool known)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
+        LearningState originalState = LearningState.NotAsked;
+        LearningState newState = LearningState.NotAsked;
         foreach (VocabularyItem item in word.VocabularyReferences)
         {
-            LearningState originalState = item.LearningStateInModes[learningMode];
-            LearningState newState = originalState;
+            originalState = item.LearningStateInModes[learningMode];
+            newState = originalState;
 
             if (originalState == LearningState.NotAsked)
             {
@@ -65,9 +66,9 @@ public static partial class Utilities
             newState = known ? newState.Next(false, LearningState.NotAsked) 
                 : newState.Previous(false, LearningState.NotAsked);
 
-            singleWordViewModel.VisualizeLearningProgress(originalState, newState);
             item.LearningStateInModes[learningMode] = newState;
         }
+        singleWordViewModel.VisualizeLearningProgress(originalState, newState);
     }
         
     /// <summary>
@@ -79,12 +80,18 @@ public static partial class Utilities
     public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, LearningState result)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
+        LearningState previousState = LearningState.NotAsked;
+        bool foundMatchingRef = false;
         foreach (VocabularyItem item in word.VocabularyReferences)
         {
-            LearningState previousState = item.LearningStateInModes[learningMode];
+            if (!item.LearningStateInModes.ContainsKey(learningMode))
+                return;
+            foundMatchingRef = true;
+            previousState = item.LearningStateInModes[learningMode];
             item.LearningStateInModes[learningMode] = result;
-            singleWordViewModel.VisualizeLearningProgress(previousState, result);
         }
+        if(foundMatchingRef)
+            singleWordViewModel.VisualizeLearningProgress(previousState, result);
     }
 
     /// <summary>

@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
-using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.Models.EqualityComparers;
 using VocabularyTrainer.UtilityCollection;
@@ -27,22 +26,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
     public ThesaurusViewModel(Lesson lesson) : base(lesson, false)
     {
-        IEnumerable<LearningState> wordStates = lesson.VocabularyItems.Select(x => x.LearningStateInModes[LearningMode]).ToArray();
-        IEnumerable<LearningState> synonymStates = Array.Empty<LearningState>();
-        IEnumerable<LearningState> antonymStates = Array.Empty<LearningState>();
-        foreach (Word word in lesson.VocabularyItems)
-        {
-            synonymStates = word.Synonyms.Select(x => x.LearningStateInModes[LearningMode]).ToArray();
-            antonymStates = word.Antonyms.Select(x => x.LearningStateInModes[LearningMode]).ToArray();
-        }
-
-        KnownWords = wordStates.Count(x => x.CustomHasFlag(KnownFlags)) + 
-                     synonymStates.Count(x => x.CustomHasFlag(KnownFlags)) + 
-                     antonymStates.Count(x => x.CustomHasFlag(KnownFlags));
-        WrongWords = wordStates.Count(x => x.CustomHasFlag(WrongFlags)) + 
-                     synonymStates.Count(x => x.CustomHasFlag(WrongFlags)) + 
-                     antonymStates.Count(x => x.CustomHasFlag(WrongFlags));
-        
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         this.AskSynonyms = settings.AskSynonyms;
         this.AskAntonyms = settings.AskAntonyms;
@@ -192,6 +175,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                     if(!equalWord.Antonyms.Contains(antonym, vocabularyItemComparer) && !antonym.Definition.Equals(equalWord.Definition))
                         equalWord.Antonyms.Add(antonym);
                 }
+                equalWord.VocabularyReferences.Add(word);
                 equalWord = null;
                 continue;
             }
@@ -224,6 +208,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                         if (!oppositeThesaurusList.Contains(antonym, vocabularyItemComparer) && !antonym.Definition.Equals(equalWord.Definition))
                             oppositeThesaurusList.Add(antonym);
                     }
+                    equalWord.VocabularyReferences.Add(item);
                     equalWord = null;
                     continue;
                 }

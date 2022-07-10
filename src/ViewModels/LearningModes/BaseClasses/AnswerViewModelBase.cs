@@ -40,8 +40,8 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         _answerColor = this.AnswerColor = _blackColor;
         this.IsSolutionShown = false;
         this.IsAnswerMode = true;
-        this.KnownWords = lesson.VocabularyItems.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags));
-        this.WrongWords = lesson.VocabularyItems.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags));
+        this.KnownWords = WordsList.Count(x => x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags)));
+        this.WrongWords = WordsList.Count(x => x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags)));
     }
         
     protected internal SolidColorBrush AnswerColor
