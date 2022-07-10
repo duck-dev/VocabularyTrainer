@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
+using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
 using VocabularyTrainer.Models.EqualityComparers;
 using VocabularyTrainer.UtilityCollection;
@@ -29,6 +30,11 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         this.AskSynonyms = settings.AskSynonyms;
         this.AskAntonyms = settings.AskAntonyms;
+        
+        this.KnownWords = WordsList.Count(x => x.VocabularyReferences != null 
+                                               && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags)));
+        this.WrongWords = WordsList.Count(x => x.VocabularyReferences != null 
+                                               && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags)));
     }
 
     private bool AskSynonyms
@@ -109,14 +115,14 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
     private new void CountCorrect()
     {
-        Utilities.ChangeLearningState(CurrentWord, this, true);
+        Utilities.ChangeLearningStateThesaurus(CurrentWord, this, true);
         NextWord();
     }
     
     private new void ShowSolution()
     {
         OpenSolutionPanel(this.DisplayedTerm, string.Join(", ", _possibleDefinitions), false);
-        Utilities.ChangeLearningState(CurrentWord, this, false);
+        Utilities.ChangeLearningStateThesaurus(CurrentWord, this, false);
     }
     
     private new void CheckAnswer()
@@ -139,7 +145,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         }
         
         OpenSolutionPanel(this.DisplayedTerm, finalDefinition, correct);
-        Utilities.ChangeLearningState(CurrentWord, this, correct);
+        Utilities.ChangeLearningStateThesaurus(CurrentWord, this, correct);
     }
 
     /// <summary>
@@ -175,10 +181,12 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                     if(!equalWord.Antonyms.Contains(antonym, vocabularyItemComparer) && !antonym.Definition.Equals(equalWord.Definition))
                         equalWord.Antonyms.Add(antonym);
                 }
-                equalWord.VocabularyReferences.Add(word);
+                equalWord.VocabularyReferences?.Add(word);
                 equalWord = null;
                 continue;
             }
+            
+            word.VocabularyReferences = new List<VocabularyItem> { word };
             thesaurusItems.Add(word);
         }
         WordsList = thesaurusItems.ToArray();
@@ -208,7 +216,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                         if (!oppositeThesaurusList.Contains(antonym, vocabularyItemComparer) && !antonym.Definition.Equals(equalWord.Definition))
                             oppositeThesaurusList.Add(antonym);
                     }
-                    equalWord.VocabularyReferences.Add(item);
+                    equalWord.VocabularyReferences?.Add(item);
                     equalWord = null;
                     continue;
                 }
@@ -219,17 +227,17 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                 var antonyms = new ObservableCollection<VocabularyItem>(oppositeThesaurusList.Where(x => !x.Definition.Equals(item.Definition))
                                                                                      .Distinct(vocabularyItemComparer));
                 // Create a synonym/antonym out of the `Word` containing the current thesaurus item, which will now be turned into an own `Word`
-                var mainDefinitionThesaurus = new VocabularyItem(addSelfReference: false)
+                var mainDefinitionThesaurus = new VocabularyItem
                 {
-                    Definition = word.Definition
+                    Definition = word.Definition,
+                    VocabularyReferences = new List<VocabularyItem> { word }
                 };
-                mainDefinitionThesaurus.VocabularyReferences.Add(word);
 
-                Word newWord = new Word(synonyms, antonyms, false)
+                Word newWord = new Word(synonyms, antonyms)
                 {
-                    Definition = item.Definition
+                    Definition = item.Definition,
+                    VocabularyReferences = new List<VocabularyItem> { item }
                 };
-                newWord.VocabularyReferences.Add(item);
                 var thesaurusCollection = isSynonym ? newWord.Synonyms : newWord.Antonyms;
                 if (!thesaurusCollection.Contains(mainDefinitionThesaurus, vocabularyItemComparer)
                     && !mainDefinitionThesaurus.Definition.Equals(newWord.Definition))

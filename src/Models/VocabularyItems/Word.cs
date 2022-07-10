@@ -29,7 +29,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
 
     public event PropertyChangedEventHandler? PropertyChanged;
         
-    public Word(bool addSelfReference = true) : base(addSelfReference: addSelfReference)
+    public Word()
     {
         ThesaurusTitleDefinitions = new[]
         {
@@ -47,16 +47,16 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         }
     }
 
-    public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms, bool addSelfReference)
-        : this(addSelfReference)
-    {
-        FillThesaurusItems(synonyms, antonyms, this);
-    }
-
     [JsonConstructor]
     public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms) : this()
     {
-        FillThesaurusItems(synonyms, antonyms, this);
+        this.Synonyms = synonyms;
+        this.Antonyms = antonyms;
+
+        foreach (var item in this.Synonyms)
+            item.ContainerCollection = this.Synonyms;
+        foreach (var item in this.Antonyms)
+            item.ContainerCollection = this.Antonyms;
     }
 
     public ObservableCollection<VocabularyItem> Synonyms
@@ -236,18 +236,6 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         lesson?.NotifyPropertyChanged(nameof(lesson.DataChanged));
     }
 
-    private static void FillThesaurusItems(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms,
-        Word word)
-    {
-        word.Synonyms = synonyms;
-        word.Antonyms = antonyms;
-
-        foreach (var item in word.Synonyms)
-            item.ContainerCollection = word.Synonyms;
-        foreach (var item in word.Antonyms)
-            item.ContainerCollection = word.Antonyms;
-    }
-        
     // internal void DebugUnsavedChanges()
     // {
     //     Utilities.Log($"• Word ({this.ChangedTerm} - {this.ChangedDefinition}):\n----------------------------");

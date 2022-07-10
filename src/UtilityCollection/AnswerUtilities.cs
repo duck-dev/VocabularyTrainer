@@ -46,52 +46,54 @@ public static partial class Utilities
     /// <param name="word">The <see cref="Word"/> whose learning state should be changed.</param>
     /// <param name="singleWordViewModel">The currently active <see cref="SingleWordViewModelBase"/> (learning mode).</param>
     /// <param name="known">Did the user answer correctly or not?</param>
-    public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, bool known)
+    /// <param name="visualize">Whether the progress should be visualized in the progress bars. This is always desired, 
+    /// unless this method is called from <see cref="ChangeLearningStateThesaurus"/>.</param>
+    public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, bool known, bool visualize = true)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
-        LearningState originalState = LearningState.NotAsked;
-        LearningState newState = LearningState.NotAsked;
-        foreach (VocabularyItem item in word.VocabularyReferences)
+        LearningState originalState = word.LearningStateInModes[learningMode];
+        LearningState newState = originalState;
+        
+        if (originalState == LearningState.NotAsked)
         {
-            originalState = item.LearningStateInModes[learningMode];
-            newState = originalState;
-
-            if (originalState == LearningState.NotAsked)
-            {
-                ChangeLearningState(item, singleWordViewModel, known ? LearningState.KnownOnce : LearningState.WrongOnce);
-                continue;
-            }
-
-            newState &= ~LearningState.NotAsked;
-            newState = known ? newState.Next(false, LearningState.NotAsked) 
-                : newState.Previous(false, LearningState.NotAsked);
-
-            item.LearningStateInModes[learningMode] = newState;
+            ChangeLearningState(word, singleWordViewModel, known ? LearningState.KnownOnce : LearningState.WrongOnce);
+            return;
         }
-        singleWordViewModel.VisualizeLearningProgress(originalState, newState);
+
+        newState &= ~LearningState.NotAsked;
+        newState = known ? newState.Next(false, LearningState.NotAsked) 
+            : newState.Previous(false, LearningState.NotAsked);
+        
+        word.LearningStateInModes[learningMode] = newState;
+        if(visualize)
+            singleWordViewModel.VisualizeLearningProgress(originalState, newState);
     }
         
     /// <summary>
     /// Change the <see cref="LearningState"/> of a <see cref="Word"/> in a specific learning mode to a specified value.
     /// </summary>
-    /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
-    /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
+    /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool,bool)"/></param>
+    /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool,bool)"/></param>
     /// <param name="result">The value (<see cref="LearningState"/>) to be set.</param>
     public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, LearningState result)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
-        LearningState previousState = LearningState.NotAsked;
-        bool foundMatchingRef = false;
+        LearningState previousState = word.LearningStateInModes[learningMode];
+        word.LearningStateInModes[learningMode] = result;
+        singleWordViewModel.VisualizeLearningProgress(previousState, result);
+    }
+
+    public static void ChangeLearningStateThesaurus(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, bool known)
+    {
+        if (word.VocabularyReferences is null)
+            return;
+
+        LearningState originalState = word.LearningStateInModes[LearningModeType.Thesaurus];
         foreach (VocabularyItem item in word.VocabularyReferences)
-        {
-            if (!item.LearningStateInModes.ContainsKey(learningMode))
-                return;
-            foundMatchingRef = true;
-            previousState = item.LearningStateInModes[learningMode];
-            item.LearningStateInModes[learningMode] = result;
-        }
-        if(foundMatchingRef)
-            singleWordViewModel.VisualizeLearningProgress(previousState, result);
+            ChangeLearningState(item, singleWordViewModel, known, false);
+        
+        LearningState newState = word.LearningStateInModes[LearningModeType.Thesaurus];
+        singleWordViewModel.VisualizeLearningProgress(originalState, newState);
     }
 
     /// <summary>

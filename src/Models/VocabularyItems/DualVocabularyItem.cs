@@ -12,8 +12,8 @@ public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocab
     private string _term = string.Empty;
     private string _changedTerm = string.Empty;
         
-    protected DualVocabularyItem(IList? containerCollection = null, bool addSelfReference = true) 
-        : base(containerCollection, addSelfReference) { }
+    protected DualVocabularyItem(IList? containerCollection = null) 
+        : base(containerCollection) { }
 
     public string Term
     {
@@ -52,7 +52,7 @@ public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocab
         this.Term = ChangedTerm;
     }
     
-    public override object Clone() => new DualVocabularyItem(this.ContainerCollection)
+    public override object Clone() => new DualVocabularyItem(ContainerCollection)
     {
         Term = _term,
         Definition = this.Definition,
