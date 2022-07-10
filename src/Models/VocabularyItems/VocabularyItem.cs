@@ -45,8 +45,9 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     }
 
     public bool IsDifficult { get; set; }
-    
-    public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; protected init; } = new();
+
+    // `init`-accessor must be `public` for JSON deserialization
+    public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; init; } = new();
     
     protected internal NotifyCollectionChangedAction ChangedAction { get; set; } = NotifyCollectionChangedAction.Reset;
     
@@ -64,7 +65,7 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
 
     internal IList? ContainerCollection { get; set; }
 
-    internal List<VocabularyItem> VocabularyReferences = new();
+    internal List<VocabularyItem> VocabularyReferences { get; } = new();
 
     public bool MatchesUnsavedContent(IEnumerable<VocabularyItem> collection, out VocabularyItem? identicalItem)
     {
