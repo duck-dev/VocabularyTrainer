@@ -49,11 +49,7 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     // `init`-accessor must be `public` for JSON deserialization
     public Dictionary<LearningModeType, LearningState> LearningStateInModes { get; init; } = new();
     
-    protected internal NotifyCollectionChangedAction ChangedAction { get; set; } = NotifyCollectionChangedAction.Reset;
-    
-    protected ReactiveCommand<ICollection<VocabularyItem>, Unit> RemoveCommandCollection { get; }
-
-    internal string ChangedDefinition
+    protected internal string ChangedDefinition
     {
         get => _changedDefinition;
         set
@@ -62,6 +58,10 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
             InvokeNotifyChanged();
         }
     }
+    
+    protected internal NotifyCollectionChangedAction ChangedAction { get; set; } = NotifyCollectionChangedAction.Reset;
+    
+    protected ReactiveCommand<ICollection<VocabularyItem>, Unit> RemoveCommandCollection { get; }
 
     internal IList? ContainerCollection { get; set; }
 
