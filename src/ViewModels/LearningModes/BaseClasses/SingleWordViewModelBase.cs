@@ -43,7 +43,15 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     protected int WordIndexCorrected => _wordIndex + 1;
     protected int MaximumItems => WordsList.Length;
 
-    protected bool IsCurrentWordDifficult => this.CurrentWord.IsDifficult;
+    protected bool IsCurrentWordDifficult
+    {
+        get
+        {
+            if (LearningMode == LearningModeType.Thesaurus)
+                return CurrentWord.VocabularyReferences is not null && CurrentWord.VocabularyReferences.Any(x => x.IsDifficult);
+            return CurrentWord.IsDifficult;
+        }
+    }
         
     protected int SeenWords
     {
@@ -192,9 +200,15 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
     }
 
-    internal virtual void SetDifficultTerm(bool difficult, VocabularyItem? item = null)
+    internal void SetDifficultTerm(bool difficult, VocabularyItem? item = null)
     {
-        (item ?? CurrentWord).IsDifficult = difficult;
+        VocabularyItem vocabularyItem = item ?? CurrentWord;
+        vocabularyItem.IsDifficult = difficult;
+        if (LearningMode is LearningModeType.Thesaurus && vocabularyItem.VocabularyReferences != null)
+        {
+            foreach (VocabularyItem itemRef in vocabularyItem.VocabularyReferences)
+                itemRef.IsDifficult = difficult;
+        }
         DataManager.SaveData();
     }
 
