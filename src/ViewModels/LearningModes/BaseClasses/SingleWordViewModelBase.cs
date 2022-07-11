@@ -47,9 +47,11 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     {
         get
         {
-            if (LearningMode == LearningModeType.Thesaurus)
-                return CurrentWord.VocabularyReferences is not null && CurrentWord.VocabularyReferences.Any(x => x.IsDifficult);
-            return CurrentWord.IsDifficult;
+            if (LearningMode != LearningModeType.Thesaurus)
+                return CurrentWord.IsDifficult;
+            
+            return CurrentWord.IsDifficult || (CurrentWord.VocabularyReferences is not null 
+                                               && CurrentWord.VocabularyReferences.Any(x => x.IsDifficult));
         }
     }
         

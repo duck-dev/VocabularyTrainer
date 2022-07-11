@@ -15,6 +15,8 @@ public abstract class LearningModeViewModelBase : ViewModelBase
     {
         this.CurrentLesson = lesson;
         WordsList = lesson.VocabularyItems.ToArray();
+        foreach (Word word in WordsList)
+            word.VocabularyReferences = null;
         ShuffleButtonEnabled = true;
     }
         

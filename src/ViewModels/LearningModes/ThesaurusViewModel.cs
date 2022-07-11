@@ -31,10 +31,12 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         this.AskSynonyms = settings.AskSynonyms;
         this.AskAntonyms = settings.AskAntonyms;
         
-        this.KnownWords = WordsList.Count(x => x.VocabularyReferences != null 
-                                               && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags)));
-        this.WrongWords = WordsList.Count(x => x.VocabularyReferences != null 
-                                               && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags)));
+        this.KnownWords = WordsList.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags) 
+                                               || (x.VocabularyReferences != null 
+                                               && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags))));
+        this.WrongWords = WordsList.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags) 
+                                               || (x.VocabularyReferences != null 
+                                                   && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags))));
     }
 
     private bool AskSynonyms
@@ -188,7 +190,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                 continue;
             }
             
-            word.VocabularyReferences = new List<VocabularyItem> { word };
+            word.VocabularyReferences = new List<VocabularyItem>();
             thesaurusItems.Add(word);
         }
         WordsList = thesaurusItems.ToArray();
