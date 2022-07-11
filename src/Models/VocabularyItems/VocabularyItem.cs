@@ -25,6 +25,15 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
         this.ContainerCollection = containerCollection;
         this.RemoveCommandCollection = ReactiveCommand.Create<ICollection<VocabularyItem>>(Remove);
         this.LearningStateInModes.Add(LearningModeType.Thesaurus, LearningState.NotAsked);
+        
+        if (VocabularyReferences is null || VocabularyReferences.Count <= 0)
+            return;
+        // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
+        foreach (VocabularyItem item in VocabularyReferences)
+        {
+            if(!item.LearningStateInModes.ContainsKey(LearningModeType.Thesaurus))
+                item.LearningStateInModes.Add(LearningModeType.Thesaurus, LearningState.NotAsked);
+        }
     }
 
     [JsonConstructor]

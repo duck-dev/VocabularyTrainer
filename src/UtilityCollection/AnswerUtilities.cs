@@ -13,31 +13,29 @@ public static partial class Utilities
     /// <summary>
     /// Add a specific <see cref="LearningState"/> to a <see cref="Word"/> in a specific learning mode.
     /// </summary>
-    /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
-    /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
+    /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool,bool)"/></param>
+    /// <param name="singleWordViewModel">The currently active <see cref="SingleWordViewModelBase"/> (learning mode).</param>
     /// <param name="state">The state to be added.</param>
     public static void AddLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, LearningState state)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
         LearningState result = word.LearningStateInModes[learningMode];
         result |= state;
-            
-        ChangeLearningState(word, singleWordViewModel, result);
+        InvokeChangingState(word, singleWordViewModel, result);
     }
 
     /// <summary>
     /// Remove a specific <see cref="LearningState"/> from a <see cref="Word"/> in a specific learning mode.
     /// </summary>
-    /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
-    /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool)"/></param>
+    /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool,bool)"/></param>
+    /// <param name="singleWordViewModel">The currently active <see cref="SingleWordViewModelBase"/> (learning mode).</param>
     /// <param name="state">The state to be removed.</param>
     public static void RemoveLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, LearningState state)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
         LearningState result = word.LearningStateInModes[learningMode];
         result &= ~state;
-            
-        ChangeLearningState(word, singleWordViewModel, result);
+        InvokeChangingState(word, singleWordViewModel, result);
     }
 
     /// <summary>
@@ -56,7 +54,7 @@ public static partial class Utilities
         
         if (originalState == LearningState.NotAsked)
         {
-            ChangeLearningState(word, singleWordViewModel, known ? LearningState.KnownOnce : LearningState.WrongOnce);
+            ChangeLearningState(word, singleWordViewModel, known ? LearningState.KnownOnce : LearningState.WrongOnce, visualize);
             return;
         }
 
@@ -68,19 +66,22 @@ public static partial class Utilities
         if(visualize)
             singleWordViewModel.VisualizeLearningProgress(originalState, newState);
     }
-        
+
     /// <summary>
     /// Change the <see cref="LearningState"/> of a <see cref="Word"/> in a specific learning mode to a specified value.
     /// </summary>
     /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool,bool)"/></param>
-    /// <param name="singleWordViewModel"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,bool,bool)"/></param>
+    /// <param name="singleWordViewModel">The currently active <see cref="SingleWordViewModelBase"/> (learning mode).</param>
     /// <param name="result">The value (<see cref="LearningState"/>) to be set.</param>
-    public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, LearningState result)
+    /// <param name="visualize">Whether the progress should be visualized in the progress bars. This is always desired, 
+    /// unless this method is called from <see cref="ChangeLearningStateThesaurus"/>.</param>
+    public static void ChangeLearningState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, LearningState result, bool visualize = true)
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
         LearningState previousState = word.LearningStateInModes[learningMode];
         word.LearningStateInModes[learningMode] = result;
-        singleWordViewModel.VisualizeLearningProgress(previousState, result);
+        if(visualize)
+            singleWordViewModel.VisualizeLearningProgress(previousState, result);
     }
 
     public static void ChangeLearningStateThesaurus(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, bool known)
@@ -88,12 +89,14 @@ public static partial class Utilities
         if (word.VocabularyReferences is null)
             return;
 
-        LearningState originalState = word.LearningStateInModes[LearningModeType.Thesaurus];
+        // LearningState originalState = word.LearningStateInModes[LearningModeType.Thesaurus]; // Remove
+        // Log("\n\n\nChangeLearningStateThesaurus:\n------------------------"); // Remove
+        // Log($"    {originalState}... detailed inspection following...\n---------------"); // Remove
         foreach (VocabularyItem item in word.VocabularyReferences)
             ChangeLearningState(item, singleWordViewModel, known, false);
-        
-        LearningState newState = word.LearningStateInModes[LearningModeType.Thesaurus];
-        singleWordViewModel.VisualizeLearningProgress(originalState, newState);
+        ChangeLearningState(word, singleWordViewModel, known);
+        // LearningState newState = word.LearningStateInModes[LearningModeType.Thesaurus]; // Remove
+        // Log($"    \n{newState}... done!\n------------------------------------------------------------------------\n"); // Remove
     }
 
     /// <summary>
@@ -168,5 +171,23 @@ public static partial class Utilities
 
         result = result.Trim().TrimUnnecessarySpaces();
         return result;
+    }
+    
+    /// <summary>
+    /// This method is used by <see cref="AddLearningState"/> and <see cref="RemoveLearningState"/> to call
+    /// <see cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,LearningState,bool)"/>
+    /// for the passed <paramref name="word"/> and for all items in it's <see cref="VocabularyItem.VocabularyReferences"/> collection./>
+    /// </summary>
+    /// <param name="word"><inheritdoc cref="ChangeLearningState(VocabularyTrainer.Models.VocabularyItem,VocabularyTrainer.ViewModels.LearningModes.SingleWordViewModelBase,LearningState,bool)"/></param>
+    /// <param name="singleWordViewModel">The currently active <see cref="SingleWordViewModelBase"/> (learning mode).</param>
+    /// <param name="result">The value (<see cref="LearningState"/>) to be set.</param>
+    private static void InvokeChangingState(VocabularyItem word, SingleWordViewModelBase singleWordViewModel, LearningState result)
+    {
+        if (word.VocabularyReferences is {Count: > 0})
+        {
+            foreach(VocabularyItem item in word.VocabularyReferences)
+                ChangeLearningState(item, singleWordViewModel, result, false);
+        }
+        ChangeLearningState(word, singleWordViewModel, result);
     }
 }
