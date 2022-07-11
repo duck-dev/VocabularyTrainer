@@ -253,7 +253,9 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
     private void SetThesaurus()
     {
-        if (CurrentWord.Synonyms.Count <= 0 && CurrentWord.Antonyms.Count <= 0)
+        Collection<VocabularyItem> synonyms = CurrentWord.Synonyms;
+        Collection<VocabularyItem> antonyms = CurrentWord.Antonyms;
+        if (synonyms.Count <= 0 && antonyms.Count <= 0)
         {
             NextWord();
             return;
@@ -261,14 +263,22 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         
         this.DisplayedTerm = CurrentWord.Definition;
         
-        var rnd = new Random();
         bool synonymChosen;
         bool antonymChosen;
         if (AskSynonyms == AskAntonyms)
         {
-            int thesaurusType = rnd.Next(0, 2);
-            synonymChosen = thesaurusType == 0;
-            antonymChosen = thesaurusType == 1;
+            if (synonyms.Count > 0 && antonyms.Count > 0)
+            {
+                var rnd = new Random();
+                int thesaurusType = rnd.Next(0, 2);
+                synonymChosen = thesaurusType == 0;
+                antonymChosen = thesaurusType == 1;
+            }
+            else
+            {
+                synonymChosen = synonyms.Count > 0;
+                antonymChosen = antonyms.Count > 0;
+            }
         }
         else
         {
@@ -276,15 +286,15 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
             antonymChosen = AskAntonyms;
         }
 
-        if (synonymChosen && CurrentWord.Synonyms.Count > 0)
+        if (synonymChosen && synonyms.Count > 0)
         {
-            _possibleDefinitions = CurrentWord.Synonyms.Select(x => x.Definition);
+            _possibleDefinitions = synonyms.Select(x => x.Definition);
             this.ThesaurusType = SynonymType;
             this.IndefiniteArticle = IndefiniteWithoutVowel;
         }
-        else if (antonymChosen && CurrentWord.Antonyms.Count > 0)
+        else if (antonymChosen && antonyms.Count > 0)
         {
-            _possibleDefinitions = CurrentWord.Antonyms.Select(x => x.Definition);
+            _possibleDefinitions = antonyms.Select(x => x.Definition);
             this.ThesaurusType = AntonymType;
             this.IndefiniteArticle = IndefiniteWithVowel;
         }
