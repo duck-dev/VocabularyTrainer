@@ -29,6 +29,15 @@
                                       IsChecked="{Binding AskDefinition}"/>
                         </views:LessonOptionItem.MainContent>
                     </views:LessonOptionItem>
+                    <views:LessonOptionItem Description="Accept Synonyms" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            Accept synonyms as answers too?
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
+                                      IsChecked="{Binding AcceptSynonyms}"/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
                 </StackPanel>
             </learningModes:LearningModeSidebarView.AdditionalContent>
         </learningModes:LearningModeSidebarView>

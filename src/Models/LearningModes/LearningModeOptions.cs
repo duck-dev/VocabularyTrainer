@@ -32,7 +32,8 @@ public struct LearningModeOptions
                                Dictionary<LearningModeType, bool> askTermInModes,
                                Dictionary<LearningModeType, bool> askDefinitionInModes,
                                Dictionary<LearningModeType, bool> showThesaurusInModes,
-                               bool askSynonyms, bool askAntonyms)
+                               bool askSynonyms, bool askAntonyms,
+                               bool acceptSynonyms)
     {
         this.ShuffleWordsAutomatically = shuffleWordsAutomatically;
         this.AskTermInModes = askTermInModes;
@@ -40,6 +41,7 @@ public struct LearningModeOptions
         this.ShowThesaurusInModes = showThesaurusInModes;
         this.AskSynonyms = askSynonyms;
         this.AskAntonyms = askAntonyms;
+        this.AcceptSynonyms = acceptSynonyms;
     }
     
     // All modes
@@ -55,4 +57,7 @@ public struct LearningModeOptions
     // Synonyms and Antonyms
     public bool AskSynonyms { get; set; } = true;
     public bool AskAntonyms { get; set; } = true;
+    
+    // Write
+    public bool AcceptSynonyms { get; set; } = false;
 }
