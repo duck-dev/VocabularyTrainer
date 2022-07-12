@@ -17,15 +17,11 @@
         <StyleInclude Source="/src/Styles/AddPageStyle.axaml"/>
     </UserControl.Styles>
 
-    <customControls:InextensibleGrid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" RowDefinitions="Auto,*" Margin="0,40">
-        <customControls:InextensibleGrid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,Auto" Margin="20,0,20,15"
+    <Grid HorizontalAlignment="Stretch" ColumnDefinitions="2*,6*,2*" RowDefinitions="Auto,*" Margin="0,40">
+        <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,Auto" Margin="20,0,20,15"
                                          HorizontalAlignment="Stretch">
             <TextBlock Grid.Column="0" Classes="add-page-title" HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Text="Create a new lesson" TextWrapping="Wrap"/>
-            <!-- <Viewbox Grid.Column="0" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"  -->
-            <!--          StretchDirection="DownOnly" Stretch="Uniform" Margin="0,0,20,0"> -->
-            <!--      -->
-            <!-- </Viewbox> -->
             <Grid Grid.Column="1" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Width="200"
                         Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
@@ -47,7 +43,7 @@
                     </Button.Styles>
                 </Button>
             </Grid>
-        </customControls:InextensibleGrid>
+        </Grid>
         <Panel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled"
                           VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
@@ -91,5 +87,5 @@
                 </Grid>
             </ScrollViewer>
         </Panel>
-    </customControls:InextensibleGrid>
+    </Grid>
 </UserControl>
