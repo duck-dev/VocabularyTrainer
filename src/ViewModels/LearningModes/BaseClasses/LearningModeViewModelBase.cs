@@ -21,8 +21,8 @@ public abstract class LearningModeViewModelBase : ViewModelBase
     }
         
     protected internal LearningModeType LearningMode { get; private set; }
+    protected internal Word[] WordsList { get; set; }
     protected Lesson CurrentLesson { get; }
-    protected Word[] WordsList { get; set; }
 
     protected bool ShuffleButtonEnabled
     {

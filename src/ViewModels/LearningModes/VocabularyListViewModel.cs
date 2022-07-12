@@ -16,7 +16,7 @@ public sealed class VocabularyListViewModel : LearningModeViewModelBase
             this.ShowThesaurus = settings.ShowThesaurusInModes[LearningMode];
     }
     
-    private bool ShowThesaurus
+    internal bool ShowThesaurus
     {
         get => _showThesaurus;
         set

@@ -4,8 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:learningModes="clr-namespace:VocabularyTrainer.Views.LearningModes"
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
+             xmlns:viewModels="clr-namespace:VocabularyTrainer.ViewModels.LearningModes"
+             xmlns:models="clr-namespace:VocabularyTrainer.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="VocabularyTrainer.Views.LearningModes.VocabularyListView">
+             x:Class="VocabularyTrainer.Views.LearningModes.VocabularyListView"
+             x:DataType="viewModels:VocabularyListViewModel"
+             x:CompileBindings="True">
+    <UserControl.Styles>
+        <Style Selector="TextBlock.main-text">
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="TextBlock.thesaurus-display-text">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+    </UserControl.Styles>
+    
     <Grid ColumnDefinitions="1*,3*">
         <learningModes:LearningModeSidebarView Grid.Column="0" DataContext="{Binding}">
             <learningModes:LearningModeSidebarView.AdditionalContent>
@@ -14,11 +33,84 @@
                         Should the synonyms and antonyms be displayed alongside the definition?
                     </views:LessonOptionItem.TooltipText>
                     <views:LessonOptionItem.MainContent>
-                        <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
+                        <CheckBox DataContext="{Binding $parent[UserControl].DataContext}" 
+                                  x:DataType="viewModels:VocabularyListViewModel"
                                   IsChecked="{Binding ShowThesaurus}"/>
                     </views:LessonOptionItem.MainContent>
                 </views:LessonOptionItem>
             </learningModes:LearningModeSidebarView.AdditionalContent>
         </learningModes:LearningModeSidebarView>
+        <ScrollViewer Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Items="{Binding WordsList}" Margin="50,10" HorizontalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:Word">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource VeryLightBlue}"
+                                Padding="0,0,0,30" Background="{StaticResource FullyTransparent}"
+                                HorizontalAlignment="Stretch" Margin="0,10">
+                            <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch">
+                                <Grid Grid.Column="0" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch">
+                                    <Grid Grid.Row="0" ColumnDefinitions="*,Auto,*" HorizontalAlignment="Stretch" 
+                                          VerticalAlignment="Center">
+                                        <TextBlock Grid.Column="0" Classes="main-text" Text="{Binding Term}"/>
+                                        <TextBlock Grid.Column="1" Classes="main-text" Text="-" Margin="20,0"/>
+                                        <TextBlock Grid.Column="2" Classes="main-text" Text="{Binding Definition}"/>
+                                    </Grid>
+                                    <Grid Grid.Row="1" RowDefinitions="Auto,Auto" x:CompileBindings="False" 
+                                          Margin="0,20,0,0" HorizontalAlignment="Stretch"
+                                          IsVisible="{Binding $parent[UserControl].DataContext.ShowThesaurus}">
+                                        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" HorizontalAlignment="Center"
+                                              IsVisible="{Binding HasSynonyms}" Margin="0,0,0,10">
+                                            <TextBlock Grid.Column="0" Classes="thesaurus-display-text" FontWeight="Bold"
+                                                       Foreground="{StaticResource AppBlue}" Text="Synonyms:"
+                                                       VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                            <ItemsControl Grid.Column="1" Items="{Binding Synonyms}" VerticalAlignment="Center">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Classes="thesaurus-display-text" Text="{Binding Definition}"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Grid>
+                                        <Grid Grid.Row="1" ColumnDefinitions="Auto,*" HorizontalAlignment="Center"
+                                              IsVisible="{Binding HasAntonyms}">
+                                            <TextBlock Grid.Column="0" Classes="thesaurus-display-text" FontWeight="Bold"
+                                                       Foreground="{StaticResource AppBlue}" Text="Antonyms:"
+                                                       VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                            <ItemsControl Grid.Column="1" Items="{Binding Antonyms}" VerticalAlignment="Center">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Classes="thesaurus-display-text" Text="{Binding Definition}"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <ToggleButton Grid.Column="1" x:Name="Star" Classes="star-toggle" VerticalAlignment="Center"
+                                              Checked="OnStarChecked" Unchecked="OnStarUnchecked" Margin="10,0,0,0"
+                                              IsChecked="{Binding IsDifficult}" Width="56" Height="56"
+                                              Template="{StaticResource ToggleStarShapeTemplate}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>
