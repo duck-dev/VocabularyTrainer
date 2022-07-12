@@ -23,8 +23,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     private string _thesaurusType = SynonymType;
     private string _indefiniteArticle = IndefiniteWithoutVowel;
 
-    private IEnumerable<string> _possibleDefinitions = Array.Empty<string>();
-
     public ThesaurusViewModel(Lesson lesson) : base(lesson, false)
     {
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
@@ -109,42 +107,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
     {
         Utilities.ChangeLearningStateThesaurus(CurrentWord, this, true);
         NextWord();
-    }
-    
-    private new void ShowSolution()
-    {
-        OpenSolutionPanel(this.DisplayedTerm, string.Join(", ", _possibleDefinitions), false);
-        Utilities.ChangeLearningStateThesaurus(CurrentWord, this, false);
-    }
-    
-    private new void CheckAnswer()
-    {
-        string modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
-        int mistakeTolerance = CurrentLesson.Options.CorrectionSteps;
-        bool tolerateTransposition = CurrentLesson.Options.TolerateSwappedLetters;
-        
-        string finalDefinition = string.Join(", ", _possibleDefinitions);
-        int minDistance = mistakeTolerance + 1;
-        foreach (string definition in _possibleDefinitions)
-        {
-            string modifiedDefinition = Utilities.ModifyAnswer(definition, CurrentLesson);
-            if (modifiedDefinition.Equals(modifiedAnswer))
-            {
-                minDistance = 0;
-                finalDefinition = definition;
-                break;
-            }
-            
-            int distance = Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition);
-            if (distance >= minDistance) 
-                continue;
-            minDistance = distance;
-            finalDefinition = definition;
-        }
-        
-        bool correct = minDistance <= mistakeTolerance;
-        OpenSolutionPanel(this.DisplayedTerm, finalDefinition, correct);
-        Utilities.ChangeLearningStateThesaurus(CurrentWord, this, correct);
     }
 
     /// <summary>
@@ -286,13 +248,13 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
         if (synonymChosen && synonyms.Count > 0)
         {
-            _possibleDefinitions = synonyms.Select(x => x.Definition);
+            PossibleDefinitions = synonyms.Select(x => x.Definition);
             this.ThesaurusType = SynonymType;
             this.IndefiniteArticle = IndefiniteWithoutVowel;
         }
         else if (antonymChosen && antonyms.Count > 0)
         {
-            _possibleDefinitions = antonyms.Select(x => x.Definition);
+            PossibleDefinitions = antonyms.Select(x => x.Definition);
             this.ThesaurusType = AntonymType;
             this.IndefiniteArticle = IndefiniteWithVowel;
         }

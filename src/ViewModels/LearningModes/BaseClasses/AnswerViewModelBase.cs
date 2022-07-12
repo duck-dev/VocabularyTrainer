@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Media;
@@ -84,6 +85,8 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         set => this.RaiseAndSetIfChanged(ref _wrongWords, value);
     }
 
+    protected IEnumerable<string>? PossibleDefinitions { get; set; }
+
     protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState)
     {
         base.VisualizeLearningProgress(previousState, newState);
@@ -111,19 +114,41 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
     protected void CheckAnswer()
     {
         string modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
-        string modifiedDefinition = Utilities.ModifyAnswer(Definition, CurrentLesson);
         int mistakeTolerance = CurrentLesson.Options.CorrectionSteps;
-
         bool tolerateTransposition = CurrentLesson.Options.TolerateSwappedLetters;
-        bool correct = modifiedDefinition.Equals(modifiedAnswer) 
-                       || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition) <= mistakeTolerance;
-        OpenSolutionPanel(this.DisplayedTerm, this.Definition, correct);
-        Utilities.ChangeLearningState(CurrentWord, this, correct);
+
+        PossibleDefinitions ??= new List<string> {Definition};
+        string finalDefinition = string.Join(", ", this.PossibleDefinitions);
+        int minDistance = mistakeTolerance + 1;
+        foreach (string definition in this.PossibleDefinitions)
+        {
+            string modifiedDefinition = Utilities.ModifyAnswer(definition, CurrentLesson);
+            if (modifiedDefinition.Equals(modifiedAnswer))
+            {
+                minDistance = 0;
+                finalDefinition = definition;
+                break;
+            }
+            
+            int distance = Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition);
+            if (distance >= minDistance) 
+                continue;
+            minDistance = distance;
+            finalDefinition = definition;
+        }
+        
+        bool correct = minDistance <= mistakeTolerance;
+        OpenSolutionPanel(this.DisplayedTerm, finalDefinition, correct);
+        if(LearningMode == LearningModeType.Thesaurus)
+            Utilities.ChangeLearningStateThesaurus(CurrentWord, this, correct);
+        else
+            Utilities.ChangeLearningState(CurrentWord, this, correct);
     }
         
     protected void ShowSolution()
     {
-        OpenSolutionPanel(this.DisplayedTerm, this.Definition, false);
+        PossibleDefinitions ??= new List<string> { Definition };
+        OpenSolutionPanel(this.DisplayedTerm, string.Join(", ", PossibleDefinitions), false);
         Utilities.ChangeLearningState(CurrentWord, this, false);
     }
     

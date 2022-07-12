@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
@@ -22,6 +24,8 @@ public sealed class WriteViewModel : AnswerViewModelBase
         set
         {
             this.RaiseAndSetIfChanged(ref _acceptSynonyms, value);
+            AddPossibleDefinitions();
+            
             LearningModeOptions options = CurrentLesson.LearningModeSettings;
             options.AcceptSynonyms = value;
             CurrentLesson.LearningModeSettings = options;
@@ -33,6 +37,12 @@ public sealed class WriteViewModel : AnswerViewModelBase
     {
         base.PickWord(resetKnownWords, goForward, changeLearningState);
         SetWord();
+    }
+
+    protected override void SetWord()
+    {
+        base.SetWord();
+        AddPossibleDefinitions();
     }
 
     protected override void ShuffleWords()
@@ -47,5 +57,13 @@ public sealed class WriteViewModel : AnswerViewModelBase
         if(MainWindowViewModel.Instance is { } instance)
             instance.CurrentLearningMode = "Write";
         base.InitCurrentWord();
+    }
+
+    private void AddPossibleDefinitions()
+    {
+        var list = new List<string> { Definition };
+        if(AcceptSynonyms)
+            list.AddRange(CurrentWord.Synonyms.Select(x => x.Definition));
+        PossibleDefinitions = list;
     }
 }
