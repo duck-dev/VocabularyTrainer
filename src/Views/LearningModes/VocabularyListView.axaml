@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:learningModes="clr-namespace:VocabularyTrainer.Views.LearningModes"
+             xmlns:views="clr-namespace:VocabularyTrainer.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VocabularyTrainer.Views.LearningModes.VocabularyListView">
+    <Grid ColumnDefinitions="1*,3*">
+        <learningModes:LearningModeSidebarView Grid.Column="0" DataContext="{Binding}">
+            <learningModes:LearningModeSidebarView.AdditionalContent>
+                <views:LessonOptionItem Description="Show synonyms and antonyms" IsInlined="True">
+                    <views:LessonOptionItem.TooltipText>
+                        Should the synonyms and antonyms be displayed alongside the definition?
+                    </views:LessonOptionItem.TooltipText>
+                    <views:LessonOptionItem.MainContent>
+                        <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
+                                  IsChecked="{Binding ShowThesaurus}"/>
+                    </views:LessonOptionItem.MainContent>
+                </views:LessonOptionItem>
+            </learningModes:LearningModeSidebarView.AdditionalContent>
+        </learningModes:LearningModeSidebarView>
+    </Grid>
+</UserControl>
