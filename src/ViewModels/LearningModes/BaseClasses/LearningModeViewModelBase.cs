@@ -10,6 +10,7 @@ public abstract class LearningModeViewModelBase : ViewModelBase
 {
     private bool _shuffleButtonEnabled;
     private bool _shuffleWordsAutomatically;
+    private Word[] _wordsList = Array.Empty<Word>();
         
     protected LearningModeViewModelBase(Lesson lesson)
     {
@@ -21,7 +22,13 @@ public abstract class LearningModeViewModelBase : ViewModelBase
     }
         
     protected internal LearningModeType LearningMode { get; private set; }
-    protected internal Word[] WordsList { get; set; }
+
+    protected internal Word[] WordsList
+    {
+        get => _wordsList; 
+        set => this.RaiseAndSetIfChanged(ref _wordsList, value);
+    }
+    
     protected Lesson CurrentLesson { get; }
 
     protected bool ShuffleButtonEnabled
