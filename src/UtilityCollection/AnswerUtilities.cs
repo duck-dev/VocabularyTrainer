@@ -88,15 +88,10 @@ public static partial class Utilities
     {
         if (word.VocabularyReferences is null)
             return;
-
-        // LearningState originalState = word.LearningStateInModes[LearningModeType.Thesaurus]; // Remove
-        // Log("\n\n\nChangeLearningStateThesaurus:\n------------------------"); // Remove
-        // Log($"    {originalState}... detailed inspection following...\n---------------"); // Remove
+        
         foreach (VocabularyItem item in word.VocabularyReferences)
             ChangeLearningState(item, singleWordViewModel, known, false);
         ChangeLearningState(word, singleWordViewModel, known);
-        // LearningState newState = word.LearningStateInModes[LearningModeType.Thesaurus]; // Remove
-        // Log($"    \n{newState}... done!\n------------------------------------------------------------------------\n"); // Remove
     }
 
     /// <summary>

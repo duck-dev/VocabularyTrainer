@@ -96,18 +96,6 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
             instance.CurrentLearningMode = "Synonyms and Antonyms";
         base.InitCurrentWord();
     }
-    
-    protected override void ResetKnownWords()
-    {
-        SeenWords = 0;
-        foreach (Word word in WordsList)
-        {
-            foreach(VocabularyItem synonym in word.Synonyms)
-                Utilities.AddLearningState(synonym, this, LearningState.NotAsked);
-            foreach(VocabularyItem antonym in word.Antonyms)
-                Utilities.AddLearningState(antonym, this, LearningState.NotAsked);
-        }
-    }
 
     protected override void Initialize(Lesson lesson, bool initializeWords)
     {
@@ -229,7 +217,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                 var synonyms = new ObservableCollection<VocabularyItem>(thesaurusList.Where(x => !x.Definition.Equals(item.Definition))
                                                                                      .Distinct(vocabularyItemComparer));
                 var antonyms = new ObservableCollection<VocabularyItem>(oppositeThesaurusList.Where(x => !x.Definition.Equals(item.Definition))
-                                                                                     .Distinct(vocabularyItemComparer));
+                                                                                             .Distinct(vocabularyItemComparer));
                 // Create a synonym/antonym out of the `Word` containing the current thesaurus item, which will now be turned into an own `Word`
                 var mainDefinitionThesaurus = new VocabularyItem
                 {
@@ -242,6 +230,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                     Definition = item.Definition,
                     VocabularyReferences = new List<VocabularyItem> { item }
                 };
+                newWord.LearningStateInModes[LearningModeType.Thesaurus] = item.LearningStateInModes[LearningModeType.Thesaurus];
                 var thesaurusCollection = isSynonym ? newWord.Synonyms : newWord.Antonyms;
                 if (!thesaurusCollection.Contains(mainDefinitionThesaurus, vocabularyItemComparer)
                     && !mainDefinitionThesaurus.Definition.Equals(newWord.Definition))

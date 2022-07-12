@@ -161,13 +161,6 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         DataManager.SaveData();
     }
 
-    protected virtual void ResetKnownWords()
-    {
-        this.SeenWords = 0;
-        foreach (var word in WordsList)
-            Utilities.AddLearningState(word, this, LearningState.NotAsked);
-    }
-
     protected virtual void InitCurrentWord()
     {
         Dictionary<LearningModeType, bool> shuffledDict = CurrentLesson.IsShuffledInModes;
@@ -226,5 +219,12 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
 
         bool resetWords = wrapWords && (this.SeenWords == WordsList.Length || this.SeenWords == WordsList.Length - 1);
         PickWord(resetWords, goForward, changeLearningState);
+    }
+    
+    private void ResetKnownWords()
+    {
+        this.SeenWords = 0;
+        foreach (var word in WordsList)
+            Utilities.AddLearningState(word, this, LearningState.NotAsked);
     }
 }
