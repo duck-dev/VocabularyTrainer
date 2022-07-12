@@ -17,12 +17,12 @@ public static partial class Extensions
         => collection.Select(x => (T)x.Clone());
     
     /// <summary>
-    /// Create a deep copy of an <see cref="IEnumerable{T}"/> collection.
+    /// Create a deep copy of a collection of type <typeparamref name="TCollection"/>.
     /// </summary>
-    /// <param name="collection">The list to be cloned.</param>
+    /// <param name="collection"><inheritdoc cref="Clone{T}"/></param>
     /// <typeparam name="TCollection">The type of the extended collection, which must implement <see cref="IEnumerable{T}"/>.</typeparam>
     /// <typeparam name="TItem">The type of the elements inside the collection. All of them ought to inherit <see cref="ICloneable"/></typeparam>
-    /// <returns>The cloned collection.</returns>
+    /// <returns><inheritdoc cref="Clone{T}"/></returns>
     public static TCollection? Clone<TCollection, TItem>(this TCollection collection)
         where TCollection : class, IEnumerable<TItem> 
         where TItem : ICloneable
