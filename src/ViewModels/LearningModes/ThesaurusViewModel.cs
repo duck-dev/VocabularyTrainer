@@ -122,20 +122,27 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         string modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
         int mistakeTolerance = CurrentLesson.Options.CorrectionSteps;
         bool tolerateTransposition = CurrentLesson.Options.TolerateSwappedLetters;
-
-        bool correct = false;
+        
         string finalDefinition = string.Join(", ", _possibleDefinitions);
+        int minDistance = mistakeTolerance + 1;
         foreach (string definition in _possibleDefinitions)
         {
             string modifiedDefinition = Utilities.ModifyAnswer(definition, CurrentLesson);
-            correct = modifiedDefinition.Equals(modifiedAnswer) 
-                      || Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition) <= mistakeTolerance;
-            if (!correct) 
+            if (modifiedDefinition.Equals(modifiedAnswer))
+            {
+                minDistance = 0;
+                finalDefinition = definition;
+                break;
+            }
+            
+            int distance = Utilities.LevenshteinDistance(modifiedDefinition, modifiedAnswer, tolerateTransposition);
+            if (distance >= minDistance) 
                 continue;
+            minDistance = distance;
             finalDefinition = definition;
-            break;
         }
         
+        bool correct = minDistance <= mistakeTolerance;
         OpenSolutionPanel(this.DisplayedTerm, finalDefinition, correct);
         Utilities.ChangeLearningStateThesaurus(CurrentWord, this, correct);
     }
