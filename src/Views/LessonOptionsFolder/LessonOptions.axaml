@@ -60,7 +60,8 @@ Choose from 3 pre-defined templates (High, Balanced, Low) or customize your own 
                     <views:LessonOptionItem Description="Correction steps" IsInlined="True">
                         <views:LessonOptionItem.TooltipText>
                             How many edit operations have to be performed in order to correct your written answer to the actual definition?
-Operations are: Insertion, Deletion, Substitution and Transposition.
+The operations are: Insertion, Deletion, Substitution and Transposition.
+It is recommended to keep the value below 2.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
                             <NumericUpDown Increment="1" Minimum="0" Maximum="2147483647" ClipValueToMinMax="True"
