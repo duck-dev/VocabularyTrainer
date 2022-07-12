@@ -6,8 +6,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LearningModes.SecondaryElements.AnswerView">
     <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-              Margin="30,0">
+        <Grid RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30,0">
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"
                        Foreground="{StaticResource MainGrey}" Margin="0,0,0,50">
                 <TextBlock.Text>
