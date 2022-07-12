@@ -16,10 +16,11 @@
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid RowDefinitions="Auto,*,Auto">
             <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" Margin="20,30,20,10">
-                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,10">
+                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,10" IsVisible="{Binding IsSingleWordMode}" 
+                      IsEnabled="{Binding IsSingleWordMode}">
                     <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,12.5"
-                            Minimum="0" Maximum="{Binding MaximumItems}"
-                            Value="{Binding SeenWords}" Background="{StaticResource LightGrey}"/>
+                            Minimum="0" Maximum="{Binding MaximumItems}" Value="{Binding SeenWords}"
+                            Background="{StaticResource LightGrey}"/>
                     <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
                                HorizontalAlignment="Center">
                         <TextBlock.Text>
@@ -30,15 +31,14 @@
                         </TextBlock.Text>
                     </TextBlock>
                 </Grid>
-                <Grid Grid.Row="1" RowDefinitions="Auto,Auto" Margin="0,0,0,10">
+                <Grid Grid.Row="1" RowDefinitions="Auto,Auto" Margin="0,0,0,10" IsVisible="{Binding IsAnswerMode}"
+                      IsEnabled="{Binding IsAnswerMode}">
                     <Slider Grid.Row="0" Classes="progress-slider" Height="45" Margin="0,0,0,12.5"
                             Minimum="0" Maximum="{Binding MaximumItems}"
                             Value="{Binding KnownWords}" Background="{StaticResource LightGrey}"
-                            Foreground="{StaticResource MainGreen}" IsVisible="{Binding IsAnswerMode}"
-                            IsEnabled="{Binding IsAnswerMode}"/>
+                            Foreground="{StaticResource MainGreen}"/>
                     <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
-                               HorizontalAlignment="Center" IsVisible="{Binding IsAnswerMode}"
-                               IsEnabled="{Binding IsAnswerMode}">
+                               HorizontalAlignment="Center">
                         <TextBlock.Text>
                             <MultiBinding StringFormat="\{0\}/\{1\} correct">
                                 <Binding Path="KnownWords"/>
@@ -47,15 +47,14 @@
                         </TextBlock.Text>
                     </TextBlock>
                 </Grid>
-                <Grid Grid.Row="2" RowDefinitions="Auto,Auto">
+                <Grid Grid.Row="2" RowDefinitions="Auto,Auto" IsVisible="{Binding IsAnswerMode}"
+                      IsEnabled="{Binding IsAnswerMode}">
                     <Slider Grid.Row="0" Classes="progress-slider" Height="45" Margin="0,0,0,12.5"
                             Minimum="0" Maximum="{Binding MaximumItems}"
                             Value="{Binding WrongWords}" Background="{StaticResource LightGrey}"
-                            Foreground="{StaticResource MainRed}" IsVisible="{Binding IsAnswerMode}"
-                            IsEnabled="{Binding IsAnswerMode}"/>
+                            Foreground="{StaticResource MainRed}"/>
                     <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
-                               HorizontalAlignment="Center" IsVisible="{Binding IsAnswerMode}"
-                               IsEnabled="{Binding IsAnswerMode}">
+                               HorizontalAlignment="Center">
                         <TextBlock.Text>
                             <MultiBinding StringFormat="\{0\}/\{1\} wrong">
                                 <Binding Path="WrongWords"/>

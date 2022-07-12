@@ -23,6 +23,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     protected SingleWordViewModelBase(Lesson lesson, bool initializeWords = true) : base(lesson)
     {
+        IsSingleWordMode = true;
         Initialize(lesson, initializeWords);
     }
 

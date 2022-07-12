@@ -31,6 +31,7 @@ public abstract class LearningModeViewModelBase : ViewModelBase
     }
         
     protected bool IsAnswerMode { get; init; }
+    protected bool IsSingleWordMode { get; init; }
 
     protected bool ShuffleWordsAutomatically
     {
