@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:openLesson="clr-namespace:VocabularyTrainer.Views.OpenLesson"
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
-             xmlns:customControls="clr-namespace:VocabularyTrainer.CustomControls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LessonView">
 
@@ -35,17 +34,15 @@
         <!-- <Button Grid.Column="1" Command="{Binding DebugUnsavedChanges}" HotKey="Enter" -->
         <!--         IsVisible="False"/> --> <!-- Only for debugging purposes -->
         <openLesson:LearningModesView Grid.Column="0" HorizontalAlignment="Stretch"/>
-        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto"
+        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid RowDefinitions="Auto,Auto,Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   Margin="40,0,40,15">
-                <customControls:InextensibleGrid Grid.Row="0" ColumnDefinitions="6*,4*" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch">
+                <Grid Grid.Row="0" ColumnDefinitions="6*,4*" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch">
                     <TextBox Grid.Column="0" Grid.Row="0" Classes="editable-text" 
-                                                        Text="{Binding CurrentLesson.ChangedName}"
-                                                        FontSize="36" FontWeight="Bold" MaxLength="35"
-                                                        HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
-                                                        HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                                        TextWrapping="NoWrap"/>
+                             Text="{Binding CurrentLesson.ChangedName}" FontSize="36" FontWeight="Bold" MaxLength="35"
+                             HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextWrapping="NoWrap"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                     <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,*" Margin="30,0,0,0" HorizontalAlignment="Stretch">
                         <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Content="Cancel"
                                 Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
@@ -72,7 +69,7 @@
                              Foreground="{StaticResource MainGrey}" MaxLength="150"
                              VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                              AcceptsReturn="False" AcceptsTab="False"/>
-                </customControls:InextensibleGrid>
+                </Grid>
                 <views:LessonOptions Grid.Row="1" Margin="0,15,0,0"/>
                 <TextBlock Grid.Row="2" Classes="add-page-heading" Margin="0,30,0,0">
                     <TextBlock.Text>
@@ -85,7 +82,7 @@
                 <Border Grid.Row="3" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"
                         Margin="0,10,0,0" MaxHeight="584">
                     <Grid RowDefinitions="*,Auto">
-                        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                             <ItemsControl Items="{Binding CurrentLesson.VocabularyItems}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>

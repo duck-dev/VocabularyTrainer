@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:itemStyleControls="clr-namespace:VocabularyTrainer.Models.ItemStyleControls"
-             xmlns:customControls="clr-namespace:VocabularyTrainer.CustomControls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.OpenLesson.LessonViewWord">
     <UserControl.Styles>
@@ -55,7 +54,7 @@
                 BorderThickness="0,0,0,1" BorderBrush="{StaticResource VeryLightBlue}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Margin="15,0,0,0" Padding="0,0,0,30">
-            <customControls:InextensibleGrid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="1*,2*,1*,1*,2*,1*" 
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="1*,2*,1*,1*,2*,1*" 
                                              HorizontalAlignment="Stretch">
                 <Grid.Resources>
                     <ItemsPanelTemplate x:Key="ThesaurusContainerTemplate">
@@ -140,7 +139,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </customControls:InextensibleGrid>
+            </Grid>
         </Border>
         <Button Grid.Column="2" Classes="selectable-button-effect selectable-word-button"
                 Margin="15,0,15,30" Command="{Binding RemoveCommand}"
