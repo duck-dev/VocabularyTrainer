@@ -14,6 +14,8 @@ public sealed class VocabularyListViewModel : LearningModeViewModelBase
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         if (settings.ShowThesaurusInModes.ContainsKey(LearningMode))
             this.ShowThesaurus = settings.ShowThesaurusInModes[LearningMode];
+        
+        InitializeSettings();
     }
     
     internal bool ShowThesaurus
