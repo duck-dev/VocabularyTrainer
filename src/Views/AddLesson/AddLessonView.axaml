@@ -5,7 +5,6 @@
              xmlns:viewModels="clr-namespace:VocabularyTrainer.ViewModels"
              xmlns:addLesson="clr-namespace:VocabularyTrainer.Views.AddLesson"
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
-             xmlns:customControls="clr-namespace:VocabularyTrainer.CustomControls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.AddLessonView">
 
