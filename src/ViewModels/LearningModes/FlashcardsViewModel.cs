@@ -79,8 +79,8 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
         // button.RenderTransform = TransformOperations.Parse(operation); // button = parameter of type `IVisual`
             
         _flipped ^= true; // Toggle bool condition
-        string term = AskTerm ? CurrentWord.Term : CurrentWord.Definition;
-        string definition = AskTerm ? CurrentWord.Definition : CurrentWord.Term;
+        string term = IsTermChosen ? CurrentWord.Term : CurrentWord.Definition;
+        string definition = IsTermChosen ? CurrentWord.Definition : CurrentWord.Term;
         this.DisplayedTerm = _flipped ? definition : term;
         this.RaisePropertyChanged(nameof(WordType));
     }
