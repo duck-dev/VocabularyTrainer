@@ -80,7 +80,7 @@
                     </TextBlock.Text>
                 </TextBlock>
                 <Border Grid.Row="3" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"
-                        Margin="0,10,0,0" MaxHeight="584">
+                        Margin="0,10,0,0" MaxHeight="570">
                     <Grid RowDefinitions="*,Auto">
                         <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                             <ItemsControl Items="{Binding CurrentLesson.VocabularyItems}">
