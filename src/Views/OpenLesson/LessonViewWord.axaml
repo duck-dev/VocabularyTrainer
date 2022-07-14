@@ -54,14 +54,14 @@
                 BorderThickness="0,0,0,1" BorderBrush="{StaticResource VeryLightBlue}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Margin="15,0,0,0" Padding="0,0,0,30">
-            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="1*,2*,1*,1*,2*,1*" 
-                                             HorizontalAlignment="Stretch">
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="1*,2*,1*,1*,2*,1*" HorizontalAlignment="Stretch">
                 <Grid.Resources>
                     <ItemsPanelTemplate x:Key="ThesaurusContainerTemplate">
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <Button Width="30" Height="30" Margin="7.5,0,0,0" Classes="selectable-button-effect" 
+                            <Button Width="30" Height="30" Margin="7.5,0,0,7.5" Classes="selectable-button-effect" 
                                     Command="{Binding AddThesaurusItem}" 
-                                    CommandParameter="{Binding $parent[ContentControl].DataContext.Item3}">
+                                    CommandParameter="{Binding $parent[ContentControl].DataContext.Item3}"
+                                    VerticalAlignment="Center">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Panel Width="28" Height="28">
