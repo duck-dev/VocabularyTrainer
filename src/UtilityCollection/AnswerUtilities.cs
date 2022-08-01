@@ -162,7 +162,7 @@ public static partial class Utilities
         if (settings.IgnorePunctuation)
             result = result.RemovePunctuation();
         if (settings.IgnoreCapitalization)
-            result = result.ToLowerInvariant();
+            result = result.ToUpperInvariant();
 
         result = result.Trim().TrimUnnecessarySpaces();
         return result;
