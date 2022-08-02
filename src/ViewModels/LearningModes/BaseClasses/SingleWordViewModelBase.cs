@@ -19,6 +19,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
 
     private bool _askTerm;
     private bool _askDefinition;
+    private bool _progressiveLearningEnabled;
 
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     protected SingleWordViewModelBase(Lesson lesson, bool initializeWords = true) : base(lesson)
@@ -84,16 +85,39 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         }
     }
     
+    protected bool ProgressiveLearningEnabled
+    {
+        get => _progressiveLearningEnabled;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _progressiveLearningEnabled, value);
+            //CurrentLesson.LearningModeSettings.ProgressiveLearningInModes[LearningMode] = value;
+            DataManager.SaveData();
+        }
+    }
+    
     protected bool IsTermChosen { get; private set; }
 
     protected void PreviousWord()
     {
+        if(ProgressiveLearningEnabled)
+        {
+            PickWordProgressive();
+            return;
+        }
+
         _wordIndex--;
         WrapWords(WordsList.Length - 1, false);
     }
 
     protected virtual void NextWord(bool changeLearningState = true)
     {
+        if(ProgressiveLearningEnabled)
+        {
+            PickWordProgressive();
+            return;
+        }
+
         _wordIndex++;
         WrapWords(0, true, changeLearningState);
     }
