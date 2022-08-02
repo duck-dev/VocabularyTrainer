@@ -232,6 +232,8 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             this.AskTerm = settings.AskTermInModes[LearningMode];
         if(settings.AskDefinitionInModes.ContainsKey(LearningMode))
             this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
+        if(settings.ProgressiveLearningInModes.ContainsKey(LearningMode))
+            this.ProgressiveLearningEnabled = settings.ProgressiveLearningInModes[LearningMode];
     }
 
     internal void SetDifficultTerm(bool difficult, VocabularyItem? item = null)

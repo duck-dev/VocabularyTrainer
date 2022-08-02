@@ -11,6 +11,7 @@ public struct LearningModeOptions
     private readonly LearningModeType[] _askTermModes = { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
     private readonly LearningModeType[] _askDefinitionModes = { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
     private readonly LearningModeType[] _showThesaurusModes = { LearningModeType.Flashcards, LearningModeType.VocabularyList };
+    private readonly LearningModeType[] _progressiveLearningModes = { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.Thesaurus, LearningModeType.MultipleChoice };
 
     public LearningModeOptions()
     {
@@ -24,11 +25,14 @@ public struct LearningModeOptions
                 AskDefinitionInModes.Add(mode, false);
             if (_showThesaurusModes.Contains(mode))
                 ShowThesaurusInModes.Add(mode, true);
+            if(_progressiveLearningModes.Contains(mode))
+                ProgressiveLearningInModes.Add(mode, true);
         }
     }
 
     [JsonConstructor]
-    public LearningModeOptions(Dictionary<LearningModeType, bool> shuffleWordsAutomatically, 
+    public LearningModeOptions(Dictionary<LearningModeType, bool> shuffleWordsAutomatically,
+                               Dictionary<LearningModeType, bool> progressiveLearningInModes,
                                Dictionary<LearningModeType, bool> askTermInModes,
                                Dictionary<LearningModeType, bool> askDefinitionInModes,
                                Dictionary<LearningModeType, bool> showThesaurusInModes,
@@ -36,6 +40,7 @@ public struct LearningModeOptions
                                bool acceptSynonyms)
     {
         this.ShuffleWordsAutomatically = shuffleWordsAutomatically;
+        this.ProgressiveLearningInModes = progressiveLearningInModes;
         this.AskTermInModes = askTermInModes;
         this.AskDefinitionInModes = askDefinitionInModes;
         this.ShowThesaurusInModes = showThesaurusInModes;
@@ -46,6 +51,9 @@ public struct LearningModeOptions
     
     // All modes
     public Dictionary<LearningModeType, bool> ShuffleWordsAutomatically { get; set; } = new();
+    
+    // Flashcards, Write, Synonyms and Antonyms, Multiple Choice (all "single word" modes)
+    public Dictionary<LearningModeType, bool> ProgressiveLearningInModes { get; set; } = new();
     
     // Flashcards, Write, Multiple Choice
     public Dictionary<LearningModeType, bool> AskTermInModes { get; set; } = new();
