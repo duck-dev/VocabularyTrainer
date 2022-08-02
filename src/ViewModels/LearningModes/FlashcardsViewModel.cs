@@ -48,8 +48,13 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
     protected override void PickWord(bool resetKnownWords = false, bool goForward = true, bool changeLearningState = true)
     {
         base.PickWord(resetKnownWords, goForward, changeLearningState);
-        SetWord();
-        _flipped = false;
+        ChangeFlashcard();
+    }
+    
+    protected override void PickWordProgressive()
+    {
+        base.PickWordProgressive();
+        ChangeFlashcard();
     }
 
     protected override void ShuffleWords()
@@ -83,5 +88,11 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
         string definition = IsTermChosen ? CurrentWord.Definition : CurrentWord.Term;
         this.DisplayedTerm = _flipped ? definition : term;
         this.RaisePropertyChanged(nameof(WordType));
+    }
+
+    private void ChangeFlashcard()
+    {
+        SetWord();
+        _flipped = false;
     }
 }

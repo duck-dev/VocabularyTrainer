@@ -80,6 +80,12 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         base.PickWord(resetKnownWords, goForward, changeLearningState);
         SetThesaurus();
     }
+    
+    protected override void PickWordProgressive()
+    {
+        base.PickWordProgressive();
+        SetThesaurus();
+    }
 
     protected override void ShuffleWords()
     {

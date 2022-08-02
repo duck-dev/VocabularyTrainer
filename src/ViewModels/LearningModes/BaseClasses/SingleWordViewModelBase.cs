@@ -130,6 +130,16 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         if(knownState.CustomHasFlag(LearningState.NotAsked))
             Utilities.RemoveLearningState(previousWord, this, LearningState.NotAsked);
     }
+    
+    protected virtual void PickWordProgressive()
+    {
+        IReadOnlyList<Word> category = Utilities.PickCategory(WordsList, LearningMode);
+        var random = new Random();
+        int index = random.Next(0, category.Count);
+        
+        CurrentWord = category[index];
+        this.RaisePropertyChanged(nameof(IsCurrentWordDifficult));
+    }
         
     protected override void ShuffleWords()
     {

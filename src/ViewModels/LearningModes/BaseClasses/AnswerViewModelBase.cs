@@ -171,6 +171,12 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         base.PickWord(resetKnownWords, goForward, changeLearningState);
         ReadyToFocus?.Invoke(this, EventArgs.Empty);
     }
+    
+    protected override void PickWordProgressive()
+    {
+        base.PickWordProgressive();
+        ReadyToFocus?.Invoke(this, EventArgs.Empty);
+    }
 
     internal void CountCorrect()
     {

@@ -38,6 +38,12 @@ public sealed class WriteViewModel : AnswerViewModelBase
         base.PickWord(resetKnownWords, goForward, changeLearningState);
         SetWord();
     }
+    
+    protected override void PickWordProgressive()
+    {
+        base.PickWordProgressive();
+        SetWord();
+    }
 
     protected override void SetWord()
     {
