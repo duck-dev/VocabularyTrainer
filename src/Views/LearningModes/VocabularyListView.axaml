@@ -30,7 +30,7 @@
             <learningModes:LearningModeSidebarView.AdditionalContent>
                 <views:LessonOptionItem Description="Show synonyms and antonyms" IsInlined="True">
                     <views:LessonOptionItem.TooltipText>
-                        Should the synonyms and antonyms be displayed alongside the definition?
+                        Should the synonyms and antonyms of a word be displayed?
                     </views:LessonOptionItem.TooltipText>
                     <views:LessonOptionItem.MainContent>
                         <CheckBox DataContext="{Binding $parent[UserControl].DataContext}" 

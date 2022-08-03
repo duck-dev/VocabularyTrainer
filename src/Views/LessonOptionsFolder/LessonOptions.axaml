@@ -109,7 +109,7 @@ It is recommended to keep the value below 2.
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ignore capitalization" IsInlined="True">
                         <views:LessonOptionItem.TooltipText>
-                            Ignore capitalization?
+                            Ignore capitalization? If this option is enabled, your answer and the actual definition will be compared case-independently.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
                             <CheckBox IsChecked="{Binding CurrentOptions.IgnoreCapitalization, Mode=TwoWay}"
