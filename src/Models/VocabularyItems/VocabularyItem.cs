@@ -91,12 +91,12 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     {
         ContainerCollection = this.ContainerCollection
     };
+    
+    public virtual void SaveChanges()
+        => this.Definition = ChangedDefinition;
 
     protected void InvokeNotifyChanged()
         => NotifyChanged?.Invoke();
-
-    public virtual void SaveChanges()
-        => this.Definition = ChangedDefinition;
 
     protected virtual void Remove()
         => ContainerCollection?.Remove(this);
