@@ -11,6 +11,16 @@
         <learningModes:LearningModeSidebarView Grid.Column="0" DataContext="{Binding}">
             <learningModes:LearningModeSidebarView.AdditionalContent>
                 <StackPanel Orientation="Vertical">
+                    <views:LessonOptionItem Description="Toggle progressive learning" IsInlined="True">
+                        <views:LessonOptionItem.TooltipText>
+                            If progressive learning is enabled, the focus will be placed on asking words that you do not know well, followed by words that haven't been asked yet with a slightly lower frequency. 
+Words you have answered correctly will occur less often.
+                        </views:LessonOptionItem.TooltipText>
+                        <views:LessonOptionItem.MainContent>
+                            <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
+                                      IsChecked="{Binding ProgressiveLearningEnabled}"/>
+                        </views:LessonOptionItem.MainContent>
+                    </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ask Synonyms" IsInlined="True" Margin="0,10,0,0">
                         <views:LessonOptionItem.TooltipText>
                             Should synonyms be asked?

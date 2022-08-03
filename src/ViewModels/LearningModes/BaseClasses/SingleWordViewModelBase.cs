@@ -91,7 +91,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         set
         {
             this.RaiseAndSetIfChanged(ref _progressiveLearningEnabled, value);
-            //CurrentLesson.LearningModeSettings.ProgressiveLearningInModes[LearningMode] = value;
+            CurrentLesson.LearningModeSettings.ProgressiveLearningInModes[LearningMode] = value;
             DataManager.SaveData();
         }
     }
