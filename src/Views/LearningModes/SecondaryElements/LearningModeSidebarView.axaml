@@ -11,9 +11,8 @@
         <StyleInclude Source="/src/Styles/ProgressSliderStyle.axaml"/>
     </UserControl.Styles>
     
-    <Border Background="{StaticResource VeryLightGrey}"
-            BorderBrush="{StaticResource MainGrey}" BorderThickness="0,0,2,0"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Border Background="{StaticResource VeryLightGrey}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            BorderBrush="{StaticResource MainGrey}" BorderThickness="0,0,2,0">
         <Grid RowDefinitions="Auto,*,Auto">
             <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" Margin="20,30,20,10">
                 <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,10" IsVisible="{Binding IsSingleWordMode}" 
