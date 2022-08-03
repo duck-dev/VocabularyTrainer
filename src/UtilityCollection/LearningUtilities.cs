@@ -36,7 +36,9 @@ public static partial class Utilities
         for(int i = 0; i < learningStates.Length; i++)
         {
             LearningState state = learningStates[i];
-            Func<Word, bool> predicate = x => x.LearningStateInModes[learningMode].CustomHasFlag(state);
+            Func<Word, bool> predicate = x => x.LearningStateInModes[learningMode].CustomHasFlag(state) 
+                                              || (x.VocabularyReferences != null 
+                                                  && x.VocabularyReferences.Any(y => y.LearningStateInModes[learningMode].CustomHasFlag(state)));
             if(state == LearningState.VeryHard)
             {
                 var predicateCopy = predicate;
