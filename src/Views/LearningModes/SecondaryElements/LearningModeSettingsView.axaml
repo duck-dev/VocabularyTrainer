@@ -14,7 +14,7 @@
             <ScrollViewer VerticalAlignment="Top" HorizontalAlignment="Left"
                           HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                    <views:LessonOptionItem Description="Shuffle words automatically" IsInlined="True">
+                    <views:LessonOptionItem Description="Shuffle words automatically" IsInlined="True" Margin="0,0,0,10">
                         <views:LessonOptionItem.TooltipText>
                             Shuffle words automatically upon starting the learning mode?
                         </views:LessonOptionItem.TooltipText>
