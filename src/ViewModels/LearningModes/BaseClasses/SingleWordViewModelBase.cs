@@ -26,6 +26,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     {
         IsSingleWordMode = true;
         Initialize(lesson, initializeWords);
+        ShuffleButtonEnabled = ShufflingAllowed;
     }
 
     protected Word CurrentWord
@@ -91,12 +92,15 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         set
         {
             this.RaiseAndSetIfChanged(ref _progressiveLearningEnabled, value);
+            ShuffleButtonEnabled = ShufflingAllowed;
             CurrentLesson.LearningModeSettings.ProgressiveLearningInModes[LearningMode] = value;
             DataManager.SaveData();
         }
     }
     
     protected bool IsTermChosen { get; private set; }
+
+    protected override bool ShufflingAllowed => !ProgressiveLearningEnabled;
 
     protected void PreviousWord()
     {
@@ -226,7 +230,6 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         if(initializeWords)
             InitCurrentWord();
         
-        InitializeSettings();
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         if(settings.AskTermInModes.ContainsKey(LearningMode))
             this.AskTerm = settings.AskTermInModes[LearningMode];
@@ -234,6 +237,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
         if(settings.ProgressiveLearningInModes.ContainsKey(LearningMode))
             this.ProgressiveLearningEnabled = settings.ProgressiveLearningInModes[LearningMode];
+        InitializeSettings();
     }
 
     internal void SetDifficultTerm(bool difficult, VocabularyItem? item = null)

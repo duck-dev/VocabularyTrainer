@@ -63,7 +63,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         set
         {
             this.RaiseAndSetIfChanged(ref _isSolutionShown, value);
-            this.ShuffleButtonEnabled = !value;
+            this.ShuffleButtonEnabled = ShufflingAllowed && !value;
         }
     }
         

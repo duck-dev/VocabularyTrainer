@@ -51,6 +51,8 @@ public abstract class LearningModeViewModelBase : ViewModelBase
         }
     }
 
+    protected virtual bool ShufflingAllowed => true; 
+
     protected void ReturnToLesson()
     {
         if (MainViewModel is not null)
@@ -59,6 +61,9 @@ public abstract class LearningModeViewModelBase : ViewModelBase
 
     protected virtual void ShuffleWords()
     {
+        if (!ShufflingAllowed)
+            return;
+
         var rnd = new Random();
         WordsList = WordsList.OrderBy(_ => rnd.Next()).ToArray();
         CurrentLesson.IsShuffledInModes[this.LearningMode] = true;
