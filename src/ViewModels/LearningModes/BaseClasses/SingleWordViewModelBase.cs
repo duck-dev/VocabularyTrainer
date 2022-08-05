@@ -96,6 +96,16 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             IsSeenWordsEnabled = !value;
             CurrentLesson.LearningModeSettings.ProgressiveLearningInModes[LearningMode] = value;
             DataManager.SaveData();
+
+            if (value == true) 
+                return;
+
+            if (ShuffleWordsAutomatically)
+                ShuffleWords();
+            else
+                ResetInitialWordsOrder();
+            _wordIndex = 0;
+            PickWord(true);
         }
     }
     

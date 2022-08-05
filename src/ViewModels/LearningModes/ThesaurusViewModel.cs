@@ -109,6 +109,9 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         base.Initialize(initializeWords);
     }
 
+    protected override void ResetInitialWordsOrder()
+        => ConstructThesaurusItems();
+
     private new void CountCorrect()
     {
         Utilities.ChangeLearningStateThesaurus(CurrentWord, this, true);

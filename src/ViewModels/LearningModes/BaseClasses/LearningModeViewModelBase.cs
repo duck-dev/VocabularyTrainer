@@ -87,6 +87,9 @@ public abstract class LearningModeViewModelBase : ViewModelBase
 
         ApplySettings();
     }
+
+    protected virtual void ResetInitialWordsOrder()
+        => WordsList = CurrentLesson.VocabularyItems.ToArray();
     
     private void ApplySettings()
     {
