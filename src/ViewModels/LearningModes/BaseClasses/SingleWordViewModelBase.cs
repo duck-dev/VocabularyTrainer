@@ -161,7 +161,18 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     
     protected virtual void PickWordProgressive()
     {
-        IReadOnlyList<Word> category = Utilities.PickCategory(WordsList, LearningMode);
+        ICollection<Word> updatedWordsList;
+        if (WordsList.Length > 1)
+        {
+            updatedWordsList = new List<Word>(WordsList);
+            updatedWordsList.Remove(CurrentWord);
+        }
+        else
+        {
+            updatedWordsList = WordsList;
+        }
+
+        IReadOnlyList<Word> category = Utilities.PickCategory(updatedWordsList, LearningMode);
         var random = new Random();
         int index = random.Next(0, category.Count);
         
