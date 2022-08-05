@@ -57,12 +57,10 @@ public sealed class WriteViewModel : AnswerViewModelBase
         SetWord();
     }
 
-    protected override void InitCurrentWord()
+    protected override void Initialize(bool initializeWords)
     {
-        SetLearningMode(LearningModeType.Write);
-        if(MainWindowViewModel.Instance is { } instance)
-            instance.CurrentLearningMode = "Write";
-        base.InitCurrentWord();
+        SetLearningMode(LearningModeType.Write, "Write");
+        base.Initialize(initializeWords);
     }
 
     private void AddPossibleDefinitions()

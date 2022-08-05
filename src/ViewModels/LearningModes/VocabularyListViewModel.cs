@@ -10,7 +10,7 @@ public sealed class VocabularyListViewModel : LearningModeViewModelBase
     
     public VocabularyListViewModel(Lesson lesson) : base(lesson)
     {
-        SetLearningMode(LearningModeType.VocabularyList);
+        SetLearningMode(LearningModeType.VocabularyList, "Vocabulary List");
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         if (settings.ShowThesaurusInModes.ContainsKey(LearningMode))
             this.ShowThesaurus = settings.ShowThesaurusInModes[LearningMode];

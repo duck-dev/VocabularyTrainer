@@ -76,9 +76,6 @@ public abstract class LearningModeViewModelBase : ViewModelBase
         DataManager.SaveData();
     }
 
-    protected void SetLearningMode(LearningModeType mode) 
-        => this.LearningMode = mode;
-
     protected void InitializeSettings()
     {
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
@@ -90,7 +87,14 @@ public abstract class LearningModeViewModelBase : ViewModelBase
 
     protected virtual void ResetInitialWordsOrder()
         => WordsList = CurrentLesson.VocabularyItems.ToArray();
-    
+
+    protected void SetLearningMode(LearningModeType mode, string modeName)
+    {
+        this.LearningMode = mode;
+        if(MainWindowViewModel.Instance is { } instance)
+            instance.CurrentLearningMode = modeName;
+    }
+
     private void ApplySettings()
     {
         if(ShuffleWordsAutomatically && ShufflingAllowed)

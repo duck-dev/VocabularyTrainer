@@ -62,19 +62,17 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
         base.ShuffleWords();
         SetWord();
     }
-        
-    protected override void InitCurrentWord()
-    {
-        SetLearningMode(LearningModeType.Flashcards);
-        if(MainWindowViewModel.Instance is { } instance)
-            MainWindowViewModel.Instance.CurrentLearningMode = "Flashcards";
-        base.InitCurrentWord();
-    }
 
     protected override void SetWord()
     {
         base.SetWord();
         this.RaisePropertyChanged(nameof(WordType));
+    }
+
+    protected override void Initialize(bool initializeWords)
+    {
+        SetLearningMode(LearningModeType.Flashcards, "Flashcards");
+        base.Initialize(initializeWords);
     }
 
     private void FlipCard()

@@ -93,16 +93,9 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         SetThesaurus();
     }
 
-    protected override void InitCurrentWord()
-    {
-        SetLearningMode(LearningModeType.Thesaurus);
-        if(MainWindowViewModel.Instance is { } instance)
-            instance.CurrentLearningMode = "Synonyms and Antonyms";
-        base.InitCurrentWord();
-    }
-
     protected override void Initialize(bool initializeWords)
     {
+        SetLearningMode(LearningModeType.Thesaurus, "Synonyms and Antonyms");
         ConstructThesaurusItems();
         InitCurrentWord();
         VerifyAndSetItem(SetThesaurus);
@@ -203,7 +196,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                     VocabularyReferences = new List<VocabularyItem> { word }
                 };
 
-                Word newWord = new Word(synonyms, antonyms)
+                Word newWord = new Word(synonyms, antonyms, LearningState.NotAsked)
                 {
                     Definition = item.Definition,
                     VocabularyReferences = new List<VocabularyItem> { item }
