@@ -24,9 +24,9 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     protected SingleWordViewModelBase(Lesson lesson, bool initializeWords = true) : base(lesson)
     {
-        IsSingleWordMode = true;
         Initialize(initializeWords);
         ShuffleButtonEnabled = ShufflingAllowed;
+        IsSeenWordsEnabled = !ProgressiveLearningEnabled;
     }
 
     protected Word CurrentWord
@@ -93,6 +93,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         {
             this.RaiseAndSetIfChanged(ref _progressiveLearningEnabled, value);
             ShuffleButtonEnabled = ShufflingAllowed;
+            IsSeenWordsEnabled = !value;
             CurrentLesson.LearningModeSettings.ProgressiveLearningInModes[LearningMode] = value;
             DataManager.SaveData();
         }

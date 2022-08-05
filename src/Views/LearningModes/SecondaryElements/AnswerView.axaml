@@ -8,7 +8,8 @@
     <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30,0">
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"
-                       Foreground="{StaticResource MainGrey}" Margin="0,0,0,50">
+                       Foreground="{StaticResource MainGrey}" Margin="0,0,0,50"
+                       IsVisible="{Binding !ProgressiveLearningEnabled}" IsEnabled="{Binding !ProgressiveLearningEnabled}">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="\{0\}/\{1\}">
                         <Binding Path="WordIndexCorrected"/>

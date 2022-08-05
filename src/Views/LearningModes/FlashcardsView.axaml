@@ -63,7 +63,8 @@ Words you have answered correctly will occur less often.
         <Grid Grid.Column="1" ColumnDefinitions="Auto,*,Auto" RowDefinitions="1*,4*,1*"
               HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Foreground="{StaticResource MainGrey}" FontSize="24">
+                       Foreground="{StaticResource MainGrey}" FontSize="24"
+                       IsVisible="{Binding !ProgressiveLearningEnabled}" IsEnabled="{Binding !ProgressiveLearningEnabled}">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="\{0\}/\{1\}">
                         <Binding Path="WordIndexCorrected"/>

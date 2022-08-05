@@ -15,8 +15,8 @@
             BorderBrush="{StaticResource MainGrey}" BorderThickness="0,0,2,0">
         <Grid RowDefinitions="Auto,*,Auto">
             <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" Margin="20,30,20,10">
-                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,10" IsVisible="{Binding IsSingleWordMode}" 
-                      IsEnabled="{Binding IsSingleWordMode}">
+                <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,10" IsVisible="{Binding IsSeenWordsEnabled}" 
+                      IsEnabled="{Binding IsSeenWordsEnabled}">
                     <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,12.5"
                             Minimum="0" Maximum="{Binding MaximumItems}" Value="{Binding SeenWords}"
                             Background="{StaticResource LightGrey}"/>
