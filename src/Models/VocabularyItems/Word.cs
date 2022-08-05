@@ -40,6 +40,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         SubscribeSynonyms();
         SubscribeAntonyms();
 
+        LearningStatus = LearningState.NotAsked;
         foreach (LearningModeType value in Enum.GetValues(typeof(LearningModeType)))
         {
             if(value != LearningModeType.Thesaurus)
@@ -48,10 +49,12 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     }
 
     [JsonConstructor]
-    public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms) : this()
+    public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms,
+        LearningState learningStatus) : this()
     {
         this.Synonyms = synonyms;
         this.Antonyms = antonyms;
+        this.LearningStatus = learningStatus;
 
         foreach (var item in this.Synonyms)
             item.ContainerCollection = this.Synonyms;
@@ -80,6 +83,8 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
             NotifyPropertyChanged(nameof(Antonyms));
         }
     }
+    
+    public LearningState LearningStatus { get; set; }
 
     [JsonIgnore]
     public int Index
@@ -160,7 +165,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         _changedAntonyms.Clear();
     }
     
-    public override object Clone() => new Word(_synonyms, _antonyms)
+    public override object Clone() => new Word(Synonyms, Antonyms, LearningStatus)
     {
         Term = this.Term,
         Definition = this.Definition,
