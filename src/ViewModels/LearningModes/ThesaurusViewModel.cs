@@ -101,12 +101,12 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         base.InitCurrentWord();
     }
 
-    protected override void Initialize(Lesson lesson, bool initializeWords)
+    protected override void Initialize(bool initializeWords)
     {
         ConstructThesaurusItems();
         InitCurrentWord();
-        SetThesaurus();
-        base.Initialize(lesson, initializeWords);
+        VerifyAndSetItem(SetThesaurus);
+        base.Initialize(initializeWords);
     }
 
     private new void CountCorrect()

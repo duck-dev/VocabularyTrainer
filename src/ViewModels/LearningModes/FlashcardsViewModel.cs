@@ -17,7 +17,7 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
 
     public FlashcardsViewModel(Lesson lesson) : base(lesson)
     {
-        SetWord();
+        VerifyAndSetItem(SetWord);
         
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         if (settings.ShowThesaurusInModes.ContainsKey(LearningMode))

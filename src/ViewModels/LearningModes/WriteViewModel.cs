@@ -14,8 +14,8 @@ public sealed class WriteViewModel : AnswerViewModelBase
     {
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         this.AcceptSynonyms = settings.AcceptSynonyms;
-        
-        SetWord();
+
+        VerifyAndSetItem(SetWord);
     }
 
     private bool AcceptSynonyms

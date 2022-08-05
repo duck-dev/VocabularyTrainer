@@ -84,7 +84,7 @@ public abstract class LearningModeViewModelBase : ViewModelBase
     
     private void ApplySettings()
     {
-        if(ShuffleWordsAutomatically)
+        if(ShuffleWordsAutomatically && ShufflingAllowed)
             ShuffleWords();
     }
 }

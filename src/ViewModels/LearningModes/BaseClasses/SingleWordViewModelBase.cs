@@ -25,7 +25,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     protected SingleWordViewModelBase(Lesson lesson, bool initializeWords = true) : base(lesson)
     {
         IsSingleWordMode = true;
-        Initialize(lesson, initializeWords);
+        Initialize(initializeWords);
         ShuffleButtonEnabled = ShufflingAllowed;
     }
 
@@ -172,7 +172,15 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     protected override void ShuffleWords()
     {
         base.ShuffleWords();
-        PickWord(true);
+        if(!ProgressiveLearningEnabled)
+            PickWord(true);
+    }
+
+    protected bool VerifyAndSetItem(Action action) // action = either SetWord() or SetThesaurus()
+    {
+        if (!ProgressiveLearningEnabled)
+            action.Invoke();
+        return !ProgressiveLearningEnabled;
     }
 
     protected virtual void SetWord()
@@ -202,6 +210,12 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
 
     protected virtual void InitCurrentWord()
     {
+        if (ProgressiveLearningEnabled)
+        {
+            PickWordProgressive();
+            return;
+        }
+
         Dictionary<LearningModeType, bool> shuffledDict = CurrentLesson.IsShuffledInModes;
         if (shuffledDict[this.LearningMode] == true
             || WordsList.All(x => !x.LearningStateInModes[this.LearningMode].CustomHasFlag(LearningState.NotAsked)))
@@ -225,11 +239,8 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         PickWord(_wordIndex == 0);
     }
 
-    protected virtual void Initialize(Lesson lesson, bool initializeWords)
+    protected virtual void Initialize(bool initializeWords)
     {
-        if(initializeWords)
-            InitCurrentWord();
-        
         LearningModeOptions settings = CurrentLesson.LearningModeSettings;
         if(settings.AskTermInModes.ContainsKey(LearningMode))
             this.AskTerm = settings.AskTermInModes[LearningMode];
@@ -238,6 +249,9 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         if(settings.ProgressiveLearningInModes.ContainsKey(LearningMode))
             this.ProgressiveLearningEnabled = settings.ProgressiveLearningInModes[LearningMode];
         InitializeSettings();
+        
+        if(initializeWords)
+            InitCurrentWord();
     }
 
     internal void SetDifficultTerm(bool difficult, VocabularyItem? item = null)
