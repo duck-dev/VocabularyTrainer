@@ -21,6 +21,8 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     private bool _askDefinition;
     private bool _progressiveLearningEnabled;
 
+    private bool _progressiveLearningOptionInitialized;
+
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     protected SingleWordViewModelBase(Lesson lesson, bool initializeWords = true) : base(lesson)
     {
@@ -97,7 +99,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             CurrentLesson.LearningModeSettings.ProgressiveLearningInModes[LearningMode] = value;
             DataManager.SaveData();
 
-            if (value == true) 
+            if (value == true || !_progressiveLearningOptionInitialized) 
                 return;
 
             if (ShuffleWordsAutomatically)
@@ -270,8 +272,9 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
         if(settings.ProgressiveLearningInModes.ContainsKey(LearningMode))
             this.ProgressiveLearningEnabled = settings.ProgressiveLearningInModes[LearningMode];
+        _progressiveLearningOptionInitialized = true;
         InitializeSettings();
-        
+
         if(initializeWords)
             InitCurrentWord();
     }
