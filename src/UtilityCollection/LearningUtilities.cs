@@ -33,13 +33,22 @@ public static partial class Utilities
         categoryLimits = new List<int> { 0 };
         LearningState[] learningStates = Enum.GetValues<LearningState>().Reverse().ToArray();
         int cost = 0;
+        bool modeNotThesaurus = learningMode != LearningModeType.Thesaurus;
         for(int i = 0; i < learningStates.Length; i++)
         {
             LearningState state = learningStates[i];
-            Func<Word, bool> predicate = x => x.LearningStateInModes[learningMode].CustomHasFlag(state) 
+            Func<Word, bool> predicate = x => (modeNotThesaurus ? x.LearningStatus : x.LearningStateInModes[learningMode]).CustomHasFlag(state) 
                                               || (x.VocabularyReferences != null 
                                                   && x.VocabularyReferences.Any(y => y.LearningStateInModes[learningMode].CustomHasFlag(state)));
-            if(state == LearningState.VeryHard)
+            
+            // ReSharper disable once ConvertIfStatementToSwitchStatement
+            if (state == LearningState.NotAsked)
+            {
+                predicate = x => (modeNotThesaurus ? x.LearningStatus : x.LearningStateInModes[learningMode]) == state
+                                     || (x.VocabularyReferences != null
+                                         && x.VocabularyReferences.Any(y => y.LearningStateInModes[learningMode] == state));
+            }
+            else if(state == LearningState.VeryHard)
             {
                 var predicateCopy = predicate;
                 predicate = x => (x.IsDifficult || predicateCopy(x));

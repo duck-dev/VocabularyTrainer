@@ -41,8 +41,8 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         _answerColor = this.AnswerColor = _blackColor;
         this.IsSolutionShown = false;
         this.IsAnswerMode = true;
-        this.KnownWords = WordsList.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags));
-        this.WrongWords = WordsList.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags));
+        this.KnownWords = WordsList.Count(x => x.LearningStatus.CustomHasFlag(KnownFlags));
+        this.WrongWords = WordsList.Count(x => x.LearningStatus.CustomHasFlag(WrongFlags));
     }
         
     protected internal SolidColorBrush AnswerColor
@@ -142,14 +142,14 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         if(LearningMode == LearningModeType.Thesaurus)
             Utilities.ChangeLearningStateThesaurus(CurrentWord, this, correct);
         else
-            Utilities.ChangeLearningState(CurrentWord, this, correct);
+            Utilities.ChangeLearningState(CurrentWord, this, correct, considerOverallState: true);
     }
         
     protected void ShowSolution()
     {
         PossibleDefinitions ??= new List<string> { Definition };
         OpenSolutionPanel(this.DisplayedTerm, string.Join(", ", PossibleDefinitions), false);
-        Utilities.ChangeLearningState(CurrentWord, this, false);
+        Utilities.ChangeLearningState(CurrentWord, this, false, considerOverallState: true);
     }
     
     protected void OpenSolutionPanel(string? term, string? definition, bool answerCorrect)
@@ -180,7 +180,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
 
     internal void CountCorrect()
     {
-        Utilities.ChangeLearningState(CurrentWord, this, true);
+        Utilities.ChangeLearningState(CurrentWord, this, true, considerOverallState: true);
         NextWord();
     }
 }

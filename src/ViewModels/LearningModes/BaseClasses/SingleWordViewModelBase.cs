@@ -99,7 +99,13 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             CurrentLesson.LearningModeSettings.ProgressiveLearningInModes[LearningMode] = value;
             DataManager.SaveData();
 
-            if (value == true || !_progressiveLearningOptionInitialized) 
+            if (!_progressiveLearningOptionInitialized)
+            {
+                _progressiveLearningOptionInitialized = true;
+                return;
+            }
+
+            if (value == true)
                 return;
 
             if (ShuffleWordsAutomatically)
@@ -169,7 +175,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         Word previousWord = WordsList[oldIndex];
         LearningState knownState = previousWord.LearningStateInModes[this.LearningMode];
         if(knownState.CustomHasFlag(LearningState.NotAsked))
-            Utilities.RemoveLearningState(previousWord, this, LearningState.NotAsked);
+            Utilities.RemoveLearningState(previousWord, this, LearningState.NotAsked, considerOverallState: false);
     }
     
     protected virtual void PickWordProgressive()
@@ -232,7 +238,7 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         DataManager.SaveData();
     }
 
-    protected virtual void InitCurrentWord()
+    protected void InitCurrentWord()
     {
         if (ProgressiveLearningEnabled)
         {
@@ -272,7 +278,6 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             this.AskDefinition = settings.AskDefinitionInModes[LearningMode];
         if(settings.ProgressiveLearningInModes.ContainsKey(LearningMode))
             this.ProgressiveLearningEnabled = settings.ProgressiveLearningInModes[LearningMode];
-        _progressiveLearningOptionInitialized = true;
         InitializeSettings();
 
         if(initializeWords)
@@ -305,6 +310,6 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
     {
         this.SeenWords = 0;
         foreach (var word in WordsList)
-            Utilities.AddLearningState(word, this, LearningState.NotAsked);
+            Utilities.AddLearningState(word, this, LearningState.NotAsked, considerOverallState: false);
     }
 }
