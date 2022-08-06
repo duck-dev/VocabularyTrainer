@@ -95,6 +95,10 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
     protected override void Initialize(bool initializeWords)
     {
+        LearningModeOptions settings = CurrentLesson.LearningModeSettings;
+        if(settings.ProgressiveLearningInModes.ContainsKey(LearningMode))
+            this.ProgressiveLearningEnabled = settings.ProgressiveLearningInModes[LearningMode];
+        
         SetLearningMode(LearningModeType.Thesaurus, "Synonyms and Antonyms");
         ConstructThesaurusItems();
         InitCurrentWord();
