@@ -51,23 +51,20 @@ public static partial class Utilities
             else if(state == LearningState.VeryHard)
             {
                 var predicateCopy = predicate;
-                predicate = x => (x.IsDifficult || predicateCopy(x));
+                predicate = x => x.IsDifficult || predicateCopy(x);
             }
-
+    
             List<Word> category = wordsList.Where(predicate).ToList();
             if (category.Count <= 0)
             {
                 if (cost != 0)
-                    cost = CalculateLimit(i, cost, categoryLimits);
+                    cost = CalculateLimit(i, cost);
                 continue;
             }
             
-            int limit;
-            if (categoryLimits.Count <= 1) // One element (value: 0) is already included by default (in object-initializer)
-                limit = (int)(i == 0 ? _categoryProportions[i] : _categoryProportions[i-1] * _categoryProportions[i]);
-            else
-                limit = CalculateLimit(i, cost, categoryLimits) - cost + categoryLimits[^1];
+            int limit = CalculateLimit(i, categoryLimits.Count <= 1 ? 0 : cost) - cost + categoryLimits[^1];
             cost = limit;
+
             categoryLimits.Add(limit);
             categories.Add(category);
         }
@@ -75,13 +72,10 @@ public static partial class Utilities
         return categories;
 
         // Local function that calculates the next value in `categoryLimits`
-        int CalculateLimit(int i, int lastValue, List<int> categoryLimits)
-        {
-            int lastIndex = lastValue == categoryLimits[^1] ? 2 : 1;
-            return (int)(lastValue + (lastValue - categoryLimits[^lastIndex]) * _categoryProportions[i]);
-        }
+        int CalculateLimit(int i, int oldValue) // Last calculated value + (proportions[0] * proportions[1] * ... * proportions[i]
+            => (int)(oldValue + _categoryProportions.Take(i + 1).Aggregate(1f, (a, b) => a * b));
     }
-    
+
     /// <summary>
     /// Picks a random category with specified probabilities to be chosen for each category.
     /// </summary>
