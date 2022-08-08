@@ -7,6 +7,9 @@ namespace VocabularyTrainer.UtilityCollection;
 
 public static partial class Utilities
 {
+    public const LearningState KnownFlags = LearningState.KnownOnce | LearningState.KnownPerfectly;
+    public const LearningState WrongFlags = LearningState.WrongOnce | LearningState.VeryHard;
+    
     /// <summary>
     /// Add a specific <see cref="LearningState"/> to a <see cref="Word"/> in a specific learning mode.
     /// </summary>

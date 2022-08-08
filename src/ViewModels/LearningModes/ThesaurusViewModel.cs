@@ -29,12 +29,12 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
         this.AskSynonyms = settings.AskSynonyms;
         this.AskAntonyms = settings.AskAntonyms;
         
-        this.KnownWords = WordsList.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags) 
+        this.KnownWords = WordsList.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(Utilities.KnownFlags) 
                                                || (x.VocabularyReferences != null 
-                                               && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(KnownFlags))));
-        this.WrongWords = WordsList.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags) 
+                                               && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(Utilities.KnownFlags))));
+        this.WrongWords = WordsList.Count(x => x.LearningStateInModes[LearningMode].CustomHasFlag(Utilities.WrongFlags) 
                                                || (x.VocabularyReferences != null 
-                                                   && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(WrongFlags))));
+                                                   && x.VocabularyReferences.Any(y => y.LearningStateInModes[LearningMode].CustomHasFlag(Utilities.WrongFlags))));
     }
 
     private bool AskSynonyms

@@ -13,9 +13,6 @@ namespace VocabularyTrainer.ViewModels.LearningModes;
 
 public abstract class AnswerViewModelBase : SingleWordViewModelBase
 {
-    protected const LearningState KnownFlags = LearningState.KnownOnce | LearningState.KnownPerfectly;
-    protected const LearningState WrongFlags = LearningState.WrongOnce | LearningState.VeryHard;
-
     private string _answer = string.Empty;
     private bool _isSolutionShown;
     private SolutionPanelViewModel? _solutionPanel;
@@ -41,8 +38,8 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         _answerColor = this.AnswerColor = _blackColor;
         this.IsSolutionShown = false;
         this.IsAnswerMode = true;
-        this.KnownWords = WordsList.Count(x => x.LearningStatus.CustomHasFlag(KnownFlags));
-        this.WrongWords = WordsList.Count(x => x.LearningStatus.CustomHasFlag(WrongFlags));
+        this.KnownWords = WordsList.Count(x => x.LearningStatus.CustomHasFlag(Utilities.KnownFlags));
+        this.WrongWords = WordsList.Count(x => x.LearningStatus.CustomHasFlag(Utilities.WrongFlags));
     }
         
     protected internal SolidColorBrush AnswerColor
@@ -90,14 +87,14 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
     protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState)
     {
         base.VisualizeLearningProgress(previousState, newState);
-        if (newState.CustomHasFlag(KnownFlags) && !previousState.CustomHasFlag(KnownFlags))
+        if (newState.CustomHasFlag(Utilities.KnownFlags) && !previousState.CustomHasFlag(Utilities.KnownFlags))
         {
-            if (previousState.CustomHasFlag(WrongFlags))
+            if (previousState.CustomHasFlag(Utilities.WrongFlags))
                 this.WrongWords--;
             this.KnownWords++;
-        } else if (newState.CustomHasFlag(WrongFlags) && !previousState.CustomHasFlag(WrongFlags))
+        } else if (newState.CustomHasFlag(Utilities.WrongFlags) && !previousState.CustomHasFlag(Utilities.WrongFlags))
         {
-            if (previousState.CustomHasFlag(KnownFlags))
+            if (previousState.CustomHasFlag(Utilities.KnownFlags))
                 this.KnownWords--;
             this.WrongWords++;
         }
