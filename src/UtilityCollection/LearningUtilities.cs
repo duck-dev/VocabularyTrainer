@@ -17,7 +17,7 @@ public static partial class Utilities
     /// <summary>
     /// An array of factors with which proportions are created for the choice of a random category with weightings.
     /// </summary>
-    private static readonly float[] _categoryProportions = { 1, 2, 1.5f, 2, 1.5f }; // 1:2:3:6:9
+    private static readonly float[] _categoryProportions = { 1, 2, 2, 1.25f, 1.4f }; // 1:2:4:5:7 (categories grouped together: 3:4:12)
 
     /// <summary>
     /// Categorize words based on their learning state.
@@ -72,8 +72,8 @@ public static partial class Utilities
         return categories;
 
         // Local function that calculates the next value in `categoryLimits`
-        int CalculateLimit(int i, int oldValue) // Last calculated value + (proportions[0] * proportions[1] * ... * proportions[i]
-            => (int)(oldValue + _categoryProportions.Take(i + 1).Aggregate(1f, (a, b) => a * b));
+        int CalculateLimit(int i, int oldValue) // Last calculated value + (proportions[0] * proportions[1] * ... * proportions[i])
+            => (int)Math.Round(oldValue + _categoryProportions.Take(i + 1).Aggregate(1f, (a, b) => a * b));
     }
 
     /// <summary>
