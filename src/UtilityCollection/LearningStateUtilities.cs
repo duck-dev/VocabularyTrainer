@@ -69,7 +69,7 @@ public static partial class Utilities
         newState = known ? newState.Next(false, LearningState.NotAsked) 
             : newState.Previous(false, LearningState.NotAsked);
         
-        ApplyModifications(item, newState, learningMode, learningMode != LearningModeType.Thesaurus || considerOverallState);
+        ApplyModifications(item, newState, learningMode, considerOverallState);
         if(visualize)
             singleWordViewModel.VisualizeLearningProgress(originalState, newState);
     }
@@ -90,7 +90,7 @@ public static partial class Utilities
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
         LearningState previousState = considerOverallState && item is Word word ? word.LearningStatus : item.LearningStateInModes[learningMode];
-        ApplyModifications(item, result, learningMode, learningMode != LearningModeType.Thesaurus || considerOverallState);
+        ApplyModifications(item, result, learningMode, considerOverallState);
         if(visualize)
             singleWordViewModel.VisualizeLearningProgress(previousState, result);
     }
@@ -145,6 +145,9 @@ public static partial class Utilities
     /// should be changed or not.</param>
     private static void ApplyModifications(VocabularyItem item, LearningState result, LearningModeType mode, bool setOverallStatus = true)
     {
+        if (mode == LearningModeType.Thesaurus)
+            setOverallStatus = false;
+        
         if(setOverallStatus && item is Word word)
             word.LearningStatus = result;
         item.LearningStateInModes[mode] = result;
