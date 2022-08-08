@@ -102,27 +102,7 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
             NotifyPropertyChanged(nameof(DataChanged));
         }
     }
-
-    private string ChangedName
-    {
-        get => _changedName;
-        set
-        {
-            _changedName = value.Trim();
-            NotifyPropertyChanged(nameof(DataChanged));
-        }
-    }
-
-    private string ChangedDescription
-    {
-        get => _changedDescription;
-        set
-        {
-            _changedDescription = value.Trim();
-            NotifyPropertyChanged(nameof(DataChanged));
-        }
-    }
-
+    
     internal bool DataChanged
     {
         get
@@ -144,7 +124,27 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
                    || !this.ChangedOptions.Equals(this.Options);
         }
     }
-        
+
+    private string ChangedName
+    {
+        get => _changedName;
+        set
+        {
+            _changedName = value.Trim();
+            NotifyPropertyChanged(nameof(DataChanged));
+        }
+    }
+
+    private string ChangedDescription
+    {
+        get => _changedDescription;
+        set
+        {
+            _changedDescription = value.Trim();
+            NotifyPropertyChanged(nameof(DataChanged));
+        }
+    }
+
     internal static Dictionary<LearningModeType, bool> InitShuffledDictionary()
     {
         var dict = new Dictionary<LearningModeType, bool>();
