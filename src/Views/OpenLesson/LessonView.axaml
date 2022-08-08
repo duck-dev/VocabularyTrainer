@@ -70,7 +70,7 @@
                              VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                              AcceptsReturn="False" AcceptsTab="False"/>
                 </Grid>
-                <views:LessonOptions Grid.Row="1" Margin="0,15,0,0"/>
+                <views:LessonOptionsView Grid.Row="1" Margin="0,15,0,0"/>
                 <TextBlock Grid.Row="2" Classes="add-page-heading" Margin="0,30,0,0">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Words ({0} {1}):">

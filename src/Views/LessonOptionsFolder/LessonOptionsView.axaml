@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="VocabularyTrainer.Views.LessonOptions">
+             x:Class="VocabularyTrainer.Views.LessonOptionsView">
 
     <Expander ExpandDirection="Down" Padding="0">
         <Expander.Header>
