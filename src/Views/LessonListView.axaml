@@ -79,10 +79,10 @@
                                     <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="20,10,20,0"
                                           HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                         <Slider Grid.Column="0" Classes="progress-slider"
-                                                Minimum="0" Maximum="{Binding VocabularyItems.Count}" Value="1"
-                                                Foreground="{StaticResource MainGreen}"/> <!-- Replace `Value` with [Known Words] -->
-                                        <TextBlock Grid.Column="1" Text="50%" FontSize="26" Margin="20,0,0,0"
-                                                   VerticalAlignment="Center"/> <!-- Replace with percentage -->
+                                                Minimum="0" Maximum="{Binding VocabularyItems.Count}"
+                                                Value="{Binding KnownWords}" Foreground="{StaticResource MainGreen}"/>
+                                        <TextBlock Grid.Column="1" FontSize="26" Margin="20,0,0,0" VerticalAlignment="Center"
+                                                   Text="{Binding Path=KnownPercentage, StringFormat='{}{0}%'}"/>
                                     </Grid>
                                 </Grid>
                             </Grid>
