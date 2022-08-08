@@ -53,7 +53,7 @@
                     <TextBox Grid.Row="1" Classes="add-page-textbox" Watermark="A quick description..." MaxLength="150"
                              VerticalContentAlignment="Top" Height="120" Text="{Binding CurrentDescription}"
                              TextWrapping="Wrap" Margin="0,7.5,0,15"/>
-                    <views:LessonOptions Grid.Row="2" Margin="0,0,0,15"/>
+                    <views:LessonOptionsView Grid.Row="2" Margin="0,0,0,15"/>
                     <Grid Grid.Row="3" RowDefinitions="Auto,Auto,Auto">
                         <TextBlock Grid.Row="0" Classes="add-page-heading">
                             <TextBlock.Text>
