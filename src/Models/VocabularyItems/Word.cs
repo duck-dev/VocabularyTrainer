@@ -104,6 +104,11 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
                                                            || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
                                                            || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
 
+    internal bool IsFilled => (!string.IsNullOrEmpty(Term) && !string.IsNullOrWhiteSpace(Term))
+                              || (!string.IsNullOrEmpty(Definition) && !string.IsNullOrWhiteSpace(Definition))
+                              || (Synonyms.Any(x => !string.IsNullOrEmpty(x.Definition) && !string.IsNullOrWhiteSpace(x.Definition)))
+                              || (Antonyms.Any(x => !string.IsNullOrEmpty(x.Definition) && !string.IsNullOrWhiteSpace(x.Definition)));
+
     internal bool HasSynonyms => Synonyms.Count > 0;
     internal bool HasAntonyms => Antonyms.Count > 0;
 

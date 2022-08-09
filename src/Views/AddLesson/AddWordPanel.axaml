@@ -33,7 +33,7 @@
                                     <ContentControl.Resources>
                                         <DataTemplate x:Key="ThesaurusItem">
                                             <Grid ColumnDefinitions="1*,1*,1*" HorizontalAlignment="Stretch" Margin="0,5">
-                                                <Grid Grid.Column="1" ColumnDefinitions="*, Auto">
+                                                <Grid Grid.Column="1" ColumnDefinitions="*,Auto">
                                                     <TextBox Grid.Column="0" Classes="add-page-textbox word-textbox"
                                                              Height="40" Watermark="Term" HorizontalAlignment="Stretch"
                                                              Margin="10,0" BorderThickness="0,0,0,3"
