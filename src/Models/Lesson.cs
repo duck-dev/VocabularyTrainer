@@ -89,7 +89,11 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
     public LessonOptions Options
     {
         get => _options;
-        set => this.ChangedOptions = _options = value;
+        private set
+        {
+            _options = new LessonOptions(value);
+            ChangedOptions = value;
+        } 
     }
     
     public LearningModeOptions LearningModeSettings { get; set; }
@@ -99,7 +103,7 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
         get => _changedOptions;
         set
         {
-            _changedOptions = value;
+            _changedOptions = new LessonOptions(value);
             NotifyPropertyChanged(nameof(DataChanged));
         }
     }
@@ -161,7 +165,7 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
     internal static Dictionary<LearningModeType, bool> InitShuffledDictionary()
     {
         var dict = new Dictionary<LearningModeType, bool>();
-        foreach(LearningModeType value in Enum.GetValues(typeof(LearningModeType)))
+        foreach(LearningModeType value in Enum.GetValues<LearningModeType>())
             dict.Add(value, false);
             
         return dict;
@@ -172,9 +176,9 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
         
     public void DiscardChanges()
     {
-        this.ChangedName = this.Name;
-        this.ChangedDescription = this.Description;
-        this.ChangedOptions = this.Options;
+        this.ChangedName = Name;
+        this.ChangedDescription = Description;
+        this.ChangedOptions = Options;
         this.VocabularyItems = new ObservableCollection<Word>(this.VocabularyItems.Where(x => !_changedWords.Contains(x)));
         foreach (var word in _changedWords.Where(word => word.ChangedAction == NotifyCollectionChangedAction.Remove).ToArray())
             this.VocabularyItems.Add(word);

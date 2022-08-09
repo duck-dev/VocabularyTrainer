@@ -49,7 +49,7 @@ public abstract class LessonViewModelBase : ViewModelBase
     protected LessonOptions CurrentOptions
     {
         get => _currentOptions;
-        set => this.RaiseAndSetIfChanged(ref _currentOptions, value);
+        set => this.RaiseAndSetIfChanged(ref _currentOptions, new LessonOptions(value));
     }
 
     protected bool IndividualSettingsEnabled
@@ -70,9 +70,7 @@ public abstract class LessonViewModelBase : ViewModelBase
 
     protected virtual void ChangeTolerance(ErrorTolerance newTolerance)
     {
-        if (newTolerance == ErrorTolerance.Custom) 
-            return;
-        var newOptions = LessonOptions.MatchTolerance(newTolerance);
+        var newOptions = newTolerance == ErrorTolerance.Custom ? new LessonOptions(CurrentOptions) : LessonOptions.MatchTolerance(newTolerance);
         newOptions.ViewModel = this;
         this.CurrentOptions = newOptions;
     }

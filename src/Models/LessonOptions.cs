@@ -18,6 +18,38 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
     
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    [JsonConstructor]
+    public LessonOptions(int correctionSteps, bool tolerateSwappedLetters, bool ignoreAccentMarks, bool ignoreHyphens,
+        bool ignorePunctuation, bool ignoreCapitalization)
+    {
+        this.CorrectionSteps = correctionSteps;
+        this.TolerateSwappedLetters = tolerateSwappedLetters;
+        this.IgnoreAccentMarks = ignoreAccentMarks;
+        this.IgnoreHyphens = ignoreHyphens;
+        this.IgnorePunctuation = ignorePunctuation;
+        this.IgnoreCapitalization = ignoreCapitalization;
+    }
+
+    public LessonOptions(int correctionSteps, bool tolerateSwappedLetters, bool ignoreAccentMarks, bool ignoreHyphens,
+        bool ignorePunctuation, bool ignoreCapitalization, LessonViewModelBase? viewModel = null)
+        : this(correctionSteps, tolerateSwappedLetters, ignoreAccentMarks, ignoreHyphens, ignorePunctuation,
+            ignoreCapitalization)
+    {
+        this.ViewModel = viewModel;
+    }
+
+    // Copy constructor
+    public LessonOptions(LessonOptions optionsToCopy)
+    {
+        this.CorrectionSteps = optionsToCopy.CorrectionSteps;
+        this.TolerateSwappedLetters = optionsToCopy.TolerateSwappedLetters;
+        this.IgnoreAccentMarks = optionsToCopy.IgnoreAccentMarks;
+        this.IgnoreHyphens = optionsToCopy.IgnoreHyphens;
+        this.IgnorePunctuation = optionsToCopy.IgnorePunctuation;
+        this.IgnoreCapitalization = optionsToCopy.IgnoreCapitalization;
+        this.ViewModel = optionsToCopy.ViewModel;
+    }
+
     [JsonInclude]
     public int CorrectionSteps
     {
@@ -116,35 +148,11 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
     
     internal LessonViewModelBase? ViewModel { get; set; }
 
-    internal static LessonOptions HighTolerance => new()
-    {
-        CorrectionSteps = 2,
-        TolerateSwappedLetters = true,
-        IgnoreAccentMarks = true,
-        IgnoreHyphens = true,
-        IgnorePunctuation = true,
-        IgnoreCapitalization = true
-    };
-    
-    internal static LessonOptions BalancedTolerance => new()
-    {
-        CorrectionSteps = 1,
-        TolerateSwappedLetters = false,
-        IgnoreAccentMarks = true,
-        IgnoreHyphens = false,
-        IgnorePunctuation = true,
-        IgnoreCapitalization = false
-    };
+    internal static LessonOptions HighTolerance => new(2, true, true, true, true, true);
 
-    internal static LessonOptions LowTolerance => new()
-    {
-        CorrectionSteps = 0,
-        TolerateSwappedLetters = false,
-        IgnoreAccentMarks = false,
-        IgnoreHyphens = false,
-        IgnorePunctuation = false,
-        IgnoreCapitalization = false
-    };
+    internal static LessonOptions BalancedTolerance => new(1, false, true, false, true, false);
+
+    internal static LessonOptions LowTolerance => new(0, false, false, false, false, false);
     
     internal static LessonOptions MatchTolerance(ErrorTolerance tolerance)
     {
@@ -177,7 +185,4 @@ public class LessonOptions : IEquatable<LessonOptions>, INotifyPropertyChangedHe
     public override bool Equals(object? obj) => obj is LessonOptions other && Equals(other);
     public override int GetHashCode() 
         => HashCode.Combine(CorrectionSteps, TolerateSwappedLetters, IgnoreAccentMarks, IgnoreHyphens, IgnorePunctuation, IgnoreCapitalization);
-
-    public static bool operator ==(LessonOptions left, LessonOptions right) => left.Equals(right);
-    public static bool operator !=(LessonOptions left, LessonOptions right) => !(left == right);
 }

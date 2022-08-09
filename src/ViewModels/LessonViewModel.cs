@@ -51,8 +51,7 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
     protected override void ChangeTolerance(ErrorTolerance newTolerance)
     {
         base.ChangeTolerance(newTolerance);
-        if(newTolerance != ErrorTolerance.Custom)
-            CurrentLesson.ChangedOptions = LessonOptions.MatchTolerance(newTolerance);
+        CurrentLesson.ChangedOptions = CurrentOptions;
     }
 
     protected sealed override void Initialize(Lesson? lesson = null)
