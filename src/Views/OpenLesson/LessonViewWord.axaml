@@ -32,7 +32,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Ellipse Fill="Red"/> <!-- Trash icon -->
+                        <Image Source="/Assets/Trash.png"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -148,8 +148,7 @@
             <Button.Template>
                 <ControlTemplate>
                     <Panel>
-                        <Ellipse Fill="{StaticResource MainRed}" Width="45" Height="45"/>
-                        <Image Source="/Assets/avalonia-logo.ico" Width="45" Height="45" RenderTransform="scale(0.6)"/>
+                        <Image Source="/Assets/Trash.png" Width="38" Height="38"/>
                     </Panel>
                 </ControlTemplate>
             </Button.Template>
