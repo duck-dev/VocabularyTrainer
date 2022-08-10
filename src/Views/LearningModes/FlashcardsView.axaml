@@ -76,7 +76,7 @@ Words you have answered correctly will occur less often.
                     Command="{Binding PreviousWord}" HotKey="Left">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="/Assets/avalonia-logo.ico" Width="68" Height="68"/> <!-- Left-Arrow image -->
+                        <Image Source="/Assets/TriangleArrow-Dark.png" Width="68" Height="68"/>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
@@ -148,7 +148,7 @@ Words you have answered correctly will occur less often.
                     Command="{Binding NextWord}" CommandParameter="True" HotKey="Right">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="/Assets/avalonia-logo.ico" Width="68" Height="68"/> <!-- Right-Arrow image -->
+                        <Image Source="/Assets/TriangleArrow-Dark.png" Width="68" Height="68" RenderTransform="rotate(180deg)"/>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
