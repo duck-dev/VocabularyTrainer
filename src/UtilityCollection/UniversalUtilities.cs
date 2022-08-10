@@ -15,6 +15,8 @@ public static partial class Utilities
 {
     public delegate void NotifyItemAddedEventHandler(VocabularyItem item);
     public static event NotifyItemAddedEventHandler? NotifyItemAdded;
+    
+    public const string AssetsPath = "avares://VocabularyTrainer/Assets/";
         
     /// <summary>
     /// The parent path of all settings- and data-files

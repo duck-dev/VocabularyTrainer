@@ -10,14 +10,13 @@ using Avalonia.Platform;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
+using VocabularyTrainer.UtilityCollection;
 using VocabularyTrainer.ViewModels;
 
 namespace VocabularyTrainer.Models;
 
 public class LearningModeItem : INotifyPropertyChangedHelper
 {
-    private const string AssetsPath = "avares://VocabularyTrainer/Assets/";
-    
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public LearningModeItem(string iconFileName, string name, string description, Action clickAction, LearningModeType learningMode)
@@ -55,7 +54,7 @@ public class LearningModeItem : INotifyPropertyChangedHelper
 
     private static Bitmap? CreateImage(string fileName)
     {
-        string path = $"{AssetsPath}{fileName}";
+        string path = $"{Utilities.AssetsPath}{fileName}";
         var uri = new Uri(path);
         
         Stream? asset = null;
