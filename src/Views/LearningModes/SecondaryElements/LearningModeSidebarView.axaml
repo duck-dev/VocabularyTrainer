@@ -92,9 +92,9 @@
                     <Button.Template>
                         <ControlTemplate>
                             <Grid ColumnDefinitions="Auto,Auto">
-                                <Image Grid.Column="0" Source="/Assets/avalonia-logo.ico" Width="30" Height="30"
-                                       Margin="0,0,15,0" VerticalAlignment="Center"/> <!-- Back-Button image red -->
-                                <TextBlock Grid.Column="1" FontSize="32" Foreground="{StaticResource MainRed}"
+                                <Image Grid.Column="0" Source="/Assets/Arrow-Filled-Red.png" Width="38" Height="38"
+                                       Margin="0,0,15,0" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" FontSize="32" Foreground="{StaticResource SoftRed}"
                                            FontWeight="Bold" Text="Back to lesson" VerticalAlignment="Center"/>
                             </Grid>
                         </ControlTemplate>

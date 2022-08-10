@@ -23,6 +23,9 @@
               <SolidColorBrush x:Key="MainRed" Color="#FF0000"/>
               <SolidColorBrush x:Key="MainYellow" Color="#FCC100"/>
               
+              <SolidColorBrush x:Key="SoftRed" Color="#AA4949"/>
+              <SolidColorBrush x:Key="SoftGreen" Color="#49AA7F"/>
+              
               <SolidColorBrush x:Key="LightRedContextMenu" Color="#D4735B"/>
               <SolidColorBrush x:Key="DarkerLightRedContextMenu" Color="#C96047"/>
               
