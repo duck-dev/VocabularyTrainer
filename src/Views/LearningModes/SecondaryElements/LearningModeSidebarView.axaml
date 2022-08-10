@@ -80,7 +80,7 @@
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid ColumnDefinitions="Auto,Auto">
-                                <Image Grid.Column="0" Source="/Assets/Shuffle-Green.png" Width="38" Height="38"
+                                <Image Grid.Column="0" Source="{Binding ShuffleIcon}" Width="38" Height="38"
                                        Margin="0,0,15,0" VerticalAlignment="Center"/>
                                 <TextBlock Grid.Column="1" FontSize="32" Foreground="{TemplateBinding Button.Foreground}"
                                            FontWeight="Bold" Text="Shuffle words" VerticalAlignment="Center"/>

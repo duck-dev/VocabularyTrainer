@@ -1,20 +1,32 @@
 using System;
 using System.Linq;
+using Avalonia.Media.Imaging;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.ViewModels.LearningModes;
 
 public abstract class LearningModeViewModelBase : ViewModelBase
 {
+    private const string NormalShuffleIconPath = $"{Utilities.AssetsPath}Shuffle-Green.png";
+    private const string DisabledShuffleIconPath = $"{Utilities.AssetsPath}Shuffle-Disabled.png";
+    
     private bool _shuffleButtonEnabled;
     private bool _shuffleWordsAutomatically;
     private bool _isSeenWordsEnabled;
     private Word[] _wordsList = Array.Empty<Word>();
+    private Bitmap? _shuffleIcon;
+
+    private readonly Bitmap? _normalShuffleIcon;
+    private readonly Bitmap? _disabledShuffleIcon;
         
     protected LearningModeViewModelBase(Lesson lesson)
     {
+        _normalShuffleIcon = Utilities.CreateImage(NormalShuffleIconPath);
+        _disabledShuffleIcon = Utilities.CreateImage(DisabledShuffleIconPath);
+        
         this.CurrentLesson = lesson;
         WordsList = lesson.VocabularyItems.ToArray();
         foreach (Word word in WordsList)
@@ -35,7 +47,11 @@ public abstract class LearningModeViewModelBase : ViewModelBase
     protected bool ShuffleButtonEnabled
     {
         get => _shuffleButtonEnabled;
-        set => this.RaiseAndSetIfChanged(ref _shuffleButtonEnabled, value);
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _shuffleButtonEnabled, value);
+            ShuffleIcon = value == true ? _normalShuffleIcon : _disabledShuffleIcon;
+        }
     }
         
     protected bool IsAnswerMode { get; init; }
@@ -57,7 +73,13 @@ public abstract class LearningModeViewModelBase : ViewModelBase
         }
     }
 
-    protected virtual bool ShufflingAllowed => true; 
+    protected virtual bool ShufflingAllowed => true;
+
+    protected Bitmap? ShuffleIcon
+    {
+        get => _shuffleIcon; 
+        private set => this.RaiseAndSetIfChanged(ref _shuffleIcon, value);
+    }
 
     protected void ReturnToLesson()
     {
