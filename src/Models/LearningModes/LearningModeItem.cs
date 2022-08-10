@@ -21,7 +21,7 @@ public class LearningModeItem : INotifyPropertyChangedHelper
 
     public LearningModeItem(string iconFileName, string name, string description, Action clickAction, LearningModeType learningMode)
     {
-        this.ModeIcon = CreateImage(iconFileName);
+        this.ModeIcon = Utilities.CreateImage($"{Utilities.AssetsPath}{iconFileName}");
         this.Name = name;
         this.Description = description;
         this.ClickCommand = ReactiveCommand.Create(clickAction);
@@ -52,25 +52,6 @@ public class LearningModeItem : INotifyPropertyChangedHelper
         }
     }
 
-    private static Bitmap? CreateImage(string fileName)
-    {
-        string path = $"{Utilities.AssetsPath}{fileName}";
-        var uri = new Uri(path);
-        
-        Stream? asset = null;
-        try
-        {
-            IAssetLoader? assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            asset = assets?.Open(uri);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
-
-        return asset is null ? null : new Bitmap(asset);
-    }
-        
     public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

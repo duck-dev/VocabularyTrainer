@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Styling;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
@@ -138,5 +142,27 @@ public static partial class Utilities
     {
         var styleInclude = element?.Styles[styleIndex] as StyleInclude;
         return (styleInclude?.Loaded is Style style ? GetResource<TResource>(style, resourceName) : null);
+    }
+    
+    /// <summary>
+    /// Creates a <see cref="Bitmap"/> image, based on an image-file whose path is specified as a passed argument.
+    /// </summary>
+    /// <param name="path">The path of the image-file.</param>
+    /// <returns>The <see cref="Bitmap"/> image or null if the operation was successful due to a wrong path for example.</returns>
+    public static Bitmap? CreateImage(string path)
+    {
+        var uri = new Uri(path);
+        Stream? asset = null;
+        try
+        {
+            IAssetLoader? assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
+            asset = assets?.Open(uri);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
+        return asset is null ? null : new Bitmap(asset);
     }
 }
