@@ -9,16 +9,16 @@ public sealed class LearningModesViewModel : ViewModelBase
 {
     private LearningModeItem[] LearningModes { get; } =
     {
-        new ("avalonia-logo.ico", "Flashcards", "Memorize vocabulary super fast by flipping flashcards.",
+        new ("Flashcards.png", "Flashcards", "Memorize vocabulary super fast by flipping flashcards.",
             OpenLearningMode<FlashcardsViewModel>, LearningModeType.Flashcards),
-        new ("avalonia-logo.ico", "Write", 
+        new ("Write-Dark.png", "Write", 
             "The best solution to learn the exact spelling of a word and it's quite similar to an exam too.",
             OpenLearningMode<WriteViewModel>, LearningModeType.Write),
-        new ("avalonia-logo.ico", "Multiple Choice", "Choose from 4 options and pick the correct answer.",
+        new ("MultipleChoice-Dark.png", "Multiple Choice", "Choose from 4 options and pick the correct answer.",
             OpenLearningMode<MultipleChoiceViewModel>, LearningModeType.MultipleChoice),
-        new ("avalonia-logo.ico", "Synonyms and Antonyms", "Focus on learning synonyms and antonyms only.",
+        new ("SynonymsAndAntonyms-Vertical-Dark.png", "Synonyms and Antonyms", "Focus on learning synonyms and antonyms only.",
             OpenLearningMode<ThesaurusViewModel>, LearningModeType.Thesaurus),
-        new ("avalonia-logo.ico", "Vocabulary list", 
+        new ("List-Dark.png", "Vocabulary list", 
             "Do you prefer just looking at a list of words with their term and definition? Then this is your choice.",
             OpenLearningMode<VocabularyListViewModel>, LearningModeType.VocabularyList),
     };
