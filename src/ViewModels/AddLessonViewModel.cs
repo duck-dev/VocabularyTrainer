@@ -60,6 +60,6 @@ public sealed class AddLessonViewModel : LessonViewModelBase, IVocabularyContain
         var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems, Lesson.InitShuffledDictionary(), 
             CurrentOptions, new LearningModeOptions(), false);
         DataManager.AddData(lesson);
-        MainViewModel?.ReturnHome();
+        MainViewModel?.ReturnHome(false);
     }
 }
