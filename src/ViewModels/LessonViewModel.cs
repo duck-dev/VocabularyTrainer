@@ -78,10 +78,4 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
         CurrentLesson.SaveChanges();
         DataManager.SaveData();
     }
-
-    // private void DebugUnsavedChanges()
-    // {
-    //     UtilityCollection.Utilities.Log("--------------------------------------------------------------------");
-    //     CurrentLesson.DebugUnsavedChanges();
-    // }
 }

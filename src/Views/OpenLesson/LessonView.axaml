@@ -31,8 +31,6 @@
     </UserControl.Styles>
 
     <Grid ColumnDefinitions="2.5*,7.5*" Margin="0,40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <!-- <Button Grid.Column="1" Command="{Binding DebugUnsavedChanges}" HotKey="Enter" -->
-        <!--         IsVisible="False"/> --> <!-- Only for debugging purposes -->
         <openLesson:LearningModesView Grid.Column="0" HorizontalAlignment="Stretch"/>
         <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

@@ -220,15 +220,5 @@ public class Lesson : IVocabularyContainer<Word>, INotifyPropertyChangedHelper
         if (args.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
             NotifyPropertyChanged(nameof(DataChanged));
         InvokeNotifyChanges();
-    } 
-        
-    // internal void DebugUnsavedChanges()
-    // {
-    //     Utilities.Log("Lesson:\n-------");
-    //     foreach(var x in _changedWords)
-    //         Utilities.Log($"      • {x.ChangedTerm} ({x.Term}) ---- {x.ChangedDefinition} ({x.Definition})");
-    //     Utilities.Log(" ");
-    //     foreach (var y in VocabularyItems)
-    //         y.DebugUnsavedChanges();
-    // }
+    }
 }
