@@ -13,7 +13,7 @@
                 <StackPanel Orientation="Vertical">
                     <views:LessonOptionItem Description="Toggle progressive learning" IsInlined="True">
                         <views:LessonOptionItem.TooltipText>
-                            If progressive learning is enabled, the focus will be placed on asking words that you do not know well, followed by words that haven't been asked yet with a slightly lower frequency. 
+                            When progressive learning is enabled, the focus is placed on asking words that you don't know well, followed by words that haven't been asked yet with a slightly lower frequency. 
 Words you have answered correctly will occur less often.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>

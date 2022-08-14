@@ -13,7 +13,7 @@
     <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,12.5">
         <WrapPanel Classes="no-elements-panel" IsEnabled="{Binding EmptyCollection}" IsVisible="{Binding EmptyCollection}">
             <TextBlock Classes="no-elements-text" Margin="0,0,8,0">
-                There are no lessons yet. You can add a new lesson by using the blue button
+                There are no lessons available yet. You can add a new lesson by using the blue button
             </TextBlock>
             <StackPanel Classes="no-elements-panel">
                 <Viewbox Width="40" Height="40" VerticalAlignment="Center">

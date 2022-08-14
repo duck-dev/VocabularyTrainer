@@ -50,7 +50,7 @@
                       Margin="20,0">
                     <TextBox Grid.Row="0" Classes="add-page-textbox" Watermark="Name of the lesson" MaxLength="35"
                              Text="{Binding CurrentName}" Margin="0,15,0,7.5"/>
-                    <TextBox Grid.Row="1" Classes="add-page-textbox" Watermark="A quick description..." MaxLength="150"
+                    <TextBox Grid.Row="1" Classes="add-page-textbox" Watermark="A brief description..." MaxLength="150"
                              VerticalContentAlignment="Top" Height="120" Text="{Binding CurrentDescription}"
                              TextWrapping="Wrap" Margin="0,7.5,0,15"/>
                     <views:LessonOptionsView Grid.Row="2" Margin="0,0,0,15"/>

@@ -45,7 +45,7 @@ public sealed class AddLessonViewModel : LessonViewModelBase, IVocabularyContain
         MainViewModel.CurrentDialog = new ConfirmationDialogViewModel(dialogTitle,
             new [] { Color.Parse("#D64045"), Color.Parse("#808080") },
             new[] { Colors.White, Colors.White },
-            new[] { "Yes, proceeding without creating the lesson!", "Cancel" },
+            new[] { "Yes, proceed without creating the lesson!", "Cancel" },
             confirmAction);
     }
 

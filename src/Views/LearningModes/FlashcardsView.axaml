@@ -22,7 +22,7 @@
                 <StackPanel Orientation="Vertical">
                     <views:LessonOptionItem Description="Toggle progressive learning" IsInlined="True">
                         <views:LessonOptionItem.TooltipText>
-                            If progressive learning is enabled, the focus will be placed on asking words that you do not know well, followed by words that haven't been asked yet with a slightly lower frequency. 
+                            When progressive learning is enabled, the focus is placed on asking words that you don't know well, followed by words that haven't been asked yet with a slightly lower frequency. 
 Words you have answered correctly will occur less often.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
@@ -32,7 +32,7 @@ Words you have answered correctly will occur less often.
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ask Term" IsInlined="True" Margin="0,10,0,0">
                         <views:LessonOptionItem.TooltipText>
-                            Should the program display the Term and you have to answer with the Definition? Both can be ticked.
+                            Should the program display the term and you have to answer with the definition? Both can be ticked.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
                             <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
@@ -41,7 +41,7 @@ Words you have answered correctly will occur less often.
                     </views:LessonOptionItem>
                     <views:LessonOptionItem Description="Ask Definition" IsInlined="True" Margin="0,0,0,25">
                         <views:LessonOptionItem.TooltipText>
-                            Should the program display the Definition and you have to answer with the Term? Both can be ticked.
+                            Should the program display the definition and you have to answer with the term? Both can be ticked.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
                             <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
