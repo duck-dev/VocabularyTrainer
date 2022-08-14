@@ -99,10 +99,11 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         }
     }
 
-    internal bool DataChanged => !ChangedTerm.Equals(Term) || !ChangedDefinition.Equals(Definition) 
-                                                           || Synonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition)) 
-                                                           || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
-                                                           || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
+    internal bool DataChanged => !ChangedTerm.Equals(Term)
+                                 || !ChangedDefinition.Equals(Definition)
+                                 || Synonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
+                                 || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
+                                 || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
 
     internal bool IsFilled => (!string.IsNullOrEmpty(Term) && !string.IsNullOrWhiteSpace(Term))
                               || (!string.IsNullOrEmpty(Definition) && !string.IsNullOrWhiteSpace(Definition))
