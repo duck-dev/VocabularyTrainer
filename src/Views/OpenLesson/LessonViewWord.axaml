@@ -107,7 +107,28 @@
                          Text="{Binding ChangedTerm}"/>
                 <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox main-textbox" Watermark="Definition"
                          Text="{Binding ChangedDefinition}"/>
-                <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Items="{Binding ThesaurusTitleDefinitions}">
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" 
+                      Margin="0,15,0,0">
+                    <TextBlock Grid.Column="0" FontSize="16" FontWeight="Bold" Foreground="{StaticResource AppBlue}" 
+                               VerticalAlignment="Center" Text="Part of speech:" Margin="0,0,15,0"/>
+                    <ComboBox Grid.Column="1" PlaceholderText="No part of speech selected" PlaceholderForeground="{StaticResource MainGrey}"
+                              MaxDropDownHeight="150" SelectedIndex="{Binding PartOfSpeechIndex}" AutoScrollToSelectedItem="True"
+                              Items="{Binding PartsOfSpeech}" HorizontalAlignment="Center" Width="200" BorderThickness="0">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <ComboBoxItem Classes="highlight-no-change" Background="{Binding ColorBrush}" 
+                                              Content="{Binding Name}" VerticalContentAlignment="Center"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+                <ItemsControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Items="{Binding ThesaurusTitleDefinitions}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical"/>
