@@ -27,6 +27,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         
     private int _index;
     private int _partOfSpeechIndex;
+    private int _changedPartOfSpeechIndex;
     private readonly List<VocabularyItem> _changedSynonyms = new();
     private readonly List<VocabularyItem> _changedAntonyms = new();
     private readonly PartOfSpeech[] _partsOfSpeech = Enum.GetValues<PartOfSpeech>();
@@ -96,8 +97,8 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         get => _partOfSpeechIndex;
         set
         {
-            _partOfSpeechIndex = value;
-            SelectedPartOfSpeech = _partsOfSpeech[value];
+            _partOfSpeechIndex = ChangedPartOfSpeechIndex = value;
+            NotifyPropertyChanged(nameof(SelectedPartOfSpeech));
         }
     }
 
@@ -116,19 +117,31 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
 
     internal bool DataChanged => !ChangedTerm.Equals(Term)
                                  || !ChangedDefinition.Equals(Definition)
+                                 || ChangedPartOfSpeechIndex != PartOfSpeechIndex
                                  || Synonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
                                  || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
                                  || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
 
     internal bool IsFilled => (!string.IsNullOrEmpty(Term) && !string.IsNullOrWhiteSpace(Term))
                               || (!string.IsNullOrEmpty(Definition) && !string.IsNullOrWhiteSpace(Definition))
+                              || (SelectedPartOfSpeech != PartOfSpeech.None)
                               || (Synonyms.Any(x => !string.IsNullOrEmpty(x.Definition) && !string.IsNullOrWhiteSpace(x.Definition)))
                               || (Antonyms.Any(x => !string.IsNullOrEmpty(x.Definition) && !string.IsNullOrWhiteSpace(x.Definition)));
 
     internal bool HasSynonyms => Synonyms.Count > 0;
     internal bool HasAntonyms => Antonyms.Count > 0;
     
-    internal PartOfSpeech SelectedPartOfSpeech { get; set; }
+    internal PartOfSpeech SelectedPartOfSpeech => _partsOfSpeech[_partOfSpeechIndex];
+
+    internal int ChangedPartOfSpeechIndex
+    {
+        get => _changedPartOfSpeechIndex;
+        set
+        {
+            _changedPartOfSpeechIndex = value;
+            InvokeNotifyChanged();
+        }
+    }
 
     internal PartOfSpeechContainer[] PartsOfSpeech { get; } =
     {
@@ -168,6 +181,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         identicalItem = collection.FirstOrDefault(x => x.ChangedAction == NotifyCollectionChangedAction.Remove
                                                        && x.ChangedDefinition.Equals(this.ChangedDefinition)
                                                        && x.ChangedTerm.Equals(this.ChangedTerm)
+                                                       && x.ChangedPartOfSpeechIndex == this.ChangedPartOfSpeechIndex
                                                        && x.Synonyms.SequenceEqual(this.Synonyms)
                                                        && x.Antonyms.SequenceEqual(this.Antonyms));
         return identicalItem is not null && !ReferenceEquals(identicalItem, this);
@@ -177,6 +191,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     {
         base.EqualizeChangedData();
 
+        this.ChangedPartOfSpeechIndex = PartOfSpeechIndex;
         _changedSynonyms.Clear();
         _changedAntonyms.Clear();
             
@@ -190,6 +205,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     {
         return other is not null && other.ChangedTerm.Equals(this.ChangedTerm) && other.Term.Equals(this.Term) 
                && other.ChangedDefinition.Equals(this.ChangedDefinition) && other.Definition.Equals(this.Definition) 
+               && other.ChangedPartOfSpeechIndex == this.ChangedPartOfSpeechIndex
                && other.Synonyms.SequenceEqual(this.Synonyms) && other.Antonyms.SequenceEqual(this.Antonyms);
     }
 
@@ -198,6 +214,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     public override void SaveChanges()
     {
         base.SaveChanges();
+        this.PartOfSpeechIndex = ChangedPartOfSpeechIndex;
         foreach (var item in Synonyms)
             item.SaveChanges();
         foreach (var item in Antonyms)

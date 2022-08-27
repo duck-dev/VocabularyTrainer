@@ -112,7 +112,7 @@
                     <TextBlock Grid.Column="0" FontSize="16" FontWeight="Bold" Foreground="{StaticResource AppBlue}" 
                                VerticalAlignment="Center" Text="Part of speech:" Margin="0,0,15,0"/>
                     <ComboBox Grid.Column="1" PlaceholderText="No part of speech selected" PlaceholderForeground="{StaticResource MainGrey}"
-                              MaxDropDownHeight="150" SelectedIndex="{Binding PartOfSpeechIndex}" AutoScrollToSelectedItem="True"
+                              MaxDropDownHeight="150" SelectedIndex="{Binding ChangedPartOfSpeechIndex}" AutoScrollToSelectedItem="True"
                               Items="{Binding PartsOfSpeech}" HorizontalAlignment="Center" Width="200" BorderThickness="0">
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
