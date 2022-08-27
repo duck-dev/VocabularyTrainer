@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reactive;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
+using Avalonia;
+using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
@@ -24,8 +26,10 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     private ObservableCollection<VocabularyItem> _antonyms = new();
         
     private int _index;
+    private int _partOfSpeechIndex;
     private readonly List<VocabularyItem> _changedSynonyms = new();
     private readonly List<VocabularyItem> _changedAntonyms = new();
+    private readonly PartOfSpeech[] _partsOfSpeech = Enum.GetValues<PartOfSpeech>();
 
     public event PropertyChangedEventHandler? PropertyChanged;
         
@@ -50,11 +54,12 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
 
     [JsonConstructor]
     public Word(ObservableCollection<VocabularyItem> synonyms, ObservableCollection<VocabularyItem> antonyms,
-        LearningState learningStatus) : this()
+        LearningState learningStatus, int partOfSpeechIndex) : this()
     {
         this.Synonyms = synonyms;
         this.Antonyms = antonyms;
         this.LearningStatus = learningStatus;
+        this.PartOfSpeechIndex = partOfSpeechIndex;
 
         foreach (var item in this.Synonyms)
             item.ContainerCollection = this.Synonyms;
@@ -86,6 +91,16 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     
     public LearningState LearningStatus { get; set; }
 
+    public int PartOfSpeechIndex
+    {
+        get => _partOfSpeechIndex;
+        set
+        {
+            _partOfSpeechIndex = value;
+            SelectedPartOfSpeech = _partsOfSpeech[value];
+        }
+    }
+
     [JsonIgnore]
     public int Index
     {
@@ -112,6 +127,26 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
 
     internal bool HasSynonyms => Synonyms.Count > 0;
     internal bool HasAntonyms => Antonyms.Count > 0;
+    
+    internal PartOfSpeech SelectedPartOfSpeech { get; set; }
+
+    internal PartOfSpeechContainer[] PartsOfSpeech { get; } =
+    {
+        new("None", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightGrey", 2) 
+                    ?? new SolidColorBrush(Color.Parse("#A8ADB5"))),
+        new("Noun", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightBrown", 2) 
+                    ?? new SolidColorBrush(Color.Parse("#A8744F"))),
+        new("Verb", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "VeryLightBlue", 2) 
+                    ?? new SolidColorBrush(Color.Parse("#ABBECE"))),
+        new("Adjective", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainYellow", 2) 
+                    ?? new SolidColorBrush(Color.Parse("#FCC100"))),
+        new("Adverb", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "Orange", 2) 
+                         ?? new SolidColorBrush(Color.Parse("#DD9A25"))),
+        new("Pronoun", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "SoftGreen", 2) 
+                      ?? new SolidColorBrush(Color.Parse("#0CA079"))),
+        new("Other", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightGreen", 2) 
+                       ?? new SolidColorBrush(Color.Parse("#91C669")))
+    };
 
     private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
@@ -171,7 +206,7 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         _changedAntonyms.Clear();
     }
     
-    public override object Clone() => new Word(Synonyms, Antonyms, LearningStatus)
+    public override object Clone() => new Word(Synonyms, Antonyms, LearningStatus, PartOfSpeechIndex)
     {
         Term = this.Term,
         Definition = this.Definition,

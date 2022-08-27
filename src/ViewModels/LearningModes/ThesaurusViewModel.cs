@@ -200,7 +200,7 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
                     VocabularyReferences = new List<VocabularyItem> { word }
                 };
 
-                Word newWord = new Word(synonyms, antonyms, LearningState.NotAsked)
+                Word newWord = new Word(synonyms, antonyms, LearningState.NotAsked, (int)PartOfSpeech.None)
                 {
                     Definition = item.Definition,
                     VocabularyReferences = new List<VocabularyItem> { item }
