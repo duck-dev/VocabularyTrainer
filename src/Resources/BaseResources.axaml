@@ -22,9 +22,13 @@
               <SolidColorBrush x:Key="MainGreen" Color="#0CA079"/>
               <SolidColorBrush x:Key="MainRed" Color="#FF0000"/>
               <SolidColorBrush x:Key="MainYellow" Color="#FCC100"/>
+              <SolidColorBrush x:Key="Orange" Color="#DD9A25"/>
               
               <SolidColorBrush x:Key="SoftRed" Color="#AA4949"/>
               <SolidColorBrush x:Key="SoftGreen" Color="#49AA7F"/>
+              
+              <SolidColorBrush x:Key="LightGreen" Color="#91C669"/>
+              <SolidColorBrush x:Key="LightBrown" Color="#A8744F"/>
               
               <SolidColorBrush x:Key="LightRedContextMenu" Color="#D4735B"/>
               <SolidColorBrush x:Key="DarkerLightRedContextMenu" Color="#C96047"/>
