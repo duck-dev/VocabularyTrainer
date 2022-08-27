@@ -73,8 +73,7 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-                <Grid Grid.Row="1" ColumnDefinitions="*,Auto" HorizontalAlignment="Center" VerticalAlignment="Center"
-                      IsVisible="{Binding !IsSolutionShown}">
+                <Grid Grid.Row="1" ColumnDefinitions="*,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Viewbox Grid.Column="0" Height="84" HorizontalAlignment="Right" VerticalAlignment="Center"
                              Margin="0,0,60,0">
                         <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/>
