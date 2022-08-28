@@ -91,22 +91,22 @@
                       MinWidth="520">
                     <Button Grid.Row="0" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button">
                         <Viewbox Classes="multiple-choice-viewbox">
-                            <TextBlock Classes="multiple-choice-text" Text="{Binding PossibleDefinitions[0]}"/>
+                            <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[0]}"/>
                         </Viewbox>
                     </Button>
                     <Button Grid.Row="0" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button">
                         <Viewbox Classes="multiple-choice-viewbox">
-                            <TextBlock Classes="multiple-choice-text" Text="{Binding PossibleDefinitions[1]}"/>
+                            <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[1]}"/>
                         </Viewbox>
                     </Button>
                     <Button Grid.Row="1" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button">
                         <Viewbox Classes="multiple-choice-viewbox">
-                            <TextBlock Classes="multiple-choice-text" Text="{Binding PossibleDefinitions[2]}"/>
+                            <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[2]}"/>
                         </Viewbox>
                     </Button>
                     <Button Grid.Row="1" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button">
                         <Viewbox Classes="multiple-choice-viewbox">
-                            <TextBlock Classes="multiple-choice-text" Text="{Binding PossibleDefinitions[3]}"/>
+                            <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[3]}"/>
                         </Viewbox>
                     </Button>
                 </Grid>
