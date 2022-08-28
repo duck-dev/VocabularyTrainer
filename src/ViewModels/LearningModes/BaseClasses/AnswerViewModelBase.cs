@@ -82,7 +82,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         set => this.RaiseAndSetIfChanged(ref _wrongWords, value);
     }
 
-    protected IReadOnlyList<string>? PossibleDefinitions { get; set; }
+    protected IEnumerable<string>? PossibleDefinitions { get; set; }
 
     protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState)
     {
