@@ -46,9 +46,13 @@ public class LearningModeItem : INotifyPropertyChangedHelper
                 
             bool words = currentLesson.VocabularyItems.Count > 0;
             bool thesaurus = true;
+            bool multipleChoice = true;
+            // ReSharper disable once ConvertIfStatementToSwitchStatement
             if (LearningMode == LearningModeType.Thesaurus)
                 thesaurus = currentLesson.VocabularyItems.Any(x => x.Synonyms.Count > 0 || x.Antonyms.Count > 0);
-            return words && thesaurus;
+            else if (LearningMode == LearningModeType.MultipleChoice)
+                multipleChoice = currentLesson.VocabularyItems.Count >= 4;
+            return words && thesaurus && multipleChoice;
         }
     }
 
