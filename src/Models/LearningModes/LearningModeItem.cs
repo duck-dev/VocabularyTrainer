@@ -51,7 +51,7 @@ public class LearningModeItem : INotifyPropertyChangedHelper
             if (LearningMode == LearningModeType.Thesaurus)
                 thesaurus = currentLesson.VocabularyItems.Any(x => x.Synonyms.Count > 0 || x.Antonyms.Count > 0);
             else if (LearningMode == LearningModeType.MultipleChoice)
-                multipleChoice = currentLesson.VocabularyItems.Count >= 4;
+                multipleChoice = currentLesson.VocabularyItems.Count >= 5;
             return words && thesaurus && multipleChoice;
         }
     }
