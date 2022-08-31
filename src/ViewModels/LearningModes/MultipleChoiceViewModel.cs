@@ -122,7 +122,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
 
             threshold = 4 - Choices.Count;
             int alternativeIndex = 0;
-            while (completedDefinitions.Count < threshold)
+            while (threshold > 0)
             {
                 if (_alternativePartOfSpeeches.ContainsKey(partOfSpeech) && 
                     alternativeIndex < _alternativePartOfSpeeches[partOfSpeech].Length)
