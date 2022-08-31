@@ -30,4 +30,13 @@ public static partial class Extensions
         var newEnumerable = collection.Select(x => (TItem)x.Clone());
         return Activator.CreateInstance(typeof(TCollection), newEnumerable) as TCollection;
     }
+
+    /// <summary>
+    /// Shuffles the elements of an <see cref="IEnumerable{T}"/> in a random order.
+    /// </summary>
+    /// <param name="collection">The extended collection to be shuffled.</param>
+    /// <typeparam name="T">The generic type of the collection's elements.</typeparam>
+    /// <returns>The shuffled collection as an <see cref="IEnumerable{T}"/></returns>
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> collection)
+        => collection.OrderBy(_ => Random.Shared.Next());
 }
