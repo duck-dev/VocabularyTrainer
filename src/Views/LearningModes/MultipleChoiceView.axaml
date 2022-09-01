@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:VocabularyTrainer.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VocabularyTrainer.Views.LearningModes.MultipleChoiceView">
-    
+
     <UserControl.Styles>
         <Style Selector="Button.multiple-choice-button">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -34,7 +34,7 @@
             <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
         </Style>
     </UserControl.Styles>
-    
+
     <Grid ColumnDefinitions="1*,3*">
         <learningModes:LearningModeSidebarView Grid.Column="0" DataContext="{Binding}">
             <learningModes:LearningModeSidebarView.AdditionalContent>
@@ -42,7 +42,7 @@
                     <views:LessonOptionItem Description="Toggle progressive learning" IsInlined="True">
                         <views:LessonOptionItem.TooltipText>
                             When progressive learning is enabled, the focus is placed on asking words that you don't know well, followed by words that haven't been asked yet with a slightly lower frequency. 
-                            Words you have answered correctly will occur less often.
+Words you have answered correctly will occur less often.
                         </views:LessonOptionItem.TooltipText>
                         <views:LessonOptionItem.MainContent>
                             <CheckBox DataContext="{Binding $parent[UserControl].DataContext}"
@@ -70,58 +70,70 @@
                 </StackPanel>
             </learningModes:LearningModeSidebarView.AdditionalContent>
         </learningModes:LearningModeSidebarView>
-        <Grid Grid.Column="1" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30,0">
-            <Grid Grid.Row="0" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,20">
-                <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24"
-                           Foreground="{StaticResource MainGrey}" Margin="0,0,0,50"
-                           IsVisible="{Binding !ProgressiveLearningEnabled}" IsEnabled="{Binding !ProgressiveLearningEnabled}">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="\{0\}/\{1\}">
-                            <Binding Path="WordIndexCorrected"/>
-                            <Binding Path="MaximumItems"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <Grid Grid.Row="1" ColumnDefinitions="*,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Viewbox Grid.Column="0" Height="84" HorizontalAlignment="Right" VerticalAlignment="Center"
-                             Margin="0,0,60,0">
-                        <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/>
-                    </Viewbox>
-                    <ToggleButton Grid.Column="1" x:Name="Star" Classes="star-toggle" VerticalAlignment="Center"
-                                  Checked="OnStarChecked" Unchecked="OnStarUnchecked"
-                                  IsChecked="{Binding IsCurrentWordDifficult}"
-                                  Template="{StaticResource ToggleStarShapeTemplate}" Width="64" Height="64"/>
+        <Grid Grid.Column="1" ColumnDefinitions="*, Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid Grid.Column="0" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30,0">
+                <Grid Grid.Row="0" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,20">
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24"
+                               Foreground="{StaticResource MainGrey}" Margin="0,0,0,50"
+                               IsVisible="{Binding !ProgressiveLearningEnabled}"
+                               IsEnabled="{Binding !ProgressiveLearningEnabled}">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="\{0\}/\{1\}">
+                                <Binding Path="WordIndexCorrected"/>
+                                <Binding Path="MaximumItems"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <Grid Grid.Row="1" ColumnDefinitions="*,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Viewbox Grid.Column="0" Height="84" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,60,0">
+                            <TextBlock Foreground="{StaticResource OppositeAccent}" Text="{Binding DisplayedTerm}"/>
+                        </Viewbox>
+                        <ToggleButton Grid.Column="1" x:Name="Star" Classes="star-toggle" VerticalAlignment="Center"
+                                      Checked="OnStarChecked" Unchecked="OnStarUnchecked"
+                                      IsChecked="{Binding IsCurrentWordDifficult}"
+                                      Template="{StaticResource ToggleStarShapeTemplate}" Width="64" Height="64"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" x:Name="ChoicesGrid" ColumnDefinitions="1*,4*,1*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                      Margin="30,0,30,30">
+                    <Grid Grid.Column="1" ColumnDefinitions="*,*" RowDefinitions="*,*" HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch" MinWidth="520">
+                        <Button Grid.Row="0" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
+                                Command="{Binding CheckAnswer}" CommandParameter="0" Background="{Binding ButtonGradients[0]}">
+                            <Viewbox Classes="multiple-choice-viewbox">
+                                <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[0]}"/>
+                            </Viewbox>
+                        </Button>
+                        <Button Grid.Row="0" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
+                                Command="{Binding CheckAnswer}" CommandParameter="1" Background="{Binding ButtonGradients[1]}">
+                            <Viewbox Classes="multiple-choice-viewbox">
+                                <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[1]}"/>
+                            </Viewbox>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
+                                Command="{Binding CheckAnswer}" CommandParameter="2" Background="{Binding ButtonGradients[2]}">
+                            <Viewbox Classes="multiple-choice-viewbox">
+                                <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[2]}"/>
+                            </Viewbox>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
+                                Command="{Binding CheckAnswer}" CommandParameter="3" Background="{Binding ButtonGradients[3]}">
+                            <Viewbox Classes="multiple-choice-viewbox">
+                                <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[3]}"/>
+                            </Viewbox>
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="1" ColumnDefinitions="1*,4*,1*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                  Margin="30,0,30,30">
-                <Grid Grid.Column="1" ColumnDefinitions="*,*" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      MinWidth="520">
-                    <Button Grid.Row="0" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
-                            Command="{Binding CheckAnswer}" CommandParameter="0" Background="{Binding ButtonGradients[0]}">
-                        <Viewbox Classes="multiple-choice-viewbox">
-                            <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[0]}"/>
-                        </Viewbox>
-                    </Button>
-                    <Button Grid.Row="0" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
-                            Command="{Binding CheckAnswer}" CommandParameter="1" Background="{Binding ButtonGradients[1]}">
-                        <Viewbox Classes="multiple-choice-viewbox">
-                            <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[1]}"/>
-                        </Viewbox>
-                    </Button>
-                    <Button Grid.Row="1" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
-                            Command="{Binding CheckAnswer}" CommandParameter="2" Background="{Binding ButtonGradients[2]}">
-                        <Viewbox Classes="multiple-choice-viewbox">
-                            <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[2]}"/>
-                        </Viewbox>
-                    </Button>
-                    <Button Grid.Row="1" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
-                            Command="{Binding CheckAnswer}" CommandParameter="3" Background="{Binding ButtonGradients[3]}">
-                        <Viewbox Classes="multiple-choice-viewbox">
-                            <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[3]}"/>
-                        </Viewbox>
-                    </Button>
-                </Grid>
+            <Grid Grid.Column="1" RowDefinitions="*,*" VerticalAlignment="Stretch"
+                  IsVisible="{Binding IsSolutionShown}" IsEnabled="{Binding IsSolutionShown}">
+                <Button Grid.Row="1" Classes="highlight-no-change selectable-button-effect" Margin="35,0"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="70"
+                        Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
+                        Command="{Binding NextWord}" CommandParameter="True" HotKey="Enter">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Next word"
+                               Foreground="{StaticResource SameAccent}" FontSize="20"/>
+                </Button>
             </Grid>
         </Grid>
     </Grid>

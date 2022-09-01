@@ -26,8 +26,6 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
 
     private static readonly int[] _similarWordLimits = { 1, 4 };
 
-    private ObservableCollection<string> _choices = new();
-
     private static readonly LinearGradientBrush _greyGradient = 
         ConstructMultipleChoiceGradient(new[] { Resources.VeryLightGrey, Resources.VeryLightGrey });
     private static readonly LinearGradientBrush _greenGradient = 
@@ -35,6 +33,8 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
     private static readonly LinearGradientBrush _redGradient = 
         ConstructMultipleChoiceGradient(new[] { Resources.DarkerLightRedContextMenu, Resources.VeryLightGrey });
     
+    private ObservableCollection<string> _choices = new();
+
     public MultipleChoiceViewModel(Lesson lesson) : base(lesson)
     {
         VerifyAndSetItem(SetWord);
@@ -86,9 +86,14 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
 
     private void CheckAnswer(int index)
     {
-        // TODO: Enable button for next word
         if (index >= Choices.Count || index < 0)
-            return; // Next word
+        {
+            NextWord(false);
+            return;
+        }
+        
+        this.IsSolutionShown = true;
+
         string answer = Choices[index];
         bool correct = answer.Equals(Definition);
 
