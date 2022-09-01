@@ -12,8 +12,13 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Background" Value="{StaticResource LightGrey}"/>
             <Setter Property="Margin" Value="10,10"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/> <!-- selectable-button-effect -->
+                    <BrushTransition Property="Background" Delay="0:0:0.05" Duration="0:0:0.5"/>
+                </Transitions>
+            </Setter>
         </Style>
         <Style Selector="Viewbox.multiple-choice-viewbox">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -89,22 +94,26 @@
                   Margin="30,0,30,30">
                 <Grid Grid.Column="1" ColumnDefinitions="*,*" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       MinWidth="520">
-                    <Button Grid.Row="0" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button">
+                    <Button Grid.Row="0" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
+                            Command="{Binding CheckAnswer}" CommandParameter="0" Background="{Binding ButtonGradients[0]}">
                         <Viewbox Classes="multiple-choice-viewbox">
                             <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[0]}"/>
                         </Viewbox>
                     </Button>
-                    <Button Grid.Row="0" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button">
+                    <Button Grid.Row="0" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
+                            Command="{Binding CheckAnswer}" CommandParameter="1" Background="{Binding ButtonGradients[1]}">
                         <Viewbox Classes="multiple-choice-viewbox">
                             <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[1]}"/>
                         </Viewbox>
                     </Button>
-                    <Button Grid.Row="1" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button">
+                    <Button Grid.Row="1" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
+                            Command="{Binding CheckAnswer}" CommandParameter="2" Background="{Binding ButtonGradients[2]}">
                         <Viewbox Classes="multiple-choice-viewbox">
                             <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[2]}"/>
                         </Viewbox>
                     </Button>
-                    <Button Grid.Row="1" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button">
+                    <Button Grid.Row="1" Grid.Column="1" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
+                            Command="{Binding CheckAnswer}" CommandParameter="3" Background="{Binding ButtonGradients[3]}">
                         <Viewbox Classes="multiple-choice-viewbox">
                             <TextBlock Classes="multiple-choice-text" Text="{Binding Choices[3]}"/>
                         </Viewbox>

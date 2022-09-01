@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Avalonia;
+using Avalonia.Media;
 using DynamicData;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.ResourcesNamespace;
 using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.ViewModels.LearningModes;
@@ -25,6 +28,13 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
 
     private ObservableCollection<string> _choices = new();
 
+    private static readonly LinearGradientBrush _greyGradient = 
+        ConstructMultipleChoiceGradient(new[] { Resources.VeryLightGrey, Resources.VeryLightGrey });
+    private static readonly LinearGradientBrush _greenGradient = 
+        ConstructMultipleChoiceGradient(new[] { Resources.SoftGreen, Resources.VeryLightGrey });
+    private static readonly LinearGradientBrush _redGradient = 
+        ConstructMultipleChoiceGradient(new[] { Resources.DarkerLightRedContextMenu, Resources.VeryLightGrey });
+    
     public MultipleChoiceViewModel(Lesson lesson) : base(lesson)
     {
         VerifyAndSetItem(SetWord);
@@ -35,6 +45,11 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         get => _choices; 
         set => this.RaiseAndSetIfChanged(ref _choices, value);
     }
+    
+    private ObservableCollection<LinearGradientBrush> ButtonGradients { get; } = new()
+    {
+        _greyGradient, _greyGradient, _greyGradient, _greyGradient
+    };
 
     protected override void Initialize(bool initializeWords)
     {
@@ -59,6 +74,8 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         base.SetWord();
         var definitions = DeterminePossibleDefinitions();
         Choices = new ObservableCollection<string>(definitions);
+        for (int i = 0; i < ButtonGradients.Count; i++)
+            ButtonGradients[i] = _greyGradient;
     }
 
     protected override void ShuffleWords()
@@ -67,11 +84,26 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         SetWord();
     }
 
-    private void CheckAnswer(string answer)
+    private void CheckAnswer(int index)
     {
-        // TODO: Start transition for button colors (green for correct one, red for wrong given answer if necessary)
         // TODO: Enable button for next word
-        Utilities.ChangeLearningState(CurrentWord, this, answer.Equals(Definition), considerOverallState: true);
+        if (index >= Choices.Count || index < 0)
+            return; // Next word
+        string answer = Choices[index];
+        bool correct = answer.Equals(Definition);
+
+        if (correct)
+        {
+            ButtonGradients[index] = _greenGradient;
+        }
+        else
+        {
+            ButtonGradients[index] = _redGradient;
+            int correctChoiceIndex = Choices.IndexOf(Definition, StringComparer.Ordinal);
+            ButtonGradients[correctChoiceIndex] = _greenGradient;
+        }
+        
+        Utilities.ChangeLearningState(CurrentWord, this, correct, considerOverallState: true);
     }
 
     private IEnumerable<string> DeterminePossibleDefinitions()
@@ -173,5 +205,14 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         }
 
         return targetList.Count == 4;
+    }
+
+    private static LinearGradientBrush ConstructMultipleChoiceGradient(Color[] colors)
+    {
+        return Utilities.CreateLinearGradientBrush(
+            new RelativePoint(0, 1, RelativeUnit.Relative),
+            new RelativePoint(1, 0, RelativeUnit.Relative),
+            colors,
+            new[] { 0.3, 1.0 });
     }
 }
