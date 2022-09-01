@@ -7,6 +7,7 @@ using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.ResourcesNamespace;
 using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.ViewModels.LearningModes;
@@ -22,13 +23,13 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
     private int _wrongWords;
 
     private readonly SolidColorBrush _blackColor 
-        = Utilities.GetResourceFromStyle<SolidColorBrush,Application>(Application.Current, "OppositeAccent", 2) 
+        = Utilities.GetResourceFromStyle<SolidColorBrush,Application>(Application.Current, "OppositeAccent", Resources.StyleIndex) 
           ?? new(Color.Parse("#000000"));
     private readonly SolidColorBrush _greenColor
-        = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainGreen", 2)
+        = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainGreen", Resources.StyleIndex)
           ?? new(Color.Parse("#0CA079"));
     private readonly SolidColorBrush _redColor 
-        = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainRed", 2) 
+        = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainRed", Resources.StyleIndex) 
           ?? new(Color.Parse("#FF0000"));
 
     public event EventHandler? ReadyToFocus;

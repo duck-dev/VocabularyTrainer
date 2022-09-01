@@ -13,6 +13,7 @@ using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
+using VocabularyTrainer.ResourcesNamespace;
 using VocabularyTrainer.UtilityCollection;
 using VocabularyTrainer.ViewModels;
 
@@ -145,19 +146,19 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
 
     internal PartOfSpeechContainer[] PartsOfSpeech { get; } =
     {
-        new("None", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightGrey", 2) 
+        new("None", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightGrey", Resources.StyleIndex) 
                     ?? new SolidColorBrush(Color.Parse("#A8ADB5"))),
-        new("Noun", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightBrown", 2) 
+        new("Noun", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightBrown", Resources.StyleIndex) 
                     ?? new SolidColorBrush(Color.Parse("#A8744F"))),
-        new("Verb", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "VeryLightBlue", 2) 
+        new("Verb", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "VeryLightBlue", Resources.StyleIndex) 
                     ?? new SolidColorBrush(Color.Parse("#ABBECE"))),
-        new("Adjective", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainYellow", 2) 
+        new("Adjective", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainYellow", Resources.StyleIndex) 
                     ?? new SolidColorBrush(Color.Parse("#FCC100"))),
-        new("Adverb", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "Orange", 2) 
+        new("Adverb", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "Orange", Resources.StyleIndex) 
                          ?? new SolidColorBrush(Color.Parse("#DD9A25"))),
-        new("Pronoun", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "SoftGreen", 2) 
+        new("Pronoun", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "SoftGreen", Resources.StyleIndex) 
                       ?? new SolidColorBrush(Color.Parse("#0CA079"))),
-        new("Other", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightGreen", 2) 
+        new("Other", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightGreen", Resources.StyleIndex) 
                        ?? new SolidColorBrush(Color.Parse("#91C669")))
     };
 
