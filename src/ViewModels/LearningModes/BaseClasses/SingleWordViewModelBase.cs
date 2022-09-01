@@ -220,14 +220,14 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
             var rnd = new Random();
             int num = rnd.Next(0, 2);
             this.IsTermChosen = num == 0;
-            this.DisplayedTerm = IsTermChosen ? CurrentWord.Term : CurrentWord.Definition;
-            this.Definition = IsTermChosen ? CurrentWord.Definition : CurrentWord.Term;
+            this.DisplayedTerm = CurrentWord.GetAdjustedTerm(IsTermChosen);
+            this.Definition = CurrentWord.GetAdjustedDefinition(IsTermChosen);
         }
         else
         {
             this.IsTermChosen = AskTerm;
-            this.DisplayedTerm = AskTerm ? CurrentWord.Term : CurrentWord.Definition;
-            this.Definition = AskTerm ? CurrentWord.Definition : CurrentWord.Term;
+            this.DisplayedTerm = CurrentWord.GetAdjustedTerm(AskTerm);
+            this.Definition = CurrentWord.GetAdjustedDefinition(AskTerm);
         }
     }
 

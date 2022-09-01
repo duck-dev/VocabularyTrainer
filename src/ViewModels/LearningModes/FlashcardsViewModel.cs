@@ -3,6 +3,7 @@
 
 using ReactiveUI;
 using VocabularyTrainer.Enums;
+using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Models;
 
 namespace VocabularyTrainer.ViewModels.LearningModes;
@@ -82,8 +83,8 @@ public sealed class FlashcardsViewModel : SingleWordViewModelBase
         // button.RenderTransform = TransformOperations.Parse(operation); // button = parameter of type `IVisual`
             
         _flipped ^= true; // Toggle bool condition
-        string term = IsTermChosen ? CurrentWord.Term : CurrentWord.Definition;
-        string definition = IsTermChosen ? CurrentWord.Definition : CurrentWord.Term;
+        string term = CurrentWord.GetAdjustedTerm(IsTermChosen);
+        string definition = CurrentWord.GetAdjustedDefinition(IsTermChosen);
         this.DisplayedTerm = _flipped ? definition : term;
         this.RaisePropertyChanged(nameof(WordType));
     }
