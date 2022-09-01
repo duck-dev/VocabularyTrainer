@@ -86,6 +86,10 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
 
     private void CheckAnswer(int index)
     {
+        // Return if the solution is already shown, so that editing the answer afterwards and with that changing the learning state is impossible
+        if (IsSolutionShown)
+            return;
+        
         if (index >= Choices.Count || index < 0)
         {
             NextWord(false);
