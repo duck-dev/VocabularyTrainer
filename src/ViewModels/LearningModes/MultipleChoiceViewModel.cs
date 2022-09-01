@@ -84,12 +84,12 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         int similarWordProbability = Random.Shared.Next(0, _similarWordLimits[^1]);
         if (similarWordProbability < _similarWordLimits[0])
         {
-            List<Word> similarWords = allWords.Where(x => Utilities.LevenshteinDistance(x.Definition, Definition) <= 2).ToList();
+            List<Word> similarWords = allWords.Where(x => Utilities.LevenshteinDistance(x.GetAdjustedDefinition(IsTermChosen), Definition) <= 2).ToList();
             if (similarWords.Count > 0)
             {
                 int randomSimilarWord = Random.Shared.Next(0, similarWords.Count);
                 Word similarWord = similarWords[randomSimilarWord];
-                Choices.Add(similarWord.Definition);
+                Choices.Add(similarWord.GetAdjustedDefinition(IsTermChosen));
                 allWords.Remove(similarWord); // Prevent duplicate definition for further calculations
             }
         }
@@ -99,12 +99,11 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
 
         PartOfSpeech partOfSpeech = CurrentWord.SelectedPartOfSpeech;
         int threshold = 4 - Choices.Count;
-
-        if (partOfSpeech == PartOfSpeech.None && CompleteMissingDefinitions(threshold, allWords, Choices, allWords))
+        if (partOfSpeech == PartOfSpeech.None && CompleteMissingDefinitions(threshold, allWords, Choices, allWords, IsTermChosen))
             return Choices.Shuffle(); 
         
         IList<Word> possibleWords = allWords.Where(x => x.SelectedPartOfSpeech == partOfSpeech).ToList();
-        List<string> possibleDefinitions = possibleWords.Select(x => x.Definition).ToList();
+        List<string> possibleDefinitions = possibleWords.Select(x => x.GetAdjustedDefinition(IsTermChosen)).ToList();
         if (possibleDefinitions.Count == threshold)
         {
             Choices.AddRange(possibleDefinitions);
@@ -112,12 +111,12 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         }
         else if (possibleDefinitions.Count > threshold)
         {
-            if (CompleteMissingDefinitions(threshold, possibleWords, Choices, allWords))
+            if (CompleteMissingDefinitions(threshold, possibleWords, Choices, allWords, IsTermChosen))
                 return Choices.Shuffle();
         }
         else
         {
-            if (CompleteMissingDefinitions(threshold, possibleWords, Choices, allWords))
+            if (CompleteMissingDefinitions(threshold, possibleWords, Choices, allWords, IsTermChosen))
                 return Choices.Shuffle();
 
             threshold = 4 - Choices.Count;
@@ -129,13 +128,13 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
                 {
                     PartOfSpeech alternative = _alternativePartOfSpeeches[partOfSpeech][alternativeIndex];
                     possibleWords = allWords.Where(x => x.SelectedPartOfSpeech == alternative).ToList();
-                    possibleDefinitions = possibleWords.Select(x => x.Definition).ToList();
+                    possibleDefinitions = possibleWords.Select(x => x.GetAdjustedDefinition(IsTermChosen)).ToList();
                     if (!possibleDefinitions.Any())
                     {
                         alternativeIndex++;
                         continue;
                     }
-                    if (CompleteMissingDefinitions(threshold, possibleWords, Choices, allWords))
+                    if (CompleteMissingDefinitions(threshold, possibleWords, Choices, allWords, IsTermChosen))
                         return Choices.Shuffle();
 
                     threshold = 4 - Choices.Count;
@@ -143,7 +142,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
                     continue;
                 }
                 
-                if (CompleteMissingDefinitions(threshold, allWords, Choices, allWords))
+                if (CompleteMissingDefinitions(threshold, allWords, Choices, allWords, IsTermChosen))
                     return Choices.Shuffle();
                 throw new Exception("Something went terribly wrong. The choices couldn't be filled. [MULTIPLE CHOICE]");
             }
@@ -152,9 +151,10 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         throw new Exception("Something went terribly wrong. The choices couldn't be filled. [MULTIPLE CHOICE]");
     }
 
-    private static bool CompleteMissingDefinitions(int iterationCount, IList<Word> wordCollection, ICollection<string> targetList, ICollection<Word> allWords)
+    private static bool CompleteMissingDefinitions(int iterationCount, IList<Word> wordCollection, ICollection<string> targetList, 
+        ICollection<Word> allWords, bool isTermChosen)
     {
-        IList<string> collection = wordCollection.Select(x => x.Definition).ToList();
+        IList<string> collection = wordCollection.Select(x => x.GetAdjustedDefinition(isTermChosen)).ToList();
         for (int i = 0; i < iterationCount; i++)
         {
             if (wordCollection.Count <= 0)
