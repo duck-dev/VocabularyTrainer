@@ -30,7 +30,7 @@
                         </Viewbox>
                     </Button>
                     <Button Grid.Row="1" Classes="dialog-button selectable-button-effect"
-                            Background="{Binding ButtonColors[1]}"
+                            Background="{Binding ButtonColors[1]}" HotKey="Escape"
                             Command="{Binding Command}" CommandParameter="Cancel">
                         <Button.Styles>
                             <Style Selector="Button.dialog-button:pointerover /template/ ContentPresenter">
