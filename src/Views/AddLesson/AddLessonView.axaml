@@ -77,7 +77,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                         <Button Grid.Row="2" Classes="selectable-button-effect add-word-button"
-                                Command="{Binding AddWord}">
+                                Command="{Binding AddWord}" HotKey="OemPlus">
                             <TextBlock Text="Add a new word" Foreground="{StaticResource MainGrey}" FontSize="30"
                                        FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
                                        TextAlignment="Center"/>
