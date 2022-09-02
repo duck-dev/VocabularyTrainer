@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 using DynamicData;
 using ReactiveUI;
@@ -33,11 +34,31 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
     private static readonly LinearGradientBrush _redGradient = 
         ConstructMultipleChoiceGradient(new[] { Resources.DarkerLightRedContextMenu, Resources.VeryLightGrey });
     
+    private static readonly GridLength[] _defaultGridColumnsButton = { GridLength.Parse("*"), GridLength.Parse("Auto") };
+    private static readonly GridLength[] _changedGridColumnsButton = { GridLength.Parse("3*"), GridLength.Parse("1*") };
+    
+    private static readonly GridLength[] _defaultGridColumnsChoices = { GridLength.Parse("1*"), GridLength.Parse("5*"), GridLength.Parse("1*") };
+    private static readonly GridLength[] _changedGridColumnsChoices = { GridLength.Parse("0"), GridLength.Parse("*"), GridLength.Parse("0") };
+    
     private ObservableCollection<string> _choices = new();
 
     public MultipleChoiceViewModel(Lesson lesson) : base(lesson)
     {
         VerifyAndSetItem(SetWord);
+    }
+
+    protected override bool IsSolutionShown
+    {
+        get => base.IsSolutionShown;
+        set
+        {
+            GridColumnsButton = value == true ? _changedGridColumnsButton : _defaultGridColumnsButton;
+            GridColumnsChoices = value == true ? _changedGridColumnsChoices : _defaultGridColumnsChoices;
+            this.RaisePropertyChanged(nameof(GridColumnsButton));
+            this.RaisePropertyChanged(nameof(GridColumnsChoices));
+            
+            base.IsSolutionShown = value;
+        }
     }
 
     private ObservableCollection<string> Choices
@@ -50,6 +71,9 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
     {
         _greyGradient, _greyGradient, _greyGradient, _greyGradient
     };
+
+    private GridLength[] GridColumnsButton { get; set; } = _defaultGridColumnsButton;
+    private GridLength[] GridColumnsChoices { get; set; } = _defaultGridColumnsChoices;
 
     protected override void Initialize(bool initializeWords)
     {

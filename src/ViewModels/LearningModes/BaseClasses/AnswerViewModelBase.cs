@@ -55,7 +55,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         set => this.RaiseAndSetIfChanged(ref _answer, value);
     }
         
-    protected bool IsSolutionShown
+    protected virtual bool IsSolutionShown
     {
         get => _isSolutionShown;
         set

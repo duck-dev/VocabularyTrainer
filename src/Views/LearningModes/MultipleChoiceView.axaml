@@ -70,8 +70,12 @@ Words you have answered correctly will occur less often.
                 </StackPanel>
             </learningModes:LearningModeSidebarView.AdditionalContent>
         </learningModes:LearningModeSidebarView>
-        <Grid Grid.Column="1" ColumnDefinitions="*, Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid Grid.Column="0" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30,0">
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding GridColumnsButton[0]}"/>
+                <ColumnDefinition Width="{Binding GridColumnsButton[1]}"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid Grid.Row="0" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,20">
                     <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24"
                                Foreground="{StaticResource MainGrey}" Margin="0,0,0,50"
@@ -96,7 +100,12 @@ Words you have answered correctly will occur less often.
                 </Grid>
                 <Grid Grid.Row="1" RowDefinitions="*,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="30,0,30,30">
-                    <Grid Grid.Column="1" ColumnDefinitions="*,*" RowDefinitions="*,*" HorizontalAlignment="Stretch"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{Binding GridColumnsChoices[0]}"/>
+                        <ColumnDefinition Width="{Binding GridColumnsChoices[1]}"/>
+                        <ColumnDefinition Width="{Binding GridColumnsChoices[2]}"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,*" RowDefinitions="*,*" HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch" MinWidth="500">
                         <Button Grid.Row="0" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
                                 Command="{Binding CheckAnswer}" CommandParameter="0" Background="{Binding ButtonGradients[0]}">
@@ -133,10 +142,16 @@ Words you have answered correctly will occur less often.
                     </Button>
                 </Grid>
             </Grid>
-            <Grid Grid.Column="1" RowDefinitions="*,*" VerticalAlignment="Stretch"
-                  IsVisible="{Binding IsSolutionShown}" IsEnabled="{Binding IsSolutionShown}">
-                <Button Grid.Row="1" Classes="highlight-no-change selectable-button-effect" Margin="35,0"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="240" Height="70"
+            <Grid Grid.Column="1" RowDefinitions="*,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  IsVisible="{Binding IsSolutionShown}" IsEnabled="{Binding IsSolutionShown}"
+                  Margin="0,0,10,42"> <!-- Compensate the height (including margin) of the "Show solution" button
+                                                     to make this button appear centered vertically
+                                                     
+                                                     as well as the right-margin of the main parent Grid of all elements in this view
+                                                     subtracted from the margin of the parent Grid of the choices (40)
+                                                     => space to left (greater) - space to right (smaller) => 40 - 30 = 10 -->
+                <Button Grid.Row="1" Classes="highlight-no-change selectable-button-effect" Margin="0,0"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="70"
                         Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
                         Command="{Binding NextWord}" CommandParameter="True" HotKey="Enter" CornerRadius="10">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Next word"
