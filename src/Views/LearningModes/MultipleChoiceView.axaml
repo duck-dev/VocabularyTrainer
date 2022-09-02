@@ -94,10 +94,10 @@ Words you have answered correctly will occur less often.
                                       Template="{StaticResource ToggleStarShapeTemplate}" Width="64" Height="64"/>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1" x:Name="ChoicesGrid" ColumnDefinitions="1*,4*,1*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                <Grid Grid.Row="1" ColumnDefinitions="1*,4*,1*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="30,0,30,30">
                     <Grid Grid.Column="1" ColumnDefinitions="*,*" RowDefinitions="*,*" HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch" MinWidth="520">
+                          VerticalAlignment="Stretch" MinWidth="500">
                         <Button Grid.Row="0" Grid.Column="0" Classes="selectable-button-effect highlight-no-change multiple-choice-button"
                                 Command="{Binding CheckAnswer}" CommandParameter="0" Background="{Binding ButtonGradients[0]}">
                             <Viewbox Classes="multiple-choice-viewbox">
@@ -128,9 +128,9 @@ Words you have answered correctly will occur less often.
             <Grid Grid.Column="1" RowDefinitions="*,*" VerticalAlignment="Stretch"
                   IsVisible="{Binding IsSolutionShown}" IsEnabled="{Binding IsSolutionShown}">
                 <Button Grid.Row="1" Classes="highlight-no-change selectable-button-effect" Margin="35,0"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="70"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="240" Height="70"
                         Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
-                        Command="{Binding NextWord}" CommandParameter="True" HotKey="Enter">
+                        Command="{Binding NextWord}" CommandParameter="True" HotKey="Enter" CornerRadius="10">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Next word"
                                Foreground="{StaticResource SameAccent}" FontSize="20"/>
                 </Button>
