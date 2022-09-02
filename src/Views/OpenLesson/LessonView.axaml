@@ -42,7 +42,7 @@
                              HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextWrapping="NoWrap"
                              HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                     <Grid Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,*" Margin="30,0,0,0" HorizontalAlignment="Stretch">
-                        <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Content="Cancel"
+                        <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Content="Cancel" HotKey="Escape"
                                 Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
                                 Command="{Binding ConfirmDiscarding}" Margin="0,0,15,0" MinWidth="96">
                             <Button.Styles>

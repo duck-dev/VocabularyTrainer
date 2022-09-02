@@ -22,7 +22,7 @@
             <TextBlock Grid.Column="0" Classes="add-page-title" HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Text="Create a new lesson" TextWrapping="Wrap"/>
             <Grid Grid.Column="1" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Width="200"
+                <Button Grid.Column="0" Classes="selectable-button-effect add-page-button" Width="200" HotKey="Escape"
                         Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
                         Margin="0,0,20,0" Content="Cancel" Command="{Binding MainViewModel.ReturnHome}"
                         CommandParameter="True">
