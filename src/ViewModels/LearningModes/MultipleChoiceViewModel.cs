@@ -84,6 +84,18 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         SetWord();
     }
 
+    private new void ShowSolution()
+    {
+        // Return if the solution is already shown, so that marking the answer as wrong multiple times is impossible
+        if (IsSolutionShown)
+            return;
+        
+        this.IsSolutionShown = true;
+        for (int i = 0; i < ButtonGradients.Count; i++)
+            ButtonGradients[i] = Choices[i].Equals(Definition) ? _greenGradient : _redGradient;
+        Utilities.ChangeLearningState(CurrentWord, this, false, considerOverallState: true);
+    }
+
     private void CheckAnswer(int index)
     {
         // Return if the solution is already shown, so that editing the answer afterwards and with that changing the learning state is impossible

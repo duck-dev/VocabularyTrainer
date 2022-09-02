@@ -94,7 +94,7 @@ Words you have answered correctly will occur less often.
                                       Template="{StaticResource ToggleStarShapeTemplate}" Width="64" Height="64"/>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1" ColumnDefinitions="1*,4*,1*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                <Grid Grid.Row="1" RowDefinitions="*,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="30,0,30,30">
                     <Grid Grid.Column="1" ColumnDefinitions="*,*" RowDefinitions="*,*" HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch" MinWidth="500">
@@ -123,6 +123,14 @@ Words you have answered correctly will occur less often.
                             </Viewbox>
                         </Button>
                     </Grid>
+                    <Button Grid.Column="1" Grid.Row="1" Classes="selectable-button-effect" HorizontalAlignment="Center"
+                            Command="{Binding ShowSolution}" Margin="0,20,0,0">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <TextBlock FontSize="22" Foreground="{StaticResource MainRed}" Text="Show solution"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1" RowDefinitions="*,*" VerticalAlignment="Stretch"
