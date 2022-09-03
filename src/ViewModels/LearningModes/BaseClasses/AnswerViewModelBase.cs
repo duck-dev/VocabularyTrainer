@@ -85,9 +85,9 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
 
     protected IEnumerable<string>? PossibleDefinitions { get; set; }
 
-    protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState)
+    protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState, bool hadNotAsked)
     {
-        base.VisualizeLearningProgress(previousState, newState);
+        base.VisualizeLearningProgress(previousState, newState, hadNotAsked);
         if (newState.CustomHasFlag(Utilities.KnownFlags) && !previousState.CustomHasFlag(Utilities.KnownFlags))
         {
             if (previousState.CustomHasFlag(Utilities.WrongFlags))

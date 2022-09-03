@@ -231,8 +231,10 @@ public abstract class SingleWordViewModelBase : LearningModeViewModelBase
         }
     }
 
-    protected internal virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState)
+    protected internal virtual void VisualizeLearningProgress(LearningState previousState, LearningState newState, bool hadNotAsked)
     {
+        if (hadNotAsked)
+            previousState |= LearningState.NotAsked;
         if(!newState.CustomHasFlag(LearningState.NotAsked) && previousState.CustomHasFlag(LearningState.NotAsked))
             this.SeenWords++;
         DataManager.SaveData();

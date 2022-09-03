@@ -61,6 +61,7 @@ public static partial class Utilities
         LearningModeType learningMode = singleWordViewModel.LearningMode;
         LearningState originalState = considerOverallState && item is Word word ? word.LearningStatus : item.LearningStateInModes[learningMode];
         LearningState newState = originalState;
+        bool hadNotAsked = item.LearningStateInModes[learningMode].CustomHasFlag(LearningState.NotAsked);
         
         if (originalState == LearningState.NotAsked)
         {
@@ -74,7 +75,7 @@ public static partial class Utilities
         
         ApplyModifications(item, newState, learningMode, considerOverallState);
         if(visualize)
-            singleWordViewModel.VisualizeLearningProgress(originalState, newState);
+            singleWordViewModel.VisualizeLearningProgress(originalState, newState, hadNotAsked);
     }
 
     /// <summary>
@@ -93,9 +94,10 @@ public static partial class Utilities
     {
         LearningModeType learningMode = singleWordViewModel.LearningMode;
         LearningState previousState = considerOverallState && item is Word word ? word.LearningStatus : item.LearningStateInModes[learningMode];
+        bool hadNotAsked = item.LearningStateInModes[learningMode].CustomHasFlag(LearningState.NotAsked);
         ApplyModifications(item, result, learningMode, considerOverallState);
         if(visualize)
-            singleWordViewModel.VisualizeLearningProgress(previousState, result);
+            singleWordViewModel.VisualizeLearningProgress(previousState, result, hadNotAsked);
     }
 
     /// <summary>
