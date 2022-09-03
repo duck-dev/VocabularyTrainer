@@ -82,7 +82,7 @@ Words you have answered correctly will occur less often.
             </Button>
             <Button Grid.Column="1" Grid.Row="1" x:Name="FlashcardButton" Classes="selectable-button highlight-no-change"
                     Background="{StaticResource SameAccent}" BorderThickness="0"
-                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HotKey="Enter"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HotKey="Enter" CornerRadius="30"
                     Command="{Binding FlipCard}"> <!-- CommandParameter="{Binding $self}" for animation (effects) -->
                 <Panel>
                     <ToggleButton x:Name="Star" Classes="star-toggle" HorizontalAlignment="Right" VerticalAlignment="Top"
