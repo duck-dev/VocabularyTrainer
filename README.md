@@ -17,7 +17,7 @@ This is an often missing feature, which is highly valued in Vocabulary Trainer.
   - **Multiple Choice**: Choose the correct answer from 4 options.
   - **Synonyms and Antonyms**: Focus on learning synonyms and antonyms only.
   - **Vocabulary List**: Do you prefer just looking at a list of words with their term and definition 
-  as well optionally their synonyms and antonyms? Then this is your choice.
+  as well as optionally their synonyms and antonyms? Then this is your choice.
 - <span style="color:#5F8BB0">**To know, or not to know, that's the question:**</span> 
 Words you define correctly or incorrectly are automatically tracked, so that you know how much you still need to learn. 
 This also leads us to the next important point...
