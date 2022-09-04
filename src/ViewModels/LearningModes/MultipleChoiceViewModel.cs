@@ -135,7 +135,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         this.IsSolutionShown = true;
 
         string answer = Choices[index];
-        bool correct = answer.Equals(Definition);
+        bool correct = answer.Equals(Definition) || CurrentWord.Synonyms.Any(x => x.Definition.Equals(Definition));
 
         if (correct)
         {
