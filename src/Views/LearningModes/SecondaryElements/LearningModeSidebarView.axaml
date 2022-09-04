@@ -17,7 +17,7 @@
             <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" Margin="20,30,20,10">
                 <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,10" IsVisible="{Binding IsSeenWordsEnabled}" 
                       IsEnabled="{Binding IsSeenWordsEnabled}">
-                    <Slider Grid.Row="0" Classes="progress-slider" Height="50" Margin="0,0,0,12.5"
+                    <Slider Grid.Row="0" Classes="progress-slider" Margin="0,0,0,12.5"
                             Minimum="0" Maximum="{Binding MaximumItems}" Value="{Binding SeenWords}"
                             Background="{StaticResource LightGrey}"/>
                     <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
@@ -32,7 +32,7 @@
                 </Grid>
                 <Grid Grid.Row="1" RowDefinitions="Auto,Auto" Margin="0,0,0,10" IsVisible="{Binding IsAnswerMode}"
                       IsEnabled="{Binding IsAnswerMode}">
-                    <Slider Grid.Row="0" Classes="progress-slider" Height="45" Margin="0,0,0,12.5"
+                    <Slider Grid.Row="0" Classes="progress-slider" Margin="0,0,0,12.5"
                             Minimum="0" Maximum="{Binding MaximumItems}"
                             Value="{Binding KnownWords}" Background="{StaticResource LightGrey}"
                             Foreground="{StaticResource MainGreen}"/>
@@ -48,7 +48,7 @@
                 </Grid>
                 <Grid Grid.Row="2" RowDefinitions="Auto,Auto" IsVisible="{Binding IsAnswerMode}"
                       IsEnabled="{Binding IsAnswerMode}">
-                    <Slider Grid.Row="0" Classes="progress-slider" Height="45" Margin="0,0,0,12.5"
+                    <Slider Grid.Row="0" Classes="progress-slider" Margin="0,0,0,12.5"
                             Minimum="0" Maximum="{Binding MaximumItems}"
                             Value="{Binding WrongWords}" Background="{StaticResource LightGrey}"
                             Foreground="{StaticResource MainRed}"/>
