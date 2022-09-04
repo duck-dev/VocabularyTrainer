@@ -178,7 +178,8 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
 
     internal void CountCorrect()
     {
-        Utilities.ChangeLearningState(CurrentWord, this, true, considerOverallState: true);
+        Utilities.ChangeLearningState(CurrentWord, this, true, considerOverallState: true); // Correct supposedly wrong answer
+        Utilities.ChangeLearningState(CurrentWord, this, true, considerOverallState: true); // Actually count as correct
         NextWord();
     }
 }
