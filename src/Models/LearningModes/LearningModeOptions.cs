@@ -67,5 +67,5 @@ public struct LearningModeOptions
     public bool AskAntonyms { get; set; } = true;
     
     // Write
-    public bool AcceptSynonyms { get; set; } = false;
+    public bool AcceptSynonyms { get; set; } = true;
 }
