@@ -161,7 +161,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         int similarWordProbability = Random.Shared.Next(0, _similarWordLimits[^1]);
         if (similarWordProbability < _similarWordLimits[0])
         {
-            List<Word> similarWords = allWords.Where(x => Utilities.LevenshteinDistance(x.GetAdjustedDefinition(IsTermChosen), Definition) <= 2).ToList();
+            List<Word> similarWords = allWords.Where(x => Utilities.LevenshteinDistance(x.GetAdjustedDefinition(IsTermChosen), Definition) <= 4).ToList();
             if (similarWords.Count > 0)
             {
                 int randomSimilarWord = Random.Shared.Next(0, similarWords.Count);
