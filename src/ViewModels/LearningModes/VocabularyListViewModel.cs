@@ -25,6 +25,8 @@ public sealed class VocabularyListViewModel : LearningModeViewModelBase
         {
             this.RaiseAndSetIfChanged(ref _showThesaurus, value);
             CurrentLesson.LearningModeSettings.ShowThesaurusInModes[LearningMode] = value;
+            foreach(Word word in WordsList)
+                word.NotifyPropertyChanged(nameof(word.IsThesaurusEnabled));
             DataManager.SaveData();
         }
     }

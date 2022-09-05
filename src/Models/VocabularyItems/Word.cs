@@ -131,6 +131,10 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
 
     internal bool HasSynonyms => Synonyms.Count > 0;
     internal bool HasAntonyms => Antonyms.Count > 0;
+
+    internal bool IsThesaurusEnabled => MainWindowViewModel.CurrentLesson != null
+                                        && MainWindowViewModel.CurrentLesson.LearningModeSettings.ShowThesaurusInModes[LearningModeType.VocabularyList] == true
+                                        && (HasSynonyms || HasAntonyms);
     
     internal PartOfSpeech SelectedPartOfSpeech => _partsOfSpeech[_partOfSpeechIndex];
 
