@@ -12,7 +12,7 @@
              x:CompileBindings="True">
     <UserControl.Styles>
         <Style Selector="TextBlock.main-text">
-            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="FontSize" Value="28"/>
             <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
