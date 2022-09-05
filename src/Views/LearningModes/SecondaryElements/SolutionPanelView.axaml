@@ -8,20 +8,20 @@
     <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource OppositeAccent}"
                Opacity="0.7"/>
-        <Grid RowDefinitions="*,Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
-            <Grid Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <Viewbox Grid.Row="0" Height="96" Margin="0,30" HorizontalAlignment="Center">
+        <Grid RowDefinitions="3*,1*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
+            <Grid Grid.Row="0" RowDefinitions="*,*,*" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <Viewbox Grid.Row="0" MaxHeight="96" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,30">
                     <TextBlock Foreground="{StaticResource SameAccent}" FontWeight="Bold" Text="{Binding Term}"/>
                 </Viewbox>
-                <Viewbox Grid.Row="1" Height="36" Margin="0,30" HorizontalAlignment="Center">
+                <Viewbox Grid.Row="1" MaxHeight="36" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30">
                     <TextBlock Foreground="{StaticResource SameAccent}" Text="{Binding ExplanationText}"/>
                 </Viewbox>
-                <Viewbox Grid.Row="2" Height="124" Margin="0,30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Viewbox Grid.Row="2" MaxHeight="124" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
                     <TextBlock Foreground="{Binding AnswerViewModel.AnswerColor}" FontWeight="Bold" Text="{Binding Definition}"/>
                 </Viewbox>
             </Grid>
-            <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Grid.Column="0" Classes="highlight-no-change selectable-button-effect" Width="240" Height="70" 
+            <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
+                <Button Grid.Column="0" Classes="highlight-no-change selectable-button-effect" Width="240" Height="70"
                         Background="{StaticResource MainGreen}" Foreground="{StaticResource SameAccent}"
                         Margin="35,0" IsVisible="{Binding !IsAnswerCorrect}" CornerRadius="10"
                         Command="{Binding AnswerViewModel.CountCorrect}">
