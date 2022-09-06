@@ -78,11 +78,19 @@
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
-                    <Grid ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Grid ColumnDefinitions="Auto,Auto,Auto" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <Image Grid.Column="0" Source="/Assets/Search-Icon-Dark.png" Width="28" Height="28" Margin="0,0,20,0"/>
                         <TextBox Grid.Column="1" Classes="add-page-textbox" VerticalAlignment="Center" 
                                  Text="{Binding SearchTerm}" Width="250" Height="45" AcceptsTab="False" AcceptsReturn="False"
                                  Watermark="Search for a term..."/>
+                        <Button Grid.Column="2" Classes="selectable-button" Width="22" Height="22" Margin="10,0,0,0"
+                                Command="{Binding ClearSearchbar}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="/Assets/Clear-Textbox-Icon.png"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                 </Panel>
                 <Border Grid.Row="3" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"

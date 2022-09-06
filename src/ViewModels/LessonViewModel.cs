@@ -38,8 +38,12 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
         get => _searchTerm;
         set
         {
-            ExposedVocabularyItems = CurrentLesson.VocabularyItems.Where(x => x.ContainsTerm(value)).ToArray();
-            _searchTerm = value;
+            // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
+            if (string.IsNullOrEmpty(value))
+                ExposedVocabularyItems = CurrentLesson.VocabularyItems.ToArray();
+            else
+                ExposedVocabularyItems = CurrentLesson.VocabularyItems.Where(x => x.ContainsTerm(value)).ToArray();
+            this.RaiseAndSetIfChanged(ref _searchTerm, value);
         }
     }
 
@@ -106,4 +110,6 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
         CurrentLesson.SaveChanges();
         DataManager.SaveData();
     }
+
+    private void ClearSearchbar() => SearchTerm = string.Empty;
 }
