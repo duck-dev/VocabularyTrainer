@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.Text;
 
@@ -83,5 +84,41 @@ public static partial class Extensions
         }
 
         return stringBuilder.ToString().Trim();
+    }
+
+    /// <summary>
+    /// Calculate the length of the longest common substring of two strings.
+    /// </summary>
+    /// <param name="a">The string supposedly containing common substrings.</param>
+    /// <param name="b">The string compared to <paramref name="a"/>, containing the characters for the substring.</param>
+    /// <returns>The length of the longest common substring.</returns>
+    public static int LongestCommonSubstringLength(this string a, string b)
+    {
+        int m = a.Length;
+        int n = b.Length;
+        int[,] matrix = new int[m+1,n+1];
+        int result = 0;
+
+        for (int i = 1; i <= m; i++)
+        {
+            for (int j = 1; j <= n; j++)
+            {
+                if (i == 0 || j == 0)
+                {
+                    matrix[i, j] = 0;
+                }
+                else if (a[i-1] == b[j-1])
+                {
+                    matrix[i, j] = matrix[i-1,j-1] + 1;
+                    result = Math.Max(result, matrix[i, j]);
+                }
+                else
+                {
+                    matrix[i, j] = 0;
+                }
+            }
+        }
+        
+        return result;
     }
 }
