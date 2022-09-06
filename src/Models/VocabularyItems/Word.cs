@@ -11,6 +11,7 @@ using Avalonia;
 using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
+using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
 using VocabularyTrainer.ResourcesNamespace;
@@ -235,6 +236,14 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
         IsDifficult = this.IsDifficult,
         LearningStateInModes = this.LearningStateInModes
     };
+
+    protected internal override bool ContainsTerm(string search)
+    {
+        string modifiedSearch = Utilities.ModifyAnswer(search, ModificationSettings);
+        if (base.ContainsTerm(modifiedSearch))
+            return true;
+        return Synonyms.Any(x => x.ContainsTerm(modifiedSearch)) || Antonyms.Any(x => x.ContainsTerm(modifiedSearch));
+    }
 
     internal void ClearCollections()
     {

@@ -7,13 +7,18 @@ using System.Reactive;
 using System.Text.Json.Serialization;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
+using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Interfaces;
+using VocabularyTrainer.UtilityCollection;
+
 #pragma warning disable CS0659
 
 namespace VocabularyTrainer.Models;
 
 public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<VocabularyItem>, ICloneable
 {
+    protected const int SearchToleranceDivisor = 4; // 25%; must be an integer to intentionally perform an integer division
+    
     private string _definition = string.Empty;
     private string _changedDefinition = string.Empty;
 
@@ -70,6 +75,8 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     
     protected ReactiveCommand<ICollection<VocabularyItem>, Unit> RemoveCommandCollection { get; }
 
+    protected LessonOptions ModificationSettings { get; } = LessonOptions.HighTolerance; // CorrectionSteps and TolerateSwappedLetters are irrelevant
+
     internal IList? ContainerCollection { get; set; }
 
     internal List<VocabularyItem>? VocabularyReferences { get; set; }
@@ -94,6 +101,13 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     
     public virtual void SaveChanges()
         => this.Definition = ChangedDefinition;
+
+    protected internal virtual bool ContainsTerm(string search) // `search` assumed to be modified already with `Utilities.ModifyAnswer`
+    {
+        string modifiedDefinition = Utilities.ModifyAnswer(ChangedDefinition, ModificationSettings);
+        int tolerance = search.Length / SearchToleranceDivisor;
+        return modifiedDefinition.Contains(search) || modifiedDefinition.LongestCommonSubstringLength(search) >= search.Length - tolerance;
+    }
 
     protected void InvokeNotifyChanged()
         => NotifyChanged?.Invoke();
