@@ -111,7 +111,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
 
     protected void CheckAnswer()
     {
-        string modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson);
+        string modifiedAnswer = Utilities.ModifyAnswer(Answer, CurrentLesson.Options);
         int mistakeTolerance = CurrentLesson.Options.CorrectionSteps;
         bool tolerateTransposition = CurrentLesson.Options.TolerateSwappedLetters;
 
@@ -120,7 +120,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         int minDistance = mistakeTolerance + 1;
         foreach (string definition in this.PossibleDefinitions)
         {
-            string modifiedDefinition = Utilities.ModifyAnswer(definition, CurrentLesson);
+            string modifiedDefinition = Utilities.ModifyAnswer(definition, CurrentLesson.Options);
             if (modifiedDefinition.Equals(modifiedAnswer))
             {
                 minDistance = 0;

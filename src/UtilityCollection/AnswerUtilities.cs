@@ -62,13 +62,12 @@ public static partial class Utilities
     /// Modify a specific string to comply with the lesson options.
     /// </summary>
     /// <param name="originalString">The original unmodified string.</param>
-    /// <param name="lesson">The current lesson that contains the relevant settings.</param>
+    /// <param name="settings">The relevant settings.</param>
     /// <returns>A modified string, according to the selected lesson options.</returns>
-    public static string ModifyAnswer(string originalString, Lesson lesson)
+    public static string ModifyAnswer(string originalString, LessonOptions settings)
     {
         string result = originalString;
-            
-        var settings = lesson.Options;
+        
         if (settings.IgnoreAccentMarks)
             result = result.RemoveDiacritics();
         if (settings.IgnoreHyphens)
