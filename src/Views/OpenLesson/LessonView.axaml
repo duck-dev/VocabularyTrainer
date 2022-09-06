@@ -88,7 +88,8 @@
                 <Border Grid.Row="3" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"
                         Margin="0,15,0,0" MaxHeight="570">
                     <Grid RowDefinitions="*,Auto">
-                        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                                      IsVisible="{Binding !NoElementsFound}">
                             <ItemsControl Items="{Binding ExposedVocabularyItems}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -102,6 +103,18 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
+                        <Panel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                               IsVisible="{Binding NoElementsFound}">
+                            <Grid ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  Margin="10,30">
+                                <Image Grid.Column="0" Source="/Assets/Search-Icon-Dark.png" Width="20" Height="20" 
+                                       Margin="0,0,20,0"/>
+                                <Viewbox Grid.Column="1" MaxHeight="24">
+                                    <TextBlock FontSize="24" Foreground="{StaticResource MainGrey}"
+                                               Text="No words found containing this or a similar term."/>
+                                </Viewbox>
+                            </Grid>
+                        </Panel>
                         <Button Grid.Row="1" Classes="selectable-button" HorizontalAlignment="Stretch" Height="70" CornerRadius="10"
                                 Background="{StaticResource MainGrey}" Foreground="{StaticResource SameAccent}"
                                 Margin="0,10,0,0" Content="Add a new word" FontSize="28" FontWeight="Bold"

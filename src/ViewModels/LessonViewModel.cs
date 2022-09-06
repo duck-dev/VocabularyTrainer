@@ -27,8 +27,8 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
         get => _exposedVocabularyItems;
         set
         {
-            this.RaisePropertyChanged(nameof(NoElementsFound));
             this.RaiseAndSetIfChanged(ref _exposedVocabularyItems, value);
+            this.RaisePropertyChanged(nameof(NoElementsFound));
         }
     }
     private string AdjustableItemsString => CurrentLesson.VocabularyItems.Count == 1 ? "item" : "items";
