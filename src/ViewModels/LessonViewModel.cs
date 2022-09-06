@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using Avalonia.Media;
+using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Interfaces;
@@ -11,12 +13,37 @@ namespace VocabularyTrainer.ViewModels;
 
 public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
 {
+    private string _searchTerm = string.Empty;
+    private Word[] _exposedVocabularyItems = null!;
+    
     public LessonViewModel(Lesson lesson) => Initialize(lesson);
+    
+    public bool DataChanged => CurrentLesson.DataChanged;
 
     private Lesson CurrentLesson { get; set; } = null!;
+
+    private Word[] ExposedVocabularyItems
+    {
+        get => _exposedVocabularyItems;
+        set
+        {
+            this.RaisePropertyChanged(nameof(NoElementsFound));
+            this.RaiseAndSetIfChanged(ref _exposedVocabularyItems, value);
+        }
+    }
     private string AdjustableItemsString => CurrentLesson.VocabularyItems.Count == 1 ? "item" : "items";
 
-    public bool DataChanged => CurrentLesson.DataChanged;
+    private string SearchTerm
+    {
+        get => _searchTerm;
+        set
+        {
+            ExposedVocabularyItems = CurrentLesson.VocabularyItems.Where(x => x.ContainsTerm(value)).ToArray();
+            _searchTerm = value;
+        }
+    }
+
+    private bool NoElementsFound => ExposedVocabularyItems.Length <= 0;
 
     public void ConfirmDiscarding()
     {
@@ -60,7 +87,8 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
             return;
         this.CurrentLesson = lesson;
         lesson.VocabularyItems.CalculateIndexReactive(this, true, nameof(AdjustableItemsString));
-
+        ExposedVocabularyItems = CurrentLesson.VocabularyItems.ToArray();
+        
         var newOptions = lesson.Options;
         newOptions.ViewModel = this;
         CurrentOptions = newOptions;
