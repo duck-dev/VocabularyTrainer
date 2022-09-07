@@ -38,6 +38,9 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
         get => _searchTerm;
         set
         {
+            if (_searchTerm.Equals(value))
+                return;
+            
             // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
             if (string.IsNullOrEmpty(value))
                 ExposedVocabularyItems = CurrentLesson.VocabularyItems.ToArray();
