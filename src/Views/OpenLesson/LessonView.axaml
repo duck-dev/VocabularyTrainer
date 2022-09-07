@@ -94,7 +94,7 @@
                     </Grid>
                 </Panel>
                 <Border Grid.Row="3" CornerRadius="10" Background="{StaticResource SameAccent}" BorderThickness="0"
-                        Margin="0,15,0,0" MaxHeight="570">
+                        Margin="0,15,0,0" MaxHeight="545">
                     <Grid RowDefinitions="*,Auto">
                         <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                                       IsVisible="{Binding !NoElementsFound}">
