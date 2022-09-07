@@ -45,12 +45,12 @@ Hooray for learning incognito!
 This tool is being developed with the open-source .NET XAML UI-framework [Avalonia](https://avaloniaui.net/) and C#.
 
 ## Gallery
-<img src="https://user-images.githubusercontent.com/61479436/188284983-77f8734f-a2e3-4012-834d-eca1c70129a9.png" width="30%" alt="Lesson list" style="align-items: center; justify-content: center;"></img> 
-<img src="https://user-images.githubusercontent.com/61479436/188284979-5846d29e-ca12-438a-8f44-f310359b77ca.png" width="30%" alt="Create lesson" style="align-items: center; justify-content: center;"></img> 
-<img src="https://user-images.githubusercontent.com/61479436/188284984-ac2dd09a-9c13-46d8-aa5a-99f5598fc8d6.png" width="30%" alt="Open lesson" style="align-items: center; justify-content: center;"></img> 
-<img src="https://user-images.githubusercontent.com/61479436/188284981-46c330fa-f210-4720-b78f-18ed654ad76c.png" width="30%" alt="Flashcards" style="align-items: center; justify-content: center;"></img> 
-<img src="https://user-images.githubusercontent.com/61479436/188284988-87c17a2a-775c-4865-a7b6-698890395682.png" width="30%" alt="Write" style="align-items: center; justify-content: center;"></img>
+<img src="https://user-images.githubusercontent.com/61479436/188884313-fa8858be-a326-4e2a-a037-e1d139835089.png" width="30%" alt="Lesson list" style="align-items: center; justify-content: center;"></img> 
+<img src="https://user-images.githubusercontent.com/61479436/188884302-6633e12b-3b03-4926-83c0-c76e345efb5f.png" width="30%" alt="Create lesson" style="align-items: center; justify-content: center;"></img> 
+<img src="https://user-images.githubusercontent.com/61479436/188884324-4eba9435-ed45-40fa-8eb4-30d65ce5140a.png" width="30%" alt="Open lesson" style="align-items: center; justify-content: center;"></img> 
+<img src="https://user-images.githubusercontent.com/61479436/188884310-7c1e9573-e0a1-4dbe-b958-c0f2bf42e41a.png" width="30%" alt="Flashcards" style="align-items: center; justify-content: center;"></img> 
+<img src="https://user-images.githubusercontent.com/61479436/188884335-d4c59366-43e2-41a0-842c-525a346b2037.png" width="30%" alt="Write" style="align-items: center; justify-content: center;"></img>
 <img src="https://user-images.githubusercontent.com/61479436/188285810-253dd234-677e-48f9-b647-bade13c2a60f.png" width="30%" alt="Wrong answer" style="align-items: center; justify-content: center;"></img>
-<img src="https://user-images.githubusercontent.com/61479436/188284992-0a13c404-5a4b-4da0-a1b2-17dbb2d9fce6.png" width="30%" alt="Multiple Choice (wrong answer)" style="align-items: center; justify-content: center;"></img> 
-<img src="https://user-images.githubusercontent.com/61479436/188284985-e517d0e0-d40d-4fc0-9690-cf0e6238f0c2.png" width="30%" alt="Synonyms and Antonyms" style="align-items: center; justify-content: center;"></img> 
-<img src="https://user-images.githubusercontent.com/61479436/188284987-aebe3565-0b10-42e0-acd8-9e1f00a52ae9.png" width="30%" alt="Vocabulary List" style="align-items: center; justify-content: center;"></img> 
+<img src="https://user-images.githubusercontent.com/61479436/188884320-08dc11d2-23b7-44db-8850-f4aa50921a40.png" width="30%" alt="Multiple Choice (wrong answer)" style="align-items: center; justify-content: center;"></img> 
+<img src="https://user-images.githubusercontent.com/61479436/188884330-5dc95ddb-78d4-4ec4-9225-864833cea6b2.png" width="30%" alt="Synonyms and Antonyms" style="align-items: center; justify-content: center;"></img> 
+<img src="https://user-images.githubusercontent.com/61479436/188884332-a6804914-ffc6-4c45-a995-ae044bf86371.png" width="30%" alt="Vocabulary List" style="align-items: center; justify-content: center;"></img> 
