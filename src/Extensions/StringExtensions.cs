@@ -103,11 +103,7 @@ public static partial class Extensions
         {
             for (int j = 1; j <= n; j++)
             {
-                if (i == 0 || j == 0)
-                {
-                    matrix[i, j] = 0;
-                }
-                else if (a[i-1] == b[j-1])
+                if (a[i-1] == b[j-1])
                 {
                     matrix[i, j] = matrix[i-1,j-1] + 1;
                     result = Math.Max(result, matrix[i, j]);
