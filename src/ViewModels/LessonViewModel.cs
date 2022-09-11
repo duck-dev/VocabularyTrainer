@@ -1,4 +1,6 @@
 using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using Avalonia.Media;
 using ReactiveUI;
@@ -14,7 +16,7 @@ namespace VocabularyTrainer.ViewModels;
 public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
 {
     private string _searchTerm = string.Empty;
-    private Word[] _exposedVocabularyItems = null!;
+    private ObservableCollection<Word> _exposedVocabularyItems = null!;
     
     public LessonViewModel(Lesson lesson) => Initialize(lesson);
     
@@ -22,7 +24,7 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
 
     private Lesson CurrentLesson { get; set; } = null!;
 
-    private Word[] ExposedVocabularyItems
+    private ObservableCollection<Word> ExposedVocabularyItems
     {
         get => _exposedVocabularyItems;
         set
@@ -43,14 +45,14 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
             
             // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
             if (string.IsNullOrEmpty(value))
-                ExposedVocabularyItems = CurrentLesson.VocabularyItems.ToArray();
+                ExposedVocabularyItems = new ObservableCollection<Word>(CurrentLesson.VocabularyItems);
             else
-                ExposedVocabularyItems = CurrentLesson.VocabularyItems.Where(x => x.ContainsTerm(value)).ToArray();
+                ExposedVocabularyItems = new ObservableCollection<Word>(CurrentLesson.VocabularyItems.Where(x => x.ContainsTerm(value)));
             this.RaiseAndSetIfChanged(ref _searchTerm, value);
         }
     }
 
-    private bool NoElementsFound => ExposedVocabularyItems.Length <= 0;
+    private bool NoElementsFound => ExposedVocabularyItems.Count <= 0;
 
     public void ConfirmDiscarding()
     {
@@ -94,8 +96,33 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
             return;
         this.CurrentLesson = lesson;
         lesson.VocabularyItems.CalculateIndexReactive(this, true, nameof(AdjustableItemsString));
-        ExposedVocabularyItems = CurrentLesson.VocabularyItems.ToArray();
-        
+        ExposedVocabularyItems = new ObservableCollection<Word>(CurrentLesson.VocabularyItems);
+        CurrentLesson.VocabularyItems.CollectionChanged += (sender, args) =>
+        {
+            switch (args.Action)
+            {
+                case NotifyCollectionChangedAction.Add when args.NewItems != null:
+                    foreach (var item in args.NewItems)
+                    {
+                        if(item is Word word)
+                            ExposedVocabularyItems.Add(word);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove when args.OldItems != null:
+                    foreach (var item in args.OldItems)
+                    {
+                        if(item is Word word)
+                            ExposedVocabularyItems.Remove(word);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Reset:
+                default:
+                    break;
+            }
+        };
+
         var newOptions = lesson.Options;
         newOptions.ViewModel = this;
         CurrentOptions = newOptions;
