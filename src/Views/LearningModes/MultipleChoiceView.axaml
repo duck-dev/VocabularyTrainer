@@ -25,6 +25,7 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="MaxHeight" Value="58"/>
             <Setter Property="StretchDirection" Value="UpOnly"/>
+            <Setter Property="Margin" Value="20,0"/>
         </Style>
         <Style Selector="TextBlock.multiple-choice-text">
             <Setter Property="FontSize" Value="16"/>
