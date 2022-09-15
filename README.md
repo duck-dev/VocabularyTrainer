@@ -51,6 +51,6 @@ This tool is being developed with the open-source .NET XAML UI-framework [Avalon
 <img src="https://user-images.githubusercontent.com/61479436/188884310-7c1e9573-e0a1-4dbe-b958-c0f2bf42e41a.png" width="30%" alt="Flashcards" style="align-items: center; justify-content: center;"></img> 
 <img src="https://user-images.githubusercontent.com/61479436/188884335-d4c59366-43e2-41a0-842c-525a346b2037.png" width="30%" alt="Write" style="align-items: center; justify-content: center;"></img>
 <img src="https://user-images.githubusercontent.com/61479436/188285810-253dd234-677e-48f9-b647-bade13c2a60f.png" width="30%" alt="Wrong answer" style="align-items: center; justify-content: center;"></img>
-<img src="https://user-images.githubusercontent.com/61479436/188884320-08dc11d2-23b7-44db-8850-f4aa50921a40.png" width="30%" alt="Multiple Choice (wrong answer)" style="align-items: center; justify-content: center;"></img> 
+<img src="https://user-images.githubusercontent.com/61479436/190468562-358e5958-7da8-4681-a93b-43564ae5747e.png" width="30%" alt="Multiple Choice (wrong answer)" style="align-items: center; justify-content: center;"></img> 
 <img src="https://user-images.githubusercontent.com/61479436/188884330-5dc95ddb-78d4-4ec4-9225-864833cea6b2.png" width="30%" alt="Synonyms and Antonyms" style="align-items: center; justify-content: center;"></img> 
 <img src="https://user-images.githubusercontent.com/61479436/188884332-a6804914-ffc6-4c45-a995-ae044bf86371.png" width="30%" alt="Vocabulary List" style="align-items: center; justify-content: center;"></img> 
