@@ -17,6 +17,8 @@ namespace VocabularyTrainer.ViewModels.LearningModes;
 
 public sealed class MultipleChoiceViewModel : AnswerViewModelBase
 {
+    internal const int MaxAnswerCount = 4;
+    
     private static readonly Dictionary<PartOfSpeech, PartOfSpeech[]> _alternativePartOfSpeeches = new()
     {
         { PartOfSpeech.Adjective, new [] { PartOfSpeech.Adverb } },
@@ -25,7 +27,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
         { PartOfSpeech.Other, new [] { PartOfSpeech.Pronoun } }
     };
 
-    private static readonly int[] _similarWordLimits = { 1, 4 };
+    private static readonly int[] _similarWordLimits = { 1, MaxAnswerCount };
 
     private static readonly LinearGradientBrush _greyGradient = 
         ConstructMultipleChoiceGradient(new[] { Resources.VeryLightGrey, Resources.VeryLightGrey });
@@ -171,11 +173,11 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
             }
         }
 
-        if (Choices.Count == 4)
+        if (Choices.Count == MaxAnswerCount)
             return Choices.Shuffle();
 
         PartOfSpeech partOfSpeech = CurrentWord.SelectedPartOfSpeech;
-        int threshold = 4 - Choices.Count;
+        int threshold = MaxAnswerCount - Choices.Count;
         if (partOfSpeech == PartOfSpeech.None && CompleteMissingDefinitions(threshold, allWords, Choices, allWords, IsTermChosen))
             return Choices.Shuffle(); 
         
@@ -196,7 +198,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
             if (CompleteMissingDefinitions(threshold, possibleWords, Choices, allWords, IsTermChosen))
                 return Choices.Shuffle();
 
-            threshold = 4 - Choices.Count;
+            threshold = MaxAnswerCount - Choices.Count;
             int alternativeIndex = 0;
             while (threshold > 0)
             {
@@ -214,7 +216,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
                     if (CompleteMissingDefinitions(threshold, possibleWords, Choices, allWords, IsTermChosen))
                         return Choices.Shuffle();
 
-                    threshold = 4 - Choices.Count;
+                    threshold = MaxAnswerCount - Choices.Count;
                     alternativeIndex++;
                     continue;
                 }
@@ -239,7 +241,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
 
             int randomIndex = Random.Shared.Next(0, wordCollection.Count);
             targetList.Add(collection[randomIndex]);
-            if (targetList.Count == 4)
+            if (targetList.Count == MaxAnswerCount)
                 return true;
             
             collection.RemoveAt(randomIndex);
@@ -249,7 +251,7 @@ public sealed class MultipleChoiceViewModel : AnswerViewModelBase
                                                       // from this collection before being accessed to remove it from `allWords`
         }
 
-        return targetList.Count == 4;
+        return targetList.Count == MaxAnswerCount;
     }
 
     private static LinearGradientBrush ConstructMultipleChoiceGradient(Color[] colors)

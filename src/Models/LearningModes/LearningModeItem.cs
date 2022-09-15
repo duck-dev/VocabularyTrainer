@@ -1,17 +1,15 @@
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Runtime.CompilerServices;
-using Avalonia;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.UtilityCollection;
 using VocabularyTrainer.ViewModels;
+using VocabularyTrainer.ViewModels.LearningModes;
 
 namespace VocabularyTrainer.Models;
 
@@ -51,7 +49,7 @@ public class LearningModeItem : INotifyPropertyChangedHelper
             if (LearningMode == LearningModeType.Thesaurus)
                 thesaurus = currentLesson.VocabularyItems.Any(x => x.Synonyms.Count > 0 || x.Antonyms.Count > 0);
             else if (LearningMode == LearningModeType.MultipleChoice)
-                multipleChoice = currentLesson.VocabularyItems.Count >= 5;
+                multipleChoice = currentLesson.VocabularyItems.Count >= MultipleChoiceViewModel.MaxAnswerCount;
             return words && thesaurus && multipleChoice;
         }
     }
