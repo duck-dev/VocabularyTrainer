@@ -152,7 +152,7 @@ Words you have answered correctly will occur less often.
                                                      subtracted from the margin of the parent Grid of the choices (40)
                                                      => space to left (greater) - space to right (smaller) => 40 - 30 = 10 -->
                 <Button Grid.Row="1" Classes="highlight-no-change selectable-button-effect" Margin="0,0"
-                        HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="70"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="70" MaxWidth="275"
                         Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
                         Command="{Binding NextWord}" CommandParameter="True" HotKey="Enter" CornerRadius="10">
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Next word"
