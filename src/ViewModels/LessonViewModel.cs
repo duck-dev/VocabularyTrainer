@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
@@ -46,7 +47,8 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
             {
                 if (string.IsNullOrEmpty(value) || word.ContainsTerm(value))
                 {
-                    if (ExposedVocabularyItems.Contains(word)) 
+                    // `Contains` uses default equality comparer => Equals, but reference comparison is desired to avoid trimming duplicates
+                    if (ExposedVocabularyItems.Any(x => ReferenceEquals(x, word)))
                         continue;
                         
                     if (ExposedVocabularyItems.Count <= 0)
