@@ -1,7 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
 using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
@@ -43,12 +42,41 @@ public class LessonViewModel : LessonViewModelBase, IDiscardableChanges
             if (_searchTerm.Equals(value))
                 return;
             
-            // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-            if (string.IsNullOrEmpty(value))
-                ExposedVocabularyItems = new ObservableCollection<Word>(CurrentLesson.VocabularyItems);
-            else
-                ExposedVocabularyItems = new ObservableCollection<Word>(CurrentLesson.VocabularyItems.Where(x => x.ContainsTerm(value)));
+            foreach (Word word in CurrentLesson.VocabularyItems)
+            {
+                if (string.IsNullOrEmpty(value) || word.ContainsTerm(value))
+                {
+                    if (ExposedVocabularyItems.Contains(word)) 
+                        continue;
+                        
+                    if (ExposedVocabularyItems.Count <= 0)
+                    {
+                        ExposedVocabularyItems.Add(word);
+                        continue;
+                    }
+                        
+                    for (int i = 0; i < ExposedVocabularyItems.Count; i++)
+                    {
+                        if (i == 0 && word.Index <= ExposedVocabularyItems[i].Index)
+                        {
+                            ExposedVocabularyItems.Insert(i, word);
+                            break;
+                        }
+                            
+                        if (i < ExposedVocabularyItems.Count - 1 && (word.Index <= ExposedVocabularyItems[i].Index || word.Index >= ExposedVocabularyItems[i + 1].Index)) 
+                            continue;
+                        ExposedVocabularyItems.Insert(i + 1, word);
+                        break;
+                    }
+                }
+                else
+                {
+                    ExposedVocabularyItems.Remove(word);
+                }
+            }
+            
             this.RaiseAndSetIfChanged(ref _searchTerm, value);
+            this.RaisePropertyChanged(nameof(NoElementsFound));
         }
     }
 
