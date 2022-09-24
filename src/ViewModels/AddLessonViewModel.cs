@@ -57,6 +57,8 @@ public sealed class AddLessonViewModel : LessonViewModelBase, IVocabularyContain
 
     private void CreateLesson()
     {
+        foreach(Word word in VocabularyItems)
+            word.SaveChanges();
         var lesson = new Lesson(CurrentName, CurrentDescription, VocabularyItems, Lesson.InitShuffledDictionary(), 
             CurrentOptions, new LearningModeOptions(), false);
         DataManager.AddData(lesson);

@@ -105,6 +105,15 @@
                 </Grid.Resources>
                 <TextBox Grid.Row="0" Grid.Column="1" Classes="add-page-textbox main-textbox" Watermark="Term"
                          Text="{Binding ChangedTerm}"/>
+                <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Classes="selectable-button highlight-no-change" 
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding SwitchDefinition}"
+                        Margin="0,7.5,0,0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="/Assets/Switch-Dark.png" Width="40" Height="40"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <TextBox Grid.Row="0" Grid.Column="4" Classes="add-page-textbox main-textbox" Watermark="Definition"
                          Text="{Binding ChangedDefinition}"/>
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" 

@@ -5,13 +5,11 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
-using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using Avalonia;
 using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
-using VocabularyTrainer.Extensions;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models.ItemStyleControls;
 using VocabularyTrainer.ResourcesNamespace;
@@ -22,7 +20,7 @@ using VocabularyTrainer.ViewModels;
 
 namespace VocabularyTrainer.Models;
 
-public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable, IContentVerification<Word>, IEquatable<Word>, ICloneable
+public class Word : DualVocabularyItem, IIndexable, IContentVerification<Word>, IEquatable<Word>
 {
     private ObservableCollection<VocabularyItem> _synonyms = new();
     private ObservableCollection<VocabularyItem> _antonyms = new();
@@ -34,8 +32,6 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     private readonly List<VocabularyItem> _changedAntonyms = new();
     private readonly PartOfSpeech[] _partsOfSpeech = Enum.GetValues<PartOfSpeech>();
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-        
     public Word()
     {
         ThesaurusTitleDefinitions = new[]
@@ -124,8 +120,8 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
                                  || Antonyms.Any(x => !x.ChangedDefinition.Equals(x.Definition))
                                  || _changedSynonyms.Count > 0 || _changedAntonyms.Count > 0;
 
-    internal bool IsFilled => (!string.IsNullOrEmpty(Term) && !string.IsNullOrWhiteSpace(Term))
-                              || (!string.IsNullOrEmpty(Definition) && !string.IsNullOrWhiteSpace(Definition))
+    internal bool IsFilled => (!string.IsNullOrEmpty(ChangedTerm) && !string.IsNullOrWhiteSpace(ChangedTerm))
+                              || (!string.IsNullOrEmpty(ChangedDefinition) && !string.IsNullOrWhiteSpace(ChangedDefinition))
                               || (SelectedPartOfSpeech != PartOfSpeech.None)
                               || (Synonyms.Any(x => !string.IsNullOrEmpty(x.Definition) && !string.IsNullOrWhiteSpace(x.Definition)))
                               || (Antonyms.Any(x => !string.IsNullOrEmpty(x.Definition) && !string.IsNullOrWhiteSpace(x.Definition)));
@@ -170,9 +166,6 @@ public class Word : DualVocabularyItem, INotifyPropertyChangedHelper, IIndexable
     private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
     private ReactiveCommand<IVocabularyContainer<Word>, Unit> RemoveCommand { get; }
-        
-    public void NotifyPropertyChanged([CallerMemberName] string propertyName = "") 
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     public void CheckUnsavedContent()
     {

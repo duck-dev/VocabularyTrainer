@@ -9,7 +9,7 @@ using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.Models;
 
-public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocabularyItem>, ICloneable
+public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocabularyItem>
 {
     private string _term = string.Empty;
     private string _changedTerm = string.Empty;
@@ -30,6 +30,7 @@ public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocab
         {
             _changedTerm = value.Trim();
             InvokeNotifyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -70,4 +71,7 @@ public class DualVocabularyItem : VocabularyItem, IContentVerification<DualVocab
         int tolerance = search.Length / SearchToleranceDivisor;
         return modifiedTerm.Contains(search) || modifiedTerm.LongestCommonSubstringLength(search) >= search.Length - tolerance;
     }
+
+    protected void SwitchDefinition() 
+        => (ChangedTerm, ChangedDefinition) = (ChangedDefinition, ChangedTerm);
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
 using System.Text.Json.Serialization;
@@ -15,7 +16,7 @@ using VocabularyTrainer.UtilityCollection;
 
 namespace VocabularyTrainer.Models;
 
-public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<VocabularyItem>, ICloneable
+public class VocabularyItem : INotifyPropertyChangedHelper, IContentVerification<VocabularyItem>, IEquatable<VocabularyItem>, ICloneable
 {
     protected const int SearchToleranceDivisor = 4; // 25%; must be an integer to intentionally perform an integer division
     
@@ -24,6 +25,7 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
 
     public delegate void NotificationEventHandler();
     public event NotificationEventHandler? NotifyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public VocabularyItem(IList? containerCollection = null)
     {
@@ -68,6 +70,7 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
         {
             _changedDefinition = value.Trim();
             InvokeNotifyChanged();
+            NotifyPropertyChanged();
         }
     }
     
@@ -80,6 +83,9 @@ public class VocabularyItem : IContentVerification<VocabularyItem>, IEquatable<V
     internal IList? ContainerCollection { get; set; }
 
     internal List<VocabularyItem>? VocabularyReferences { get; set; }
+    
+    public void NotifyPropertyChanged(string propertyName = "") 
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     public bool MatchesUnsavedContent(IEnumerable<VocabularyItem> collection, out VocabularyItem? identicalItem)
     {
