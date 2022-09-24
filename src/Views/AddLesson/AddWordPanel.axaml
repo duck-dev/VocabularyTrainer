@@ -19,7 +19,7 @@
                         HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button.Template>
                         <ControlTemplate>
-                            <Image Source="/Assets/Switch-Dark.png" Width="50" Height="50"/>
+                            <Image Source="/Assets/Switch-Dark.png" Width="40" Height="40"/>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
