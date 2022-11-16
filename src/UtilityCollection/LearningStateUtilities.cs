@@ -69,6 +69,12 @@ public static partial class Utilities
             return;
         }
 
+        if (originalState.CustomHasFlag(KnownFlags) && !known)
+        {
+            ChangeLearningState(item, singleWordViewModel, LearningState.WrongOnce, considerOverallState, visualize);
+            return;
+        }
+
         newState &= ~LearningState.NotAsked;
         newState = known ? newState.Next(false, LearningState.NotAsked) 
             : newState.Previous(false, LearningState.NotAsked);
