@@ -53,8 +53,7 @@
                             </Style>
                         </TextBox.Styles>
                     </TextBox>
-                    <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Width="180"
-                            Height="60"
+                    <Button Grid.Column="1" Classes="highlight-no-change selectable-button-effect" Width="180" Height="60"
                             Background="{StaticResource AppBlue}" Foreground="{StaticResource SameAccent}"
                             Command="{Binding CheckAnswer}" IsEnabled="{Binding !IsSolutionShown}"
                             HotKey="Enter">

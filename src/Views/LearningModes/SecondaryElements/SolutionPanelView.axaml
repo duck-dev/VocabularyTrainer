@@ -10,9 +10,16 @@
                Opacity="0.7"/>
         <Grid RowDefinitions="3*,1*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
             <Grid Grid.Row="0" RowDefinitions="*,*,*" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <Viewbox Grid.Row="0" MaxHeight="96" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,30">
-                    <TextBlock Foreground="{StaticResource SameAccent}" FontWeight="Bold" Text="{Binding Term}"/>
-                </Viewbox>
+                <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Center" VerticalAlignment="Center"
+                      Margin="0,0,0,30">
+                    <Viewbox Grid.Column="0" MaxHeight="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Foreground="{StaticResource SameAccent}" FontWeight="Bold" Text="{Binding Term}"/>
+                    </Viewbox>
+                    <ToggleButton Grid.Column="1" x:Name="Star" Classes="star-toggle" VerticalAlignment="Center"
+                                  Checked="OnStarChecked" Unchecked="OnStarUnchecked" Margin="60,0,0,0"
+                                  IsChecked="{Binding AnswerViewModel.IsCurrentWordDifficult}"
+                                  Template="{StaticResource ToggleStarShapeTemplateLight}" Width="72" Height="72"/>
+                </Grid>
                 <Viewbox Grid.Row="1" MaxHeight="36" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30">
                     <TextBlock Foreground="{StaticResource SameAccent}" Text="{Binding ExplanationText}"/>
                 </Viewbox>
