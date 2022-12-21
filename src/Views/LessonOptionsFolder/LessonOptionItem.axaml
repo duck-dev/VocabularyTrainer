@@ -8,9 +8,18 @@
              x:Class="VocabularyTrainer.Views.LessonOptionItem"
              Margin="0,0,0,15">
     <UserControl.Resources>
-        <TextBlock x:Key="DescriptionTemplate" FontSize="18" FontWeight="Bold" Foreground="{StaticResource OppositeAccent}"
+        <TextBlock x:Key="DescriptionTemplate" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"
                    Text="{Binding $parent[views:LessonOptionItem].Description}" Margin="0,0,10,0"
-                   VerticalAlignment="Center"/>
+                   IsEnabled="{Binding $parent[UserControl].IsEnabled}">
+            <TextBlock.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Foreground" Value="{StaticResource OppositeAccent}"/>
+                </Style>
+                <Style Selector="TextBlock:disabled">
+                    <Setter Property="Foreground" Value="{StaticResource VariantMainGrey}"/>
+                </Style>
+            </TextBlock.Styles>
+        </TextBlock>
         <Grid x:Key="InfoButtonTemplate" Width="20" Height="20" VerticalAlignment="Center">
             <Ellipse Fill="{StaticResource MainGrey}"
                      ToolTip.Tip="{Binding $parent[views:LessonOptionItem].TooltipText}" ToolTip.Placement="Right"/>

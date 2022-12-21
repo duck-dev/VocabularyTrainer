@@ -8,10 +8,14 @@ namespace VocabularyTrainer.Models;
 
 public struct LearningModeOptions
 {
-    private readonly LearningModeType[] _askTermModes = { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
-    private readonly LearningModeType[] _askDefinitionModes = { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
-    private readonly LearningModeType[] _showThesaurusModes = { LearningModeType.Flashcards, LearningModeType.VocabularyList };
-    private readonly LearningModeType[] _progressiveLearningModes = { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.Thesaurus, LearningModeType.MultipleChoice };
+    private static readonly LearningModeType[] _askTermModes = 
+        { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
+    private static readonly LearningModeType[] _askDefinitionModes = 
+        { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.MultipleChoice };
+    private static readonly LearningModeType[] _showThesaurusModes = 
+        { LearningModeType.Flashcards, LearningModeType.VocabularyList };
+    private static readonly LearningModeType[] _progressiveLearningModes = 
+        { LearningModeType.Flashcards, LearningModeType.Write, LearningModeType.Thesaurus, LearningModeType.MultipleChoice };
 
     public LearningModeOptions()
     {
