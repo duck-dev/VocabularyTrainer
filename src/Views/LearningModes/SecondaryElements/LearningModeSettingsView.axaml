@@ -12,7 +12,7 @@
         </Expander.Header>
         <Expander.Content>
             <ScrollViewer VerticalAlignment="Top" HorizontalAlignment="Left"
-                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
                     <views:LessonOptionItem Description="Shuffle words automatically" IsInlined="True" Margin="0,0,0,10">
                         <views:LessonOptionItem.TooltipText>
