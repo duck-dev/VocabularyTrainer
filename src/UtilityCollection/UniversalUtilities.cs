@@ -38,7 +38,11 @@ public static partial class Utilities
     /// Log a message to the console (for debugging purposes).
     /// </summary>
     /// <param name="message">The message to be logged as a string.</param>
-    public static void Log(string? message) => System.Diagnostics.Trace.WriteLine(message);
+    public static void Log(string? message)
+    {
+        Console.WriteLine(message);
+        System.Diagnostics.Trace.WriteLine(message);
+    }
         
     /// <summary>
     /// Add added/removed elements of a collection whose changes should be resettable to a list
