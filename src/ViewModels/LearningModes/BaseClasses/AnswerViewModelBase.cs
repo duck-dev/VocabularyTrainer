@@ -161,6 +161,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         this.SolutionPanel.SetExplanationText(answerCorrect);
 
         this.AnswerColor = answerCorrect ? _greenColor : _redColor;
+        this.RaisePropertyChanged(nameof(IsCurrentWordDifficult));
         this.IsSolutionShown = true;
     }
 
