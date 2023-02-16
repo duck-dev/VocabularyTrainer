@@ -14,8 +14,8 @@
         <CFBundleName>VocabularyTrainer</CFBundleName> <!-- Also defines .app file name -->
         <CFBundleDisplayName>VocabularyTrainer</CFBundleDisplayName>
         <CFBundleIdentifier>com.duck-dev.vocabulary-trainer</CFBundleIdentifier>
-        <CFBundleVersion>0.1.0</CFBundleVersion>
-        <CFBundleShortVersionString>0.1.0</CFBundleShortVersionString>
+        <CFBundleVersion>1.0.0</CFBundleVersion>
+        <CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
         <CFBundlePackageType>APPL</CFBundlePackageType>
         <CFBundleSignature>????</CFBundleSignature>
         <CFBundleExecutable>VocabularyTrainer</CFBundleExecutable>
