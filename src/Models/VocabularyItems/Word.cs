@@ -28,9 +28,19 @@ public class Word : DualVocabularyItem, IIndexable, IContentVerification<Word>, 
     private int _index;
     private int _partOfSpeechIndex;
     private int _changedPartOfSpeechIndex;
+    private LearningState _learningStatus;
     private readonly List<VocabularyItem> _changedSynonyms = new();
     private readonly List<VocabularyItem> _changedAntonyms = new();
     private readonly PartOfSpeech[] _partsOfSpeech = Enum.GetValues<PartOfSpeech>();
+
+    private readonly Dictionary<LearningState, SolidColorBrush> _statusColors = new()
+    {
+        { LearningState.VeryHard, Resources.DarkRedBrush },
+        { LearningState.WrongOnce, Resources.MainRedBrush },
+        { LearningState.NotAsked, Resources.MainGreyBrush },
+        { LearningState.KnownOnce, Resources.LightGreenBrush },
+        { LearningState.KnownPerfectly, Resources.MainGreenBrush }
+    };
 
     public Word()
     {
@@ -87,8 +97,16 @@ public class Word : DualVocabularyItem, IIndexable, IContentVerification<Word>, 
             NotifyPropertyChanged(nameof(Antonyms));
         }
     }
-    
-    public LearningState LearningStatus { get; set; }
+
+    public LearningState LearningStatus
+    {
+        get => _learningStatus;
+        set
+        {
+            _learningStatus = value;
+            WordStatusColor = _statusColors[_learningStatus];
+        }
+    }
 
     public int PartOfSpeechIndex
     {
@@ -162,6 +180,8 @@ public class Word : DualVocabularyItem, IIndexable, IContentVerification<Word>, 
         new("Other", Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightGreen", Resources.StyleIndex) 
                        ?? new SolidColorBrush(Color.Parse("#91C669")))
     };
+
+    internal SolidColorBrush WordStatusColor { get; private set; }
 
     private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 

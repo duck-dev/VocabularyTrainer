@@ -42,10 +42,8 @@
     <Grid ColumnDefinitions="Auto,*,Auto" MinHeight="80" Margin="0,10,0,15">
         <Grid Grid.Column="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,30">
             <!-- Bottom-margin Grid = Bottom-padding of Border below -->
-            <Ellipse Grid.Column="0" Fill="{StaticResource AppBlue}"
-                     Width="18" Height="18" Margin="15,0,-7.5,0"
-                     IsEnabled="False" IsVisible="False" VerticalAlignment="Center"/>
-            <!-- TODO: Only enable Ellipse if something changed -->
+            <Rectangle Grid.Column="0" Width="7.5" Height="75" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="15,0,-5,0" Fill="{Binding WordStatusColor}"/>
             <TextBlock Grid.Column="1" FontSize="24" Foreground="{StaticResource MainGrey}"
                        Text="{Binding Index}" HorizontalAlignment="Center" VerticalAlignment="Center"
                        Margin="20,0"/>

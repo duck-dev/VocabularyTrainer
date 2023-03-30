@@ -27,6 +27,8 @@
               <SolidColorBrush x:Key="SoftRed" Color="#AA4949"/>
               <SolidColorBrush x:Key="SoftGreen" Color="#49AA7F"/>
               
+              <SolidColorBrush x:Key="DarkRed" Color="#7C0600"/>
+              
               <SolidColorBrush x:Key="LightGreen" Color="#91C669"/>
               <SolidColorBrush x:Key="LightBrown" Color="#A8744F"/>
               

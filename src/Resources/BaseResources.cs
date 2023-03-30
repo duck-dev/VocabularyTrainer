@@ -72,6 +72,10 @@ public static partial class Resources
         Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "SoftGreen", StyleIndex) 
         ?? new SolidColorBrush(Color.Parse("#49AA7F"));
     
+    public static readonly SolidColorBrush DarkRedBrush = 
+        Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "DarkRed", StyleIndex) 
+        ?? new SolidColorBrush(Color.Parse("#7C0600"));
+    
     public static readonly SolidColorBrush LightGreenBrush = 
         Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "LightGreen", StyleIndex) 
         ?? new SolidColorBrush(Color.Parse("#91C669"));
@@ -111,6 +115,8 @@ public static partial class Resources
     
     public static readonly Color SoftRed = SoftRedBrush.Color;
     public static readonly Color SoftGreen = SoftGreenBrush.Color;
+
+    public static readonly Color DarkRed = DarkRedBrush.Color;
     
     public static readonly Color LightGreen = LightGreenBrush.Color;
     public static readonly Color LightBrown = LightBrownBrush.Color;
