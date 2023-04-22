@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
 using System.Text.Json.Serialization;
@@ -181,7 +180,7 @@ public class Word : DualVocabularyItem, IIndexable, IContentVerification<Word>, 
                        ?? new SolidColorBrush(Color.Parse("#91C669")))
     };
 
-    internal SolidColorBrush WordStatusColor { get; private set; }
+    internal SolidColorBrush? WordStatusColor { get; private set; }
 
     private Tuple<string, string, ItemStyleBase<Word>>[] ThesaurusTitleDefinitions { get; }
 
