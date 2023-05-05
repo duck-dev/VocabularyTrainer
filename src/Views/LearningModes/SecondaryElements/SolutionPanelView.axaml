@@ -8,10 +8,10 @@
     <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Panel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource OppositeAccent}"
                Opacity="0.7"/>
-        <Grid RowDefinitions="3*,1*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
-            <Grid Grid.Row="0" RowDefinitions="*,*,*" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+        <Grid RowDefinitions="*,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
+            <Grid Grid.Row="0" RowDefinitions="Auto,Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <Grid Grid.Row="0" ColumnDefinitions="*,Auto" HorizontalAlignment="Center" VerticalAlignment="Center"
-                      Margin="0,0,0,30">
+                      Margin="0,30">
                     <Viewbox Grid.Column="0" MaxHeight="96" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock Foreground="{StaticResource SameAccent}" FontWeight="Bold" Text="{Binding Term}"/>
                     </Viewbox>
@@ -23,11 +23,37 @@
                 <Viewbox Grid.Row="1" MaxHeight="36" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30">
                     <TextBlock Foreground="{StaticResource SameAccent}" Text="{Binding ExplanationText}"/>
                 </Viewbox>
-                <Viewbox Grid.Row="2" MaxHeight="124" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                    <TextBlock Foreground="{Binding AnswerViewModel.AnswerColor}" FontWeight="Bold" Text="{Binding Definition}"/>
-                </Viewbox>
+                <Grid Grid.Row="2" RowDefinitions="Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                      Margin="0,30">
+                    <Viewbox Grid.Row="0" MaxHeight="124" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                             Margin="0,0,0,15">
+                        <TextBlock Foreground="{Binding AnswerViewModel.AnswerColor}" FontWeight="Bold" 
+                                   Text="{Binding Definition}"/>
+                    </Viewbox>
+                    <Grid Grid.Row="1" ColumnDefinitions="Auto,*" HorizontalAlignment="Center" VerticalAlignment="Center"
+                          IsVisible="{Binding AnswerViewModel.ShowPossibleSynonyms}">
+                        <TextBlock Grid.Column="0" Foreground="{StaticResource SameAccent}" FontWeight="Bold"
+                                   FontSize="28" Text="Alternative definitions:" Margin="0,0,15,0"
+                                   VerticalAlignment="Center"/>
+                        <ItemsControl Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                      Items="{Binding AnswerViewModel.PossibleSynonyms}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="{Binding $parent[UserControl].DataContext.AnswerViewModel.AnswerColor}"
+                                               FontWeight="Bold" FontSize="36" TextWrapping="Wrap" Text="{Binding}"
+                                               Margin="10, 0" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
+            <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,30">
                 <Button Grid.Column="0" Classes="highlight-no-change selectable-button-effect" Width="240" Height="70"
                         Background="{StaticResource MainGreen}" Foreground="{StaticResource SameAccent}"
                         Margin="35,0" IsVisible="{Binding !IsAnswerCorrect}" CornerRadius="10"

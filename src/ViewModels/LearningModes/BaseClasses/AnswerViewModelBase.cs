@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using Avalonia;
 using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Enums;
@@ -18,19 +18,15 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
     private bool _isSolutionShown;
     private SolutionPanelViewModel? _solutionPanel;
     private SolidColorBrush _answerColor;
+    private bool _showPossibleSynonyms;
+    private ObservableCollection<string>? _possibleSynonyms;
 
     private int _knownWords;
     private int _wrongWords;
 
-    private readonly SolidColorBrush _blackColor 
-        = Utilities.GetResourceFromStyle<SolidColorBrush,Application>(Application.Current, "OppositeAccent", Resources.StyleIndex) 
-          ?? new(Color.Parse("#000000"));
-    private readonly SolidColorBrush _greenColor
-        = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainGreen", Resources.StyleIndex)
-          ?? new(Color.Parse("#0CA079"));
-    private readonly SolidColorBrush _redColor 
-        = Utilities.GetResourceFromStyle<SolidColorBrush, Application>(Application.Current, "MainRed", Resources.StyleIndex) 
-          ?? new(Color.Parse("#FF0000"));
+    private readonly SolidColorBrush _blackColor = Resources.OppositeAccentBrush;
+    private readonly SolidColorBrush _greenColor = Resources.MainGreenBrush;
+    private readonly SolidColorBrush _redColor = Resources.MainRedBrush;
 
     public event EventHandler? ReadyToFocus;
 
@@ -83,7 +79,21 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         set => this.RaiseAndSetIfChanged(ref _wrongWords, value);
     }
 
-    protected IEnumerable<string>? PossibleDefinitions { get; set; }
+    protected List<string>? PossibleDefinitions { get; set; }
+    
+    internal ObservableCollection<string>? PossibleSynonyms 
+    {
+        get => _possibleSynonyms; 
+        private set => this.RaiseAndSetIfChanged(ref _possibleSynonyms, value); 
+    }
+    
+    internal string PossibleSynonymsString => PossibleSynonyms is null ? string.Empty : string.Join("; ", PossibleSynonyms);
+
+    internal bool ShowPossibleSynonyms
+    {
+        get => _showPossibleSynonyms; 
+        set => this.RaiseAndSetIfChanged(ref _showPossibleSynonyms, value);
+    }
 
     protected internal override void VisualizeLearningProgress(LearningState previousState, LearningState newState, bool hadNotAsked)
     {
@@ -116,7 +126,7 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
         bool tolerateTransposition = CurrentLesson.Options.TolerateSwappedLetters;
 
         PossibleDefinitions ??= new List<string> {Definition};
-        string finalDefinition = string.Join(", ", this.PossibleDefinitions);
+        string finalDefinition = string.Join("; ", this.PossibleDefinitions);
         int minDistance = mistakeTolerance + 1;
         foreach (string definition in this.PossibleDefinitions)
         {
@@ -141,12 +151,22 @@ public abstract class AnswerViewModelBase : SingleWordViewModelBase
             Utilities.ChangeLearningStateThesaurus(CurrentWord, this, correct);
         else
             Utilities.ChangeLearningState(CurrentWord, this, correct, considerOverallState: true);
+
+        ShowPossibleSynonyms = PossibleDefinitions.Count > 1 && correct;
+        if (!ShowPossibleSynonyms)
+            return;
+        var possibleDefinitionsCopy = PossibleDefinitions.Clone<List<string>, string>();
+        if (possibleDefinitionsCopy is null)
+            return;
+        PossibleSynonyms = new ObservableCollection<string>(possibleDefinitionsCopy);
+        PossibleSynonyms?.Remove(finalDefinition);
+        this.RaisePropertyChanged(nameof(PossibleSynonymsString));
     }
         
     protected void ShowSolution()
     {
         PossibleDefinitions ??= new List<string> { Definition };
-        OpenSolutionPanel(this.DisplayedTerm, string.Join(", ", PossibleDefinitions), false);
+        OpenSolutionPanel(this.DisplayedTerm, string.Join("; ", PossibleDefinitions), false);
         Utilities.ChangeLearningState(CurrentWord, this, false, considerOverallState: true);
     }
     

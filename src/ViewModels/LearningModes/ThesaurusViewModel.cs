@@ -254,13 +254,13 @@ public sealed class ThesaurusViewModel : AnswerViewModelBase
 
         if (synonymChosen && synonyms.Count > 0)
         {
-            PossibleDefinitions = synonyms.Select(x => x.Definition);
+            PossibleDefinitions = synonyms.Select(x => x.Definition).ToList();
             this.ThesaurusType = SynonymType;
             this.IndefiniteArticle = IndefiniteWithoutVowel;
         }
         else if (antonymChosen && antonyms.Count > 0)
         {
-            PossibleDefinitions = antonyms.Select(x => x.Definition);
+            PossibleDefinitions = antonyms.Select(x => x.Definition).ToList();
             this.ThesaurusType = AntonymType;
             this.IndefiniteArticle = IndefiniteWithVowel;
         }
