@@ -9,44 +9,86 @@
     <UserControl.DataContext>
         <viewModels:LearningModesViewModel/>
     </UserControl.DataContext>
+    
+    <UserControl.Styles>
+        <StyleInclude Source="/src/Styles/ProgressSliderStyle.axaml"/>
+    </UserControl.Styles>
 
-    <Grid RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" Margin="30,0">
-        <TextBlock Grid.Row="0" FontSize="24" Foreground="{StaticResource MainGrey}" Text="Learn"
-                   FontWeight="Light"/>
-        <ItemsControl Grid.Row="1" Items="{Binding LearningModes}" HorizontalAlignment="Stretch"
-                      BorderBrush="{StaticResource MainGrey}" BorderThickness="0,1,0,0" 
-                      Padding="0,7.5,0,0">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Button Classes="selectable-button-effect" Command="{Binding ClickCommand}" 
-                            Margin="0,5" Background="{StaticResource FullyTransparent}" Padding="4"
-                            CornerRadius="5" HorizontalAlignment="Stretch" IsEnabled="{Binding Enabled}">
-                        <Button.Styles>
-                            <Style Selector="Button:pointerover /template/ ContentPresenter">
-                                <Setter Property="Background" Value="{StaticResource VeryLightGrey}"/>
-                            </Style>
-                        </Button.Styles>
-                        <Grid RowDefinitions="Auto,Auto">
-                            <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,5">
-                                <Image Grid.Column="0" Width="28" Height="28"
-                                       Source="{Binding ModeIcon}" VerticalAlignment="Center"/>
-                                <TextBlock Grid.Column="1" Foreground="{StaticResource AppBlue}" 
-                                           FontSize="24" FontWeight="Bold" Margin="15,0,0,0" 
-                                           Text="{Binding Name}" VerticalAlignment="Center"/>
-                            </Grid>
-                            <TextBlock Grid.Row="1" FontSize="14" Foreground="{StaticResource MainGrey}" 
-                                       Text="{Binding Description}" TextWrapping="Wrap" TextTrimming="WordEllipsis"
-                                       IsVisible="{Binding $parent[Button].IsPointerOver}"
-                                       HorizontalAlignment="Stretch"/>
-                        </Grid>
-                    </Button>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+    <Grid RowDefinitions="*,Auto" HorizontalAlignment="Stretch" Margin="30,0">
+        <Grid Grid.Row="0" RowDefinitions="Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock Grid.Row="0" FontSize="24" Foreground="{StaticResource MainGrey}" Text="Learn"
+                       FontWeight="Light"/>
+            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Padding="0,7.5,0,0"
+                    BorderBrush="{StaticResource MainGrey}" BorderThickness="0,1,0,0">
+                <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Items="{Binding LearningModes}" HorizontalAlignment="Stretch">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Classes="selectable-button-effect" Command="{Binding ClickCommand}" 
+                                        Margin="0,5" Background="{StaticResource FullyTransparent}" Padding="4"
+                                        CornerRadius="5" HorizontalAlignment="Stretch" IsEnabled="{Binding Enabled}">
+                                    <Button.Styles>
+                                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                            <Setter Property="Background" Value="{StaticResource VeryLightGrey}"/>
+                                        </Style>
+                                    </Button.Styles>
+                                    <Grid RowDefinitions="Auto,Auto">
+                                        <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" Margin="0,0,0,5">
+                                            <Image Grid.Column="0" Width="28" Height="28"
+                                                   Source="{Binding ModeIcon}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Foreground="{StaticResource AppBlue}" 
+                                                       FontSize="24" FontWeight="Bold" Margin="15,0,0,0" 
+                                                       Text="{Binding Name}" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        <TextBlock Grid.Row="1" FontSize="14" Foreground="{StaticResource MainGrey}" 
+                                                   Text="{Binding Description}" TextWrapping="Wrap" TextTrimming="WordEllipsis"
+                                                   IsVisible="{Binding $parent[Button].IsPointerOver}"
+                                                   HorizontalAlignment="Stretch"/>
+                                    </Grid>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" RowDefinitions="Auto,Auto" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+              Margin="0,10,0,0">
+            <Grid Grid.Row="0" RowDefinitions="Auto,Auto" Margin="0,0,0,10">
+                <Slider Grid.Row="0" Classes="progress-slider" Margin="0,0,0,12.5"
+                        Minimum="0" Maximum="{Binding MaximumItems}"
+                        Value="{Binding KnownWords}" Background="{StaticResource LightGrey}"
+                        Foreground="{StaticResource MainGreen}"/>
+                <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
+                           HorizontalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="\{0\}/\{1\} correct">
+                            <Binding Path="KnownWords"/>
+                            <Binding Path="MaximumItems"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Row="1" RowDefinitions="Auto,Auto">
+                <Slider Grid.Row="0" Classes="progress-slider" Margin="0,0,0,12.5"
+                        Minimum="0" Maximum="{Binding MaximumItems}"
+                        Value="{Binding WrongWords}" Background="{StaticResource LightGrey}"
+                        Foreground="{StaticResource MainRed}"/>
+                <TextBlock Grid.Row="1" Foreground="{StaticResource MainGrey}" FontSize="20"
+                           HorizontalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="\{0\}/\{1\} wrong">
+                            <Binding Path="WrongWords"/>
+                            <Binding Path="MaximumItems"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
