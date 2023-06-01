@@ -30,11 +30,11 @@
         <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.19" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.19" />
-        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.19" />
+        <PackageReference Include="Avalonia" Version="0.10.21" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.21" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.21" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.21" />
         <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
     </ItemGroup>
     <ItemGroup>
