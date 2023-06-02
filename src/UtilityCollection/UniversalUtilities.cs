@@ -33,6 +33,9 @@ public static partial class Utilities
             string directory = Path.Combine(appData, "VocabularyTrainer");
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
+#if DEBUG
+            directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? throw new DirectoryNotFoundException("Directory name of the currently executing assembly is null.");
+#endif
             return directory;
         }
     }
