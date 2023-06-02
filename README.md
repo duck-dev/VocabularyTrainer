@@ -45,9 +45,9 @@ Hooray for learning incognito!
 This tool is being developed with the open-source .NET XAML UI-framework [Avalonia](https://avaloniaui.net/) and C#.
 
 ## Gallery
-<img src="https://user-images.githubusercontent.com/61479436/188884313-fa8858be-a326-4e2a-a037-e1d139835089.png" width="30%" alt="Lesson list" style="align-items: center; justify-content: center;"></img> 
+<img src="https://github.com/duck-dev/VocabularyTrainer/assets/61479436/b507fdf2-5560-499b-8e80-0edefe56ad3e" width="30%" alt="Lesson list" style="align-items: center; justify-content: center;"></img> 
 <img src="https://user-images.githubusercontent.com/61479436/192097507-8f431e3a-5ec4-442e-8b8a-0c605941f483.png" width="30%" alt="Create lesson" style="align-items: center; justify-content: center;"></img> 
-<img src="https://user-images.githubusercontent.com/61479436/192097509-64f51df2-6224-4d75-b2be-a7535b68a975.png" width="30%" alt="Open lesson" style="align-items: center; justify-content: center;"></img> 
+<img src="https://github.com/duck-dev/VocabularyTrainer/assets/61479436/8e107075-fcf7-471e-be00-ef4632f43d1a" width="30%" alt="Open lesson" style="align-items: center; justify-content: center;"></img> 
 <img src="https://user-images.githubusercontent.com/61479436/188884310-7c1e9573-e0a1-4dbe-b958-c0f2bf42e41a.png" width="30%" alt="Flashcards" style="align-items: center; justify-content: center;"></img> 
 <img src="https://user-images.githubusercontent.com/61479436/188884335-d4c59366-43e2-41a0-842c-525a346b2037.png" width="30%" alt="Write" style="align-items: center; justify-content: center;"></img>
 <img src="https://user-images.githubusercontent.com/61479436/188285810-253dd234-677e-48f9-b647-bade13c2a60f.png" width="30%" alt="Wrong answer" style="align-items: center; justify-content: center;"></img>
