@@ -27,7 +27,37 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Viewbox Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+            <Grid Grid.Column="2" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                  IsVisible="{Binding IsLessonListOpen}">
+                <Button Grid.Column="0" Classes="selectable-button" VerticalAlignment="Stretch" Margin="0,0,40,0"
+                        Command="{Binding ImportData}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid ColumnDefinitions="Auto,Auto" VerticalAlignment="Stretch">
+                                <Image Grid.Column="0" Source="/Assets/Import-Light.png" Width="60" Height="60"
+                                       Margin="0,0,15,0" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Foreground="{StaticResource SameAccent}" FontSize="36"
+                                           FontWeight="Bold" Text="Import" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Grid.Column="1" Classes="selectable-button" VerticalAlignment="Stretch"
+                        Command="{Binding ExportData}" IsEnabled="{Binding CanExportData}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid ColumnDefinitions="Auto,Auto" VerticalAlignment="Stretch">
+                                <Image Grid.Column="0" Source="/Assets/Export-Light.png" Width="60" Height="60"
+                                       Margin="0,0,15,0" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Foreground="{StaticResource SameAccent}" FontSize="36"
+                                           FontWeight="Bold" Text="Export" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <Viewbox Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" StretchDirection="DownOnly"
+                     IsVisible="{Binding IsLearningModeOpen}">
                 <TextBlock VerticalAlignment="Center" Foreground="{StaticResource SameAccent}" 
                            FontSize="40" Text="{Binding CurrentLearningMode}"/>
             </Viewbox>
