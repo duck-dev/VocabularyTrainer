@@ -43,6 +43,7 @@ public class ConfirmationDialogViewModel : DialogViewModelBase
 
     private void Command(ActionType actionType)
     {
+        CloseDialog();
         switch (actionType)
         {
             case ActionType.Confirm:
@@ -53,6 +54,5 @@ public class ConfirmationDialogViewModel : DialogViewModelBase
                 _cancelAction?.Invoke();
                 break;
         }
-        CloseDialog();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -33,5 +34,20 @@ public static class DataManager
     {
         Lessons.Add(lesson);
         SaveData();
+    }
+
+    internal static bool TestLoadData(string path)
+    {
+        string content = File.ReadAllText(path);
+        try
+        {
+            JsonSerializer.Deserialize<List<Lesson>>(content);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

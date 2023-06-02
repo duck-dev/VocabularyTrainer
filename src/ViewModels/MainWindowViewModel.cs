@@ -7,6 +7,7 @@ using Avalonia.Media;
 using ReactiveUI;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.ResourcesNamespace;
 using VocabularyTrainer.UtilityCollection;
 using VocabularyTrainer.ViewModels.BaseClasses;
 using VocabularyTrainer.ViewModels.Dialogs;
@@ -98,17 +99,31 @@ public class MainWindowViewModel : ViewModelBase
 
         ApplicationVariables.RecentDownloadLocation = result[0];
 
+        string dialogTitle;
         Action confirmAction = () =>
         {
             string dataFilePath = result[0];
             FileInfo file = new FileInfo(dataFilePath);
-            file.CopyTo(DataManager.LessonsFilePath, true);
+            string tempPath = Path.Combine(Utilities.FilesParentPath, $"{file.Name}-Temp");
+            FileInfo tempFile = file.CopyTo(tempPath, false);
             
+            if (!DataManager.TestLoadData(tempPath))
+            {
+                dialogTitle = "The chosen data is invalid. Please try a valid export file for VocabularyTrainer!";
+                CurrentDialog = new InformationDialogViewModel(dialogTitle,
+                    new[] { Resources.AppBlueBrush },
+                    new[] { Resources.SameAccentBrush },
+                    new[] { "OK" });
+                tempFile.Delete();
+                return;
+            }
+
+            tempFile.MoveTo(DataManager.LessonsFilePath, true);
             DataManager.LoadData();
             if(Content is LessonListViewModel viewModel)
                 viewModel.UpdateLessons(DataManager.Lessons);
         };
-        const string dialogTitle = "Do you really want to overwrite the existing data? All data will be lost and replaced by the new data.";
+        dialogTitle = "Do you really want to overwrite the existing data? All data will be lost and replaced by the new data.";
         CurrentDialog = new ConfirmationDialogViewModel(dialogTitle,
             new [] { Color.Parse("#D64045"), Color.Parse("#808080") },
             new[] { Colors.White, Colors.White },
