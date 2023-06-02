@@ -29,7 +29,7 @@ public abstract class DialogViewModelBase : ViewModelBase
         
     //protected bool IgnoreDialog { get; set; }
         
-    protected static void CloseDialog()
+    protected void CloseDialog()
     {
         if (MainWindowViewModel.Instance is not { } mainInstance)
             return;

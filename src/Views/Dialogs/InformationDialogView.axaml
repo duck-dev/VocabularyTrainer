@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogs="clr-namespace:VocabularyTrainer.ViewModels.Dialogs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VocabularyTrainer.Views.Dialogs.InformationDialogView"
+             x:DataType="dialogs:InformationDialogViewModel">
+    <UserControl.Styles>
+        <StyleInclude Source="/src/Styles/DialogStyle.axaml"/>
+    </UserControl.Styles>
+
+    <Panel Classes="background-panel">
+        <Border CornerRadius="20" Classes="border-front-panel" Height="150">
+            <Grid RowDefinitions="Auto,*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock Grid.Row="0" Classes="title-text" Text="{Binding Title}"/>
+                <Button Grid.Row="1" Classes="dialog-button selectable-button-effect" VerticalAlignment="Center"
+                        Background="{Binding ButtonColors[0]}" Command="{Binding CloseDialog}">
+                    <Button.Styles>
+                        <Style Selector="Button.dialog-button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{Binding ButtonColorsHover[0]}"/>
+                        </Style>
+                    </Button.Styles>
+                    <Viewbox Height="16" HorizontalAlignment="Stretch" Margin="20,0">
+                        <TextBlock Foreground="{Binding ButtonTextColors[0]}" Text="{Binding ButtonTexts[0]}"/>
+                    </Viewbox>
+                </Button>
+            </Grid>
+        </Border>
+    </Panel>
+</UserControl>
