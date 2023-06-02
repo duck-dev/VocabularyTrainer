@@ -1,7 +1,15 @@
-﻿using ReactiveUI;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Avalonia.Controls;
+using Avalonia.Media;
+using ReactiveUI;
 using VocabularyTrainer.Interfaces;
 using VocabularyTrainer.Models;
+using VocabularyTrainer.UtilityCollection;
 using VocabularyTrainer.ViewModels.BaseClasses;
+using VocabularyTrainer.ViewModels.Dialogs;
 using VocabularyTrainer.ViewModels.LearningModes;
 
 namespace VocabularyTrainer.ViewModels;
@@ -29,6 +37,8 @@ public class MainWindowViewModel : ViewModelBase
         set
         {
             this.RaiseAndSetIfChanged(ref _content, value);
+            this.RaisePropertyChanged(nameof(IsLessonListOpen));
+            this.RaisePropertyChanged(nameof(IsLearningModeOpen));
             
             if (value is LearningModeViewModelBase) 
                 return;
@@ -47,6 +57,11 @@ public class MainWindowViewModel : ViewModelBase
         get => _currentLearningMode; 
         set => this.RaiseAndSetIfChanged(ref _currentLearningMode, value);
     }
+
+    private bool IsLessonListOpen => Content is LessonListViewModel;
+    private bool IsLearningModeOpen => Content is LearningModeViewModelBase;
+
+    private bool CanExportData => DataManager.LessonsFileExists;
 
     internal void ReturnHome(bool discardChanges = true)
     {
@@ -68,5 +83,49 @@ public class MainWindowViewModel : ViewModelBase
         }
 
         CurrentLesson = null;
+    }
+
+    private async Task ImportData()
+    {
+        string directory = ApplicationVariables.RecentUploadLocation;
+        FileDialogFilter filter = new FileDialogFilter
+        {
+            Extensions = new List<string> { "json" }
+        };
+        string[]? result = await Utilities.InvokeOpenFileDialog("Select a file containing your lessons", false, directory, null, new List<FileDialogFilter> {filter} );
+        if (result is null || result.Length != 1)
+            return;
+
+        ApplicationVariables.RecentDownloadLocation = result[0];
+
+        Action confirmAction = () =>
+        {
+            string dataFilePath = result[0];
+            FileInfo file = new FileInfo(dataFilePath);
+            file.CopyTo(DataManager.LessonsFilePath, true);
+            
+            DataManager.LoadData();
+            if(Content is LessonListViewModel viewModel)
+                viewModel.UpdateLessons(DataManager.Lessons);
+        };
+        const string dialogTitle = "Do you really want to overwrite the existing data? All data will be lost and replaced by the new data.";
+        CurrentDialog = new ConfirmationDialogViewModel(dialogTitle,
+            new [] { Color.Parse("#D64045"), Color.Parse("#808080") },
+            new[] { Colors.White, Colors.White },
+            new[] { "Yes, overwrite data!", "Cancel" },
+            confirmAction);
+    }
+
+    private async Task ExportData()
+    {
+        const string title = "Save your data to a destination to a destination";
+        DateTime now = DateTime.Now;
+        string fileName = $"VocabularyTrainer_Data_{now.Year}-{now.Month}-{now.Day}";
+        const string extension = ".json";
+        string directory = ApplicationVariables.RecentUploadLocation;
+
+        string? location = await Utilities.InvokeSaveFileDialog(title, fileName, extension, directory);
+        if (location != null)
+            Utilities.SaveFile(new FileInfo(DataManager.LessonsFilePath), location, true);
     }
 }

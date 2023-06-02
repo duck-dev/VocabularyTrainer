@@ -10,21 +10,26 @@ namespace VocabularyTrainer.ViewModels;
 
 public class LessonListViewModel : ViewModelBase
 {
-    private readonly ObservableCollection<Lesson> _items;
+    private ObservableCollection<Lesson>? _items;
 
     public LessonListViewModel(IEnumerable<Lesson> items)
     {
-        _items = Items = new ObservableCollection<Lesson>(items);
-        _items.CollectionChanged += (sender, args) => this.RaisePropertyChanged(nameof(EmptyCollection));
+        UpdateLessons(items);
     }
 
-    private ObservableCollection<Lesson> Items
+    private ObservableCollection<Lesson>? Items
     {
         get => _items;
-        init => this.RaiseAndSetIfChanged(ref _items, value);
+        set => this.RaiseAndSetIfChanged(ref _items, value);
     }
         
-    private bool EmptyCollection => Items.Count == 0;
+    private bool EmptyCollection => Items?.Count == 0;
+
+    internal void UpdateLessons(IEnumerable<Lesson> items)
+    {
+        Items = new ObservableCollection<Lesson>(items);
+        Items.CollectionChanged += (sender, args) => this.RaisePropertyChanged(nameof(EmptyCollection));
+    }
 
     private void OpenAddPage()
     {
@@ -48,7 +53,7 @@ public class LessonListViewModel : ViewModelBase
             
         Action confirmAction = () =>
         {
-            Items.Remove(lesson);
+            Items?.Remove(lesson);
             DataManager.Lessons.Remove(lesson);
             DataManager.SaveData();
         };
