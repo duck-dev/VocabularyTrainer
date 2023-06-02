@@ -29,8 +29,11 @@ public static partial class Utilities
     {
         get
         {
-            var directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            return directory ?? throw new DirectoryNotFoundException("Directory name of the currently executing assembly is null.");
+            string appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create);
+            string directory = Path.Combine(appData, "VocabularyTrainer");
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+            return directory;
         }
     }
         
